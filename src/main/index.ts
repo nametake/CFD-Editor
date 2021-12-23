@@ -5,7 +5,8 @@ import { BrowserWindow, app } from 'electron';
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
+// eslint-disable-next-line global-require
+if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
@@ -19,7 +20,7 @@ const createWindow = (): void => {
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY).catch((err) => {
     // eslint-disable-next-line no-console
-    console.error(err)
+    console.error(err);
   });
 
   // Open the DevTools.

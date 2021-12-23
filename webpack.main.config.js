@@ -1,6 +1,6 @@
-const path = require('path')
+const path = require('path');
 
-const rules = require('./webpack.rules')
+const rules = require('./webpack.rules');
 
 module.exports = {
   /**
