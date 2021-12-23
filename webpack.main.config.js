@@ -1,4 +1,5 @@
 const path = require('path')
+
 const rules = require('./webpack.rules')
 
 module.exports = {
