@@ -1,5 +1,10 @@
+import styled from '@emotion/styled';
 import React from 'react';
 
+const Txt = styled.div`
+  display: block;
+`;
+
 export const App = function App(): JSX.Element {
-  return <div>Hello world</div>;
+  return <Txt>Hello world</Txt>;
 };
