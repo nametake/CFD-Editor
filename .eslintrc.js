@@ -47,11 +47,11 @@ const rules = {
     },
   ],
 };
-
 module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:eslint-comments/recommended',
+    'plugin:storybook/recommended',
     'airbnb',
     'airbnb/hooks',
     'prettier',
