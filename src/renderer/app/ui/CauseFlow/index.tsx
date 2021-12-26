@@ -5,10 +5,12 @@ import ReactFlow, {
   ReactFlowProps,
 } from 'react-flow-renderer';
 
+import { CauseNode } from '@/app/ui/CauseNode';
 import { ResultNode } from '@/app/ui/ResultNode';
 
 const nodeTypes = {
-  resultNode: ResultNode,
+  cause: CauseNode,
+  result: ResultNode,
 };
 
 export type NodeType = keyof typeof nodeTypes;

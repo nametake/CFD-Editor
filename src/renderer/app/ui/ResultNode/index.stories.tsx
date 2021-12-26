@@ -27,7 +27,7 @@ const Template: ComponentStory<typeof ResultNode> = function Template(args) {
         {
           ...args,
           id: 'id',
-          type: 'resultNode',
+          type: 'result',
           position: { x: 8, y: 8 },
         },
       ]}
