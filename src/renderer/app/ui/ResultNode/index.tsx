@@ -9,14 +9,12 @@ type ResultNodeProps<T> = NodeProps<T>;
 
 const Wrapper = styled.div`
   border-radius: 50%;
+  padding: 16px;
   border: 1px solid;
-  width: 180px;
-  height: 180px;
-  padding: 30;
 `;
 
-const Label = styled.span`
-  color: 'gray';
+const Label = styled.div`
+  color: gray;
 `;
 
 export const ResultNode = function ResultNode<T extends NodeDataType>({
