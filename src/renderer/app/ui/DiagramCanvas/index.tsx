@@ -16,14 +16,14 @@ export type NodeType = keyof typeof nodeTypes;
 export type Node = Omit<ReactFlowNode, 'type'> & { type: NodeType };
 export type Edge = ReactFlowEdge;
 
-type DiagramCanvasProps = Omit<ReactFlowProps, 'nodes' | 'nodeTypes'> & {
+type CauseFlowProps = Omit<ReactFlowProps, 'nodes' | 'nodeTypes'> & {
   nodes: Node[];
   edges: Edge[];
 };
 
 /* eslint-disable react/jsx-props-no-spreading */
-export const DiagramCanvas = function DiagramCanvas(
-  props: DiagramCanvasProps
+export const CauseFlow = function CauseFlow(
+  props: CauseFlowProps
 ): JSX.Element {
   return <ReactFlow nodeTypes={nodeTypes} {...props} />;
 };

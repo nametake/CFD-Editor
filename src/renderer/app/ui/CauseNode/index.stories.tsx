@@ -6,21 +6,21 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { CauseFlow } from '@/app/ui/DiagramCanvas';
 
-import { ResultNode } from './index';
+import { CauseNode } from './index';
 
 // eslint-disable-next-line import/no-default-export
 export default {
-  title: 'ui/ResultNode',
-  component: ResultNode,
+  title: 'ui/CauseNode',
+  component: CauseNode,
   args: {
     data: {
-      label: 'Result',
+      label: 'Cause',
     },
   },
-} as ComponentMeta<typeof ResultNode>;
+} as ComponentMeta<typeof CauseNode>;
 
 /* eslint-disable react/jsx-props-no-spreading */
-const Template: ComponentStory<typeof ResultNode> = function Template(args) {
+const Template: ComponentStory<typeof CauseNode> = function Template(args) {
   return (
     <div style={{ width: '512px', height: '512px' }}>
       <CauseFlow
