@@ -11,22 +11,25 @@ import { ResultNode } from './index';
 export default {
   title: 'ui/ResultNode',
   component: ResultNode,
+  args: {
+    data: {
+      label: 'Result',
+    },
+  },
 } as ComponentMeta<typeof ResultNode>;
 
 /* eslint-disable react/jsx-props-no-spreading */
-const Template: ComponentStory<typeof ResultNode> = function Template() {
+const Template: ComponentStory<typeof ResultNode> = function Template(args) {
   return (
     <div style={{ width: '512px', height: '512px' }}>
       <ReactFlow
         nodeTypes={{ resultNode: ResultNode }}
         nodes={[
           {
-            id: 'a',
-            data: { label: 'label' },
+            ...args,
+            id: 'id',
             type: 'resultNode',
-            position: { x: 10, y: 10 },
-            width: 100,
-            height: 100,
+            position: { x: 8, y: 8 },
           },
         ]}
         edges={[]}
