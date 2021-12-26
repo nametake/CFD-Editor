@@ -1,9 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import ReactFlow from 'react-flow-renderer';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
+
+import { DiagramCanvas } from '@/app/ui/DiagramCanvas';
 
 import { ResultNode } from './index';
 
@@ -22,8 +23,7 @@ export default {
 const Template: ComponentStory<typeof ResultNode> = function Template(args) {
   return (
     <div style={{ width: '512px', height: '512px' }}>
-      <ReactFlow
-        nodeTypes={{ resultNode: ResultNode }}
+      <DiagramCanvas
         nodes={[
           {
             ...args,
