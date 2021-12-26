@@ -10,7 +10,10 @@ type ElementNodeProps<T> = NodeProps<T>;
 const Wrapper = styled.div`
   border-radius: 8px;
   padding: 8px;
+  width: 100%;
+  height: 100%;
   border: 1px solid;
+  text-align: center;
 `;
 
 const Label = styled.div`

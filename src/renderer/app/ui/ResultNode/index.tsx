@@ -10,7 +10,10 @@ type ResultNodeProps<T> = NodeProps<T>;
 const Wrapper = styled.div`
   border-radius: 50%;
   padding: 16px;
+  width: 100%;
+  height: 100%;
   border: 1px solid;
+  text-align: center;
 `;
 
 const Label = styled.div`
