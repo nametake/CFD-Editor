@@ -6,10 +6,12 @@ import ReactFlow, {
 } from 'react-flow-renderer';
 
 import { CauseNode } from '@/app/ui/CauseNode';
+import { ElementNode } from '@/app/ui/ElementNode';
 import { ResultNode } from '@/app/ui/ResultNode';
 
 const nodeTypes = {
   cause: CauseNode,
+  element: ElementNode,
   result: ResultNode,
 };
 
