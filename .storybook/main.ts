@@ -24,6 +24,7 @@ const config: StorybookConfig = {
           '@emotion/core': emotionReactEleven,
           '@emotion/styled': emotionStyledEleven,
           'emotion-theming': emotionReactEleven,
+          '@': path.resolve(__dirname, '..', 'src', 'renderer'),
         },
       },
     };
