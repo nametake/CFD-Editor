@@ -4,7 +4,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
 
-import { CauseFlow } from '@/app/ui/DiagramCanvas';
+import { CauseFlow } from '@/app/ui/CauseFlow';
 
 import { CauseNode } from './index';
 
@@ -22,20 +22,18 @@ export default {
 /* eslint-disable react/jsx-props-no-spreading */
 const Template: ComponentStory<typeof CauseNode> = function Template(args) {
   return (
-    <div style={{ width: '512px', height: '512px' }}>
-      <CauseFlow
-        nodes={[
-          {
-            ...args,
-            id: 'id',
-            type: 'resultNode',
-            position: { x: 8, y: 8 },
-          },
-        ]}
-        edges={[]}
-        style={{ width: '100%', height: '100%' }}
-      />
-    </div>
+    <CauseFlow
+      nodes={[
+        {
+          ...args,
+          id: 'id',
+          type: 'resultNode',
+          position: { x: 8, y: 8 },
+        },
+      ]}
+      edges={[]}
+      style={{ width: '512px', height: '512px' }}
+    />
   );
 };
 /* eslint-enable */
