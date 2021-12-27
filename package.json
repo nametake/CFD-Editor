@@ -9,10 +9,16 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
+    "test": "jest",
     "lint:ts": "eslint \"./**/*.{js,jsx,ts,tsx}\"",
     "lint:css": "stylelint \"./**/*.{jsx,tsx}\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^@/(.+)$": "<rootDir>/src/renderer/$1"
+    }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
