@@ -48,23 +48,25 @@ export const filterChangeNode =
       }
     };
 
-const mapElkNode =
+const mapNodeToElkNode =
   (nodes: Node[]) =>
     (node: Node): ElkNode => ({
-        id: node.id,
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        children: makeElkNodeTree(nodes, node),
-        width: node.width ?? 0,
-        height: node.height ?? 0,
-      });
+      id: node.id,
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      children: makeElkNodeTree(nodes, node),
+      width: node.width ?? 0,
+      height: node.height ?? 0,
+    });
 
 const makeElkNodeTree = (nodes: Node[], parentNode: Node): ElkNode[] =>
   nodes
     .filter((node) => node.parentNode === parentNode.id)
-    .map<ElkNode>(mapElkNode(nodes));
+    .map<ElkNode>(mapNodeToElkNode(nodes));
 
 export const makeElkNodes = (nodes: Node[]): ElkNode[] =>
-  nodes.filter((node) => !node.parentNode).map<ElkNode>(mapElkNode(nodes));
+  nodes
+    .filter((node) => !node.parentNode)
+    .map<ElkNode>(mapNodeToElkNode(nodes));
 
 export const reduceElkNodes = (elkNodes: ElkNode[]): ElkNode[] => {
   const fn = (
@@ -75,4 +77,17 @@ export const reduceElkNodes = (elkNodes: ElkNode[]): ElkNode[] => {
     return [...prev, elkNode, ...childNodes];
   };
   return elkNodes.reduce(fn, []);
+};
+
+export const mapElkNode = (elkNodes: ElkNode[]) => {
+  const elkNodeList = reduceElkNodes(elkNodes);
+  return (node: Node): Node => {
+    const elkNode = elkNodeList.find((en) => en.id === node.id);
+    return {
+      ...node,
+      width: elkNode?.width,
+      height: elkNode?.height,
+      position: { x: elkNode?.x ?? 0, y: elkNode?.y ?? 0 },
+    };
+  };
 };
