@@ -28,3 +28,20 @@ export const mapChangeNode =
         }
       }
     };
+
+export const filterChangeNode =
+  (changeNodes: NodeChange[]) =>
+    (node: Node): boolean => {
+      const changeNode = changeNodes.find((cn) => node.id === cn.id);
+      switch (changeNode?.type) {
+        case 'remove':
+          return false;
+        case 'dimensions':
+        case 'select':
+        case undefined:
+          return true;
+        default: {
+          return assertUnreachable(changeNode);
+        }
+      }
+    };
