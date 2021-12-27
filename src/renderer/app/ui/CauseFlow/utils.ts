@@ -48,25 +48,23 @@ export const filterChangeNode =
       }
     };
 
+const mapElkNode =
+  (nodes: Node[]) =>
+    (node: Node): ElkNode => ({
+        id: node.id,
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        children: makeElkNodeTree(nodes, node),
+        width: node.width ?? 0,
+        height: node.height ?? 0,
+      });
+
 const makeElkNodeTree = (nodes: Node[], parentNode: Node): ElkNode[] =>
   nodes
     .filter((node) => node.parentNode === parentNode.id)
-    .map<ElkNode>((node) => ({
-      id: node.id,
-      children: makeElkNodeTree(nodes, node),
-      width: node.width ?? 0,
-      height: node.height ?? 0,
-    }));
+    .map<ElkNode>(mapElkNode(nodes));
 
 export const makeElkNodes = (nodes: Node[]): ElkNode[] =>
-  nodes
-    .filter((node) => !node.parentNode)
-    .map<ElkNode>((node) => ({
-      id: node.id,
-      children: makeElkNodeTree(nodes, node),
-      width: node.width ?? 0,
-      height: node.height ?? 0,
-    }));
+  nodes.filter((node) => !node.parentNode).map<ElkNode>(mapElkNode(nodes));
 
 export const reduceElkNodes = (elkNodes: ElkNode[]): ElkNode[] => {
   const fn = (
