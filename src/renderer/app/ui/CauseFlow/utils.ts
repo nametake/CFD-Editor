@@ -48,21 +48,24 @@ export const filterChangeNode =
       }
     };
 
-const makeTree = (nodes: Node[], parentNode: Node): ElkNode[] =>
+const makeElkNodeTree = (nodes: Node[], parentNode: Node): ElkNode[] =>
   nodes
     .filter((node) => node.parentNode === parentNode.id)
     .map<ElkNode>((node) => ({
       id: node.id,
-      children: makeTree(nodes, node),
+      children: makeElkNodeTree(nodes, node),
       width: node.width ?? 0,
       height: node.height ?? 0,
     }));
 
-export const makeElkNodes = (nodes: Node[]): ElkNode[] => nodes
+export const makeElkNodes = (nodes: Node[]): ElkNode[] =>
+  nodes
     .filter((node) => !node.parentNode)
     .map<ElkNode>((node) => ({
       id: node.id,
-      children: makeTree(nodes, node),
+      children: makeElkNodeTree(nodes, node),
       width: node.width ?? 0,
       height: node.height ?? 0,
     }));
+
+export const makeNodes: (elkNodes: ElkNode[]) => Node[] = (): Node[] => [];
