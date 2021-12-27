@@ -59,11 +59,13 @@ describe('#makeElkNodes', () => {
             id: 'c1-e1',
             width: 80,
             height: 20,
+            children: [],
           },
           {
             id: 'c1-e2',
             width: 80,
             height: 20,
+            children: [],
           },
         ],
       },
@@ -71,11 +73,13 @@ describe('#makeElkNodes', () => {
         id: 'r1',
         width: 50,
         height: 50,
+        children: [],
       },
       {
         id: 'r2',
         width: 50,
         height: 50,
+        children: [],
       },
     ];
     expect(makeElkNodes(nodes)).toStrictEqual(expected);
