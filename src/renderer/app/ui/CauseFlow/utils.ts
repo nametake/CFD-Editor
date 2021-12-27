@@ -68,4 +68,13 @@ export const makeElkNodes = (nodes: Node[]): ElkNode[] =>
       height: node.height ?? 0,
     }));
 
-export const makeNodes: (elkNodes: ElkNode[]) => Node[] = (): Node[] => [];
+export const reduceElkNodes = (elkNodes: ElkNode[]): ElkNode[] => {
+  const fn = (
+    prev: ElkNode[],
+    { children, ...elkNode }: ElkNode
+  ): ElkNode[] => {
+    const childNodes = children?.reduce(fn, []) ?? [];
+    return [...prev, elkNode, ...childNodes];
+  };
+  return elkNodes.reduce(fn, []);
+};

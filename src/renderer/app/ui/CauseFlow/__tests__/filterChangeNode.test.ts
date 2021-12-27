@@ -3,7 +3,7 @@ import { NodeRemoveChange } from 'react-flow-renderer';
 import { Node } from '..';
 import { filterChangeNode } from '../utils';
 
-describe('filterChangeNode', () => {
+describe('#filterChangeNode', () => {
   test('remove', () => {
     const nodes: Node[] = [
       {
