@@ -9,10 +9,16 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
+    "test": "jest",
     "lint:ts": "eslint \"./**/*.{js,jsx,ts,tsx}\"",
     "lint:css": "stylelint \"./**/*.{jsx,tsx}\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^@/(.+)$": "<rootDir>/src/renderer/$1"
+    }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -51,6 +57,7 @@
     "@storybook/manager-webpack5": "6.4.9",
     "@storybook/react": "6.4.9",
     "@stylelint/postcss-css-in-js": "0.37.2",
+    "@types/jest": "^27.0.3",
     "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
     "@typescript-eslint/eslint-plugin": "5.8.0",
@@ -72,6 +79,7 @@
     "eslint-plugin-storybook": "0.5.5",
     "fork-ts-checker-webpack-plugin": "6.5.0",
     "husky": "7.0.4",
+    "jest": "^27.4.5",
     "lint-staged": "12.1.4",
     "node-loader": "2.0.0",
     "postcss-syntax": "0.36.2",
@@ -83,12 +91,14 @@
     "stylelint-config-styled-components": "0.1.1",
     "stylelint-processor-styled-components": "1.10.0",
     "ts-loader": "9.2.6",
-    "typescript": "4.5.4"
+    "typescript": "4.5.4",
+    "web-worker": "^1.2.0"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "electron-squirrel-startup": "^1.0.0",
+    "elkjs": "^0.7.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-flow-renderer": "^10.0.0-next.30"
