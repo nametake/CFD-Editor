@@ -1,5 +1,7 @@
 import { NodeChange } from 'react-flow-renderer';
 
+import { ElkNode } from 'elkjs';
+
 import { assertUnreachable } from '@/utils/assert';
 
 import { Node } from '.';
@@ -45,3 +47,5 @@ export const filterChangeNode =
         }
       }
     };
+
+export const makeElkNodes: (nodes: Node[]) => ElkNode[] = (): ElkNode[] => [];
