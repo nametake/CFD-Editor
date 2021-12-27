@@ -27,11 +27,11 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
       const elk = new ELK();
       const rootGraph = {
         id: 'root',
-        // layoutOptions: { 'elk.algorithm': 'box' },
-        // layoutOptions: { 'elk.algorithm': 'disco' },
-        layoutOptions: { 'elk.algorithm': 'box' },
-        // layoutOptions: { 'elk.algorithm': 'layered' },
-        // layoutOptions: { 'elk.algorithm': 'mrtree' },
+        // layoutOptions: { algorithm: 'box' },
+        // layoutOptions: { algorithm: 'disco' },
+        // layoutOptions: { algorithm: 'layered' },
+        // layoutOptions: { algorithm: 'mrtree' },
+        layoutOptions: { algorithm: 'rectpacking' },
         children: makeElkNodes(newNodes),
         edges: argsEdges.map((edge) => ({
           id: edge.id,
