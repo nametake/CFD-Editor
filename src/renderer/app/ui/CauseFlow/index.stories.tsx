@@ -2,10 +2,10 @@
 import React, { useCallback, useState } from 'react';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ELK, { ElkNode } from 'elkjs';
+import ELK from 'elkjs';
 /* eslint-enable */
 
-/* eslint-disable no-console */
+import { makeElkNodes, mapChangeNode, mapElkNode } from './utils';
 
 import { CauseFlow, Node } from './index';
 
@@ -15,39 +15,7 @@ export default {
   component: CauseFlow,
 } as ComponentMeta<typeof CauseFlow>;
 
-const makeTree = (
-  nodes: Node[],
-  parentNodeId: string | undefined
-): ElkNode[] => {
-  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-  console.log('makeTreeNodes', nodes);
-  const filtered = nodes.filter((node) => {
-    console.log('node', node);
-    return node.parentNode === parentNodeId;
-  });
-  console.log('parentNodeId', parentNodeId);
-  console.log('filtered', filtered);
-  return filtered.reduce<ElkNode[]>((tree, node) => {
-    console.log('tree', tree);
-    console.log('node', node);
-    return [
-      ...tree.map((t) => ({
-        id: t.id,
-        width: t.width ?? 0,
-        height: t.height ?? 0,
-      })),
-      {
-        id: node.id,
-        width: node.width ?? 0,
-        height: node.height ?? 0,
-        children: makeTree(nodes, node.id),
-      },
-    ];
-  }, []);
-};
-/* eslint-enable */
-
-/* eslint-disable react/jsx-props-no-spreading,no-console */
+/* eslint-disable react/jsx-props-no-spreading */
 const Template: ComponentStory<typeof CauseFlow> = function Template({
   nodes: argsNodes,
   edges: argsEdges,
@@ -56,10 +24,6 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
   const [nodes, setNodes] = useState(argsNodes);
   const sort = useCallback(
     (newNodes: Node[]) => {
-      const children = newNodes
-        .map((node) => makeTree(newNodes, node.id))
-        .reduce<ElkNode[]>((prev, n) => [...prev, ...n], []);
-      console.log(children);
       const elk = new ELK();
       const rootGraph = {
         id: 'root',
@@ -68,40 +32,25 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
         layoutOptions: { 'elk.algorithm': 'box' },
         // layoutOptions: { 'elk.algorithm': 'layered' },
         // layoutOptions: { 'elk.algorithm': 'mrtree' },
-        children,
+        children: makeElkNodes(newNodes),
         edges: argsEdges.map((edge) => ({
           id: edge.id,
           sources: [edge.source],
           targets: [edge.target],
         })),
       };
-      console.log('rootGraph', rootGraph);
       elk
         .layout(rootGraph)
         .then((graph) => {
-          setNodes(
-            newNodes.map<Node>((node): Node => {
-              const sortedNode = graph.children?.find(
-                (child) => child.id === node.id
-              );
-              if (!sortedNode) {
-                return node;
-              }
-              return {
-                ...node,
-                position: { x: sortedNode.x ?? 0, y: sortedNode.y ?? 0 },
-              };
-            })
-          );
+          setNodes(newNodes.map<Node>(mapElkNode(graph.children ?? [])));
         })
         .catch((err) => {
+          // eslint-disable-next-line no-console
           console.error(err);
         });
     },
     [argsEdges]
   );
-  console.log('nodes', nodes);
-  console.log('argsEdges', argsEdges);
   return (
     <CauseFlow
       {...args}
@@ -109,24 +58,7 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
       edges={argsEdges}
       style={{ width: '512px', height: '512px' }}
       onNodesChange={(changeNodes) => {
-        console.log('changeNodes', changeNodes);
-        const newNodes = changeNodes
-          .map<Node | null>((node): Node | null => {
-            const newNode = nodes.find((n) => n.id === node.id);
-            if (!newNode) {
-              return null;
-            }
-            if (node.type !== 'dimensions') {
-              return newNode;
-            }
-            return {
-              ...newNode,
-              width: node.dimensions?.width ?? 0,
-              height: node.dimensions?.height ?? 0,
-            };
-          })
-          .filter<Node>((node) => node != null);
-        sort(newNodes);
+        sort(nodes.map(mapChangeNode(changeNodes)));
       }}
     />
   );
