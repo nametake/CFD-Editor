@@ -53,7 +53,6 @@ const makeElementNode = (nodes: Node[], parentNode: Node): ElementNodeType[] =>
     .filter((node): node is ElementNodeType => node.type === 'element')
     .filter((node) => node.parentNode, parentNode.id);
 
-// TODO Remove export
 export const makeCauseNode = (nodes: Node[]): CauseNodeWithElements[] =>
   nodes
     .filter((node): node is CauseNodeType => node.type === 'cause')
@@ -66,15 +65,15 @@ export const makeCauseNode = (nodes: Node[]): CauseNodeWithElements[] =>
 export const makeResultNode = (nodes: Node[]): ResultNodeType[] =>
   nodes.filter((node): node is ResultNodeType => node.type === 'result');
 
-export type ResizeCauseNodeOption = {
+export type ResizeCauseNodesOption = {
   elementGap?: number;
 };
 
 export const resizeCauseNode = (
   causeNode: CauseNodeWithElements,
-  options?: ResizeCauseNodeOption
+  option?: ResizeCauseNodesOption
 ): CauseNodeWithElements => {
-  const { elementGap } = options ?? {};
+  const { elementGap } = option ?? {};
   const causeWidth =
     causeNode.elements
       .map((el) => el.width ?? 0)
@@ -98,3 +97,11 @@ export const resizeCauseNode = (
     height: causeHeight,
   };
 };
+
+export const resizeCauseNodes = (
+  nodes: Node[],
+  option?: ResizeCauseNodesOption
+): Node[] =>
+  makeCauseNode(nodes)
+    .map((node) => resizeCauseNode(node, option))
+    .flatMap(({ elements, ...node }) => [node, ...elements]);

@@ -1,6 +1,6 @@
 import {
   CauseNodeWithElements,
-  ResizeCauseNodeOption,
+  ResizeCauseNodesOption,
   resizeCauseNode,
 } from '../layouts';
 
@@ -216,7 +216,7 @@ describe('#resizeCauseNode', () => {
         },
       ],
     };
-    const options: Required<ResizeCauseNodeOption> = {
+    const options: Required<ResizeCauseNodesOption> = {
       elementGap: 4,
     };
     const expected: CauseNodeWithElements = {
