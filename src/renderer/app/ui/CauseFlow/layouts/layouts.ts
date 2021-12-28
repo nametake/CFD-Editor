@@ -6,14 +6,14 @@ import {
 } from '@/app/ui/CauseFlow/types';
 
 export type AlignOption = {
-  startPosition: { x: number; y: number };
-  gap: number;
+  startPosition?: { x: number; y: number };
+  gap?: number;
 };
 
-export const alignHorizontal = (
-  nodes: Node[],
+export const alignHorizontal = <T extends Node>(
+  nodes: T[],
   option?: AlignOption
-): Node[] => {
+): T[] => {
   const { startPosition, gap = 0 } = option ?? {};
   return nodes.map((node, index) => {
     const beforeNodeWidthSum = nodes.reduce(
@@ -30,7 +30,10 @@ export const alignHorizontal = (
   });
 };
 
-export const alignVertical = (nodes: Node[], option?: AlignOption): Node[] => {
+export const alignVertical = <T extends Node>(
+  nodes: T[],
+  option?: AlignOption
+): T[] => {
   const { startPosition, gap = 0 } = option ?? {};
   return nodes.map((node, index) => {
     const beforeNodeHeightSum = nodes.reduce(
@@ -98,17 +101,50 @@ export const resizeCauseNode = (
     ...causeNode,
     width: causeWidth,
     height: causeHeight,
+    style: {
+      width: causeWidth,
+      height: causeHeight,
+    },
   };
 };
 
 export const resizeCauseNodes = (
   nodes: Node[],
   option?: ResizeCauseNodesOption
-): Node[] =>
-  makeCauseNode(nodes)
-    .map((node) => resizeCauseNode(node, option))
-    .flatMap(({ elements, ...node }) => [
-      node,
-      ...elements,
-      ...makeResultNode(nodes),
-    ]);
+): Node[] => [
+    ...makeCauseNode(nodes)
+      .map((node) => resizeCauseNode(node, option))
+      .flatMap(({ elements, ...node }) => [node, ...elements]),
+    ...makeResultNode(nodes),
+  ];
+
+export const layoutCauseNodes = (nodes: Node[]) => {
+  const causeNodes = makeCauseNode(nodes).map((node) => resizeCauseNode(node));
+  const resultNodes = makeResultNode(nodes);
+
+  const layoutedNodes = alignHorizontal(causeNodes).map(
+    ({ elements, ...node }) => ({
+      ...node,
+      elements: alignVertical(elements, {
+        startPosition: {
+          x: node.position.x + (node.padding?.left ?? 0),
+          y: node.position.y + (node.padding?.top ?? 0),
+        },
+        gap: 10,
+      }),
+    })
+  );
+
+  const resultStartX = layoutedNodes.reduce(
+    (prev, node) => prev + (node.width ?? 0),
+    20
+  );
+
+  return [
+    ...layoutedNodes.flatMap(({ elements, ...node }) => [node, ...elements]),
+    ...alignVertical(resultNodes, {
+      startPosition: { x: resultStartX, y: 0 },
+      gap: 10,
+    }),
+  ];
+};
