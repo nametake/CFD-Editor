@@ -155,7 +155,8 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
            */
           'spacing.nodeNodeBetweenLayers': '70',
           'elk.hierarchyHandling': 'INCLUDE_CHILDREN',
-          'org.eclipse.elk.nodeLabels.placement': 'V_TOP',
+          'org.eclipse.elk.nodeSize.options':
+            'MINIMUM_SIZE_ACCOUNTS_FOR_PADDING',
         },
         children: makeElkNodeTree(newNodes),
         edges: argsEdges.map((edge) => ({

@@ -10,6 +10,7 @@ import {
 import { CauseNode } from '@/app/ui/CauseNode';
 import { ElementNode } from '@/app/ui/ElementNode';
 import { ResultNode } from '@/app/ui/ResultNode';
+import { NodeDataType } from '@/types/NodeDataType';
 
 export const nodeTypes = {
   cause: CauseNode,
@@ -19,7 +20,13 @@ export const nodeTypes = {
 
 export type NodeType = keyof typeof nodeTypes;
 
-export type Node = Omit<ReactFlowNode, 'type'> & { type: NodeType };
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type Node<T extends NodeDataType = {}> = Omit<
+  ReactFlowNode<T>,
+  'type'
+> & {
+  type: NodeType;
+};
 export type Edge = ReactFlowEdge;
 
 export const applyNodeChanges = (
