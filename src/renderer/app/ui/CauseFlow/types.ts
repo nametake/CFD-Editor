@@ -7,27 +7,28 @@ import {
   applyNodeChanges as applyNodeChangesReactFlow,
 } from 'react-flow-renderer';
 
-import { CauseNode } from '@/app/ui/CauseNode';
-import { ElementNode } from '@/app/ui/ElementNode';
-import { ResultNode } from '@/app/ui/ResultNode';
 import { NodeDataType } from '@/types/NodeDataType';
 
-export const nodeTypes = {
-  cause: CauseNode,
-  element: ElementNode,
-  result: ResultNode,
-};
-
-export type NodeType = keyof typeof nodeTypes;
-
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type Node<T extends NodeDataType = NodeDataType> = Omit<
+export type CauseNodeType<T extends NodeDataType = NodeDataType> = Omit<
   ReactFlowNode<T>,
   'type'
-> & {
-  type: NodeType;
-};
+> & { type: 'cause' };
+export type ElementNodeType<T extends NodeDataType = NodeDataType> = Omit<
+  ReactFlowNode<T>,
+  'type'
+> & { type: 'element' };
+export type ResultNodeType<T extends NodeDataType = NodeDataType> = Omit<
+  ReactFlowNode<T>,
+  'type'
+> & { type: 'result' };
+
+export type Node<T extends NodeDataType = NodeDataType> =
+  | CauseNodeType<T>
+  | ElementNodeType<T>
+  | ResultNodeType<T>;
 export type Edge = ReactFlowEdge;
+
+export type NodeType = Node['type'];
 
 export const applyNodeChanges = (
   changes: NodeChange[],

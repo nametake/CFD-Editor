@@ -234,6 +234,13 @@ Default.args = {
       // position: { x: 150, y: 122 },
       position: { x: 0, y: 0 },
     },
+    {
+      id: 'r3',
+      type: 'result',
+      data: { label: 'Result 3' },
+      // position: { x: 150, y: 122 },
+      position: { x: 0, y: 0 },
+    },
   ],
   edges: [
     { id: 'c1-e1-r1', source: 'c1-e1', target: 'r1' },
