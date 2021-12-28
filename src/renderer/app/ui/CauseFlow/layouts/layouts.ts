@@ -74,13 +74,14 @@ export const layoutCauseNodes = (
   const { startPosition, gap } = option;
   return causeNodes.map((node, index, nodes) => {
     const beforeNodeWidthSum = nodes.reduce(
-      (prev, n, i) => (i < index ? prev + (n.width ?? 0) : prev),
+      (prev, n, i) =>
+        (i < index ? prev + (n.width ?? 0) : prev) + index === 0 ? 0 : gap,
       0
     );
     return {
       ...node,
       position: {
-        x: startPosition.x + beforeNodeWidthSum + index === 0 ? 0 : gap,
+        x: startPosition.x + beforeNodeWidthSum,
         y: startPosition.y,
       },
     };
