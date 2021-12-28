@@ -35,15 +35,10 @@ export type ResizeCauseNodeOption = {
 
 export const resizeCauseNode = (
   causeNode: CauseNodeWithElements,
-  options?: ResizeCauseNodeOption
+  options: Required<ResizeCauseNodeOption>
 ): CauseNodeWithElements => {
-  const {
-    paddingTop = 20,
-    paddingRight = 20,
-    paddingBottom = 20,
-    paddingLeft = 20,
-    elementGap = 10,
-  } = options ?? {};
+  const { paddingTop, paddingRight, paddingBottom, paddingLeft, elementGap } =
+    options;
   const causeWidth =
     causeNode.elements
       .map((el) => el.width ?? 0)
@@ -65,6 +60,12 @@ export const resizeCauseNode = (
     width: causeWidth,
     height: causeHeight,
   };
+};
+
+export type LayoutNodesOptions = {
+  causeNodeGap?: number;
+  resultNodeGap?: number;
+  causeAndResultNodeGap?: number;
 };
 
 export const layoutNodes = (nodes: Node[]): Node[] => {

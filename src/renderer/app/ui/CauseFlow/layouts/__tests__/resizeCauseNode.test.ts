@@ -4,6 +4,14 @@ import {
   resizeCauseNode,
 } from '../layouts';
 
+const defaultOption: Required<ResizeCauseNodeOption> = {
+  paddingTop: 20,
+  paddingRight: 20,
+  paddingBottom: 20,
+  paddingLeft: 20,
+  elementGap: 10,
+};
+
 describe('#resizeCauseNode', () => {
   test('has 1 element', () => {
     const causeNode: CauseNodeWithElements = {
@@ -43,7 +51,7 @@ describe('#resizeCauseNode', () => {
       ],
     };
 
-    expect(resizeCauseNode(causeNode)).toStrictEqual(expected);
+    expect(resizeCauseNode(causeNode, defaultOption)).toStrictEqual(expected);
   });
 
   test('has 2 elements', () => {
@@ -102,7 +110,7 @@ describe('#resizeCauseNode', () => {
       ],
     };
 
-    expect(resizeCauseNode(causeNode)).toStrictEqual(expected);
+    expect(resizeCauseNode(causeNode, defaultOption)).toStrictEqual(expected);
   });
 
   test('has 3 elements', () => {
@@ -179,7 +187,7 @@ describe('#resizeCauseNode', () => {
       ],
     };
 
-    expect(resizeCauseNode(causeNode)).toStrictEqual(expected);
+    expect(resizeCauseNode(causeNode, defaultOption)).toStrictEqual(expected);
   });
 
   test('with options', () => {
@@ -209,7 +217,7 @@ describe('#resizeCauseNode', () => {
         },
       ],
     };
-    const options: ResizeCauseNodeOption = {
+    const options: Required<ResizeCauseNodeOption> = {
       paddingTop: 24,
       paddingRight: 8,
       paddingBottom: 12,
