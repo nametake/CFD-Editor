@@ -5,9 +5,9 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import ELK from 'elkjs';
 /* eslint-enable */
 
-import { makeElkNodes, mapChangeNode, mapElkNode } from './utils';
-
-import { CauseFlow, Node } from './index';
+import { CauseFlow } from './CauseFlow';
+import { Node, applyNodeChanges } from './types';
+import { makeElkNodes, mapElkNode } from './utils';
 
 // eslint-disable-next-line import/no-default-export
 export default {
@@ -184,7 +184,7 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
       edges={argsEdges}
       style={{ width: '512px', height: '512px' }}
       onNodesChange={(changeNodes) => {
-        sort(nodes.map(mapChangeNode(changeNodes)));
+        sort(applyNodeChanges(changeNodes, nodes));
       }}
     />
   );

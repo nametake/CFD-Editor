@@ -4,7 +4,7 @@ import { ElkNode } from 'elkjs';
 
 import { assertUnreachable } from '@/utils/assert';
 
-import { Node } from '.';
+import { Node } from './types';
 
 export const mapChangeNode =
   (changeNodes: NodeChange[]) =>
