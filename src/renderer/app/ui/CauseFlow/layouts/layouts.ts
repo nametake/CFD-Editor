@@ -107,4 +107,8 @@ export const resizeCauseNodes = (
 ): Node[] =>
   makeCauseNode(nodes)
     .map((node) => resizeCauseNode(node, option))
-    .flatMap(({ elements, ...node }) => [node, ...elements]);
+    .flatMap(({ elements, ...node }) => [
+      node,
+      ...elements,
+      ...makeResultNode(nodes),
+    ]);

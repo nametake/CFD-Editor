@@ -143,6 +143,14 @@ describe('#resizeCauseNode', () => {
         width: 10,
         height: 10,
       },
+      {
+        id: 'r1',
+        type: 'result',
+        data: { label: 'Result 3' },
+        position: { x: 0, y: 0 },
+        width: 10,
+        height: 10,
+      },
     ];
     const expected: Node[] = [
       {
@@ -177,6 +185,14 @@ describe('#resizeCauseNode', () => {
         parentNode: 'c1',
         type: 'element',
         data: { label: 'Element 3' },
+        position: { x: 0, y: 0 },
+        width: 10,
+        height: 10,
+      },
+      {
+        id: 'r1',
+        type: 'result',
+        data: { label: 'Result 3' },
         position: { x: 0, y: 0 },
         width: 10,
         height: 10,
