@@ -57,7 +57,7 @@ export type CauseNodeWithElements = CauseNodeType & {
 const makeElementNode = (nodes: Node[], parentNode: Node): ElementNodeType[] =>
   nodes
     .filter((node): node is ElementNodeType => node.type === 'element')
-    .filter((node) => node.parentNode, parentNode.id);
+    .filter((node) => node.parentNode === parentNode.id);
 
 export const makeCauseNode = (nodes: Node[]): CauseNodeWithElements[] =>
   nodes
@@ -67,7 +67,6 @@ export const makeCauseNode = (nodes: Node[]): CauseNodeWithElements[] =>
       elements: makeElementNode(nodes, node),
     }));
 
-// TODO Remove export
 export const makeResultNode = (nodes: Node[]): ResultNodeType[] =>
   nodes.filter((node): node is ResultNodeType => node.type === 'result');
 
@@ -118,17 +117,20 @@ export const resizeCauseNodes = (
     ...makeResultNode(nodes),
   ];
 
-export const layoutCauseNodes = (nodes: Node[]) => {
-  const causeNodes = makeCauseNode(nodes).map((node) => resizeCauseNode(node));
+// TODO remove magic number
+export const layoutNodes = (nodes: Node[]) => {
+  const causeNodes = makeCauseNode(nodes).map((node) =>
+    resizeCauseNode(node, { elementGap: 10 })
+  );
   const resultNodes = makeResultNode(nodes);
 
-  const layoutedNodes = alignHorizontal(causeNodes).map(
+  const layoutedNodes = alignHorizontal(causeNodes, { gap: 20 }).map(
     ({ elements, ...node }) => ({
       ...node,
       elements: alignVertical(elements, {
         startPosition: {
-          x: node.position.x + (node.padding?.left ?? 0),
-          y: node.position.y + (node.padding?.top ?? 0),
+          x: node.padding?.left ?? 0,
+          y: node.padding?.top ?? 0,
         },
         gap: 10,
       }),
@@ -137,14 +139,14 @@ export const layoutCauseNodes = (nodes: Node[]) => {
 
   const resultStartX = layoutedNodes.reduce(
     (prev, node) => prev + (node.width ?? 0),
-    20
+    20 * layoutedNodes.length
   );
 
   return [
     ...layoutedNodes.flatMap(({ elements, ...node }) => [node, ...elements]),
     ...alignVertical(resultNodes, {
       startPosition: { x: resultStartX, y: 0 },
-      gap: 10,
+      gap: 45,
     }),
   ];
 };

@@ -5,7 +5,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
 
 import { CauseFlow } from './CauseFlow';
-import { layoutCauseNodes } from './layouts/layouts';
+import { layoutNodes } from './layouts/layouts';
 import { Node, applyNodeChanges } from './types';
 
 // eslint-disable-next-line import/no-default-export
@@ -22,7 +22,7 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
 }) {
   const [nodes, setNodes] = useState(argsNodes);
   const sort = useCallback((newNodes: Node[]) => {
-    const n = layoutCauseNodes(newNodes);
+    const n = layoutNodes(newNodes);
     setNodes(n);
   }, []);
   return (
@@ -30,7 +30,7 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
       {...args}
       nodes={nodes}
       edges={argsEdges}
-      style={{ width: '512px', height: '512px' }}
+      style={{ width: '1024', height: '1024px' }}
       onNodesChange={(changeNodes) => {
         sort(applyNodeChanges(changeNodes, nodes));
       }}
@@ -63,27 +63,62 @@ Default.args = {
       data: { label: 'Cause 1 Element 2' },
       position: { x: 0, y: 0 },
     },
-    // {
-    //   id: 'c2',
-    //   type: 'cause',
-    //   data: { label: 'Cause 2' },
-    //   padding: { top: 50, right: 20, left: 20, bottom: 20 },
-    //   position: { x: 0, y: 0 },
-    // },
-    // {
-    //   id: 'c2-e1',
-    //   parentNode: 'c2',
-    //   type: 'element',
-    //   data: { label: 'Cause 2 Element 1' },
-    //   position: { x: 0, y: 0 },
-    // },
-    // {
-    //   id: 'c2-e2',
-    //   parentNode: 'c2',
-    //   type: 'element',
-    //   data: { label: 'Cause 2 Element 2' },
-    //   position: { x: 0, y: 0 },
-    // },
+    {
+      id: 'c1-e3',
+      parentNode: 'c1',
+      type: 'element',
+      data: { label: 'Cause 1 Element 3' },
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: 'c1-e4',
+      parentNode: 'c1',
+      type: 'element',
+      data: { label: 'Cause 1 Element 4' },
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: 'c2',
+      type: 'cause',
+      data: { label: 'Cause 2' },
+      padding: { top: 50, right: 20, left: 20, bottom: 20 },
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: 'c2-e1',
+      parentNode: 'c2',
+      type: 'element',
+      data: { label: 'Cause 2 Element 1' },
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: 'c2-e2',
+      parentNode: 'c2',
+      type: 'element',
+      data: { label: 'Cause 2 Element 2' },
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: 'c3',
+      type: 'cause',
+      data: { label: 'Cause 3' },
+      padding: { top: 50, right: 20, left: 20, bottom: 20 },
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: 'c3-e1',
+      parentNode: 'c3',
+      type: 'element',
+      data: { label: 'Cause 3 Element 1' },
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: 'c3-e2',
+      parentNode: 'c3',
+      type: 'element',
+      data: { label: 'Cause 3 Element 2' },
+      position: { x: 0, y: 0 },
+    },
     {
       id: 'r1',
       type: 'result',
@@ -104,7 +139,14 @@ Default.args = {
     },
   ],
   edges: [
-    { id: 'c1-e1-r1', source: 'c1-e1', target: 'r1' },
-    { id: 'c1-e2-r2', source: 'c1-e2', target: 'r2' },
+    { id: 'c1-e1_c2-e1', source: 'c1-e1', target: 'c2-e1' },
+    { id: 'c1-e2_c2', source: 'c1-e2', target: 'c2' },
+    { id: 'c1-e3_c2-e2', source: 'c1-e3', target: 'c2-e2' },
+    { id: 'c2-e1_c3', source: 'c2-e1', target: 'c3' },
+    { id: 'c3-e1_r1', source: 'c3-e1', target: 'r1' },
+    { id: 'c3-e1_r1', source: 'c3-e1', target: 'r1' },
+    { id: 'c3-e2_r2', source: 'c3-e2', target: 'r2' },
+    { id: 'c1-e4_r3', source: 'c1-e4', target: 'r3' },
+    { id: 'c2-e2_r3', source: 'c2-e2', target: 'r3' },
   ],
 };
