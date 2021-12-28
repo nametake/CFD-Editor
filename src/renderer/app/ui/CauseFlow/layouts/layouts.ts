@@ -10,8 +10,11 @@ export type AlignOption = {
   gap: number;
 };
 
-export const alignHorizontal = (nodes: Node[], option: AlignOption): Node[] => {
-  const { startPosition, gap } = option;
+export const alignHorizontal = (
+  nodes: Node[],
+  option?: AlignOption
+): Node[] => {
+  const { startPosition, gap = 0 } = option ?? {};
   return nodes.map((node, index) => {
     const beforeNodeWidthSum = nodes.reduce(
       (prev, n, i) => (index > i ? prev + (n.width ?? 0) + gap : prev),
@@ -20,15 +23,15 @@ export const alignHorizontal = (nodes: Node[], option: AlignOption): Node[] => {
     return {
       ...node,
       position: {
-        x: startPosition.x + beforeNodeWidthSum,
-        y: startPosition.y,
+        x: (startPosition?.x ?? 0) + beforeNodeWidthSum,
+        y: startPosition?.y ?? 0,
       },
     };
   });
 };
 
-export const alignVertical = (nodes: Node[], option: AlignOption): Node[] => {
-  const { startPosition, gap } = option;
+export const alignVertical = (nodes: Node[], option?: AlignOption): Node[] => {
+  const { startPosition, gap = 0 } = option ?? {};
   return nodes.map((node, index) => {
     const beforeNodeHeightSum = nodes.reduce(
       (prev, n, i) => (index > i ? prev + (n.height ?? 0) + gap : prev),
@@ -37,8 +40,8 @@ export const alignVertical = (nodes: Node[], option: AlignOption): Node[] => {
     return {
       ...node,
       position: {
-        x: startPosition.x,
-        y: startPosition.y + beforeNodeHeightSum,
+        x: startPosition?.x ?? 0,
+        y: (startPosition?.y ?? 0) + beforeNodeHeightSum,
       },
     };
   });
