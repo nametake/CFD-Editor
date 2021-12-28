@@ -12,7 +12,15 @@ import { NodeDataType } from '@/types/NodeDataType';
 export type CauseNodeType<T extends NodeDataType = NodeDataType> = Omit<
   ReactFlowNode<T>,
   'type'
-> & { type: 'cause' };
+> & {
+  type: 'cause';
+  padding?: {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+  };
+};
 export type ElementNodeType<T extends NodeDataType = NodeDataType> = Omit<
   ReactFlowNode<T>,
   'type'

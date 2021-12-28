@@ -4,14 +4,6 @@ import {
   resizeCauseNode,
 } from '../layouts';
 
-const defaultOption: Required<ResizeCauseNodeOption> = {
-  paddingTop: 20,
-  paddingRight: 20,
-  paddingBottom: 20,
-  paddingLeft: 20,
-  elementGap: 10,
-};
-
 describe('#resizeCauseNode', () => {
   test('has 1 element', () => {
     const causeNode: CauseNodeWithElements = {
@@ -19,6 +11,7 @@ describe('#resizeCauseNode', () => {
       type: 'cause',
       data: { label: 'Cause' },
       position: { x: 0, y: 0 },
+      padding: { top: 20, right: 20, bottom: 20, left: 20 },
       elements: [
         {
           id: 'c1-e1',
@@ -38,6 +31,7 @@ describe('#resizeCauseNode', () => {
       position: { x: 0, y: 0 },
       width: 50,
       height: 50,
+      padding: { top: 20, right: 20, bottom: 20, left: 20 },
       elements: [
         {
           id: 'c1-e1',
@@ -51,7 +45,7 @@ describe('#resizeCauseNode', () => {
       ],
     };
 
-    expect(resizeCauseNode(causeNode, defaultOption)).toStrictEqual(expected);
+    expect(resizeCauseNode(causeNode)).toStrictEqual(expected);
   });
 
   test('has 2 elements', () => {
@@ -60,6 +54,7 @@ describe('#resizeCauseNode', () => {
       type: 'cause',
       data: { label: 'Cause' },
       position: { x: 0, y: 0 },
+      padding: { top: 20, right: 20, bottom: 20, left: 20 },
       elements: [
         {
           id: 'c1-e1',
@@ -86,8 +81,9 @@ describe('#resizeCauseNode', () => {
       type: 'cause',
       data: { label: 'Cause' },
       position: { x: 0, y: 0 },
-      width: 60,
-      height: 70,
+      width: 50,
+      height: 60,
+      padding: { top: 20, right: 20, bottom: 20, left: 20 },
       elements: [
         {
           id: 'c1-e1',
@@ -110,7 +106,7 @@ describe('#resizeCauseNode', () => {
       ],
     };
 
-    expect(resizeCauseNode(causeNode, defaultOption)).toStrictEqual(expected);
+    expect(resizeCauseNode(causeNode)).toStrictEqual(expected);
   });
 
   test('has 3 elements', () => {
@@ -119,6 +115,7 @@ describe('#resizeCauseNode', () => {
       type: 'cause',
       data: { label: 'Cause' },
       position: { x: 0, y: 0 },
+      padding: { top: 20, right: 20, bottom: 20, left: 20 },
       elements: [
         {
           id: 'c1-e1',
@@ -154,8 +151,9 @@ describe('#resizeCauseNode', () => {
       type: 'cause',
       data: { label: 'Cause' },
       position: { x: 0, y: 0 },
-      width: 70,
-      height: 90,
+      width: 50,
+      height: 70,
+      padding: { top: 20, right: 20, bottom: 20, left: 20 },
       elements: [
         {
           id: 'c1-e1',
@@ -187,7 +185,7 @@ describe('#resizeCauseNode', () => {
       ],
     };
 
-    expect(resizeCauseNode(causeNode, defaultOption)).toStrictEqual(expected);
+    expect(resizeCauseNode(causeNode)).toStrictEqual(expected);
   });
 
   test('with options', () => {
@@ -196,6 +194,7 @@ describe('#resizeCauseNode', () => {
       type: 'cause',
       data: { label: 'Cause' },
       position: { x: 0, y: 0 },
+      padding: { top: 24, right: 8, bottom: 12, left: 16 },
       elements: [
         {
           id: 'c1-e1',
@@ -218,10 +217,6 @@ describe('#resizeCauseNode', () => {
       ],
     };
     const options: Required<ResizeCauseNodeOption> = {
-      paddingTop: 24,
-      paddingRight: 8,
-      paddingBottom: 12,
-      paddingLeft: 16,
       elementGap: 4,
     };
     const expected: CauseNodeWithElements = {
@@ -229,8 +224,9 @@ describe('#resizeCauseNode', () => {
       type: 'cause',
       data: { label: 'Cause' },
       position: { x: 0, y: 0 },
-      width: 44,
+      width: 34,
       height: 60,
+      padding: { top: 24, right: 8, bottom: 12, left: 16 },
       elements: [
         {
           id: 'c1-e1',
