@@ -5,7 +5,7 @@ import {
   ResultNodeType,
 } from '@/app/ui/CauseFlow/types';
 
-type CauseNodeWithElements = CauseNodeType & {
+export type CauseNodeWithElements = CauseNodeType & {
   elements: ElementNodeType[];
 };
 
@@ -25,9 +25,47 @@ const makeCauseNode = (nodes: Node[]): CauseNodeWithElements[] =>
 const makeResultNode = (nodes: Node[]): ResultNodeType[] =>
   nodes.filter((node): node is ResultNodeType => node.type === 'result');
 
-export const layoutCauseNode = (
-  causeNodes: CauseNodeWithElements[]
-): CauseNodeWithElements[] => causeNodes;
+export type ResizeCauseNodeOption = {
+  paddingTop?: number;
+  paddingRight?: number;
+  paddingBottom?: number;
+  paddingLeft?: number;
+  elementGap?: number;
+};
+
+export const resizeCauseNode = (
+  causeNode: CauseNodeWithElements,
+  options?: ResizeCauseNodeOption
+): CauseNodeWithElements => {
+  const {
+    paddingTop = 20,
+    paddingRight = 20,
+    paddingBottom = 20,
+    paddingLeft = 20,
+    elementGap = 10,
+  } = options ?? {};
+  const causeWidth =
+    causeNode.elements
+      .map((el) => el.width ?? 0)
+      .reduce((prev, width) => prev + width, 0) +
+    paddingLeft +
+    paddingRight;
+
+  const causeHeight =
+    causeNode.elements
+      .map((el) => el.height ?? 0)
+      .reduce(
+        (prev, height, i) => prev + height + (i === 0 ? 0 : elementGap),
+        0
+      ) +
+    paddingTop +
+    paddingBottom;
+  return {
+    ...causeNode,
+    width: causeWidth,
+    height: causeHeight,
+  };
+};
 
 export const layoutNodes = (nodes: Node[]): Node[] => {
   const causeNodes = makeCauseNode(nodes);
