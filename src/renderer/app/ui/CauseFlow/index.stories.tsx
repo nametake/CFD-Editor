@@ -7,7 +7,7 @@ import ELK from 'elkjs';
 
 import { CauseFlow } from './CauseFlow';
 import { Node, applyNodeChanges } from './types';
-import { makeElkNodes, mapElkNode } from './utils';
+import { makeElkNodeTree, mapElkNode } from './utils';
 
 // eslint-disable-next-line import/no-default-export
 export default {
@@ -157,7 +157,7 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
           'elk.hierarchyHandling': 'INCLUDE_CHILDREN',
           'org.eclipse.elk.nodeLabels.placement': 'V_TOP',
         },
-        children: makeElkNodes(newNodes),
+        children: makeElkNodeTree(newNodes),
         edges: argsEdges.map((edge) => ({
           id: edge.id,
           sources: [edge.source],

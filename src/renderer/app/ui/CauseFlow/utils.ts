@@ -7,17 +7,17 @@ const mapNodeToElkNode =
     (node: Node): ElkNode => ({
       id: node.id,
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
-      children: makeElkNodeTree(nodes, node),
+      children: makeElkNodeTreeFn(nodes, node),
       width: node.width ?? 0,
       height: node.height ?? 0,
     });
 
-const makeElkNodeTree = (nodes: Node[], parentNode: Node): ElkNode[] =>
+const makeElkNodeTreeFn = (nodes: Node[], parentNode: Node): ElkNode[] =>
   nodes
     .filter((node) => node.parentNode === parentNode.id)
     .map<ElkNode>(mapNodeToElkNode(nodes));
 
-export const makeElkNodes = (nodes: Node[]): ElkNode[] =>
+export const makeElkNodeTree = (nodes: Node[]): ElkNode[] =>
   nodes
     .filter((node) => !node.parentNode)
     .map<ElkNode>(mapNodeToElkNode(nodes));
