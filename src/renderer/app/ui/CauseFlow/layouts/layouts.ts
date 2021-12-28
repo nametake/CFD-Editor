@@ -62,7 +62,33 @@ export const resizeCauseNode = (
   };
 };
 
+export type LayoutCauseNodesOptions = {
+  startPosition: { x: number; y: number };
+  gap: number;
+};
+
+export const layoutCauseNodes = (
+  causeNodes: CauseNodeWithElements[],
+  option: LayoutCauseNodesOptions
+): CauseNodeWithElements[] => {
+  const { startPosition, gap } = option;
+  return causeNodes.map((node, index, nodes) => {
+    const beforeNodeWidthSum = nodes.reduce(
+      (prev, n, i) => (i < index ? prev + (n.width ?? 0) : prev),
+      0
+    );
+    return {
+      ...node,
+      position: {
+        x: startPosition.x + beforeNodeWidthSum + index === 0 ? 0 : gap,
+        y: startPosition.y,
+      },
+    };
+  });
+};
+
 export type LayoutNodesOptions = {
+  causeNodeOption?: ResizeCauseNodeOption;
   causeNodeGap?: number;
   resultNodeGap?: number;
   causeAndResultNodeGap?: number;
