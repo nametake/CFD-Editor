@@ -165,7 +165,8 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
           targets: [edge.target],
         })),
       };
-      // console.log(rootGraph);
+      // eslint-disable-next-line no-console
+      console.log(rootGraph);
       elk
         .layout(rootGraph)
         .then((graph) => {

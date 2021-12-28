@@ -10,6 +10,17 @@ const mapNodeToElkNode =
       children: makeElkNodeTreeFn(nodes, node),
       width: node.width ?? 0,
       height: node.height ?? 0,
+      labels: [
+        {
+          id: `${node.id}-label`,
+          text: node.data.label ?? '',
+          width: node.width ?? undefined,
+          height: 30,
+          layoutOptions: {
+            'nodeLabels.placement': 'INSIDE, V_TOP, H_CENTER',
+          },
+        },
+      ],
     });
 
 const makeElkNodeTreeFn = (nodes: Node[], parentNode: Node): ElkNode[] =>

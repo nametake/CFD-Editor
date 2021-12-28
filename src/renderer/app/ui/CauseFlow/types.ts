@@ -21,7 +21,7 @@ export const nodeTypes = {
 export type NodeType = keyof typeof nodeTypes;
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export type Node<T extends NodeDataType = {}> = Omit<
+export type Node<T extends NodeDataType = NodeDataType> = Omit<
   ReactFlowNode<T>,
   'type'
 > & {
