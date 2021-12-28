@@ -1,4 +1,9 @@
-import { CauseNodeType, ElementNodeType, Node, ResultNodeType } from '.';
+import {
+  CauseNodeType,
+  ElementNodeType,
+  Node,
+  ResultNodeType,
+} from '@/app/ui/CauseFlow/types';
 
 type CauseNodeWithElements = CauseNodeType & {
   elements: ElementNodeType[];
