@@ -29,6 +29,10 @@ describe('#resizeCauseNode', () => {
         position: { x: 0, y: 0 },
         width: 50,
         height: 50,
+        style: {
+          width: 50,
+          height: 50,
+        },
         padding: { top: 20, right: 20, bottom: 20, left: 20 },
       },
 
@@ -82,6 +86,10 @@ describe('#resizeCauseNode', () => {
         position: { x: 0, y: 0 },
         width: 50,
         height: 60,
+        style: {
+          width: 50,
+          height: 60,
+        },
         padding: { top: 20, right: 20, bottom: 20, left: 20 },
       },
       {
@@ -160,6 +168,10 @@ describe('#resizeCauseNode', () => {
         position: { x: 0, y: 0 },
         width: 50,
         height: 70,
+        style: {
+          width: 50,
+          height: 70,
+        },
         padding: { top: 20, right: 20, bottom: 20, left: 20 },
       },
       {
@@ -241,6 +253,10 @@ describe('#resizeCauseNode', () => {
         position: { x: 0, y: 0 },
         width: 34,
         height: 60,
+        style: {
+          width: 34,
+          height: 60,
+        },
         padding: { top: 24, right: 8, bottom: 12, left: 16 },
       },
       {
