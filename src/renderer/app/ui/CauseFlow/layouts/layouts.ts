@@ -62,20 +62,16 @@ export const resizeCauseNode = (
   };
 };
 
-export type LayoutCauseNodesOptions = {
+export type AlignOption = {
   startPosition: { x: number; y: number };
   gap: number;
 };
 
-export const layoutCauseNodes = (
-  causeNodes: CauseNodeWithElements[],
-  option: LayoutCauseNodesOptions
-): CauseNodeWithElements[] => {
+export const alignHorizontal = (nodes: Node[], option: AlignOption): Node[] => {
   const { startPosition, gap } = option;
-  return causeNodes.map((node, index, nodes) => {
+  return nodes.map((node, index) => {
     const beforeNodeWidthSum = nodes.reduce(
-      (prev, n, i) =>
-        (i < index ? prev + (n.width ?? 0) : prev) + index === 0 ? 0 : gap,
+      (prev, n, i) => (index > i ? prev + (n.width ?? 0) + gap : prev),
       0
     );
     return {
@@ -83,6 +79,23 @@ export const layoutCauseNodes = (
       position: {
         x: startPosition.x + beforeNodeWidthSum,
         y: startPosition.y,
+      },
+    };
+  });
+};
+
+export const alignVertical = (nodes: Node[], option: AlignOption): Node[] => {
+  const { startPosition, gap } = option;
+  return nodes.map((node, index) => {
+    const beforeNodeHeightSum = nodes.reduce(
+      (prev, n, i) => (index > i ? prev + (n.height ?? 0) + gap : prev),
+      0
+    );
+    return {
+      ...node,
+      position: {
+        x: startPosition.x,
+        y: startPosition.y + beforeNodeHeightSum,
       },
     };
   });

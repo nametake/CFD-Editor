@@ -1,17 +1,14 @@
-import {
-  CauseNodeWithElements,
-  LayoutCauseNodesOptions,
-  layoutCauseNodes,
-} from '../layouts';
+import { Node } from '../..';
+import { AlignOption, alignHorizontal } from '../layouts';
 
-const defaultOptions: Required<LayoutCauseNodesOptions> = {
+const defaultOptions: AlignOption = {
   startPosition: { x: 5, y: 5 },
   gap: 10,
 };
 
-describe('#layoutCauseNodes', () => {
-  test('2 cause nodes', () => {
-    const causeNodes: CauseNodeWithElements[] = [
+describe('alignHorizontal', () => {
+  test('3 nodes', () => {
+    const nodes: Node[] = [
       {
         id: 'c1',
         type: 'cause',
@@ -19,7 +16,6 @@ describe('#layoutCauseNodes', () => {
         position: { x: 0, y: 0 },
         width: 10,
         height: 20,
-        elements: [],
       },
       {
         id: 'c2',
@@ -28,10 +24,17 @@ describe('#layoutCauseNodes', () => {
         position: { x: 0, y: 0 },
         width: 15,
         height: 25,
-        elements: [],
+      },
+      {
+        id: 'c3',
+        type: 'cause',
+        data: { label: 'Cause 3' },
+        position: { x: 0, y: 0 },
+        width: 30,
+        height: 40,
       },
     ];
-    const expected: CauseNodeWithElements[] = [
+    const expected: Node[] = [
       {
         id: 'c1',
         type: 'cause',
@@ -39,21 +42,25 @@ describe('#layoutCauseNodes', () => {
         position: { x: 5, y: 5 },
         width: 10,
         height: 20,
-        elements: [],
       },
       {
         id: 'c2',
         type: 'cause',
         data: { label: 'Cause 2' },
-        position: { x: 15, y: 5 },
+        position: { x: 25, y: 5 },
         width: 15,
         height: 25,
-        elements: [],
+      },
+      {
+        id: 'c3',
+        type: 'cause',
+        data: { label: 'Cause 3' },
+        position: { x: 50, y: 5 },
+        width: 30,
+        height: 40,
       },
     ];
 
-    expect(layoutCauseNodes(causeNodes, defaultOptions)).toStrictEqual(
-      expected
-    );
+    expect(alignHorizontal(nodes, defaultOptions)).toStrictEqual(expected);
   });
 });
