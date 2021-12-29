@@ -3,7 +3,7 @@ import { ElkNode } from 'elkjs';
 import { makeElkNodeTree } from '../utils';
 import { Node } from '@/app/types';
 
-describe('#makeElkNodeTree', () => {
+describe('makeElkNodeTree', () => {
   test('has parent nodes', () => {
     const nodes: Node[] = [
       {

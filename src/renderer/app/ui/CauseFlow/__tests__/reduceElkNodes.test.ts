@@ -2,7 +2,7 @@ import { ElkNode } from 'elkjs';
 
 import { reduceElkNodes } from '../utils';
 
-describe('#reduceElkNodes', () => {
+describe('reduceElkNodes', () => {
   test('nested ElkNodes', () => {
     const elkNodes: ElkNode[] = [
       {

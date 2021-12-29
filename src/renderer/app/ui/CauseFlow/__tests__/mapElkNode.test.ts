@@ -3,7 +3,7 @@ import { ElkNode } from 'elkjs';
 import { mapElkNode } from '../utils';
 import { Node } from '@/app/types';
 
-describe('#mapElkNode', () => {
+describe('mapElkNode', () => {
   test('', () => {
     const nodes: Node[] = [
       {
