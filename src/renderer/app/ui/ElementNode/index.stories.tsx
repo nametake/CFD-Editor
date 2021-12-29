@@ -6,7 +6,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { CauseFlow } from '@/app/ui/CauseFlow';
 
-import { ElementNode } from './index';
+import { ElementNode, elementNodeStyle } from './index';
 
 // eslint-disable-next-line import/no-default-export
 export default {
@@ -29,6 +29,7 @@ const Template: ComponentStory<typeof ElementNode> = function Template(args) {
           id: 'id',
           type: 'element',
           position: { x: 8, y: 8 },
+          style: elementNodeStyle,
         },
       ]}
       edges={[]}

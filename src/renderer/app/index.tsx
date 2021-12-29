@@ -11,9 +11,7 @@ export const App = function App(): JSX.Element {
         nodes={[
           {
             id: 'id',
-            data: {
-              label: 'AAAAAAAAAAAAAAAAAAAA',
-            },
+            data: { label: { text: 'AAAAAAAAAAAAAAAAAAAA' } },
             type: 'cause',
             position: { x: 8, y: 8 },
           },

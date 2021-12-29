@@ -7,7 +7,7 @@ describe('alignVertical', () => {
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause 1' },
+        data: { label: { text: 'Cause 1' } },
         position: { x: 0, y: 0 },
         width: 10,
         height: 20,
@@ -15,7 +15,7 @@ describe('alignVertical', () => {
       {
         id: 'c2',
         type: 'cause',
-        data: { label: 'Cause 2' },
+        data: { label: { text: 'Cause 2' } },
         position: { x: 0, y: 0 },
         width: 15,
         height: 25,
@@ -23,7 +23,7 @@ describe('alignVertical', () => {
       {
         id: 'c3',
         type: 'cause',
-        data: { label: 'Cause 3' },
+        data: { label: { text: 'Cause 3' } },
         position: { x: 0, y: 0 },
         width: 30,
         height: 40,
@@ -33,7 +33,7 @@ describe('alignVertical', () => {
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause 1' },
+        data: { label: { text: 'Cause 1' } },
         position: { x: 0, y: 0 },
         width: 10,
         height: 20,
@@ -41,7 +41,7 @@ describe('alignVertical', () => {
       {
         id: 'c2',
         type: 'cause',
-        data: { label: 'Cause 2' },
+        data: { label: { text: 'Cause 2' } },
         position: { x: 0, y: 20 },
         width: 15,
         height: 25,
@@ -49,7 +49,7 @@ describe('alignVertical', () => {
       {
         id: 'c3',
         type: 'cause',
-        data: { label: 'Cause 3' },
+        data: { label: { text: 'Cause 3' } },
         position: { x: 0, y: 45 },
         width: 30,
         height: 40,
@@ -64,7 +64,7 @@ describe('alignVertical', () => {
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause 1' },
+        data: { label: { text: 'Cause 1' } },
         position: { x: 0, y: 0 },
         width: 10,
         height: 20,
@@ -72,7 +72,7 @@ describe('alignVertical', () => {
       {
         id: 'c2',
         type: 'cause',
-        data: { label: 'Cause 2' },
+        data: { label: { text: 'Cause 2' } },
         position: { x: 0, y: 0 },
         width: 15,
         height: 25,
@@ -80,7 +80,7 @@ describe('alignVertical', () => {
       {
         id: 'c3',
         type: 'cause',
-        data: { label: 'Cause 3' },
+        data: { label: { text: 'Cause 3' } },
         position: { x: 0, y: 0 },
         width: 30,
         height: 40,
@@ -90,7 +90,7 @@ describe('alignVertical', () => {
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause 1' },
+        data: { label: { text: 'Cause 1' } },
         position: { x: 5, y: 5 },
         width: 10,
         height: 20,
@@ -98,7 +98,7 @@ describe('alignVertical', () => {
       {
         id: 'c2',
         type: 'cause',
-        data: { label: 'Cause 2' },
+        data: { label: { text: 'Cause 2' } },
         position: { x: 5, y: 35 },
         width: 15,
         height: 25,
@@ -106,7 +106,7 @@ describe('alignVertical', () => {
       {
         id: 'c3',
         type: 'cause',
-        data: { label: 'Cause 3' },
+        data: { label: { text: 'Cause 3' } },
         position: { x: 5, y: 70 },
         width: 30,
         height: 40,

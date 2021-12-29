@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useCallback, useState } from 'react';
+import { NodeChange } from 'react-flow-renderer';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
@@ -7,7 +8,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Node } from '@/app/types';
 
 import { CauseFlow } from './CauseFlow';
-import { layoutNodes } from './layouts/layouts';
+import { layoutNodes } from './layouts';
 import { applyNodeChanges } from './wrapper';
 
 // eslint-disable-next-line import/no-default-export
@@ -24,8 +25,7 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
 }) {
   const [nodes, setNodes] = useState(argsNodes);
   const sort = useCallback((newNodes: Node[]) => {
-    const n = layoutNodes(newNodes);
-    setNodes(n);
+    setNodes(newNodes);
   }, []);
   return (
     <CauseFlow
@@ -33,9 +33,12 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
       nodes={nodes}
       edges={argsEdges}
       style={{ width: '1024', height: '1024px' }}
-      onNodesChange={(changeNodes) => {
-        sort(applyNodeChanges(changeNodes, nodes));
-      }}
+      onNodesChange={useCallback(
+        (changeNodes: NodeChange[]) => {
+          sort(layoutNodes(applyNodeChanges(changeNodes, nodes)));
+        },
+        [nodes, sort]
+      )}
     />
   );
 };
@@ -48,10 +51,8 @@ Default.args = {
       id: 'c1',
       type: 'cause',
       data: {
-        label: 'Cause 1',
-        style: {
-          labelHeight: 30,
-          padding: { top: 20, right: 20, left: 20, bottom: 20 },
+        label: {
+          text: 'Cause 1',
         },
       },
       position: { x: 0, y: 0 },
@@ -88,10 +89,8 @@ Default.args = {
       id: 'c2',
       type: 'cause',
       data: {
-        label: 'Cause 2',
-        style: {
-          labelHeight: 30,
-          padding: { top: 20, right: 20, left: 20, bottom: 20 },
+        label: {
+          text: 'Cause 2',
         },
       },
       position: { x: 0, y: 0 },
@@ -114,10 +113,8 @@ Default.args = {
       id: 'c3',
       type: 'cause',
       data: {
-        label: 'Cause 3',
-        style: {
-          labelHeight: 30,
-          padding: { top: 20, right: 20, left: 20, bottom: 20 },
+        label: {
+          text: 'Cause 3',
         },
       },
       position: { x: 0, y: 0 },

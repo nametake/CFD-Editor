@@ -3,13 +3,13 @@ import { ElkNode } from 'elkjs';
 import { mapElkNode } from '../utils';
 import { Node } from '@/app/types';
 
-describe('#mapElkNode', () => {
+describe('mapElkNode', () => {
   test('', () => {
     const nodes: Node[] = [
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause' },
+        data: { label: { text: 'Cause' } },
         position: { x: 0, y: 0 },
         width: 100,
         height: 200,
@@ -92,7 +92,7 @@ describe('#mapElkNode', () => {
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause' },
+        data: { label: { text: 'Cause' } },
         position: { x: 1, y: 1 },
         width: 100,
         height: 200,

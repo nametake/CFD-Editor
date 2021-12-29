@@ -3,13 +3,13 @@ import { ElkNode } from 'elkjs';
 import { makeElkNodeTree } from '../utils';
 import { Node } from '@/app/types';
 
-describe('#makeElkNodeTree', () => {
+describe('makeElkNodeTree', () => {
   test('has parent nodes', () => {
     const nodes: Node[] = [
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause' },
+        data: { label: { text: 'Cause' } },
         position: { x: 0, y: 0 },
         width: 100,
         height: 200,

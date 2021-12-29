@@ -4,18 +4,26 @@ import {
   resizeCauseNode,
 } from '../layouts';
 
-describe('#resizeCauseNode', () => {
+describe('resizeCauseNode', () => {
   test('has 1 element', () => {
     const causeNode: CauseNodeWithElements = {
       id: 'c1',
       type: 'cause',
       data: {
-        label: 'Cause',
-        style: {
-          padding: { top: 20, right: 20, bottom: 20, left: 20 },
+        label: {
+          text: 'Cause',
+          style: {
+            height: 10,
+          },
         },
       },
       position: { x: 0, y: 0 },
+      style: {
+        paddingTop: 20,
+        paddingRight: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+      },
       elements: [
         {
           id: 'c1-e1',
@@ -32,17 +40,23 @@ describe('#resizeCauseNode', () => {
       id: 'c1',
       type: 'cause',
       data: {
-        label: 'Cause',
-        style: {
-          padding: { top: 20, right: 20, bottom: 20, left: 20 },
+        label: {
+          text: 'Cause',
+          style: {
+            height: 10,
+          },
         },
       },
       position: { x: 0, y: 0 },
       width: 50,
-      height: 50,
+      height: 60,
       style: {
+        paddingTop: 20,
+        paddingRight: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
         width: 50,
-        height: 50,
+        height: 60,
       },
       elements: [
         {
@@ -65,12 +79,20 @@ describe('#resizeCauseNode', () => {
       id: 'c1',
       type: 'cause',
       data: {
-        label: 'Cause',
-        style: {
-          padding: { top: 20, right: 20, bottom: 20, left: 20 },
+        label: {
+          text: 'Cause',
+          style: {
+            height: 10,
+          },
         },
       },
       position: { x: 0, y: 0 },
+      style: {
+        paddingTop: 20,
+        paddingRight: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+      },
       elements: [
         {
           id: 'c1-e1',
@@ -96,17 +118,23 @@ describe('#resizeCauseNode', () => {
       id: 'c1',
       type: 'cause',
       data: {
-        label: 'Cause',
-        style: {
-          padding: { top: 20, right: 20, bottom: 20, left: 20 },
+        label: {
+          text: 'Cause',
+          style: {
+            height: 10,
+          },
         },
       },
       position: { x: 0, y: 0 },
       width: 50,
-      height: 60,
+      height: 70,
       style: {
+        paddingTop: 20,
+        paddingRight: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
         width: 50,
-        height: 60,
+        height: 70,
       },
       elements: [
         {
@@ -138,12 +166,20 @@ describe('#resizeCauseNode', () => {
       id: 'c1',
       type: 'cause',
       data: {
-        label: 'Cause',
-        style: {
-          padding: { top: 20, right: 20, bottom: 20, left: 20 },
+        label: {
+          text: 'Cause',
+          style: {
+            height: 10,
+          },
         },
       },
       position: { x: 0, y: 0 },
+      style: {
+        paddingTop: 20,
+        paddingRight: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+      },
       elements: [
         {
           id: 'c1-e1',
@@ -178,17 +214,23 @@ describe('#resizeCauseNode', () => {
       id: 'c1',
       type: 'cause',
       data: {
-        label: 'Cause',
-        style: {
-          padding: { top: 20, right: 20, bottom: 20, left: 20 },
+        label: {
+          text: 'Cause',
+          style: {
+            height: 10,
+          },
         },
       },
       position: { x: 0, y: 0 },
       width: 50,
-      height: 70,
+      height: 80,
       style: {
+        paddingTop: 20,
+        paddingRight: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
         width: 50,
-        height: 70,
+        height: 80,
       },
       elements: [
         {
@@ -229,12 +271,20 @@ describe('#resizeCauseNode', () => {
       id: 'c1',
       type: 'cause',
       data: {
-        label: 'Cause',
-        style: {
-          padding: { top: 24, right: 8, bottom: 12, left: 16 },
+        label: {
+          text: 'Cause',
+          style: {
+            height: 10,
+          },
         },
       },
       position: { x: 0, y: 0 },
+      style: {
+        paddingTop: 20,
+        paddingRight: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+      },
       elements: [
         {
           id: 'c1-e1',
@@ -256,24 +306,30 @@ describe('#resizeCauseNode', () => {
         },
       ],
     };
-    const options: Required<ResizeCauseNodesOption> = {
+    const options: ResizeCauseNodesOption = {
       elementGap: 4,
     };
     const expected: CauseNodeWithElements = {
       id: 'c1',
       type: 'cause',
       data: {
-        label: 'Cause',
-        style: {
-          padding: { top: 24, right: 8, bottom: 12, left: 16 },
+        label: {
+          text: 'Cause',
+          style: {
+            height: 10,
+          },
         },
       },
       position: { x: 0, y: 0 },
-      width: 34,
-      height: 60,
+      width: 50,
+      height: 74,
       style: {
-        width: 34,
-        height: 60,
+        paddingTop: 20,
+        paddingRight: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+        width: 50,
+        height: 74,
       },
       elements: [
         {

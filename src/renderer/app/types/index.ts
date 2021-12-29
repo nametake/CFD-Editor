@@ -1,41 +1,31 @@
+import { CSSProperties } from 'react';
 import {
   Edge as ReactFlowEdge,
   Node as ReactFlowNode,
 } from 'react-flow-renderer';
 
 export type NodeDataType = {
-  label?: string;
+  label: string;
 };
 
-export type CauseNodeDataType = NodeDataType & {
-  style?: {
-    labelHeight?: number;
-    padding?: {
-      top: number;
-      right: number;
-      bottom: number;
-      left: number;
-    };
+export type CauseNodeDataType = {
+  label: {
+    text: string;
+    style?: CSSProperties;
   };
 };
 
-export type CauseNodeType<T extends CauseNodeDataType = CauseNodeDataType> =
-  Omit<ReactFlowNode<T>, 'type'> & {
-    type: 'cause';
-  };
-export type ElementNodeType<T extends NodeDataType = NodeDataType> = Omit<
-  ReactFlowNode<T>,
-  'type'
-> & { type: 'element' };
-export type ResultNodeType<T extends NodeDataType = NodeDataType> = Omit<
-  ReactFlowNode<T>,
-  'type'
-> & { type: 'result' };
+export type CauseNodeType = Omit<ReactFlowNode<CauseNodeDataType>, 'type'> & {
+  type: 'cause';
+};
+export type ElementNodeType = Omit<ReactFlowNode<NodeDataType>, 'type'> & {
+  type: 'element';
+};
+export type ResultNodeType = Omit<ReactFlowNode<NodeDataType>, 'type'> & {
+  type: 'result';
+};
 
-export type Node<T extends NodeDataType = NodeDataType> =
-  | CauseNodeType<T & CauseNodeDataType>
-  | ElementNodeType<T>
-  | ResultNodeType<T>;
+export type Node = CauseNodeType | ElementNodeType | ResultNodeType;
 export type Edge = ReactFlowEdge;
 
 export type NodeType = Node['type'];
