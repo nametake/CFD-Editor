@@ -1,7 +1,7 @@
 import { ResizeCauseNodesOption, resizeCauseNodes } from '../layouts';
 import { Node } from '@/app/types';
 
-describe('#resizeCauseNode', () => {
+describe('resizeCauseNodes', () => {
   test('has 1 element', () => {
     const nodes: Node[] = [
       {
@@ -47,14 +47,14 @@ describe('#resizeCauseNode', () => {
         },
         position: { x: 0, y: 0 },
         width: 50,
-        height: 50,
+        height: 60,
         style: {
           paddingTop: 20,
           paddingRight: 20,
           paddingBottom: 20,
           paddingLeft: 20,
           width: 50,
-          height: 50,
+          height: 60,
         },
       },
       {
@@ -125,14 +125,14 @@ describe('#resizeCauseNode', () => {
         },
         position: { x: 0, y: 0 },
         width: 50,
-        height: 60,
+        height: 70,
         style: {
           paddingTop: 20,
           paddingRight: 20,
           paddingBottom: 20,
           paddingLeft: 20,
           width: 50,
-          height: 60,
+          height: 70,
         },
       },
       {
@@ -229,10 +229,14 @@ describe('#resizeCauseNode', () => {
         },
         position: { x: 0, y: 0 },
         width: 50,
-        height: 70,
+        height: 80,
         style: {
+          paddingTop: 20,
+          paddingRight: 20,
+          paddingBottom: 20,
+          paddingLeft: 20,
           width: 50,
-          height: 70,
+          height: 80,
         },
       },
       {
@@ -331,15 +335,15 @@ describe('#resizeCauseNode', () => {
           },
         },
         position: { x: 0, y: 0 },
-        width: 34,
-        height: 60,
+        width: 50,
+        height: 74,
         style: {
           paddingTop: 20,
           paddingRight: 20,
           paddingBottom: 20,
           paddingLeft: 20,
-          width: 34,
-          height: 60,
+          width: 50,
+          height: 74,
         },
       },
       {
