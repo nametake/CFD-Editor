@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useCallback, useState } from 'react';
+import { NodeChange } from 'react-flow-renderer';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
@@ -24,8 +25,7 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
 }) {
   const [nodes, setNodes] = useState(argsNodes);
   const sort = useCallback((newNodes: Node[]) => {
-    const n = layoutNodes(newNodes);
-    setNodes(n);
+    setNodes(newNodes);
   }, []);
   return (
     <CauseFlow
@@ -33,9 +33,12 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
       nodes={nodes}
       edges={argsEdges}
       style={{ width: '1024', height: '1024px' }}
-      onNodesChange={(changeNodes) => {
-        sort(applyNodeChanges(changeNodes, nodes));
-      }}
+      onNodesChange={useCallback(
+        (changeNodes: NodeChange[]) => {
+          sort(layoutNodes(applyNodeChanges(changeNodes, nodes)));
+        },
+        [nodes, sort]
+      )}
     />
   );
 };
@@ -50,18 +53,9 @@ Default.args = {
       data: {
         label: {
           text: 'Cause 1',
-          style: {
-            height: 30,
-          },
         },
       },
       position: { x: 0, y: 0 },
-      style: {
-        paddingTop: 20,
-        paddingRight: 20,
-        paddingBottom: 20,
-        paddingLeft: 20,
-      },
     },
     {
       id: 'c1-e1',
@@ -97,18 +91,9 @@ Default.args = {
       data: {
         label: {
           text: 'Cause 2',
-          style: {
-            height: 30,
-          },
         },
       },
       position: { x: 0, y: 0 },
-      style: {
-        paddingTop: 20,
-        paddingRight: 20,
-        paddingBottom: 20,
-        paddingLeft: 20,
-      },
     },
     {
       id: 'c2-e1',
@@ -130,18 +115,9 @@ Default.args = {
       data: {
         label: {
           text: 'Cause 3',
-          style: {
-            height: 30,
-          },
         },
       },
       position: { x: 0, y: 0 },
-      style: {
-        paddingTop: 20,
-        paddingRight: 20,
-        paddingBottom: 20,
-        paddingLeft: 20,
-      },
     },
     {
       id: 'c3-e1',

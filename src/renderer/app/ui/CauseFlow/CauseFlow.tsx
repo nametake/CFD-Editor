@@ -2,10 +2,11 @@ import React from 'react';
 import ReactFlow, { ReactFlowProps } from 'react-flow-renderer';
 
 import { Edge, Node, NodeType } from '@/app/types';
-import { CauseNode, causeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
-import { ElementNode, elementNodeStyle } from '@/app/ui/ElementNode';
-import { ResultNode, resultNodeStyle } from '@/app/ui/ResultNode';
-import { assertUnreachable } from '@/app/utils/assert';
+import { CauseNode } from '@/app/ui/CauseNode';
+import { ElementNode } from '@/app/ui/ElementNode';
+import { ResultNode } from '@/app/ui/ResultNode';
+
+import { layoutNodes } from './layouts/layouts';
 
 const nodeTypes: { [key in NodeType]: React.ReactNode } = {
   cause: CauseNode,
@@ -18,51 +19,13 @@ type CauseFlowProps = Omit<ReactFlowProps, 'nodes' | 'nodeTypes'> & {
   edges: Edge[];
 };
 
-const mapStyle = (node: Node): Node => {
-  switch (node.type) {
-    case 'cause':
-      return {
-        ...node,
-        data: {
-          ...node.data,
-          label: {
-            ...node.data.label,
-            style: causeLabelStyle,
-          },
-        },
-        style: {
-          ...node.style,
-          ...causeNodeStyle,
-        },
-      };
-    case 'element':
-      return {
-        ...node,
-        style: {
-          ...node.style,
-          ...elementNodeStyle,
-        },
-      };
-    case 'result':
-      return {
-        ...node,
-        style: {
-          ...node.style,
-          ...resultNodeStyle,
-        },
-      };
-    default:
-      return assertUnreachable(node);
-  }
-};
-
 /* eslint-disable react/jsx-props-no-spreading */
 export const CauseFlow = function CauseFlow({
   nodes,
   ...props
 }: CauseFlowProps): JSX.Element {
   return (
-    <ReactFlow nodeTypes={nodeTypes} nodes={nodes.map(mapStyle)} {...props} />
+    <ReactFlow nodeTypes={nodeTypes} nodes={layoutNodes(nodes)} {...props} />
   );
 };
 /* eslint-enable */

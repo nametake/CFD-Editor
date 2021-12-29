@@ -4,6 +4,10 @@ import {
   Node,
   ResultNodeType,
 } from '@/app/types';
+import { causeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
+import { elementNodeStyle } from '@/app/ui/ElementNode';
+import { resultNodeStyle } from '@/app/ui/ResultNode';
+import { assertUnreachable } from '@/app/utils/assert';
 import { parseLength } from '@/app/utils/css';
 
 export type AlignOption = {
@@ -72,14 +76,25 @@ export const makeResultNode = (nodes: Node[]): ResultNodeType[] =>
   nodes.filter((node): node is ResultNodeType => node.type === 'result');
 
 export type ResizeCauseNodesOption = {
+  elementsTopMargin?: number;
   elementGap?: number;
 };
 
+// resizeCauseNode calculated CauseNode size by children ElementNodes.
+//
+// width  = (Largest ElementNode width)
+//            + paddingLeft
+//            + paddingRight
+// height = SUM(elements height)
+//            + (elementGap * (elements count-1)) // elements gap
+//            + elementsTopMargin
+//            + paddingLeft
+//            + paddingRight
 export const resizeCauseNode = (
   causeNode: CauseNodeWithElements,
   option?: ResizeCauseNodesOption
 ): CauseNodeWithElements => {
-  const { elementGap } = option ?? {};
+  const { elementsTopMargin, elementGap } = option ?? {};
   const causeWidth =
     causeNode.elements
       .map((el) => el.width ?? 0)
@@ -88,6 +103,7 @@ export const resizeCauseNode = (
     (parseLength(causeNode.style?.paddingRight) ?? 0);
 
   const causeHeight =
+    (elementsTopMargin ?? 0) +
     causeNode.elements
       .map((el) => el.height ?? 0)
       .reduce(
@@ -98,6 +114,7 @@ export const resizeCauseNode = (
     (parseLength(causeNode.data.label?.style?.height) ?? 0) +
     (parseLength(causeNode.style?.paddingTop) ?? 0) +
     (parseLength(causeNode.style?.paddingBottom) ?? 0);
+
   return {
     ...causeNode,
     width: causeWidth,
@@ -120,12 +137,51 @@ export const resizeCauseNodes = (
     ...makeResultNode(nodes),
   ];
 
+const mapStyle = (node: Node): Node => {
+  switch (node.type) {
+    case 'cause':
+      return {
+        ...node,
+        data: {
+          ...node.data,
+          label: {
+            ...node.data.label,
+            style: causeLabelStyle,
+          },
+        },
+        style: {
+          ...node.style,
+          ...causeNodeStyle,
+        },
+      };
+    case 'element':
+      return {
+        ...node,
+        style: {
+          ...node.style,
+          ...elementNodeStyle,
+        },
+      };
+    case 'result':
+      return {
+        ...node,
+        style: {
+          ...node.style,
+          ...resultNodeStyle,
+        },
+      };
+    default:
+      return assertUnreachable(node);
+  }
+};
+
 // TODO remove magic number
 export const layoutNodes = (nodes: Node[]) => {
-  const causeNodes = makeCauseNode(nodes).map((node) =>
-    resizeCauseNode(node, { elementGap: 10 })
+  const styledNodes = nodes.map(mapStyle);
+  const causeNodes = makeCauseNode(styledNodes).map((node) =>
+    resizeCauseNode(node, { elementGap: 10, elementsTopMargin: 10 })
   );
-  const resultNodes = makeResultNode(nodes);
+  const resultNodes = makeResultNode(styledNodes);
 
   const layoutedNodes = alignHorizontal(causeNodes, { gap: 20 }).map(
     ({ elements, ...node }) => ({
@@ -135,7 +191,8 @@ export const layoutNodes = (nodes: Node[]) => {
           x: parseLength(node.style?.paddingLeft) ?? 0,
           y:
             (parseLength(node.style?.paddingTop) ?? 0) +
-            (parseLength(node.data.label?.style?.height) ?? 0),
+            (parseLength(node.data.label?.style?.height) ?? 0) +
+            10,
         },
         gap: 10,
       }),

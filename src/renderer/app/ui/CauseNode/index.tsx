@@ -7,11 +7,10 @@ import { CauseNodeDataType } from '@/app/types';
 
 export const causeNodeStyle: CSSProperties = {
   border: '1px solid',
-  padding: '16px',
-};
-
-export const causeLabelStyle: CSSProperties = {
-  height: '32px',
+  paddingTop: 10,
+  paddingRight: 20,
+  paddingBottom: 10,
+  paddingLeft: 20,
 };
 
 type CauseNodeProps<T> = NodeProps<T>;
@@ -22,8 +21,12 @@ const Wrapper = styled.div`
 `;
 
 const Label = styled.div`
-  color: gray;
+  display: flex;
 `;
+
+export const causeLabelStyle: CSSProperties = {
+  height: 24,
+};
 
 export const CauseNode = function CauseNode<T extends CauseNodeDataType>({
   data,
