@@ -100,6 +100,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "elkjs": "^0.7.1",
     "react": "^17.0.2",
+    "react-datasheet": "^1.4.9",
     "react-dom": "^17.0.2",
     "react-flow-renderer": "^10.0.0-next.30"
   }
