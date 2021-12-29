@@ -48,13 +48,20 @@ Default.args = {
       id: 'c1',
       type: 'cause',
       data: {
-        label: 'Cause 1',
-        style: {
-          labelHeight: 30,
-          padding: { top: 20, right: 20, left: 20, bottom: 20 },
+        label: {
+          text: 'Cause 1',
+          style: {
+            height: 30,
+          },
         },
       },
       position: { x: 0, y: 0 },
+      style: {
+        paddingTop: 20,
+        paddingRight: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+      },
     },
     {
       id: 'c1-e1',
@@ -88,13 +95,20 @@ Default.args = {
       id: 'c2',
       type: 'cause',
       data: {
-        label: 'Cause 2',
-        style: {
-          labelHeight: 30,
-          padding: { top: 20, right: 20, left: 20, bottom: 20 },
+        label: {
+          text: 'Cause 2',
+          style: {
+            height: 30,
+          },
         },
       },
       position: { x: 0, y: 0 },
+      style: {
+        paddingTop: 20,
+        paddingRight: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+      },
     },
     {
       id: 'c2-e1',
@@ -114,13 +128,20 @@ Default.args = {
       id: 'c3',
       type: 'cause',
       data: {
-        label: 'Cause 3',
-        style: {
-          labelHeight: 30,
-          padding: { top: 20, right: 20, left: 20, bottom: 20 },
+        label: {
+          text: 'Cause 3',
+          style: {
+            height: 30,
+          },
         },
       },
       position: { x: 0, y: 0 },
+      style: {
+        paddingTop: 20,
+        paddingRight: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+      },
     },
     {
       id: 'c3-e1',
