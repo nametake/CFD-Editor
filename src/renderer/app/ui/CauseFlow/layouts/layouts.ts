@@ -4,6 +4,7 @@ import {
   Node,
   ResultNodeType,
 } from '@/app/types';
+import { parseLength } from '@/app/utils/css';
 
 export type AlignOption = {
   startPosition?: { x: number; y: number };
@@ -83,8 +84,8 @@ export const resizeCauseNode = (
     causeNode.elements
       .map((el) => el.width ?? 0)
       .reduce((prev, width) => (prev < width ? width : prev), 0) +
-    (causeNode.data.style?.padding?.left ?? 0) +
-    (causeNode.data.style?.padding?.right ?? 0);
+    (parseLength(causeNode.style?.paddingLeft) ?? 0) +
+    (parseLength(causeNode.style?.paddingRight) ?? 0);
 
   const causeHeight =
     causeNode.elements
@@ -94,9 +95,9 @@ export const resizeCauseNode = (
           prev + height + (i !== 0 && elementGap ? elementGap : 0),
         0
       ) +
-    (causeNode.data.style?.labelHeight ?? 0) +
-    (causeNode.data.style?.padding?.top ?? 0) +
-    (causeNode.data.style?.padding?.bottom ?? 0);
+    (parseLength(causeNode.data.label?.style?.height) ?? 0) +
+    (parseLength(causeNode.style?.paddingTop) ?? 0) +
+    (parseLength(causeNode.style?.paddingBottom) ?? 0);
   return {
     ...causeNode,
     width: causeWidth,
@@ -131,10 +132,10 @@ export const layoutNodes = (nodes: Node[]) => {
       ...node,
       elements: alignVertical(elements, {
         startPosition: {
-          x: node.data.style?.padding?.left ?? 0,
+          x: parseLength(node.style?.paddingLeft) ?? 0,
           y:
-            (node.data.style?.padding?.top ?? 0) +
-            (node.data.style?.labelHeight ?? 0),
+            (parseLength(node.style?.paddingTop) ?? 0) +
+            (parseLength(node.data.label?.style?.height) ?? 0),
         },
         gap: 10,
       }),

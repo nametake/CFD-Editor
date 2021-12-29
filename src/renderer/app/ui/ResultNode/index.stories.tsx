@@ -6,7 +6,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { CauseFlow } from '@/app/ui/CauseFlow';
 
-import { ResultNode } from './index';
+import { ResultNode, resultNodeStyle } from './index';
 
 // eslint-disable-next-line import/no-default-export
 export default {
@@ -29,6 +29,7 @@ const Template: ComponentStory<typeof ResultNode> = function Template(args) {
           id: 'id',
           type: 'result',
           position: { x: 8, y: 8 },
+          style: resultNodeStyle,
         },
       ]}
       edges={[]}

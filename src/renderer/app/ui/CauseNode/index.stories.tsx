@@ -6,7 +6,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { CauseFlow } from '@/app/ui/CauseFlow';
 
-import { CauseNode } from './index';
+import { CauseNode, causeLabelStyle, causeNodeStyle } from './index';
 
 // eslint-disable-next-line import/no-default-export
 export default {
@@ -14,14 +14,9 @@ export default {
   component: CauseNode,
   args: {
     data: {
-      label: 'Cause',
-      style: {
-        padding: {
-          top: 16,
-          bottom: 16,
-          left: 16,
-          right: 16,
-        },
+      label: {
+        text: 'Cause',
+        style: causeLabelStyle,
       },
     },
   },
@@ -37,6 +32,7 @@ const Template: ComponentStory<typeof CauseNode> = function Template(args) {
           id: 'id',
           type: 'cause',
           position: { x: 8, y: 8 },
+          style: causeNodeStyle,
         },
       ]}
       edges={[]}

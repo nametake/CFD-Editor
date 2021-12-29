@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { Handle, NodeProps, Position } from 'react-flow-renderer';
 
 import styled from '@emotion/styled';
 
 import { NodeDataType } from '@/app/types';
 
+export const elementNodeStyle: CSSProperties = {
+  borderRadius: '8px',
+  padding: 8,
+  border: '1px solid',
+  textAlign: 'center',
+};
+
 type ElementNodeProps<T> = NodeProps<T>;
 
 const Wrapper = styled.div`
-  border-radius: 8px;
-  padding: 8px;
   width: 100%;
   height: 100%;
-  border: 1px solid;
-  text-align: center;
 `;
 
 const Label = styled.div`
