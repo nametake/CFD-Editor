@@ -47,8 +47,13 @@ Default.args = {
     {
       id: 'c1',
       type: 'cause',
-      data: { label: 'Cause 1' },
-      padding: { top: 50, right: 20, left: 20, bottom: 20 },
+      data: {
+        label: 'Cause 1',
+        style: {
+          labelHeight: 30,
+          padding: { top: 20, right: 20, left: 20, bottom: 20 },
+        },
+      },
       position: { x: 0, y: 0 },
     },
     {
@@ -82,8 +87,13 @@ Default.args = {
     {
       id: 'c2',
       type: 'cause',
-      data: { label: 'Cause 2' },
-      padding: { top: 50, right: 20, left: 20, bottom: 20 },
+      data: {
+        label: 'Cause 2',
+        style: {
+          labelHeight: 30,
+          padding: { top: 20, right: 20, left: 20, bottom: 20 },
+        },
+      },
       position: { x: 0, y: 0 },
     },
     {
@@ -103,8 +113,13 @@ Default.args = {
     {
       id: 'c3',
       type: 'cause',
-      data: { label: 'Cause 3' },
-      padding: { top: 50, right: 20, left: 20, bottom: 20 },
+      data: {
+        label: 'Cause 3',
+        style: {
+          labelHeight: 30,
+          padding: { top: 20, right: 20, left: 20, bottom: 20 },
+        },
+      },
       position: { x: 0, y: 0 },
     },
     {

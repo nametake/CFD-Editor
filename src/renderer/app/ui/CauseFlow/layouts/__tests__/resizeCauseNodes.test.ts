@@ -7,9 +7,13 @@ describe('#resizeCauseNode', () => {
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause' },
+        data: {
+          label: 'Cause',
+          style: {
+            padding: { top: 20, right: 20, bottom: 20, left: 20 },
+          },
+        },
         position: { x: 0, y: 0 },
-        padding: { top: 20, right: 20, bottom: 20, left: 20 },
       },
       {
         id: 'c1-e1',
@@ -25,7 +29,12 @@ describe('#resizeCauseNode', () => {
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause' },
+        data: {
+          label: 'Cause',
+          style: {
+            padding: { top: 20, right: 20, bottom: 20, left: 20 },
+          },
+        },
         position: { x: 0, y: 0 },
         width: 50,
         height: 50,
@@ -33,7 +42,6 @@ describe('#resizeCauseNode', () => {
           width: 50,
           height: 50,
         },
-        padding: { top: 20, right: 20, bottom: 20, left: 20 },
       },
 
       {
@@ -55,9 +63,13 @@ describe('#resizeCauseNode', () => {
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause' },
+        data: {
+          label: 'Cause',
+          style: {
+            padding: { top: 20, right: 20, bottom: 20, left: 20 },
+          },
+        },
         position: { x: 0, y: 0 },
-        padding: { top: 20, right: 20, bottom: 20, left: 20 },
       },
       {
         id: 'c1-e1',
@@ -82,7 +94,12 @@ describe('#resizeCauseNode', () => {
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause' },
+        data: {
+          label: 'Cause',
+          style: {
+            padding: { top: 20, right: 20, bottom: 20, left: 20 },
+          },
+        },
         position: { x: 0, y: 0 },
         width: 50,
         height: 60,
@@ -90,7 +107,6 @@ describe('#resizeCauseNode', () => {
           width: 50,
           height: 60,
         },
-        padding: { top: 20, right: 20, bottom: 20, left: 20 },
       },
       {
         id: 'c1-e1',
@@ -120,9 +136,13 @@ describe('#resizeCauseNode', () => {
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause' },
+        data: {
+          label: 'Cause',
+          style: {
+            padding: { top: 20, right: 20, bottom: 20, left: 20 },
+          },
+        },
         position: { x: 0, y: 0 },
-        padding: { top: 20, right: 20, bottom: 20, left: 20 },
       },
       {
         id: 'c1-e1',
@@ -164,7 +184,12 @@ describe('#resizeCauseNode', () => {
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause' },
+        data: {
+          label: 'Cause',
+          style: {
+            padding: { top: 20, right: 20, bottom: 20, left: 20 },
+          },
+        },
         position: { x: 0, y: 0 },
         width: 50,
         height: 70,
@@ -172,7 +197,6 @@ describe('#resizeCauseNode', () => {
           width: 50,
           height: 70,
         },
-        padding: { top: 20, right: 20, bottom: 20, left: 20 },
       },
       {
         id: 'c1-e1',
@@ -219,9 +243,13 @@ describe('#resizeCauseNode', () => {
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause' },
+        data: {
+          label: 'Cause',
+          style: {
+            padding: { top: 24, right: 8, bottom: 12, left: 16 },
+          },
+        },
         position: { x: 0, y: 0 },
-        padding: { top: 24, right: 8, bottom: 12, left: 16 },
       },
       {
         id: 'c1-e1',
@@ -249,7 +277,12 @@ describe('#resizeCauseNode', () => {
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause' },
+        data: {
+          label: 'Cause',
+          style: {
+            padding: { top: 24, right: 8, bottom: 12, left: 16 },
+          },
+        },
         position: { x: 0, y: 0 },
         width: 34,
         height: 60,
@@ -257,7 +290,6 @@ describe('#resizeCauseNode', () => {
           width: 34,
           height: 60,
         },
-        padding: { top: 24, right: 8, bottom: 12, left: 16 },
       },
       {
         id: 'c1-e1',

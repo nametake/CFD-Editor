@@ -7,18 +7,22 @@ export type NodeDataType = {
   label?: string;
 };
 
-export type CauseNodeType<T extends NodeDataType = NodeDataType> = Omit<
-  ReactFlowNode<T>,
-  'type'
-> & {
-  type: 'cause';
-  padding?: {
-    top: number;
-    right: number;
-    bottom: number;
-    left: number;
+export type CauseNodeDataType = NodeDataType & {
+  style?: {
+    labelHeight?: number;
+    padding?: {
+      top: number;
+      right: number;
+      bottom: number;
+      left: number;
+    };
   };
 };
+
+export type CauseNodeType<T extends CauseNodeDataType = CauseNodeDataType> =
+  Omit<ReactFlowNode<T>, 'type'> & {
+    type: 'cause';
+  };
 export type ElementNodeType<T extends NodeDataType = NodeDataType> = Omit<
   ReactFlowNode<T>,
   'type'
@@ -29,7 +33,7 @@ export type ResultNodeType<T extends NodeDataType = NodeDataType> = Omit<
 > & { type: 'result' };
 
 export type Node<T extends NodeDataType = NodeDataType> =
-  | CauseNodeType<T>
+  | CauseNodeType<T & CauseNodeDataType>
   | ElementNodeType<T>
   | ResultNodeType<T>;
 export type Edge = ReactFlowEdge;

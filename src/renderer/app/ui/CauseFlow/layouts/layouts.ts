@@ -83,8 +83,8 @@ export const resizeCauseNode = (
     causeNode.elements
       .map((el) => el.width ?? 0)
       .reduce((prev, width) => (prev < width ? width : prev), 0) +
-    (causeNode.padding?.left ?? 0) +
-    (causeNode.padding?.right ?? 0);
+    (causeNode.data.style?.padding?.left ?? 0) +
+    (causeNode.data.style?.padding?.right ?? 0);
 
   const causeHeight =
     causeNode.elements
@@ -94,13 +94,15 @@ export const resizeCauseNode = (
           prev + height + (i !== 0 && elementGap ? elementGap : 0),
         0
       ) +
-    (causeNode.padding?.top ?? 0) +
-    (causeNode.padding?.bottom ?? 0);
+    (causeNode.data.style?.labelHeight ?? 0) +
+    (causeNode.data.style?.padding?.top ?? 0) +
+    (causeNode.data.style?.padding?.bottom ?? 0);
   return {
     ...causeNode,
     width: causeWidth,
     height: causeHeight,
     style: {
+      ...causeNode.style,
       width: causeWidth,
       height: causeHeight,
     },
@@ -129,8 +131,10 @@ export const layoutNodes = (nodes: Node[]) => {
       ...node,
       elements: alignVertical(elements, {
         startPosition: {
-          x: node.padding?.left ?? 0,
-          y: node.padding?.top ?? 0,
+          x: node.data.style?.padding?.left ?? 0,
+          y:
+            (node.data.style?.padding?.top ?? 0) +
+            (node.data.style?.labelHeight ?? 0),
         },
         gap: 10,
       }),
