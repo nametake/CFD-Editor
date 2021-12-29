@@ -1,7 +1,7 @@
 import { ElkNode } from 'elkjs';
 
-import { Node } from '..';
 import { mapElkNode } from '../utils';
+import { Node } from '@/app/types';
 
 describe('#mapElkNode', () => {
   test('', () => {

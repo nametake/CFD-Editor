@@ -14,7 +14,7 @@ export const App = function App(): JSX.Element {
             data: {
               label: 'AAAAAAAAAAAAAAAAAAAA',
             },
-            type: 'element',
+            type: 'cause',
             position: { x: 8, y: 8 },
           },
         ]}

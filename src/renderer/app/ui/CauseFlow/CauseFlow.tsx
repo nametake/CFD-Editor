@@ -1,24 +1,16 @@
 import React from 'react';
-import ReactFlow, {
-  Edge as ReactFlowEdge,
-  Node as ReactFlowNode,
-  ReactFlowProps,
-} from 'react-flow-renderer';
+import ReactFlow, { ReactFlowProps } from 'react-flow-renderer';
 
+import { Edge, Node, NodeType } from '@/app/types';
 import { CauseNode } from '@/app/ui/CauseNode';
 import { ElementNode } from '@/app/ui/ElementNode';
 import { ResultNode } from '@/app/ui/ResultNode';
 
-const nodeTypes = {
+const nodeTypes: { [key in NodeType]: React.ReactNode } = {
   cause: CauseNode,
   element: ElementNode,
   result: ResultNode,
 };
-
-export type NodeType = keyof typeof nodeTypes;
-
-export type Node = Omit<ReactFlowNode, 'type'> & { type: NodeType };
-export type Edge = ReactFlowEdge;
 
 type CauseFlowProps = Omit<ReactFlowProps, 'nodes' | 'nodeTypes'> & {
   nodes: Node[];

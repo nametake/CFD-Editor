@@ -15,6 +15,14 @@ export default {
   args: {
     data: {
       label: 'Cause',
+      style: {
+        padding: {
+          top: 16,
+          bottom: 16,
+          left: 16,
+          right: 16,
+        },
+      },
     },
   },
 } as ComponentMeta<typeof CauseNode>;

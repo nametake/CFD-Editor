@@ -1,9 +1,9 @@
 import { ElkNode } from 'elkjs';
 
-import { Node } from '..';
-import { makeElkNodes } from '../utils';
+import { makeElkNodeTree } from '../utils';
+import { Node } from '@/app/types';
 
-describe('#makeElkNodes', () => {
+describe('#makeElkNodeTree', () => {
   test('has parent nodes', () => {
     const nodes: Node[] = [
       {
@@ -82,6 +82,6 @@ describe('#makeElkNodes', () => {
         children: [],
       },
     ];
-    expect(makeElkNodes(nodes)).toStrictEqual(expected);
+    expect(makeElkNodeTree(nodes)).toStrictEqual(expected);
   });
 });
