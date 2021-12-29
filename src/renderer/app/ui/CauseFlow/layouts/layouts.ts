@@ -137,7 +137,7 @@ export const resizeCauseNodes = (
     ...makeResultNode(nodes),
   ];
 
-const mapStyle = (node: Node): Node => {
+export const mapStyle = (node: Node): Node => {
   switch (node.type) {
     case 'cause':
       return {

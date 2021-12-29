@@ -9,7 +9,7 @@ describe('#makeElkNodeTree', () => {
       {
         id: 'c1',
         type: 'cause',
-        data: { label: 'Cause' },
+        data: { label: { text: 'Cause' } },
         position: { x: 0, y: 0 },
         width: 100,
         height: 200,

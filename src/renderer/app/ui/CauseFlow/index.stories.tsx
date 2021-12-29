@@ -8,7 +8,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Node } from '@/app/types';
 
 import { CauseFlow } from './CauseFlow';
-import { layoutNodes } from './layouts/layouts';
+import { layoutNodes } from './layouts';
 import { applyNodeChanges } from './wrapper';
 
 // eslint-disable-next-line import/no-default-export

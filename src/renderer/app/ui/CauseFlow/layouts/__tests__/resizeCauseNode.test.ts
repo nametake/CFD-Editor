@@ -306,7 +306,7 @@ describe('resizeCauseNode', () => {
         },
       ],
     };
-    const options: Required<ResizeCauseNodesOption> = {
+    const options: ResizeCauseNodesOption = {
       elementGap: 4,
     };
     const expected: CauseNodeWithElements = {
