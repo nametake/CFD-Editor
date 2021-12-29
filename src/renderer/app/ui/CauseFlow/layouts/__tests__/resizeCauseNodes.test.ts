@@ -1,5 +1,5 @@
-import { Node } from '../..';
 import { ResizeCauseNodesOption, resizeCauseNodes } from '../layouts';
+import { Node } from '@/app/types';
 
 describe('#resizeCauseNode', () => {
   test('has 1 element', () => {

@@ -1,5 +1,5 @@
-import { Node } from '../..';
 import { AlignOption, alignHorizontal } from '../layouts';
+import { Node } from '@/app/types';
 
 describe('alignHorizontal', () => {
   test('3 nodes', () => {

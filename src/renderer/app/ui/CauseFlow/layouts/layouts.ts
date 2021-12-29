@@ -3,7 +3,7 @@ import {
   ElementNodeType,
   Node,
   ResultNodeType,
-} from '@/app/ui/CauseFlow/types';
+} from '@/app/types';
 
 export type AlignOption = {
   startPosition?: { x: number; y: number };

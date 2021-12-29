@@ -1,6 +1,6 @@
 import { ElkNode } from 'elkjs';
 
-import { Node } from './types';
+import { Node } from '@/app/types';
 
 const mapNodeToElkNode =
   (nodes: Node[]) =>

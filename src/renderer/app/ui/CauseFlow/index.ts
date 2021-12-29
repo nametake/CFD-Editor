@@ -1,3 +1,3 @@
 export * from './CauseFlow';
-export * from './types';
+export * from './wrapper';
 export * from './utils';

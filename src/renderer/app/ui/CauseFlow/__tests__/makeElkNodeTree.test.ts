@@ -1,7 +1,7 @@
 import { ElkNode } from 'elkjs';
 
-import { Node } from '..';
 import { makeElkNodeTree } from '../utils';
+import { Node } from '@/app/types';
 
 describe('#makeElkNodeTree', () => {
   test('has parent nodes', () => {

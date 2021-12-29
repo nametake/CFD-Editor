@@ -1,13 +1,11 @@
 import {
-  EdgeChange,
-  NodeChange,
   Edge as ReactFlowEdge,
   Node as ReactFlowNode,
-  applyEdgeChanges as applyEdgeChangesReactFlow,
-  applyNodeChanges as applyNodeChangesReactFlow,
 } from 'react-flow-renderer';
 
-import { NodeDataType } from '@/types/NodeDataType';
+export type NodeDataType = {
+  label?: string;
+};
 
 export type CauseNodeType<T extends NodeDataType = NodeDataType> = Omit<
   ReactFlowNode<T>,
@@ -37,15 +35,3 @@ export type Node<T extends NodeDataType = NodeDataType> =
 export type Edge = ReactFlowEdge;
 
 export type NodeType = Node['type'];
-
-export const applyNodeChanges = (
-  changes: NodeChange[],
-  nodes: Node[]
-): Node[] =>
-  applyNodeChangesReactFlow(changes, nodes as ReactFlowNode[]) as Node[];
-
-export const applyEdgeChanges = (
-  changes: EdgeChange[],
-  nodes: Edge[]
-): Edge[] =>
-  applyEdgeChangesReactFlow(changes, nodes as ReactFlowEdge[]) as Edge[];

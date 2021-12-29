@@ -3,7 +3,7 @@ import { Handle, NodeProps, Position } from 'react-flow-renderer';
 
 import styled from '@emotion/styled';
 
-import { NodeDataType } from '@/types/NodeDataType';
+import { NodeDataType } from '@/app/types';
 
 type CauseNodeProps<T> = NodeProps<T>;
 

@@ -4,9 +4,11 @@ import React, { useCallback, useState } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
 
+import { Node } from '@/app/types';
+
 import { CauseFlow } from './CauseFlow';
 import { layoutNodes } from './layouts/layouts';
-import { Node, applyNodeChanges } from './types';
+import { applyNodeChanges } from './wrapper';
 
 // eslint-disable-next-line import/no-default-export
 export default {

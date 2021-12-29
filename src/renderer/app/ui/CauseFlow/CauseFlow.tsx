@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactFlow, { ReactFlowProps } from 'react-flow-renderer';
 
+import { Edge, Node, NodeType } from '@/app/types';
 import { CauseNode } from '@/app/ui/CauseNode';
 import { ElementNode } from '@/app/ui/ElementNode';
 import { ResultNode } from '@/app/ui/ResultNode';
-
-import { Edge, Node, NodeType } from './types';
 
 const nodeTypes: { [key in NodeType]: React.ReactNode } = {
   cause: CauseNode,
