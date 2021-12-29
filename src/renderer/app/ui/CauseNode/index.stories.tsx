@@ -16,9 +16,8 @@ export default {
     data: {
       label: 'Cause',
       style: {
-        labelHeight: 11,
         padding: {
-          top: 5,
+          top: 16,
           bottom: 16,
           left: 16,
           right: 16,

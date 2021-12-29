@@ -25,7 +25,7 @@ const Wrapper = styled.div<WrapperProps>`
 `;
 
 const Label = styled.div<{ height: number | undefined }>`
-  height: ${({ height = 0 }) => `${height}px`};
+  height: ${({ height }) => height && `${height}px`};
   color: gray;
 `;
 
