@@ -8,19 +8,44 @@ import { assertUnreachable } from '@/app/utils/assert';
 
 import { CellType } from './types';
 
-export const ActionTitleCell = styled.td`
-  color: red;
+export const TitleCell = styled.td`
+  color: black;
+  .value-viewer {
+    text-align: center;
+  }
 `;
 
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-// You can also strongly type all the Components or SFCs that you pass into ReactDataSheet.
+export const DefaultCell = styled.td`
+  color: black;
+`;
+
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions,react/jsx-props-no-spreading */
 export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
+  // row,
+  // col,
   cell,
-  ...props
+  className,
+  // style,
+  // selected,
+  // editing,
+  // updated,
+  // attributesRenderer,
+  onMouseDown,
+  onMouseOver,
+  onDoubleClick,
+  onContextMenu,
+  children,
 }) {
-  // eslint-disable-next-line no-console
-  console.log(props);
+  const cellProps = {
+    onMouseDown,
+    onMouseOver,
+    onDoubleClick,
+    onContextMenu,
+    className,
+  };
   switch (cell.value.type) {
+    case 'title':
+      return <TitleCell {...cellProps}>{children}</TitleCell>;
     case 'control':
     case 'condition':
     case 'conditionStub':
@@ -28,18 +53,7 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
     case 'action':
     case 'actionStub':
     case 'actionStubRule':
-      return (
-        <ActionTitleCell
-          onMouseDown={props.onMouseDown}
-          onMouseOver={props.onMouseOver}
-          onDoubleClick={props.onDoubleClick}
-          onFocus={() => { }}
-          className="cell selected"
-        >
-          {props.children}
-          {props.selected}
-        </ActionTitleCell>
-      );
+      return <DefaultCell {...cellProps}>{children}</DefaultCell>;
     default:
       return assertUnreachable(cell.value);
   }
@@ -51,6 +65,7 @@ export const CellValue: ReactDataSheet.ValueRenderer<CellType> =
     switch (value.type) {
       case 'control':
         return null;
+      case 'title':
       case 'condition':
       case 'conditionStub':
       case 'conditionStubRule':

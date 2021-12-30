@@ -5,6 +5,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
 
 import { DecisionTable } from './DecisionTable';
+import { useDecisionTable } from './hooks';
 
 // eslint-disable-next-line import/no-default-export
 export default {
@@ -13,12 +14,14 @@ export default {
 } as ComponentMeta<typeof DecisionTable>;
 
 /* eslint-disable react/jsx-props-no-spreading */
-const Template: ComponentStory<typeof DecisionTable> = function Template(args) {
-  return <DecisionTable {...args} />;
-};
+const TemplateWithHooks: ComponentStory<typeof DecisionTable> =
+  function TemplateWithHooks() {
+    const props = useDecisionTable();
+    return <DecisionTable {...props} />;
+  };
 /* eslint-enable */
 
-export const Default = Template.bind({});
+export const Default = TemplateWithHooks.bind({});
 Default.args = {
   data: [[{ value: { type: 'condition', value: 'Name' } }]],
 };

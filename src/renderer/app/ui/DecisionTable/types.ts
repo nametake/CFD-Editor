@@ -1,6 +1,7 @@
 import ReactDataSheet from 'react-datasheet';
 
 export type ValueType =
+  | { type: 'title'; value: string | null }
   | { type: 'control' }
   | { type: 'condition'; value: string | null }
   | { type: 'conditionStub'; value: string | null }
