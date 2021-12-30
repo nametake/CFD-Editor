@@ -1,0 +1,1 @@
+export { DecisionTable } from './DecisionTable';
