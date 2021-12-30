@@ -4,7 +4,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
 
-import { DecisionTable } from './index';
+import { DecisionTable } from './DecisionTable';
 
 // eslint-disable-next-line import/no-default-export
 export default {
