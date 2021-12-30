@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDataSheet from 'react-datasheet';
 
 import styled from '@emotion/styled';
@@ -7,6 +7,7 @@ import 'react-datasheet/lib/react-datasheet.css';
 import { assertUnreachable } from '@/app/utils/assert';
 
 type ValueType =
+  | { type: 'control' }
   | { type: 'condition'; value: string | null }
   | { type: 'conditionStub'; value: string | null }
   | { type: 'conditionStubRule'; value: 'yes' | 'no' }
@@ -26,13 +27,14 @@ const ActionTitleCell = styled.td`
 
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 // You can also strongly type all the Components or SFCs that you pass into ReactDataSheet.
-const cellRenderer: ReactDataSheet.CellRenderer<CellType> = ({
+const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
   cell,
   ...props
-}) => {
+}) {
   // eslint-disable-next-line no-console
   console.log(props);
   switch (cell.value.type) {
+    case 'control':
     case 'condition':
     case 'conditionStub':
     case 'conditionStubRule':
@@ -57,24 +59,45 @@ const cellRenderer: ReactDataSheet.CellRenderer<CellType> = ({
 };
 /* eslint-enable */
 
+const CellValue: ReactDataSheet.ValueRenderer<CellType> = function Value({
+  value,
+}) {
+  switch (value.type) {
+    case 'control':
+      return null;
+    case 'condition':
+    case 'conditionStub':
+    case 'conditionStubRule':
+    case 'action':
+    case 'actionStub':
+    case 'actionStubRule':
+      return value.value;
+    default:
+      return assertUnreachable(value);
+  }
+};
+
 const StyledDataSheet = styled(DataSheet)`
   width: 100%;
   height: 100%;
 `;
 
-export const DecisionTable = function DecisionTable(): JSX.Element {
-  const [grid] = useState<CellType[][]>([
-    [{ value: { type: 'action', value: 'no' } }],
-  ]);
+type DecisionTableProps = {
+  data: CellType[][];
+};
+
+export const DecisionTable = function DecisionTable({
+  data,
+}: DecisionTableProps): JSX.Element {
   return (
     <StyledDataSheet
-      data={grid}
-      valueRenderer={(cell) => cell.value.value}
+      data={data}
+      cellRenderer={Cell}
+      valueRenderer={CellValue}
       onSelect={(s) => {
         // eslint-disable-next-line no-console
         console.log(s);
       }}
-      cellRenderer={cellRenderer}
     />
   );
 };

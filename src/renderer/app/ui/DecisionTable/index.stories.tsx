@@ -13,10 +13,12 @@ export default {
 } as ComponentMeta<typeof DecisionTable>;
 
 /* eslint-disable react/jsx-props-no-spreading */
-const Template: ComponentStory<typeof DecisionTable> = function Template() {
-  return <DecisionTable />;
+const Template: ComponentStory<typeof DecisionTable> = function Template(args) {
+  return <DecisionTable {...args} />;
 };
 /* eslint-enable */
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  data: [[{ value: { type: 'condition', value: 'Name' } }]],
+};
