@@ -61,7 +61,7 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
       return <DefaultCell {...cellProps}>{children}</DefaultCell>;
     case 'TITLE':
       return <TitleCell {...cellProps}>{children}</TitleCell>;
-    case 'ADD_ROW_BUTTON':
+    case 'HEADER_ADD_ROW_BUTTON':
     case 'REMOVE_ROW':
       return <DefaultCell {...cellProps}>{children}</DefaultCell>;
     case 'TEXT':
@@ -79,7 +79,7 @@ export const CellValue: ReactDataSheet.ValueRenderer<CellType> =
     switch (value.type) {
       case 'EMPTY':
         return null;
-      case 'ADD_ROW_BUTTON':
+      case 'HEADER_ADD_ROW_BUTTON':
       case 'REMOVE_ROW':
         return null;
       case 'TITLE':

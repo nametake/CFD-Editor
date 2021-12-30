@@ -7,7 +7,6 @@ import { Cell, CellValue } from './Cell';
 import { CellType } from './types';
 
 import 'react-datasheet/lib/react-datasheet.css';
-import './index.css';
 
 class DataSheet extends ReactDataSheet<CellType> { }
 

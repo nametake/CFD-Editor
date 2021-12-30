@@ -14,7 +14,7 @@ type State = {
 const initialState: State = {
   grid: [
     [
-      { value: { type: 'EMPTY' }, readOnly: true },
+      { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
       { value: { type: 'TITLE', value: 'Condition' }, readOnly: true },
       { value: { type: 'TITLE', value: 'Condition stub' }, readOnly: true },
     ],
@@ -24,19 +24,14 @@ const initialState: State = {
       { value: { type: 'TEXT', value: null } },
     ],
     [
-      { value: { type: 'ADD_ROW_BUTTON' }, readOnly: true },
-      { value: { type: 'EMPTY' }, readOnly: true },
-      { value: { type: 'EMPTY' }, readOnly: true },
-    ],
-    [
-      { value: { type: 'EMPTY' }, readOnly: true },
+      { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
       { value: { type: 'TITLE', value: 'Action' }, readOnly: true },
       { value: { type: 'TITLE', value: 'Action stub' }, readOnly: true },
     ],
     [
-      { value: { type: 'ADD_ROW_BUTTON' }, readOnly: true },
-      { value: { type: 'EMPTY' }, readOnly: true },
-      { value: { type: 'EMPTY' }, readOnly: true },
+      { value: { type: 'REMOVE_ROW' }, readOnly: true },
+      { value: { type: 'TEXT', value: null } },
+      { value: { type: 'TEXT', value: null } },
     ],
   ],
 };
@@ -46,7 +41,8 @@ export type Action =
     type: 'CHANGED_CELLS';
     payload: { changes: ReactDataSheet.CellsChangedArgs<CellType> };
   }
-  | { type: 'CLICK_ADD_ROW_BUTTON'; payload: { row: number } }
+  | { type: 'CLICK_ADD_ROW_TOP_BUTTON'; payload: { row: number } }
+  | { type: 'CLICK_ADD_ROW_BOTTOM_BUTTON'; payload: { row: number } }
   | { type: 'CLICK_REMOVE_ROW_BUTTON'; payload: { row: number } }
   | { type: 'REMOVE_CONDITION_ROW' };
 
@@ -73,7 +69,7 @@ const reducer: Reducer<State, Action> = (
         grid,
       };
     }
-    case 'CLICK_ADD_ROW_BUTTON': {
+    case 'CLICK_ADD_ROW_TOP_BUTTON': {
       const { row } = action.payload;
       const end = prev.grid.length;
       return {
@@ -86,6 +82,22 @@ const reducer: Reducer<State, Action> = (
             { value: { type: 'TEXT', value: null } },
           ],
           ...prev.grid.slice(row, end),
+        ],
+      };
+    }
+    case 'CLICK_ADD_ROW_BOTTOM_BUTTON': {
+      const { row } = action.payload;
+      const end = prev.grid.length;
+      return {
+        ...prev,
+        grid: [
+          ...prev.grid.slice(0, row + 1),
+          [
+            { value: { type: 'REMOVE_ROW', value: null }, readOnly: true },
+            { value: { type: 'TEXT', value: null } },
+            { value: { type: 'TEXT', value: null } },
+          ],
+          ...prev.grid.slice(row + 1, end),
         ],
       };
     }
@@ -109,12 +121,13 @@ type UseDecisionTableResult = DecisionTableProps;
 const mapButton = (
   grid: CellType[][],
   dispatch: Dispatch<Action>
-): CellType[][] => grid.map((row, rowNumber) =>
+): CellType[][] =>
+  grid.map((row, rowNumber) =>
     row.map((cell) => {
-      if (cell.value.type === 'ADD_ROW_BUTTON') {
+      if (cell.value.type === 'HEADER_ADD_ROW_BUTTON') {
         const handleClick = () => {
           dispatch({
-            type: 'CLICK_ADD_ROW_BUTTON',
+            type: 'CLICK_ADD_ROW_BOTTOM_BUTTON',
             payload: { row: rowNumber },
           });
         };
