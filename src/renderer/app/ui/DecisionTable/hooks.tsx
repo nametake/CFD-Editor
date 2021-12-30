@@ -1,4 +1,5 @@
-import React, { Reducer, useReducer } from 'react';
+import React, { Reducer, useCallback, useReducer } from 'react';
+import ReactDataSheet from 'react-datasheet';
 
 import { assertUnreachable } from '@/app/utils/assert';
 
@@ -40,7 +41,10 @@ const initialState: State = {
 };
 
 export type Action =
-  | { type: 'EDIT_CELL' }
+  | {
+    type: 'CHANGED_CELLS';
+    payload: { changes: ReactDataSheet.CellsChangedArgs<CellType> };
+  }
   | { type: 'CLICK_ADD_ROW_BUTTON'; payload: { row: number } }
   | { type: 'CLICK_REMOVE_ROW_BUTTON'; payload: { row: number } }
   | { type: 'REMOVE_CONDITION_ROW' };
@@ -50,6 +54,24 @@ const reducer: Reducer<State, Action> = (
   action: Action
 ): State => {
   switch (action.type) {
+    case 'CHANGED_CELLS': {
+      const { changes } = action.payload;
+      const grid = [...prev.grid];
+      changes.forEach(({ cell, row, col, value }) => {
+        if (cell?.value.type !== 'TEXT') return;
+        grid[row][col] = {
+          ...cell,
+          value: {
+            ...cell.value,
+            value,
+          },
+        };
+      });
+      return {
+        ...prev,
+        grid,
+      };
+    }
     case 'CLICK_ADD_ROW_BUTTON': {
       const { row } = action.payload;
       const end = prev.grid.length;
@@ -74,7 +96,6 @@ const reducer: Reducer<State, Action> = (
         grid: [...prev.grid.slice(0, row), ...prev.grid.slice(row + 1, end)],
       };
     }
-    case 'EDIT_CELL':
     case 'REMOVE_CONDITION_ROW':
       return prev;
     default:
@@ -135,6 +156,12 @@ export const useDecisionTable = (): UseDecisionTableResult => {
 
         return cell;
       })
+    ),
+    onCellsChanged: useCallback(
+      (changes: ReactDataSheet.CellsChangedArgs<CellType>) => {
+        dispatch({ type: 'CHANGED_CELLS', payload: { changes } });
+      },
+      [dispatch]
     ),
   };
 };
