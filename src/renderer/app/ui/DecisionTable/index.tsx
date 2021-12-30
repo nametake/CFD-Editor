@@ -2,17 +2,15 @@ import React, { useState } from 'react';
 import ReactDataSheet from 'react-datasheet';
 import 'react-datasheet/lib/react-datasheet.css';
 
-export interface GridElement extends ReactDataSheet.Cell<GridElement, number> {
-  value: number | null;
+export interface CellType extends ReactDataSheet.Cell<CellType, number> {
+  value: string | null;
 }
 
-class DataSheet extends ReactDataSheet<GridElement, number> { }
+class DataSheet extends ReactDataSheet<CellType, number> { }
 
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 // You can also strongly type all the Components or SFCs that you pass into ReactDataSheet.
-const cellRenderer: ReactDataSheet.CellRenderer<GridElement, number> = (
-  props
-) => {
+const cellRenderer: ReactDataSheet.CellRenderer<CellType, number> = (props) => {
   const backgroundStyle =
     props.cell.value && props.cell.value < 0 ? { color: 'red' } : undefined;
   return (
