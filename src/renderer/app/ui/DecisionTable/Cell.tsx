@@ -3,19 +3,34 @@ import ReactDataSheet from 'react-datasheet';
 
 import styled from '@emotion/styled';
 
-import 'react-datasheet/lib/react-datasheet.css';
 import { assertUnreachable } from '@/app/utils/assert';
 
 import { CellType } from './types';
 
-export const TitleCell = styled.td`
+const DefaultCell = styled.td`
+  vertical-align: middle !important;
+
+  .value-viewer {
+    height: 32px;
+    line-height: 32px;
+    text-align: left;
+    padding: 0 8px;
+  }
+
+  .data-editor {
+    width: 100% !important;
+    height: 32px !important;
+  }
+`;
+
+export const TitleCell = styled(DefaultCell)`
   color: black;
   .value-viewer {
     text-align: center;
   }
 `;
 
-export const TextCell = styled.td`
+export const TextCell = styled(DefaultCell)`
   color: black;
 `;
 
@@ -45,12 +60,12 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
   };
   switch (cell.value.type) {
     case 'EMPTY':
-      return <td {...cellProps} />;
+      return <DefaultCell {...cellProps}>{children}</DefaultCell>;
     case 'TITLE':
       return <TitleCell {...cellProps}>{children}</TitleCell>;
-    case 'ADD_ROW_BUTTON':
+    case 'HEADER_ADD_ROW_BUTTON':
     case 'REMOVE_ROW':
-      return <td {...cellProps}>{children}</td>;
+      return <DefaultCell {...cellProps}>{children}</DefaultCell>;
     case 'TEXT':
     case 'ACTION_RULE':
     case 'CONDITION_RULE':
@@ -66,7 +81,7 @@ export const CellValue: ReactDataSheet.ValueRenderer<CellType> =
     switch (value.type) {
       case 'EMPTY':
         return null;
-      case 'ADD_ROW_BUTTON':
+      case 'HEADER_ADD_ROW_BUTTON':
       case 'REMOVE_ROW':
         return null;
       case 'TITLE':
