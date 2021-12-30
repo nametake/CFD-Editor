@@ -2,6 +2,7 @@ import { Reducer, useReducer } from 'react';
 
 import { assertUnreachable } from '@/app/utils/assert';
 
+import { DecisionTableProps } from './DecisionTable';
 import { CellType } from './types';
 
 type State = {
@@ -31,9 +32,11 @@ const reducer: Reducer<State, Action> = (
   }
 };
 
-export const useUseDecisionTable = () => {
+type UseDecisionTableResult = DecisionTableProps;
+
+export const useDecisionTable = (): UseDecisionTableResult => {
   const [state] = useReducer(reducer, initialState);
   return {
-    grid: state.grid,
+    data: state.grid,
   };
 };

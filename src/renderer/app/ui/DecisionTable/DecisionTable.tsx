@@ -15,22 +15,17 @@ const StyledDataSheet = styled(DataSheet)`
   height: 100%;
 `;
 
-type DecisionTableProps = {
-  data: CellType[][];
-};
+export type DecisionTableProps = Omit<
+  ReactDataSheet.DataSheetProps<CellType>,
+  'cellRenderer' | 'valueRenderer'
+>;
 
-export const DecisionTable = function DecisionTable({
-  data,
-}: DecisionTableProps): JSX.Element {
+/* eslint-disable react/jsx-props-no-spreading */
+export const DecisionTable = function DecisionTable(
+  props: DecisionTableProps
+): JSX.Element {
   return (
-    <StyledDataSheet
-      data={data}
-      cellRenderer={Cell}
-      valueRenderer={CellValue}
-      onSelect={(s) => {
-        // eslint-disable-next-line no-console
-        console.log(s);
-      }}
-    />
+    <StyledDataSheet {...props} cellRenderer={Cell} valueRenderer={CellValue} />
   );
 };
+/* eslint-enable */
