@@ -8,6 +8,8 @@ import { assertUnreachable } from '@/app/utils/assert';
 import { CellType } from './types';
 
 const DefaultCell = styled.td`
+  vertical-align: middle !important;
+
   .value-viewer {
     height: 32px;
     line-height: 32px;
