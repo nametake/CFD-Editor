@@ -1,9 +1,12 @@
 import React from 'react';
 
 import { CauseFlow } from '@/app/ui/CauseFlow';
+import { DecisionTable, useDecisionTable } from '@/app/ui/DecisionTable';
 import { Global } from '@/app/ui/Global';
 
+/* eslint-disable react/jsx-props-no-spreading */
 export const App = function App(): JSX.Element {
+  const props = useDecisionTable();
   return (
     <>
       <Global />
@@ -19,6 +22,8 @@ export const App = function App(): JSX.Element {
         edges={[]}
         style={{ width: '512px', height: '512px' }}
       />
+      <DecisionTable {...props} />
     </>
   );
 };
+/* eslint-enable */

@@ -1,8 +1,9 @@
-import React, { Reducer, useCallback, useReducer } from 'react';
+import React, { Dispatch, Reducer, useCallback, useReducer } from 'react';
 import ReactDataSheet from 'react-datasheet';
 
 import { assertUnreachable } from '@/app/utils/assert';
 
+import { Button } from './Button';
 import { DecisionTableProps } from './DecisionTable';
 import { CellType } from './types';
 
@@ -105,58 +106,55 @@ const reducer: Reducer<State, Action> = (
 
 type UseDecisionTableResult = DecisionTableProps;
 
+const mapButton = (
+  grid: CellType[][],
+  dispatch: Dispatch<Action>
+): CellType[][] => grid.map((row, rowNumber) =>
+    row.map((cell) => {
+      if (cell.value.type === 'ADD_ROW_BUTTON') {
+        const handleClick = () => {
+          dispatch({
+            type: 'CLICK_ADD_ROW_BUTTON',
+            payload: { row: rowNumber },
+          });
+        };
+        return {
+          ...cell,
+          forceComponent: true,
+          component: (
+            <Button type="button" onClick={handleClick}>
+              +
+            </Button>
+          ),
+        };
+      }
+
+      if (cell.value.type === 'REMOVE_ROW') {
+        const handleClick = () => {
+          dispatch({
+            type: 'CLICK_REMOVE_ROW_BUTTON',
+            payload: { row: rowNumber },
+          });
+        };
+        return {
+          ...cell,
+          forceComponent: true,
+          component: (
+            <Button type="button" onClick={handleClick}>
+              -
+            </Button>
+          ),
+        };
+      }
+
+      return cell;
+    })
+  );
+
 export const useDecisionTable = (): UseDecisionTableResult => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return {
-    data: state.grid.map((row, rowNumber) =>
-      row.map((cell) => {
-        if (cell.value.type === 'ADD_ROW_BUTTON') {
-          return {
-            ...cell,
-            forceComponent: true,
-            component: (
-              <div>
-                <button
-                  type="button"
-                  onClick={() =>
-                    dispatch({
-                      type: 'CLICK_ADD_ROW_BUTTON',
-                      payload: { row: rowNumber },
-                    })
-                  }
-                >
-                  +
-                </button>
-              </div>
-            ),
-          };
-        }
-
-        if (cell.value.type === 'REMOVE_ROW') {
-          return {
-            ...cell,
-            forceComponent: true,
-            component: (
-              <div>
-                <button
-                  type="button"
-                  onClick={() =>
-                    dispatch({
-                      type: 'CLICK_REMOVE_ROW_BUTTON',
-                      payload: { row: rowNumber },
-                    })
-                  }
-                >
-                  -
-                </button>
-              </div>
-            ),
-          };
-        }
-
-        return cell;
-      })
-    ),
+    data: mapButton(state.grid, dispatch),
     onCellsChanged: useCallback(
       (changes: ReactDataSheet.CellsChangedArgs<CellType>) => {
         dispatch({ type: 'CHANGED_CELLS', payload: { changes } });
