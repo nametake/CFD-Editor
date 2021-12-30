@@ -12,12 +12,17 @@ type State = {
 const initialState: State = {
   grid: [
     [
-      { value: { type: 'control' } },
+      { value: { type: 'empty' } },
       { value: { type: 'title', value: 'Condition' } },
       { value: { type: 'title', value: 'Condition stub' } },
     ],
     [
-      { value: { type: 'control' } },
+      { value: { type: 'empty' } },
+      { value: { type: 'empty' } },
+      { value: { type: 'empty' } },
+    ],
+    [
+      { value: { type: 'empty' } },
       { value: { type: 'title', value: 'Action' } },
       { value: { type: 'title', value: 'Action stub' } },
     ],

@@ -15,7 +15,7 @@ export const TitleCell = styled.td`
   }
 `;
 
-export const DefaultCell = styled.td`
+export const TextCell = styled.td`
   color: black;
 `;
 
@@ -44,16 +44,14 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
     className,
   };
   switch (cell.value.type) {
+    case 'empty':
+      return <td {...cellProps} />;
     case 'title':
       return <TitleCell {...cellProps}>{children}</TitleCell>;
-    case 'control':
-    case 'condition':
-    case 'conditionStub':
-    case 'conditionStubRule':
-    case 'action':
-    case 'actionStub':
-    case 'actionStubRule':
-      return <DefaultCell {...cellProps}>{children}</DefaultCell>;
+    case 'text':
+    case 'actionRule':
+    case 'conditionRule':
+      return <TextCell {...cellProps}>{children}</TextCell>;
     default:
       return assertUnreachable(cell.value);
   }
@@ -63,15 +61,12 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
 export const CellValue: ReactDataSheet.ValueRenderer<CellType> =
   function Value({ value }) {
     switch (value.type) {
-      case 'control':
+      case 'empty':
         return null;
       case 'title':
-      case 'condition':
-      case 'conditionStub':
-      case 'conditionStubRule':
-      case 'action':
-      case 'actionStub':
-      case 'actionStubRule':
+      case 'text':
+      case 'actionRule':
+      case 'conditionRule':
         return value.value;
       default:
         return assertUnreachable(value);
