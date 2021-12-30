@@ -22,6 +22,4 @@ const TemplateWithHooks: ComponentStory<typeof DecisionTable> =
 /* eslint-enable */
 
 export const Default = TemplateWithHooks.bind({});
-Default.args = {
-  data: [[{ value: { type: 'condition', value: 'Name' } }]],
-};
+Default.args = {};

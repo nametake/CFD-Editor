@@ -44,13 +44,15 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
     className,
   };
   switch (cell.value.type) {
-    case 'empty':
+    case 'EMPTY':
       return <td {...cellProps} />;
-    case 'title':
+    case 'TITLE':
       return <TitleCell {...cellProps}>{children}</TitleCell>;
-    case 'text':
-    case 'actionRule':
-    case 'conditionRule':
+    case 'ADD_ROW_BUTTON':
+      return <td {...cellProps}>{children}</td>;
+    case 'TEXT':
+    case 'ACTION_RULE':
+    case 'CONDITION_RULE':
       return <TextCell {...cellProps}>{children}</TextCell>;
     default:
       return assertUnreachable(cell.value);
@@ -61,12 +63,13 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
 export const CellValue: ReactDataSheet.ValueRenderer<CellType> =
   function Value({ value }) {
     switch (value.type) {
-      case 'empty':
+      case 'EMPTY':
+      case 'ADD_ROW_BUTTON':
         return null;
-      case 'title':
-      case 'text':
-      case 'actionRule':
-      case 'conditionRule':
+      case 'TITLE':
+      case 'TEXT':
+      case 'ACTION_RULE':
+      case 'CONDITION_RULE':
         return value.value;
       default:
         return assertUnreachable(value);
