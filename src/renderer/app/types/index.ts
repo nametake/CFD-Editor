@@ -23,15 +23,15 @@ export type ActionId = string;
 export type ActionStubId = string;
 
 export type ActionStub = {
-  conditionStubId: ActionStubId;
-  conditionId: ActionId;
+  id: ActionStubId;
+  actionId: ActionId;
   name: string;
 };
 
 export type Action = {
   id: ActionId;
   name: string;
-  stub: ActionStubId[];
+  stub: ActionStub[];
 };
 
 export type ConditionRule = {

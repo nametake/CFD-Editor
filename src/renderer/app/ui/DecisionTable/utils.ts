@@ -1,6 +1,6 @@
-import { Condition, ConditionStub } from '@/app/types';
+import { Action, ActionStub, Condition, ConditionStub } from '@/app/types';
 
-import { CONDITION_COLUMN, CONDITION_STUB_COLUMN, CellType } from './types';
+import { CellType, MAIN_COLUMN, STUB_COLUMN } from './types';
 
 const makeId = ({ row, col }: { row: number; col: number }) => `${row}-${col}`;
 
@@ -11,32 +11,34 @@ const getName = (cell: CellType): string => {
   return '';
 };
 
-type MakeConditionOption = {
-  conditionColumn?: number;
-  conditionStubColumn?: number;
-};
 
 type RowRange = {
   start: number;
   end: number;
 };
 
-export const makeCondition = (
+type MakeConditionsOption = {
+  mainColumn?: number;
+  stubColumn?: number;
+};
+
+export const makeConditions = (
   grid: CellType[][],
-  option?: MakeConditionOption
+  option?: MakeConditionsOption
 ): Condition[] => {
-  const conditionColumn = option?.conditionColumn ?? CONDITION_COLUMN;
+  const conditionColumn = option?.mainColumn ?? MAIN_COLUMN;
   const conditionStubColumn =
-    option?.conditionStubColumn ?? CONDITION_STUB_COLUMN;
+    option?.stubColumn ?? STUB_COLUMN;
 
   const headerRows = grid.reduce<number[]>((prev, row, index) => {
     if (row[conditionColumn].value.type !== 'TITLE') return prev;
     return [...prev, index];
   }, []);
 
+  // TODO remove magic number
   const actionHeaderRow = headerRows[1];
 
-  const conditionRowRange = grid.reduce<RowRange[]>(
+  const conditionRowRanges = grid.reduce<RowRange[]>(
     (prev, row, rowIndex): RowRange[] => {
       const cell = row[conditionColumn];
       if (actionHeaderRow <= rowIndex) return prev;
@@ -58,7 +60,7 @@ export const makeCondition = (
     []
   );
 
-  const conditions = conditionRowRange.map<Condition>((rowRange) => {
+  const conditions = conditionRowRanges.map<Condition>((rowRange) => {
     const cell = grid[rowRange.start][conditionColumn];
     const condition: Condition = {
       id: makeId({ row: rowRange.start, col: conditionColumn }),
@@ -82,3 +84,68 @@ export const makeCondition = (
 
   return conditions;
 };
+
+type MakeActionsOption = {
+  mainColumn?: number;
+  stubColumn?: number;
+};
+
+export const makeActions = (grid: CellType[][], option?: MakeActionsOption): Action[] => {
+  const conditionColumn = option?.mainColumn ?? MAIN_COLUMN;
+  const conditionStubColumn =
+    option?.stubColumn ?? STUB_COLUMN;
+
+  const headerRows = grid.reduce<number[]>((prev, row, index) => {
+    if (row[conditionColumn].value.type !== 'TITLE') return prev;
+    return [...prev, index];
+  }, []);
+
+  // TODO remove magic number
+  const actionHeaderRow = headerRows[1];
+
+  const actionRowRanges = grid.reduce<RowRange[]>(
+    (prev, row, rowIndex): RowRange[] => {
+      const cell = row[conditionColumn];
+      if (actionHeaderRow > rowIndex) return prev;
+      if (cell.value.type !== 'TEXT') return prev;
+
+      // new condition
+      if (cell.value.value !== null) {
+        return [...prev, { start: rowIndex, end: rowIndex }];
+      }
+
+      // update condtion end
+      const lastRowRange = prev[prev.length - 1];
+
+      return [
+        ...prev.slice(0, prev.length - 1),
+        { ...lastRowRange, end: rowIndex + 1 },
+      ];
+    },
+    []
+  );
+
+  const actions = actionRowRanges.map<Action>((rowRange) => {
+    const cell = grid[rowRange.start][conditionColumn];
+    const action: Action = {
+      id: makeId({ row: rowRange.start, col: conditionColumn }),
+      name: getName(cell),
+      stub: grid
+        .slice(rowRange.start, rowRange.end)
+        .map<ActionStub>((row, i): ActionStub => {
+          const c = row[conditionStubColumn];
+          return {
+            id: makeId({
+              row: rowRange.start + i,
+              col: conditionStubColumn,
+            }),
+            actionId: makeId({ row: rowRange.start, col: conditionColumn }),
+            name: getName(c),
+          };
+        }),
+    };
+    return action;
+  });
+
+  return actions
+}

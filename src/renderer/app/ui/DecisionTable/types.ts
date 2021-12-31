@@ -1,7 +1,7 @@
 import ReactDataSheet from 'react-datasheet';
 
-export const CONDITION_COLUMN = 1;
-export const CONDITION_STUB_COLUMN = 2;
+export const MAIN_COLUMN = 1;
+export const STUB_COLUMN = 2;
 
 export type ValueType =
   | { type: 'EMPTY' }

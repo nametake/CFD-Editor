@@ -1,9 +1,9 @@
 import { CellType } from '../types';
-import { makeConditions } from '../utils';
-import { Condition } from '@/app/types';
+import { makeActions } from '../utils';
+import { Action } from '@/app/types';
 
-describe('utils/makeCondition', () => {
-  test('2 conditions', () => {
+describe('utils/makeActions', () => {
+  test('2 actions', () => {
     const grid: CellType[][] = [
       [
         { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
@@ -57,42 +57,41 @@ describe('utils/makeCondition', () => {
       ],
     ];
 
-    const expected: Condition[] = [
+    const expected: Action[] = [
       {
-        id: '1-1',
-        name: 'Card',
+        id: '6-1',
+        name: 'Action 1',
         stub: [
           {
-            id: '1-2',
-            conditionId: '1-1',
-            name: 'Visa',
+            id: '6-2',
+            actionId: '6-1',
+            name: 'Action 1 one',
           },
           {
-            id: '2-2',
-            conditionId: '1-1',
-            name: 'MasterCard',
+            id: '7-2',
+            actionId: '6-1',
+            name: 'Action 1 two',
           },
         ],
       },
       {
-        id: '3-1',
-        name: 'Country',
+        id: '8-1',
+        name: 'Action 2',
         stub: [
           {
-            id: '3-2',
-            conditionId: '3-1',
-            name: 'Japan',
+            id: '8-2',
+            actionId: '8-1',
+            name: 'Action 2 one',
           },
           {
-            id: '4-2',
-            conditionId: '3-1',
-            name: 'USA',
+            id: '9-2',
+            actionId: '8-1',
+            name: 'Action 2 two',
           },
         ],
       },
     ];
 
-    expect(makeConditions(grid)).toStrictEqual(expected);
+    expect(makeActions(grid)).toStrictEqual(expected);
   });
-
 });
