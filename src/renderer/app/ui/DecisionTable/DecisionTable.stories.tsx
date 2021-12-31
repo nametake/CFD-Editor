@@ -16,8 +16,8 @@ export default {
 /* eslint-disable react/jsx-props-no-spreading */
 const TemplateWithHooks: ComponentStory<typeof DecisionTable> =
   function TemplateWithHooks() {
-    const props = useDecisionTable();
-    return <DecisionTable {...props} />;
+    const { decisionTableProps } = useDecisionTable();
+    return <DecisionTable {...decisionTableProps} />;
   };
 /* eslint-enable */
 
