@@ -8,7 +8,7 @@ export type ConditionId = string;
 export type ConditionStubId = string;
 
 export type ConditionStub = {
-  conditionStubId: ConditionStubId;
+  id: ConditionStubId;
   conditionId: ConditionId;
   name: string;
 };
