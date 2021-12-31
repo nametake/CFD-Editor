@@ -6,7 +6,7 @@ import { Global } from '@/app/ui/Global';
 
 /* eslint-disable react/jsx-props-no-spreading */
 export const App = function App(): JSX.Element {
-  const props = useDecisionTable();
+  const { decisionTableProps } = useDecisionTable();
   return (
     <>
       <Global />
@@ -22,7 +22,7 @@ export const App = function App(): JSX.Element {
         edges={[]}
         style={{ width: '512px', height: '512px' }}
       />
-      <DecisionTable {...props} />
+      <DecisionTable {...decisionTableProps} />
     </>
   );
 };

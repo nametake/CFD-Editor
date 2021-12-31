@@ -1,17 +1,19 @@
 import React, { Dispatch, Reducer, useCallback, useReducer } from 'react';
 import ReactDataSheet from 'react-datasheet';
 
+import { Action, Condition } from '@/app/types';
 import { assertUnreachable } from '@/app/utils/assert';
 
 import { Button } from './Button';
 import { DecisionTableProps } from './DecisionTable';
 import { CellType } from './types';
+import { makeActions, makeConditions } from './utils';
 
-type State = {
+type DecisionTableState = {
   grid: CellType[][];
 };
 
-const initialState: State = {
+const initialState: DecisionTableState = {
   grid: [
     [
       { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
@@ -36,7 +38,7 @@ const initialState: State = {
   ],
 };
 
-export type Action =
+export type DecisionTableAction =
   | {
     type: 'CHANGED_CELLS';
     payload: { changes: ReactDataSheet.CellsChangedArgs<CellType> };
@@ -46,10 +48,10 @@ export type Action =
   | { type: 'CLICK_REMOVE_ROW_BUTTON'; payload: { row: number } }
   | { type: 'REMOVE_CONDITION_ROW' };
 
-const reducer: Reducer<State, Action> = (
-  prev: State,
-  action: Action
-): State => {
+const reducer: Reducer<DecisionTableState, DecisionTableAction> = (
+  prev: DecisionTableState,
+  action: DecisionTableAction
+): DecisionTableState => {
   switch (action.type) {
     case 'CHANGED_CELLS': {
       const { changes } = action.payload;
@@ -116,11 +118,15 @@ const reducer: Reducer<State, Action> = (
   }
 };
 
-type UseDecisionTableResult = DecisionTableProps;
+type UseDecisionTableResult = {
+  conditions: Condition[];
+  actions: Action[];
+  decisionTableProps: DecisionTableProps;
+};
 
 const mapButton = (
   grid: CellType[][],
-  dispatch: Dispatch<Action>
+  dispatch: Dispatch<DecisionTableAction>
 ): CellType[][] =>
   grid.map((row, rowNumber) =>
     row.map((cell) => {
@@ -167,12 +173,16 @@ const mapButton = (
 export const useDecisionTable = (): UseDecisionTableResult => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return {
-    data: mapButton(state.grid, dispatch),
-    onCellsChanged: useCallback(
-      (changes: ReactDataSheet.CellsChangedArgs<CellType>) => {
-        dispatch({ type: 'CHANGED_CELLS', payload: { changes } });
-      },
-      [dispatch]
-    ),
+    conditions: makeConditions(state.grid),
+    actions: makeActions(state.grid),
+    decisionTableProps: {
+      data: mapButton(state.grid, dispatch),
+      onCellsChanged: useCallback(
+        (changes: ReactDataSheet.CellsChangedArgs<CellType>) => {
+          dispatch({ type: 'CHANGED_CELLS', payload: { changes } });
+        },
+        [dispatch]
+      ),
+    },
   };
 };
