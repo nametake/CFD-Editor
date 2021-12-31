@@ -1,9 +1,19 @@
-import { Condition } from '@/app/types';
+import { Condition, ConditionStub } from '@/app/types';
 
-import { CONDITION_COLUMN, CellType } from './types';
+import { CONDITION_COLUMN, CONDITION_STUB_COLUMN, CellType } from './types';
+
+const makeId = ({ row, col }: { row: number; col: number }) => `${row}-${col}`;
+
+const getName = (cell: CellType): string => {
+  if (cell.value.type === 'TEXT') {
+    return cell.value.value ?? '';
+  }
+  return '';
+};
 
 type MakeConditionOption = {
   conditionColumn?: number;
+  conditionStubColumn?: number;
 };
 
 type RowRange = {
@@ -16,6 +26,8 @@ export const makeCondition = (
   option?: MakeConditionOption
 ): Condition[] => {
   const conditionColumn = option?.conditionColumn ?? CONDITION_COLUMN;
+  const conditionStubColumn =
+    option?.conditionStubColumn ?? CONDITION_STUB_COLUMN;
 
   const headerRows = grid.reduce<number[]>((prev, row, index) => {
     if (row[conditionColumn].value.type !== 'TITLE') return prev;
@@ -40,14 +52,33 @@ export const makeCondition = (
 
       return [
         ...prev.slice(0, prev.length - 1),
-        { ...lastRowRange, end: rowIndex },
+        { ...lastRowRange, end: rowIndex + 1 },
       ];
     },
     []
   );
 
-  // eslint-disable-next-line no-console
-  console.log(conditionRowRange);
+  const conditions = conditionRowRange.map<Condition>((rowRange) => {
+    const cell = grid[rowRange.start][conditionColumn];
+    const condition: Condition = {
+      id: makeId({ row: rowRange.start, col: conditionColumn }),
+      name: getName(cell),
+      stub: grid
+        .slice(rowRange.start, rowRange.end)
+        .map<ConditionStub>((row, i): ConditionStub => {
+          const c = row[conditionStubColumn];
+          return {
+            id: makeId({
+              row: rowRange.start + i,
+              col: conditionStubColumn,
+            }),
+            conditionId: makeId({ row: rowRange.start, col: conditionColumn }),
+            name: getName(c),
+          };
+        }),
+    };
+    return condition;
+  });
 
-  return [];
+  return conditions;
 };

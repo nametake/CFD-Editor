@@ -49,33 +49,33 @@ describe('utils/makeCondition', () => {
 
     const expected: Condition[] = [
       {
-        id: '2-2',
+        id: '1-1',
         name: 'Card',
         stub: [
           {
-            id: '3-3',
-            conditionId: '2-2',
+            id: '1-2',
+            conditionId: '1-1',
             name: 'Visa',
           },
           {
-            id: '3-4',
-            conditionId: '2-2',
+            id: '2-2',
+            conditionId: '1-1',
             name: 'MasterCard',
           },
         ],
       },
       {
-        id: '2-4',
+        id: '3-1',
         name: 'Country',
         stub: [
           {
-            id: '3-4',
-            conditionId: '2-4',
+            id: '3-2',
+            conditionId: '3-1',
             name: 'Japan',
           },
           {
-            id: '3-5',
-            conditionId: '2-5',
+            id: '4-2',
+            conditionId: '3-1',
             name: 'USA',
           },
         ],
