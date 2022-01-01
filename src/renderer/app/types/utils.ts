@@ -1,6 +1,7 @@
 import { Condition, Node } from './types';
 
-export const makeCauseNodes = (condtions: Condition[]): Node[] => condtions.flatMap((condtion) => [
+export const makeCauseNodes = (condtions: Condition[]): Node[] =>
+  condtions.flatMap((condtion) => [
     {
       id: condtion.id,
       data: { label: { text: condtion.name } },
