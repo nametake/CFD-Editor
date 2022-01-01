@@ -4,13 +4,12 @@ import { CellType, MAIN_COLUMN, STUB_COLUMN } from './types';
 
 const makeId = ({ row, col }: { row: number; col: number }) => `${row}-${col}`;
 
-const getName = (cell: CellType): string => {
+const getName = (cell: CellType): string | null => {
   if (cell.value.type === 'TEXT') {
-    return cell.value.value ?? '';
+    return cell.value.value;
   }
-  return '';
+  return null;
 };
-
 
 type RowRange = {
   start: number;
@@ -27,8 +26,7 @@ export const makeConditions = (
   option?: MakeConditionsOption
 ): Condition[] => {
   const conditionColumn = option?.mainColumn ?? MAIN_COLUMN;
-  const conditionStubColumn =
-    option?.stubColumn ?? STUB_COLUMN;
+  const conditionStubColumn = option?.stubColumn ?? STUB_COLUMN;
 
   const headerRows = grid.reduce<number[]>((prev, row, index) => {
     if (row[conditionColumn].value.type !== 'TITLE') return prev;
@@ -51,6 +49,7 @@ export const makeConditions = (
 
       // update condtion end
       const lastRowRange = prev[prev.length - 1];
+      if (!lastRowRange) return prev;
 
       return [
         ...prev.slice(0, prev.length - 1),
@@ -60,27 +59,41 @@ export const makeConditions = (
     []
   );
 
-  const conditions = conditionRowRanges.map<Condition>((rowRange) => {
-    const cell = grid[rowRange.start][conditionColumn];
-    const condition: Condition = {
-      id: makeId({ row: rowRange.start, col: conditionColumn }),
-      name: getName(cell),
-      stub: grid
-        .slice(rowRange.start, rowRange.end)
-        .map<ConditionStub>((row, i): ConditionStub => {
-          const c = row[conditionStubColumn];
-          return {
-            id: makeId({
-              row: rowRange.start + i,
-              col: conditionStubColumn,
-            }),
-            conditionId: makeId({ row: rowRange.start, col: conditionColumn }),
-            name: getName(c),
-          };
-        }),
-    };
-    return condition;
-  });
+  const conditions = conditionRowRanges
+    .map<Condition | null>((rowRange) => {
+      const cell = grid[rowRange.start][conditionColumn];
+      const conditionName = getName(cell);
+      if (!conditionName) {
+        return null;
+      }
+      const condition: Condition = {
+        id: makeId({ row: rowRange.start, col: conditionColumn }),
+        name: conditionName,
+        stub: grid
+          .slice(rowRange.start, rowRange.end)
+          .map<ConditionStub | null>((row, i): ConditionStub | null => {
+            const c = row[conditionStubColumn];
+            const name = getName(c);
+            if (!name) {
+              return null;
+            }
+            return {
+              id: makeId({
+                row: rowRange.start + i,
+                col: conditionStubColumn,
+              }),
+              conditionId: makeId({
+                row: rowRange.start,
+                col: conditionColumn,
+              }),
+              name,
+            };
+          })
+          .filter((stub): stub is ConditionStub => stub !== null),
+      };
+      return condition;
+    })
+    .filter((condition): condition is Condition => condition !== null);
 
   return conditions;
 };
@@ -90,10 +103,12 @@ type MakeActionsOption = {
   stubColumn?: number;
 };
 
-export const makeActions = (grid: CellType[][], option?: MakeActionsOption): Action[] => {
+export const makeActions = (
+  grid: CellType[][],
+  option?: MakeActionsOption
+): Action[] => {
   const conditionColumn = option?.mainColumn ?? MAIN_COLUMN;
-  const conditionStubColumn =
-    option?.stubColumn ?? STUB_COLUMN;
+  const conditionStubColumn = option?.stubColumn ?? STUB_COLUMN;
 
   const headerRows = grid.reduce<number[]>((prev, row, index) => {
     if (row[conditionColumn].value.type !== 'TITLE') return prev;
@@ -116,6 +131,7 @@ export const makeActions = (grid: CellType[][], option?: MakeActionsOption): Act
 
       // update condtion end
       const lastRowRange = prev[prev.length - 1];
+      if (!lastRowRange) return prev;
 
       return [
         ...prev.slice(0, prev.length - 1),
@@ -125,27 +141,38 @@ export const makeActions = (grid: CellType[][], option?: MakeActionsOption): Act
     []
   );
 
-  const actions = actionRowRanges.map<Action>((rowRange) => {
-    const cell = grid[rowRange.start][conditionColumn];
-    const action: Action = {
-      id: makeId({ row: rowRange.start, col: conditionColumn }),
-      name: getName(cell),
-      stub: grid
-        .slice(rowRange.start, rowRange.end)
-        .map<ActionStub>((row, i): ActionStub => {
-          const c = row[conditionStubColumn];
-          return {
-            id: makeId({
-              row: rowRange.start + i,
-              col: conditionStubColumn,
-            }),
-            actionId: makeId({ row: rowRange.start, col: conditionColumn }),
-            name: getName(c),
-          };
-        }),
-    };
-    return action;
-  });
+  const actions = actionRowRanges
+    .map<Action | null>((rowRange) => {
+      const cell = grid[rowRange.start][conditionColumn];
+      const actionName = getName(cell);
+      if (!actionName) {
+        return null;
+      }
+      const action: Action = {
+        id: makeId({ row: rowRange.start, col: conditionColumn }),
+        name: actionName,
+        stub: grid
+          .slice(rowRange.start, rowRange.end)
+          .map<ActionStub | null>((row, i): ActionStub | null => {
+            const c = row[conditionStubColumn];
+            const name = getName(c);
+            if (!name) {
+              return null;
+            }
+            return {
+              id: makeId({
+                row: rowRange.start + i,
+                col: conditionStubColumn,
+              }),
+              actionId: makeId({ row: rowRange.start, col: conditionColumn }),
+              name,
+            };
+          })
+          .filter((stub): stub is ActionStub => stub !== null),
+      };
+      return action;
+    })
+    .filter((action): action is Action => action !== null);
 
-  return actions
-}
+  return actions;
+};

@@ -13,7 +13,7 @@ type DecisionTableState = {
   grid: CellType[][];
 };
 
-const initialState: DecisionTableState = {
+export const initialState: DecisionTableState = {
   grid: [
     [
       { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },

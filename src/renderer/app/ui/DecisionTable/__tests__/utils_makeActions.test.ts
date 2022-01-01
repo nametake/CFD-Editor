@@ -1,9 +1,10 @@
+import { initialState } from '../hooks';
 import { CellType } from '../types';
 import { makeActions } from '../utils';
 import { Action } from '@/app/types';
 
 describe('utils/makeActions', () => {
-  test('2 actions', () => {
+  test('2 actions 2 stubs', () => {
     const grid: CellType[][] = [
       [
         { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
@@ -92,6 +93,114 @@ describe('utils/makeActions', () => {
       },
     ];
 
+    expect(makeActions(grid)).toStrictEqual(expected);
+  });
+
+  test('2 actions 1 stubs', () => {
+    const grid: CellType[][] = [
+      [
+        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Condition' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Condition stub' }, readOnly: true },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: 'Card' } },
+        { value: { type: 'TEXT', value: 'Visa' } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'TEXT', value: 'MasterCard' } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: 'Country' } },
+        { value: { type: 'TEXT', value: 'Japan' } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'TEXT', value: 'USA' } },
+      ],
+      [
+        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Action' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Action stub' }, readOnly: true },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: 'Action 1' } },
+        { value: { type: 'TEXT', value: 'Action 1 one' } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'TEXT', value: null } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: 'Action 2' } },
+        { value: { type: 'TEXT', value: null } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'TEXT', value: 'Action 2 two' } },
+      ],
+    ];
+
+    const expected: Action[] = [
+      {
+        id: '6-1',
+        name: 'Action 1',
+        stub: [
+          {
+            id: '6-2',
+            actionId: '6-1',
+            name: 'Action 1 one',
+          },
+        ],
+      },
+      {
+        id: '8-1',
+        name: 'Action 2',
+        stub: [
+          {
+            id: '9-2',
+            actionId: '8-1',
+            name: 'Action 2 two',
+          },
+        ],
+      },
+    ];
+
+    expect(makeActions(grid)).toStrictEqual(expected);
+  });
+
+  test('no action', () => {
+    const grid: CellType[][] = [
+      [
+        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Condition' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Condition stub' }, readOnly: true },
+      ],
+      [
+        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Action' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Action stub' }, readOnly: true },
+      ],
+    ];
+
+    const expected: Action[] = [];
+
+    expect(makeActions(grid)).toStrictEqual(expected);
+  });
+
+  test('initial state', () => {
+    const { grid } = initialState;
+
+    const expected: Action[] = [];
     expect(makeActions(grid)).toStrictEqual(expected);
   });
 });
