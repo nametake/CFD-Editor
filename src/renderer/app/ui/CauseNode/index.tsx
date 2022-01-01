@@ -7,6 +7,7 @@ import { CauseNodeDataType } from '@/app/types';
 
 export const causeNodeStyle: CSSProperties = {
   width: 'fit-content',
+  height: undefined,
   border: '1px solid',
   paddingTop: 10,
   paddingRight: 20,
