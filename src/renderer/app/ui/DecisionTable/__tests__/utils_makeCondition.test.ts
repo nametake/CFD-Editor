@@ -23,8 +23,18 @@ describe('utils/makeCondition', () => {
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'TEXT', value: null } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
         { value: { type: 'TEXT', value: 'Country' } },
         { value: { type: 'TEXT', value: 'Japan' } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'TEXT', value: null } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
@@ -76,17 +86,17 @@ describe('utils/makeCondition', () => {
         ],
       },
       {
-        id: '3-1',
+        id: '4-1',
         name: 'Country',
         stub: [
           {
-            id: '3-2',
-            conditionId: '3-1',
+            id: '4-2',
+            conditionId: '4-1',
             name: 'Japan',
           },
           {
-            id: '4-2',
-            conditionId: '3-1',
+            id: '6-2',
+            conditionId: '4-1',
             name: 'USA',
           },
         ],
