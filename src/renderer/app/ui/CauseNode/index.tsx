@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import { CauseNodeDataType } from '@/app/types';
 
 export const causeNodeStyle: CSSProperties = {
+  width: 'fit-content',
   border: '1px solid',
   paddingTop: 10,
   paddingRight: 20,

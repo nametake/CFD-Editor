@@ -8,7 +8,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Node } from '@/app/types';
 
 import { CauseFlow } from './CauseFlow';
-import { layoutNodes } from './layouts';
+import { layoutNodes, mapStyle } from './layouts';
 import { applyNodeChanges } from './wrapper';
 
 // eslint-disable-next-line import/no-default-export
@@ -44,114 +44,116 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
 };
 /* eslint-enable */
 
+const defaultNodes: Node[] = [
+  {
+    id: 'c1',
+    type: 'cause',
+    data: {
+      label: {
+        text: 'Cause 1',
+      },
+    },
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: 'c1-e1',
+    parentNode: 'c1',
+    type: 'element',
+    data: { label: 'Cause 1 Element 1' },
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: 'c1-e2',
+    parentNode: 'c1',
+    type: 'element',
+    data: { label: 'Cause 1 Element 2' },
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: 'c1-e3',
+    parentNode: 'c1',
+    type: 'element',
+    data: { label: 'Cause 1 Element 3' },
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: 'c1-e4',
+    parentNode: 'c1',
+    type: 'element',
+    data: { label: 'Cause 1 Other' },
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: 'c2',
+    type: 'cause',
+    data: {
+      label: {
+        text: 'Cause 2',
+      },
+    },
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: 'c2-e1',
+    parentNode: 'c2',
+    type: 'element',
+    data: { label: 'Cause 2 Element 1' },
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: 'c2-e2',
+    parentNode: 'c2',
+    type: 'element',
+    data: { label: 'Cause 2 Element 2' },
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: 'c3',
+    type: 'cause',
+    data: {
+      label: {
+        text: 'Cause 3',
+      },
+    },
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: 'c3-e1',
+    parentNode: 'c3',
+    type: 'element',
+    data: { label: 'Cause 3 Element 1' },
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: 'c3-e2',
+    parentNode: 'c3',
+    type: 'element',
+    data: { label: 'Cause 3 Element 2' },
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: 'r1',
+    type: 'result',
+    data: { label: 'Result 1' },
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: 'r2',
+    type: 'result',
+    data: { label: 'Result 2' },
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: 'r3',
+    type: 'result',
+    data: { label: 'Result 3' },
+    position: { x: 0, y: 0 },
+  },
+];
+
 export const Default = Template.bind({});
 Default.args = {
-  nodes: [
-    {
-      id: 'c1',
-      type: 'cause',
-      data: {
-        label: {
-          text: 'Cause 1',
-        },
-      },
-      position: { x: 0, y: 0 },
-    },
-    {
-      id: 'c1-e1',
-      parentNode: 'c1',
-      type: 'element',
-      data: { label: 'Cause 1 Element 1' },
-      position: { x: 0, y: 0 },
-    },
-    {
-      id: 'c1-e2',
-      parentNode: 'c1',
-      type: 'element',
-      data: { label: 'Cause 1 Element 2' },
-      position: { x: 0, y: 0 },
-    },
-    {
-      id: 'c1-e3',
-      parentNode: 'c1',
-      type: 'element',
-      data: { label: 'Cause 1 Element 3' },
-      position: { x: 0, y: 0 },
-    },
-    {
-      id: 'c1-e4',
-      parentNode: 'c1',
-      type: 'element',
-      data: { label: 'Cause 1 Other' },
-      position: { x: 0, y: 0 },
-    },
-    {
-      id: 'c2',
-      type: 'cause',
-      data: {
-        label: {
-          text: 'Cause 2',
-        },
-      },
-      position: { x: 0, y: 0 },
-    },
-    {
-      id: 'c2-e1',
-      parentNode: 'c2',
-      type: 'element',
-      data: { label: 'Cause 2 Element 1' },
-      position: { x: 0, y: 0 },
-    },
-    {
-      id: 'c2-e2',
-      parentNode: 'c2',
-      type: 'element',
-      data: { label: 'Cause 2 Element 2' },
-      position: { x: 0, y: 0 },
-    },
-    {
-      id: 'c3',
-      type: 'cause',
-      data: {
-        label: {
-          text: 'Cause 3',
-        },
-      },
-      position: { x: 0, y: 0 },
-    },
-    {
-      id: 'c3-e1',
-      parentNode: 'c3',
-      type: 'element',
-      data: { label: 'Cause 3 Element 1' },
-      position: { x: 0, y: 0 },
-    },
-    {
-      id: 'c3-e2',
-      parentNode: 'c3',
-      type: 'element',
-      data: { label: 'Cause 3 Element 2' },
-      position: { x: 0, y: 0 },
-    },
-    {
-      id: 'r1',
-      type: 'result',
-      data: { label: 'Result 1' },
-      position: { x: 0, y: 0 },
-    },
-    {
-      id: 'r2',
-      type: 'result',
-      data: { label: 'Result 2' },
-      position: { x: 0, y: 0 },
-    },
-    {
-      id: 'r3',
-      type: 'result',
-      data: { label: 'Result 3' },
-      position: { x: 0, y: 0 },
-    },
-  ],
+  nodes: defaultNodes.map(mapStyle),
   edges: [
     { id: 'c1-e1_c2-e1', source: 'c1-e1', target: 'c2-e1' },
     { id: 'c1-e2_c2', source: 'c1-e2', target: 'c2' },

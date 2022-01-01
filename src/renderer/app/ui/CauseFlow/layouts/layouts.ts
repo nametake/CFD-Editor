@@ -94,6 +94,9 @@ export const resizeCauseNode = (
   causeNode: CauseNodeWithElements,
   option?: ResizeCauseNodesOption
 ): CauseNodeWithElements => {
+  if (causeNode.elements.length === 0) {
+    return causeNode;
+  }
   const { elementsTopMargin, elementGap } = option ?? {};
   const causeWidth =
     causeNode.elements
