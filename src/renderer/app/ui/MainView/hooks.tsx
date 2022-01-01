@@ -6,11 +6,11 @@ import { Button } from '@/app/ui/Button';
 import { CellType, DecisionTableProps, makeActions, makeConditions } from '@/app/ui/DecisionTable';
 import { assertUnreachable } from '@/app/utils/assert';
 
-type DecisionTableState = {
+export type MainViewState = {
   grid: CellType[][];
 };
 
-export const initialState: DecisionTableState = {
+export const initialState: MainViewState = {
   grid: [
     [
       { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
@@ -35,7 +35,7 @@ export const initialState: DecisionTableState = {
   ],
 };
 
-export type DecisionTableAction =
+export type MainViewAction =
   | {
     type: 'CHANGED_CELLS';
     payload: { changes: ReactDataSheet.CellsChangedArgs<CellType> };
@@ -45,10 +45,10 @@ export type DecisionTableAction =
   | { type: 'CLICK_REMOVE_ROW_BUTTON'; payload: { row: number } }
   | { type: 'REMOVE_CONDITION_ROW' };
 
-const reducer: Reducer<DecisionTableState, DecisionTableAction> = (
-  prev: DecisionTableState,
-  action: DecisionTableAction
-): DecisionTableState => {
+const reducer: Reducer<MainViewState, MainViewAction> = (
+  prev: MainViewState,
+  action: MainViewAction
+): MainViewState => {
   switch (action.type) {
     case 'CHANGED_CELLS': {
       const { changes } = action.payload;
@@ -121,9 +121,9 @@ type UseMainViewResult = {
   decisionTableProps: DecisionTableProps;
 };
 
-const mapButton = (
+export const mapButton = (
   grid: CellType[][],
-  dispatch: Dispatch<DecisionTableAction>
+  dispatch: Dispatch<MainViewAction>
 ): CellType[][] =>
   grid.map((row, rowNumber) =>
     row.map((cell) => {
