@@ -6,6 +6,8 @@ import { CauseNode } from '@/app/ui/CauseNode';
 import { ElementNode } from '@/app/ui/ElementNode';
 import { ResultNode } from '@/app/ui/ResultNode';
 
+import { mapStyle } from './layouts';
+
 const nodeTypes: { [key in NodeType]: React.ReactNode } = {
   cause: CauseNode,
   element: ElementNode,
@@ -23,7 +25,7 @@ export const CauseFlow = function CauseFlow({
   ...props
 }: CauseFlowProps): JSX.Element {
   return (
-    <ReactFlow nodeTypes={nodeTypes} nodes={nodes} {...props} />
+    <ReactFlow nodeTypes={nodeTypes} nodes={nodes.map(mapStyle)} {...props} />
   );
 };
 /* eslint-enable */
