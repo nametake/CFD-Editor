@@ -104,14 +104,14 @@ export const resizeCauseNode = (
     };
   }
   const { elementsTopMargin, elementGap } = option ?? {};
-  const causeWidth =
+  const newWidth =
     causeNode.elements
       .map((el) => el.width ?? 0)
       .reduce((prev, width) => (prev < width ? width : prev), 0) +
     (parseLength(causeNode.style?.paddingLeft) ?? 0) +
     (parseLength(causeNode.style?.paddingRight) ?? 0);
 
-  const causeHeight =
+  const newHeight =
     (elementsTopMargin ?? 0) +
     causeNode.elements
       .map((el) => el.height ?? 0)
@@ -126,12 +126,13 @@ export const resizeCauseNode = (
 
   return {
     ...causeNode,
-    width: causeWidth,
-    height: causeHeight,
+    width: newWidth >= (causeNode.width ?? 0) ? newWidth : causeNode.width,
+    height: newHeight,
     style: {
       ...causeNode.style,
-      width: causeWidth,
-      height: causeHeight,
+      width:
+        newWidth >= (causeNode.width ?? 0) ? newWidth : causeNodeStyle.width,
+      height: newHeight,
     },
   };
 };
