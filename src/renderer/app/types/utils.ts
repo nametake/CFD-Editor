@@ -11,6 +11,7 @@ export const makeCauseNodes = (condtions: Condition[]): Node[] =>
     ...condtion.stub.map<Node>((s) => ({
       id: s.id,
       data: { label: s.name },
+      parentNode: condtion.id,
       type: 'element',
       position: { x: 0, y: 0 },
     })),

@@ -1,16 +1,27 @@
 import React, { Dispatch, Reducer, useCallback, useReducer } from 'react';
 import ReactDataSheet from 'react-datasheet';
+import { NodeChange } from 'react-flow-renderer';
 
-import { Action, Condition } from '@/app/types';
+import { Action, Condition, Edge, Node, makeCauseNodes } from '@/app/types';
 import { Button } from '@/app/ui/Button';
-import { CellType, DecisionTableProps, makeActions, makeConditions } from '@/app/ui/DecisionTable';
+import { CauseFlowProps, applyNodeChanges, layoutNodes } from '@/app/ui/CauseFlow';
+import {
+  CellType,
+  DecisionTableProps,
+  makeActions,
+  makeConditions,
+} from '@/app/ui/DecisionTable';
 import { assertUnreachable } from '@/app/utils/assert';
 
 export type MainViewState = {
+  nodes: Node[];
+  edges: Edge[];
   grid: CellType[][];
 };
 
 export const initialState: MainViewState = {
+  nodes: [],
+  edges: [],
   grid: [
     [
       { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
@@ -40,6 +51,10 @@ export type MainViewAction =
     type: 'CHANGED_CELLS';
     payload: { changes: ReactDataSheet.CellsChangedArgs<CellType> };
   }
+  | {
+    type: 'CHANGED_NODES';
+    payload: { changes: NodeChange[] }
+  }
   | { type: 'CLICK_ADD_ROW_TOP_BUTTON'; payload: { row: number } }
   | { type: 'CLICK_ADD_ROW_BOTTOM_BUTTON'; payload: { row: number } }
   | { type: 'CLICK_REMOVE_ROW_BUTTON'; payload: { row: number } }
@@ -63,10 +78,22 @@ const reducer: Reducer<MainViewState, MainViewAction> = (
           },
         };
       });
+
+      const conditions = makeConditions(grid)
+      const nodes = makeCauseNodes(conditions);
+
       return {
         ...prev,
         grid,
+        nodes: layoutNodes(nodes),
       };
+    }
+    case 'CHANGED_NODES': {
+      const newNodes = layoutNodes(applyNodeChanges(action.payload.changes, prev.nodes))
+      return {
+        ...prev,
+        nodes: newNodes,
+      }
     }
     case 'CLICK_ADD_ROW_TOP_BUTTON': {
       const { row } = action.payload;
@@ -115,12 +142,6 @@ const reducer: Reducer<MainViewState, MainViewAction> = (
   }
 };
 
-type UseMainViewResult = {
-  conditions: Condition[];
-  actions: Action[];
-  decisionTableProps: DecisionTableProps;
-};
-
 export const mapButton = (
   grid: CellType[][],
   dispatch: Dispatch<MainViewAction>
@@ -138,7 +159,7 @@ export const mapButton = (
           ...cell,
           forceComponent: true,
           component: (
-            <Button type="button" onClick={handleClick} >
+            <Button type="button" onClick={handleClick}>
               +
             </Button>
           ),
@@ -156,7 +177,7 @@ export const mapButton = (
           ...cell,
           forceComponent: true,
           component: (
-            <Button type="button" onClick={handleClick} >
+            <Button type="button" onClick={handleClick}>
               -
             </Button>
           ),
@@ -167,11 +188,25 @@ export const mapButton = (
     })
   );
 
+type UseMainViewResult = {
+  conditions: Condition[];
+  actions: Action[];
+  causeFlowProps: CauseFlowProps;
+  decisionTableProps: DecisionTableProps;
+};
+
 export const useMainView = (): UseMainViewResult => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return {
     conditions: makeConditions(state.grid),
     actions: makeActions(state.grid),
+    causeFlowProps: {
+      nodes: state.nodes,
+      edges: state.edges,
+      onNodesChange: useCallback((changes: NodeChange[]) => {
+        dispatch({ type: 'CHANGED_NODES', payload: { changes } })
+      }, [dispatch])
+    },
     decisionTableProps: {
       data: mapButton(state.grid, dispatch),
       onCellsChanged: useCallback(

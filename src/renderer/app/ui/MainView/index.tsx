@@ -1,11 +1,23 @@
 import React from 'react';
 
-type MainViewProps = {
-  text?: string;
+import { CauseFlow } from '@/app/ui/CauseFlow';
+import { DecisionTable } from '@/app/ui/DecisionTable';
+
+import { useMainView } from './hooks';
+
+
+/* eslint-disable react/jsx-props-no-spreading */
+export const MainView = function MainView(): JSX.Element {
+  const { causeFlowProps, decisionTableProps } = useMainView();
+  return (
+    <>
+      <CauseFlow
+        style={{ width: '512px', height: '256px' }}
+        {...causeFlowProps}
+      />
+      <DecisionTable {...decisionTableProps} />
+    </>
+  );
 };
 
-export const MainView = function MainView({
-  text,
-}: MainViewProps): JSX.Element {
-  return <div>{text}</div>;
-};
+/* eslint-enable */
