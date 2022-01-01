@@ -1,2 +1,4 @@
-export { DecisionTable } from './DecisionTable';
-export { useDecisionTable } from './hooks';
+export * from './DecisionTable';
+export * from './hooks';
+export * from './types';
+export * from './utils';

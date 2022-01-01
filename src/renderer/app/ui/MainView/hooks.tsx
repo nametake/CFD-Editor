@@ -3,11 +3,8 @@ import ReactDataSheet from 'react-datasheet';
 
 import { Action, Condition } from '@/app/types';
 import { Button } from '@/app/ui/Button';
+import { CellType, DecisionTableProps, makeActions, makeConditions } from '@/app/ui/DecisionTable';
 import { assertUnreachable } from '@/app/utils/assert';
-
-import { DecisionTableProps } from './DecisionTable';
-import { CellType } from './types';
-import { makeActions, makeConditions } from './utils';
 
 type DecisionTableState = {
   grid: CellType[][];
@@ -118,7 +115,7 @@ const reducer: Reducer<DecisionTableState, DecisionTableAction> = (
   }
 };
 
-type UseDecisionTableResult = {
+type UseMainViewResult = {
   conditions: Condition[];
   actions: Action[];
   decisionTableProps: DecisionTableProps;
@@ -141,7 +138,7 @@ const mapButton = (
           ...cell,
           forceComponent: true,
           component: (
-            <Button type="button" onClick={handleClick}>
+            <Button type="button" onClick={handleClick} >
               +
             </Button>
           ),
@@ -159,7 +156,7 @@ const mapButton = (
           ...cell,
           forceComponent: true,
           component: (
-            <Button type="button" onClick={handleClick}>
+            <Button type="button" onClick={handleClick} >
               -
             </Button>
           ),
@@ -170,7 +167,7 @@ const mapButton = (
     })
   );
 
-export const useDecisionTable = (): UseDecisionTableResult => {
+export const useMainView = (): UseMainViewResult => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return {
     conditions: makeConditions(state.grid),
