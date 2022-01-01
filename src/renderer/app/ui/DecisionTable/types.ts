@@ -1,5 +1,8 @@
 import ReactDataSheet from 'react-datasheet';
 
+export const MAIN_COLUMN = 1;
+export const STUB_COLUMN = 2;
+
 export type ValueType =
   | { type: 'EMPTY' }
   | { type: 'TITLE'; value: string }

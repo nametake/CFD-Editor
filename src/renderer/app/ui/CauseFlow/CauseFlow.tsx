@@ -14,7 +14,7 @@ const nodeTypes: { [key in NodeType]: React.ReactNode } = {
   result: ResultNode,
 };
 
-type CauseFlowProps = Omit<ReactFlowProps, 'nodes' | 'nodeTypes'> & {
+export type CauseFlowProps = Omit<ReactFlowProps, 'nodes' | 'nodeTypes'> & {
   nodes: Node[];
   edges: Edge[];
 };
