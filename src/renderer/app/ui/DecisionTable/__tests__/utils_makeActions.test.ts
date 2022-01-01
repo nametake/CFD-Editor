@@ -197,6 +197,83 @@ describe('utils/makeActions', () => {
     expect(makeActions(grid)).toStrictEqual(expected);
   });
 
+  test('single stub(same row)', () => {
+    const grid: CellType[][] = [
+      [
+        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Condition' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Condition stub' }, readOnly: true },
+      ],
+      [
+        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Action' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Action stub' }, readOnly: true },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: 'Action 1' } },
+        { value: { type: 'TEXT', value: 'Action 1 one' } },
+      ],
+    ];
+
+    const expected: Action[] = [
+      {
+        id: '2-1',
+        name: 'Action 1',
+        stub: [
+          {
+            id: '2-2',
+            actionId: '2-1',
+            name: 'Action 1 one',
+          },
+        ],
+      },
+    ];
+
+    expect(makeActions(grid)).toStrictEqual(expected);
+  });
+
+  test('single stub(diff row)', () => {
+    const grid: CellType[][] = [
+      [
+        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Condition' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Condition stub' }, readOnly: true },
+      ],
+      [
+        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Action' }, readOnly: true },
+        { value: { type: 'TITLE', value: 'Action stub' }, readOnly: true },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: 'Action 1' } },
+        { value: { type: 'TEXT', value: null } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'TEXT', value: 'Action 1 one' } },
+      ],
+    ];
+
+    const expected: Action[] = [
+      {
+        id: '2-1',
+        name: 'Action 1',
+        stub: [
+          {
+            id: '3-2',
+            actionId: '2-1',
+            name: 'Action 1 one',
+          },
+        ],
+      },
+    ];
+
+    expect(makeActions(grid)).toStrictEqual(expected);
+  });
+
   test('initial state', () => {
     const { grid } = initialState;
 

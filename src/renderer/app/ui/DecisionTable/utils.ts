@@ -36,6 +36,7 @@ export const makeConditions = (
   // TODO remove magic number
   const actionHeaderRow = headerRows[1];
 
+  // TODO split other function
   const conditionRowRanges = grid.reduce<RowRange[]>(
     (prev, row, rowIndex): RowRange[] => {
       const cell = row[conditionColumn];
@@ -44,7 +45,7 @@ export const makeConditions = (
 
       // new condition
       if (cell.value.value !== null) {
-        return [...prev, { start: rowIndex, end: rowIndex }];
+        return [...prev, { start: rowIndex, end: rowIndex + 1 }];
       }
 
       // update condtion end
@@ -126,7 +127,7 @@ export const makeActions = (
 
       // new condition
       if (cell.value.value !== null) {
-        return [...prev, { start: rowIndex, end: rowIndex }];
+        return [...prev, { start: rowIndex, end: rowIndex + 1 }];
       }
 
       // update condtion end
