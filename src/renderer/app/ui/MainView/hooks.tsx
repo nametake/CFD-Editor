@@ -4,7 +4,11 @@ import { NodeChange } from 'react-flow-renderer';
 
 import { Action, Condition, Edge, Node, makeCauseNodes } from '@/app/types';
 import { Button } from '@/app/ui/Button';
-import { CauseFlowProps, applyNodeChanges, layoutNodes } from '@/app/ui/CauseFlow';
+import {
+  CauseFlowProps,
+  applyNodeChanges,
+  layoutNodes,
+} from '@/app/ui/CauseFlow';
 import {
   CellType,
   DecisionTableProps,
@@ -34,6 +38,16 @@ export const initialState: MainViewState = {
       { value: { type: 'TEXT', value: null } },
     ],
     [
+      { value: { type: 'REMOVE_ROW' }, readOnly: true },
+      { value: { type: 'TEXT', value: null } },
+      { value: { type: 'TEXT', value: null } },
+    ],
+    [
+      { value: { type: 'REMOVE_ROW' }, readOnly: true },
+      { value: { type: 'TEXT', value: null } },
+      { value: { type: 'TEXT', value: null } },
+    ],
+    [
       { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
       { value: { type: 'TITLE', value: 'Action' }, readOnly: true },
       { value: { type: 'TITLE', value: 'Action stub' }, readOnly: true },
@@ -53,12 +67,24 @@ export type MainViewAction =
   }
   | {
     type: 'CHANGED_NODES';
-    payload: { changes: NodeChange[] }
+    payload: { changes: NodeChange[] };
   }
   | { type: 'CLICK_ADD_ROW_TOP_BUTTON'; payload: { row: number } }
   | { type: 'CLICK_ADD_ROW_BOTTOM_BUTTON'; payload: { row: number } }
   | { type: 'CLICK_REMOVE_ROW_BUTTON'; payload: { row: number } }
   | { type: 'REMOVE_CONDITION_ROW' };
+
+const merge = (prevNodes: Node[], newNodes: Node[]): Node[] => newNodes.map(newNode => {
+    const prevNode = prevNodes.find(node => node.id === newNode.id);
+    return {
+      ...prevNode,
+      ...newNode,
+      style: {
+        ...prevNode?.style,
+        ...newNode.style
+      }
+    }
+  })
 
 const reducer: Reducer<MainViewState, MainViewAction> = (
   prev: MainViewState,
@@ -79,21 +105,23 @@ const reducer: Reducer<MainViewState, MainViewAction> = (
         };
       });
 
-      const conditions = makeConditions(grid)
+      const conditions = makeConditions(grid);
       const nodes = makeCauseNodes(conditions);
 
       return {
         ...prev,
         grid,
-        nodes: layoutNodes(nodes),
+        nodes: layoutNodes(merge(prev.nodes, nodes)),
       };
     }
     case 'CHANGED_NODES': {
-      const newNodes = layoutNodes(applyNodeChanges(action.payload.changes, prev.nodes))
+      const newNodes = layoutNodes(
+        applyNodeChanges(action.payload.changes, prev.nodes)
+      );
       return {
         ...prev,
         nodes: newNodes,
-      }
+      };
     }
     case 'CLICK_ADD_ROW_TOP_BUTTON': {
       const { row } = action.payload;
@@ -203,9 +231,12 @@ export const useMainView = (): UseMainViewResult => {
     causeFlowProps: {
       nodes: state.nodes,
       edges: state.edges,
-      onNodesChange: useCallback((changes: NodeChange[]) => {
-        dispatch({ type: 'CHANGED_NODES', payload: { changes } })
-      }, [dispatch])
+      onNodesChange: useCallback(
+        (changes: NodeChange[]) => {
+          dispatch({ type: 'CHANGED_NODES', payload: { changes } });
+        },
+        [dispatch]
+      ),
     },
     decisionTableProps: {
       data: mapButton(state.grid, dispatch),
