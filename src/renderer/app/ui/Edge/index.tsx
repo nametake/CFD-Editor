@@ -5,7 +5,27 @@ import {
   getEdgeCenter,
 } from 'react-flow-renderer';
 
-const foreignObjectSize = 40;
+import styled from '@emotion/styled';
+
+const foreignObjectSize = 24;
+
+const Path = styled.path`
+  stroke: #b1b1b7;
+  stroke-width: 1px;
+`;
+
+const Button = styled.button`
+  border-radius: 50%;
+  height: 23px;
+  width: 23px;
+  line-height: 21px;
+  border: 1px solid;
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+`;
+
+Button.defaultProps = { type: 'button' };
 
 export type EdgeProps = ReactFlowEdgeProps;
 
@@ -36,7 +56,7 @@ export const Edge = function Edge({
   });
   return (
     <>
-      <path
+      <Path
         id={id}
         style={style}
         className="react-flow__edge-path"
@@ -52,15 +72,14 @@ export const Edge = function Edge({
         requiredExtensions="http://www.w3.org/1999/xhtml"
       >
         <body>
-          <button
-            type="button"
+          <Button
             className="edgebutton"
             onClick={(event) => {
               event.stopPropagation();
             }}
           >
             ×
-          </button>
+          </Button>
         </body>
       </foreignObject>
     </>

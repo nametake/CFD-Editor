@@ -31,3 +31,5 @@ export const Button = styled.button`
     background-color: #f082ac;
   }
 `;
+
+Button.defaultProps = { type: 'button' };
