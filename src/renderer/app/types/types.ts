@@ -76,3 +76,4 @@ export type Edge = Omit<ReactFlowEdge<unknown>, 'type'> & {
 };
 
 export type NodeType = Node['type'];
+export type EdgeType = Edge['type'];
