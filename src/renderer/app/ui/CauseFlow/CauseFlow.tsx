@@ -29,10 +29,9 @@ const StyledReactFlow = styled(ReactFlow)`
 `;
 
 /* eslint-disable react/jsx-props-no-spreading */
-export const CauseFlow = function CauseFlow({
-  nodes,
-  ...props
-}: CauseFlowProps): JSX.Element {
-  return <StyledReactFlow nodeTypes={nodeTypes} nodes={nodes} {...props} />;
+export const CauseFlow = function CauseFlow(
+  props: CauseFlowProps
+): JSX.Element {
+  return <StyledReactFlow nodeTypes={nodeTypes} {...props} />;
 };
 /* eslint-enable */
