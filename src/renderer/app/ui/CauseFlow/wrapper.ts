@@ -24,4 +24,4 @@ export const applyEdgeChanges = (
   applyEdgeChangesReactFlow(changes, nodes as ReactFlowEdge[]) as Edge[];
 
 export const addEdge = (edgeParams: Edge | Connection, edges: Edge[]): Edge[] =>
-  addEdgeReactFlow(edgeParams, edges);
+  addEdgeReactFlow(edgeParams, edges) as Edge[];
