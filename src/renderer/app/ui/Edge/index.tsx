@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   EdgeProps as ReactFlowEdgeProps,
   getBezierPath,
@@ -6,6 +6,8 @@ import {
 } from 'react-flow-renderer';
 
 import styled from '@emotion/styled';
+
+import { EdgeDataType } from '@/app/types';
 
 const foreignObjectSize = 24;
 
@@ -27,7 +29,7 @@ const Button = styled.button`
 
 Button.defaultProps = { type: 'button' };
 
-export type EdgeProps = ReactFlowEdgeProps;
+export type EdgeProps = ReactFlowEdgeProps<EdgeDataType>;
 
 export const Edge = function Edge({
   id,
@@ -38,6 +40,7 @@ export const Edge = function Edge({
   sourcePosition,
   targetPosition,
   style = {},
+  data,
   markerEnd,
 }: EdgeProps): JSX.Element {
   const edgePath = getBezierPath({
@@ -54,6 +57,13 @@ export const Edge = function Edge({
     targetX,
     targetY,
   });
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.stopPropagation();
+      data?.onClickRemove();
+    },
+    [data]
+  );
   return (
     <>
       <Path
@@ -72,12 +82,7 @@ export const Edge = function Edge({
         requiredExtensions="http://www.w3.org/1999/xhtml"
       >
         <body>
-          <Button
-            className="edgebutton"
-            onClick={(event) => {
-              event.stopPropagation();
-            }}
-          >
+          <Button className="edgebutton" onClick={handleClick}>
             ×
           </Button>
         </body>

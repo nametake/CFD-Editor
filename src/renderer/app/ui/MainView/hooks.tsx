@@ -73,6 +73,7 @@ export type MainViewAction =
   }
   | { type: 'ADDED_CONNECTION'; payload: { connection: Connection } }
   | { type: 'CLICK_ADD_ROW_TOP_BUTTON'; payload: { row: number } }
+  | { type: 'CLICK_REMOVE_EDGE'; payload: { id: string } }
   | { type: 'CLICK_ADD_ROW_BOTTOM_BUTTON'; payload: { row: number } }
   | { type: 'CLICK_REMOVE_ROW_BUTTON'; payload: { row: number } }
   | { type: 'REMOVE_CONDITION_ROW' };
@@ -131,6 +132,12 @@ const reducer: Reducer<MainViewState, MainViewAction> = (
       return {
         ...prev,
         edges: addEdge(action.payload.connection, prev.edges),
+      };
+    }
+    case 'CLICK_REMOVE_EDGE': {
+      return {
+        ...prev,
+        edges: prev.edges.filter((edge) => edge.id !== action.payload.id),
       };
     }
     case 'CLICK_ADD_ROW_TOP_BUTTON': {
@@ -226,6 +233,17 @@ export const mapButton = (
     })
   );
 
+export const mapEdgeData =
+  (dispatch: Dispatch<MainViewAction>) =>
+    (edge: Edge): Edge => ({
+      ...edge,
+      data: {
+        onClickRemove: () => {
+          dispatch({ type: 'CLICK_REMOVE_EDGE', payload: { id: edge.id } });
+        },
+      },
+    });
+
 type UseMainViewResult = {
   conditions: Condition[];
   actions: Action[];
@@ -240,7 +258,7 @@ export const useMainView = (): UseMainViewResult => {
     actions: makeActions(state.grid),
     causeFlowProps: {
       nodes: state.nodes,
-      edges: state.edges,
+      edges: state.edges.map(mapEdgeData(dispatch)),
       onNodesChange: useCallback((changes: NodeChange[]) => {
         dispatch({ type: 'CHANGED_NODES', payload: { changes } });
       }, []),
