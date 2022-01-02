@@ -1,11 +1,12 @@
 import React, { Dispatch, Reducer, useCallback, useReducer } from 'react';
 import ReactDataSheet from 'react-datasheet';
-import { NodeChange } from 'react-flow-renderer';
+import { Connection, NodeChange } from 'react-flow-renderer';
 
 import { Action, Condition, Edge, Node, makeCauseNodes } from '@/app/types';
 import { Button } from '@/app/ui/Button';
 import {
   CauseFlowProps,
+  addEdge,
   applyNodeChanges,
   layoutNodes,
   mapStyle,
@@ -70,7 +71,9 @@ export type MainViewAction =
     type: 'CHANGED_NODES';
     payload: { changes: NodeChange[] };
   }
+  | { type: 'ADDED_CONNECTION'; payload: { connection: Connection } }
   | { type: 'CLICK_ADD_ROW_TOP_BUTTON'; payload: { row: number } }
+  | { type: 'CLICK_REMOVE_EDGE'; payload: { id: string } }
   | { type: 'CLICK_ADD_ROW_BOTTOM_BUTTON'; payload: { row: number } }
   | { type: 'CLICK_REMOVE_ROW_BUTTON'; payload: { row: number } }
   | { type: 'REMOVE_CONDITION_ROW' };
@@ -123,6 +126,18 @@ const reducer: Reducer<MainViewState, MainViewAction> = (
       return {
         ...prev,
         nodes: newNodes,
+      };
+    }
+    case 'ADDED_CONNECTION': {
+      return {
+        ...prev,
+        edges: addEdge(action.payload.connection, prev.edges),
+      };
+    }
+    case 'CLICK_REMOVE_EDGE': {
+      return {
+        ...prev,
+        edges: prev.edges.filter((edge) => edge.id !== action.payload.id),
       };
     }
     case 'CLICK_ADD_ROW_TOP_BUTTON': {
@@ -218,6 +233,17 @@ export const mapButton = (
     })
   );
 
+export const mapEdgeData =
+  (dispatch: Dispatch<MainViewAction>) =>
+    (edge: Edge): Edge => ({
+      ...edge,
+      data: {
+        onClickRemove: () => {
+          dispatch({ type: 'CLICK_REMOVE_EDGE', payload: { id: edge.id } });
+        },
+      },
+    });
+
 type UseMainViewResult = {
   conditions: Condition[];
   actions: Action[];
@@ -232,13 +258,13 @@ export const useMainView = (): UseMainViewResult => {
     actions: makeActions(state.grid),
     causeFlowProps: {
       nodes: state.nodes,
-      edges: state.edges,
-      onNodesChange: useCallback(
-        (changes: NodeChange[]) => {
-          dispatch({ type: 'CHANGED_NODES', payload: { changes } });
-        },
-        [dispatch]
-      ),
+      edges: state.edges.map(mapEdgeData(dispatch)),
+      onNodesChange: useCallback((changes: NodeChange[]) => {
+        dispatch({ type: 'CHANGED_NODES', payload: { changes } });
+      }, []),
+      onConnect: useCallback((connection: Connection) => {
+        dispatch({ type: 'ADDED_CONNECTION', payload: { connection } });
+      }, []),
     },
     decisionTableProps: {
       data: mapButton(state.grid, dispatch),
@@ -246,7 +272,7 @@ export const useMainView = (): UseMainViewResult => {
         (changes: ReactDataSheet.CellsChangedArgs<CellType>) => {
           dispatch({ type: 'CHANGED_CELLS', payload: { changes } });
         },
-        [dispatch]
+        []
       ),
     },
   };

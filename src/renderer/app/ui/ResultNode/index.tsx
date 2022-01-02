@@ -1,9 +1,10 @@
 import React, { CSSProperties } from 'react';
-import { Handle, NodeProps, Position } from 'react-flow-renderer';
+import { NodeProps, Position } from 'react-flow-renderer';
 
 import styled from '@emotion/styled';
 
 import { NodeDataType } from '@/app/types';
+import { Handle } from '@/app/ui/Handle';
 
 export const resultNodeStyle: CSSProperties = {
   borderRadius: '50%',

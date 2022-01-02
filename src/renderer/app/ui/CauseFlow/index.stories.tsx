@@ -155,13 +155,13 @@ export const Default = Template.bind({});
 Default.args = {
   nodes: defaultNodes.map(mapStyle),
   edges: [
-    { id: 'c1-e1_c2-e1', source: 'c1-e1', target: 'c2-e1' },
-    { id: 'c1-e2_c2', source: 'c1-e2', target: 'c2' },
-    { id: 'c1-e3_c2-e2', source: 'c1-e3', target: 'c2-e2' },
-    { id: 'c2-e1_c3', source: 'c2-e1', target: 'c3' },
-    { id: 'c3-e1_r1', source: 'c3-e1', target: 'r1' },
-    { id: 'c3-e2_r2', source: 'c3-e2', target: 'r2' },
-    { id: 'c1-e4_r3', source: 'c1-e4', target: 'r3' },
-    { id: 'c2-e2_r3', source: 'c2-e2', target: 'r3' },
+    { id: 'c1-e1_c2-e1', source: 'c1-e1', target: 'c2-e1', type: 'removable' },
+    { id: 'c1-e2_c2', source: 'c1-e2', target: 'c2', type: 'removable' },
+    { id: 'c1-e3_c2-e2', source: 'c1-e3', target: 'c2-e2', type: 'removable' },
+    { id: 'c2-e1_c3', source: 'c2-e1', target: 'c3', type: 'removable' },
+    { id: 'c3-e1_r1', source: 'c3-e1', target: 'r1', type: 'removable' },
+    { id: 'c3-e2_r2', source: 'c3-e2', target: 'r2', type: 'removable' },
+    { id: 'c1-e4_r3', source: 'c1-e4', target: 'r3', type: 'removable' },
+    { id: 'c2-e2_r3', source: 'c2-e2', target: 'r3', type: 'removable' },
   ],
 };

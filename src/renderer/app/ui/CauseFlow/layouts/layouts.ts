@@ -189,13 +189,20 @@ export const mapStyle = (node: Node): Node => {
 
 // TODO remove magic number
 export const layoutNodes = (nodes: Node[]) => {
+  const elementsTopMargin = 20;
+  const elementGap = 10;
+  const nodeGap = 80;
+  const resultGap = 45;
   const styledNodes = nodes.map(mapStyle);
   const causeNodes = makeCauseNode(styledNodes).map((node) =>
-    resizeCauseNode(node, { elementGap: 10, elementsTopMargin: 10 })
+    resizeCauseNode(node, {
+      elementGap,
+      elementsTopMargin,
+    })
   );
   const resultNodes = makeResultNode(styledNodes);
 
-  const layoutedNodes = alignHorizontal(causeNodes, { gap: 20 }).map(
+  const layoutedNodes = alignHorizontal(causeNodes, { gap: nodeGap }).map(
     ({ elements, ...node }) => ({
       ...node,
       elements: alignVertical(elements, {
@@ -204,23 +211,23 @@ export const layoutNodes = (nodes: Node[]) => {
           y:
             (parseLength(node.style?.paddingTop) ?? 0) +
             (parseLength(node.data.label?.style?.height) ?? 0) +
-            10,
+            elementGap,
         },
-        gap: 10,
+        gap: elementGap,
       }),
     })
   );
 
   const resultStartX = layoutedNodes.reduce(
     (prev, node) => prev + (node.width ?? 0),
-    20 * layoutedNodes.length
+    nodeGap * layoutedNodes.length
   );
 
   return [
     ...layoutedNodes.flatMap(({ elements, ...node }) => [node, ...elements]),
     ...alignVertical(resultNodes, {
       startPosition: { x: resultStartX, y: 0 },
-      gap: 45,
+      gap: resultGap,
     }),
   ];
 };

@@ -71,6 +71,14 @@ export type ResultNodeType = Omit<ReactFlowNode<NodeDataType>, 'type'> & {
 };
 
 export type Node = CauseNodeType | ElementNodeType | ResultNodeType;
-export type Edge = ReactFlowEdge;
+
+export type EdgeDataType = {
+  onClickRemove: () => void;
+};
+
+export type Edge = Omit<ReactFlowEdge<EdgeDataType>, 'type'> & {
+  type: 'removable';
+};
 
 export type NodeType = Node['type'];
+export type EdgeType = Edge['type'];
