@@ -82,6 +82,8 @@ export type ResizeCauseNodesOption = {
 
 // resizeCauseNode calculated CauseNode size by children ElementNodes.
 //
+// If current CauseNode width larger than ElementNodes, it is not resize.
+//
 // width  = (Largest ElementNode width)
 //            + paddingLeft
 //            + paddingRight

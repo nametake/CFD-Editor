@@ -355,4 +355,75 @@ describe('resizeCauseNode', () => {
 
     expect(resizeCauseNode(causeNode, options)).toStrictEqual(expected);
   });
+
+  test('CauseNode width larger than ElementNodes', () => {
+    const causeNode: CauseNodeWithElements = {
+      id: 'c1',
+      type: 'cause',
+      data: {
+        label: {
+          text: 'Cause',
+          style: {
+            height: 10,
+          },
+        },
+      },
+      position: { x: 0, y: 0 },
+      width: 100,
+      style: {
+        paddingTop: 20,
+        paddingRight: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+        width: 100,
+      },
+      elements: [
+        {
+          id: 'c1-e1',
+          parentNode: 'c1',
+          type: 'element',
+          data: { label: 'Element 1' },
+          position: { x: 0, y: 0 },
+          width: 10,
+          height: 10,
+        },
+      ],
+    };
+    const expected: CauseNodeWithElements = {
+      id: 'c1',
+      type: 'cause',
+      data: {
+        label: {
+          text: 'Cause',
+          style: {
+            height: 10,
+          },
+        },
+      },
+      position: { x: 0, y: 0 },
+      width: 100,
+      height: 60,
+      style: {
+        paddingTop: 20,
+        paddingRight: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+        width: 'fit-content',
+        height: 60,
+      },
+      elements: [
+        {
+          id: 'c1-e1',
+          parentNode: 'c1',
+          type: 'element',
+          data: { label: 'Element 1' },
+          position: { x: 0, y: 0 },
+          width: 10,
+          height: 10,
+        },
+      ],
+    };
+
+    expect(resizeCauseNode(causeNode)).toStrictEqual(expected);
+  });
 });
