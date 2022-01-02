@@ -11,7 +11,7 @@ const DefaultCell = styled.td`
   vertical-align: middle !important;
 
   .value-viewer {
-    height: 32px;
+    min-height: 32px;
     line-height: 32px;
     text-align: left;
     padding: 0 8px;
@@ -19,7 +19,7 @@ const DefaultCell = styled.td`
 
   .data-editor {
     width: 100% !important;
-    height: 32px !important;
+    height: 100% !important;
   }
 `;
 

@@ -8,6 +8,7 @@ import {
   CauseFlowProps,
   applyNodeChanges,
   layoutNodes,
+  mapStyle,
 } from '@/app/ui/CauseFlow';
 import {
   CellType,
@@ -74,17 +75,18 @@ export type MainViewAction =
   | { type: 'CLICK_REMOVE_ROW_BUTTON'; payload: { row: number } }
   | { type: 'REMOVE_CONDITION_ROW' };
 
-const merge = (prevNodes: Node[], newNodes: Node[]): Node[] => newNodes.map(newNode => {
-    const prevNode = prevNodes.find(node => node.id === newNode.id);
+const merge = (prevNodes: Node[], newNodes: Node[]): Node[] =>
+  newNodes.map((newNode) => {
+    const prevNode = prevNodes.find((node) => node.id === newNode.id);
     return {
       ...prevNode,
       ...newNode,
       style: {
         ...prevNode?.style,
-        ...newNode.style
-      }
-    }
-  })
+        ...newNode.style,
+      },
+    };
+  });
 
 const reducer: Reducer<MainViewState, MainViewAction> = (
   prev: MainViewState,
@@ -111,7 +113,7 @@ const reducer: Reducer<MainViewState, MainViewAction> = (
       return {
         ...prev,
         grid,
-        nodes: layoutNodes(merge(prev.nodes, nodes)),
+        nodes: layoutNodes(merge(prev.nodes, nodes.map(mapStyle))),
       };
     }
     case 'CHANGED_NODES': {
