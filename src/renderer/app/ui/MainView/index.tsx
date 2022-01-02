@@ -10,10 +10,7 @@ export const MainView = function MainView(): JSX.Element {
   const { causeFlowProps, decisionTableProps } = useMainView();
   return (
     <>
-      <CauseFlow
-        style={{ width: '512px', height: '256px' }}
-        {...causeFlowProps}
-      />
+      <CauseFlow {...causeFlowProps} />
       <DecisionTable {...decisionTableProps} />
     </>
   );
