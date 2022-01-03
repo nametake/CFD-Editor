@@ -139,16 +139,6 @@ export const resizeCauseNode = (
   };
 };
 
-export const resizeCauseNodes = (
-  nodes: Node[],
-  option?: ResizeCauseNodesOption
-): Node[] => [
-    ...makeCauseNode(nodes)
-      .map((node) => resizeCauseNode(node, option))
-      .flatMap(({ elements, ...node }) => [node, ...elements]),
-    ...makeResultNode(nodes),
-  ];
-
 export const mapStyle = (node: Node): Node => {
   switch (node.type) {
     case 'cause':
