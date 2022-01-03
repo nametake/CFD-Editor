@@ -17,7 +17,8 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "^@/(.+)$": "<rootDir>/src/renderer/$1"
+      "^@/(.+)$": "<rootDir>/src/renderer/$1",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
     }
   },
   "lint-staged": {
