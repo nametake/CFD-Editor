@@ -9,7 +9,7 @@ export const makeRules = (
 ): Rule[] => {
   switch (currentNode?.type) {
     case 'cause': {
-      const nextNode = nodes.find((node) => {
+      const causeNextNode = nodes.find((node) => {
         const edge = edges.find((e) => e.source === currentNode.id);
         return node.id === edge?.target;
       });
@@ -19,7 +19,16 @@ export const makeRules = (
           ...currentRule,
           conditionStubIds: [...currentRule.conditionStubIds, element.id],
         };
-        return makeRules(nextRule, nextNode, nodes, edges);
+        const elementNextNode = nodes.find((node) => {
+          const edge = edges.find((e) => e.source === element.id);
+          return node.id === edge?.target;
+        });
+        return makeRules(
+          nextRule,
+          elementNextNode || causeNextNode,
+          nodes,
+          edges
+        );
       });
     }
     case 'element': {

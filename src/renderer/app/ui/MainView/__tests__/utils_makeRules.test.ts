@@ -86,7 +86,24 @@ describe('makeRules', () => {
     ];
 
     test('cause node start', () => {
-      const expected: Rule[] = [{ conditionStubIds: [], actionId: null }];
+      const expected: Rule[] = [
+        {
+          conditionStubIds: ['1-2', '3-2'],
+          actionId: '7-2',
+        },
+        {
+          conditionStubIds: ['1-2', '4-2'],
+          actionId: '8-2',
+        },
+        {
+          conditionStubIds: ['2-2', '3-2'],
+          actionId: '7-2',
+        },
+        {
+          conditionStubIds: ['2-2', '4-2'],
+          actionId: '8-2',
+        },
+      ];
 
       expect(
         makeRules(
@@ -95,6 +112,25 @@ describe('makeRules', () => {
             id: '1-1',
             data: { label: { text: 'Card' } },
             type: 'cause',
+            position: { x: 0, y: 0 },
+          },
+          nodes,
+          edges
+        )
+      ).toStrictEqual(expected);
+    });
+
+    test('element node start', () => {
+      const expected: Rule[] = [];
+
+      expect(
+        makeRules(
+          { conditionStubIds: [], actionId: null },
+          {
+            id: '1-2',
+            data: { label: 'Visa' },
+            parentNode: '1-1',
+            type: 'element',
             position: { x: 0, y: 0 },
           },
           nodes,
