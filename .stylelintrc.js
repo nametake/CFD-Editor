@@ -5,4 +5,5 @@ module.exports = {
     'stylelint-config-idiomatic-order',
     'stylelint-config-styled-components',
   ],
+  customSyntax: 'postcss-scss',
 };
