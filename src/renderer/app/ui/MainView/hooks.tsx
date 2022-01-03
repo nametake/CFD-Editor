@@ -2,7 +2,14 @@ import React, { Dispatch, Reducer, useCallback, useReducer } from 'react';
 import ReactDataSheet from 'react-datasheet';
 import { Connection, NodeChange } from 'react-flow-renderer';
 
-import { Action, Condition, Edge, Node, makeCauseNodes } from '@/app/types';
+import {
+  Action,
+  Condition,
+  Edge,
+  Node,
+  makeCauseNodes,
+  makeResultNodes,
+} from '@/app/types';
 import { Button } from '@/app/ui/Button';
 import {
   CauseFlowProps,
@@ -18,6 +25,8 @@ import {
   makeConditions,
 } from '@/app/ui/DecisionTable';
 import { assertUnreachable } from '@/app/utils/assert';
+
+import { makeRules, mergeRules } from './utils';
 
 export type MainViewState = {
   nodes: Node[];
@@ -50,9 +59,19 @@ export const initialState: MainViewState = {
       { value: { type: 'TEXT', value: null } },
     ],
     [
+      { value: { type: 'REMOVE_ROW' }, readOnly: true },
+      { value: { type: 'TEXT', value: null } },
+      { value: { type: 'TEXT', value: null } },
+    ],
+    [
       { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
       { value: { type: 'TITLE', value: 'Action' }, readOnly: true },
       { value: { type: 'TITLE', value: 'Action stub' }, readOnly: true },
+    ],
+    [
+      { value: { type: 'REMOVE_ROW' }, readOnly: true },
+      { value: { type: 'TEXT', value: null } },
+      { value: { type: 'TEXT', value: null } },
     ],
     [
       { value: { type: 'REMOVE_ROW' }, readOnly: true },
@@ -111,7 +130,12 @@ const reducer: Reducer<MainViewState, MainViewAction> = (
       });
 
       const conditions = makeConditions(grid);
-      const nodes = makeCauseNodes(conditions);
+      const conditionNodes = makeCauseNodes(conditions);
+
+      const actions = makeActions(grid);
+      const resultNodes = makeResultNodes(actions);
+
+      const nodes = [...conditionNodes, ...resultNodes];
 
       return {
         ...prev,
@@ -253,6 +277,17 @@ type UseMainViewResult = {
 
 export const useMainView = (): UseMainViewResult => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  // TODO merge rule refactor
+  const startNode = state.nodes.find((node) => node.type === 'cause');
+  const rules = startNode
+    ? makeRules(
+      { conditionStubIds: [], actionId: null },
+      startNode,
+      state.nodes,
+      state.edges
+    )
+    : [];
+  const grid = mergeRules(state.grid, rules);
   return {
     conditions: makeConditions(state.grid),
     actions: makeActions(state.grid),
@@ -267,7 +302,7 @@ export const useMainView = (): UseMainViewResult => {
       }, []),
     },
     decisionTableProps: {
-      data: mapButton(state.grid, dispatch),
+      data: mapButton(grid, dispatch),
       onCellsChanged: useCallback(
         (changes: ReactDataSheet.CellsChangedArgs<CellType>) => {
           dispatch({ type: 'CHANGED_CELLS', payload: { changes } });

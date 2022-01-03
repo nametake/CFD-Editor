@@ -34,19 +34,9 @@ export type Action = {
   stub: ActionStub[];
 };
 
-export type ConditionRule = {
-  conditionStub: ConditionStub;
-  rule: 'yes' | 'no';
-};
-
-export type ActionRule = {
-  actionStub: ActionStub;
-  rule: 'yes' | 'none';
-};
-
 export type Rule = {
-  conditionRules: ConditionRule[];
-  actionRules: ActionRule[];
+  conditionStubIds: ConditionStubId[];
+  actionId: ActionId | null;
 };
 
 export type NodeDataType = {

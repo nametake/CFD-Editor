@@ -2,7 +2,8 @@ import { Action, ActionStub, Condition, ConditionStub } from '@/app/types';
 
 import { CellType, MAIN_COLUMN, STUB_COLUMN } from './types';
 
-const makeId = ({ row, col }: { row: number; col: number }) => `${row}-${col}`;
+export const makeId = ({ row, col }: { row: number; col: number }) =>
+  `${row}-${col}`;
 
 const getName = (cell: CellType): string | null => {
   if (cell.value.type === 'TEXT') {
