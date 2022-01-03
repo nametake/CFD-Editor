@@ -119,25 +119,6 @@ describe('makeRules', () => {
         )
       ).toStrictEqual(expected);
     });
-
-    test('element node start', () => {
-      const expected: Rule[] = [];
-
-      expect(
-        makeRules(
-          { conditionStubIds: [], actionId: null },
-          {
-            id: '1-2',
-            data: { label: 'Visa' },
-            parentNode: '1-1',
-            type: 'element',
-            position: { x: 0, y: 0 },
-          },
-          nodes,
-          edges
-        )
-      ).toStrictEqual(expected);
-    });
   });
 
   describe('connected element node', () => {
