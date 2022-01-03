@@ -2,7 +2,14 @@ import React, { Dispatch, Reducer, useCallback, useReducer } from 'react';
 import ReactDataSheet from 'react-datasheet';
 import { Connection, NodeChange } from 'react-flow-renderer';
 
-import { Action, Condition, Edge, Node, makeCauseNodes } from '@/app/types';
+import {
+  Action,
+  Condition,
+  Edge,
+  Node,
+  makeCauseNodes,
+  makeResultNodes,
+} from '@/app/types';
 import { Button } from '@/app/ui/Button';
 import {
   CauseFlowProps,
@@ -111,7 +118,12 @@ const reducer: Reducer<MainViewState, MainViewAction> = (
       });
 
       const conditions = makeConditions(grid);
-      const nodes = makeCauseNodes(conditions);
+      const conditionNodes = makeCauseNodes(conditions);
+
+      const actions = makeActions(grid);
+      const resultNodes = makeResultNodes(actions);
+
+      const nodes = [...conditionNodes, ...resultNodes];
 
       return {
         ...prev,
