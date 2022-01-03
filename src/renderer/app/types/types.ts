@@ -36,7 +36,7 @@ export type Action = {
 
 export type Rule = {
   conditionStubIds: ConditionStubId[];
-  actionId: ActionId;
+  actionId: ActionId | null;
 };
 
 export type NodeDataType = {
