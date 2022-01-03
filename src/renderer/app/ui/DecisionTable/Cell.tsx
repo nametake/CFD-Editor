@@ -12,9 +12,9 @@ const DefaultCell = styled.td`
 
   .value-viewer {
     min-height: 32px;
+    padding: 0 8px;
     line-height: 32px;
     text-align: left;
-    padding: 0 8px;
   }
 
   .data-editor {
@@ -25,6 +25,7 @@ const DefaultCell = styled.td`
 
 export const TitleCell = styled(DefaultCell)`
   color: black;
+
   .value-viewer {
     text-align: center;
   }
