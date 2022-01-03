@@ -4,7 +4,8 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
 
-import { MainView } from './index';
+import { useMainView } from './hooks';
+import { MainView } from './MainView';
 
 // eslint-disable-next-line import/no-default-export
 export default {
@@ -14,7 +15,13 @@ export default {
 
 /* eslint-disable react/jsx-props-no-spreading */
 const Template: ComponentStory<typeof MainView> = function Template() {
-  return <MainView />;
+  const { causeFlowProps, decisionTableProps } = useMainView();
+  return (
+    <MainView
+      causeFlowProps={causeFlowProps}
+      decisionTableProps={decisionTableProps}
+    />
+  );
 };
 /* eslint-enable */
 
