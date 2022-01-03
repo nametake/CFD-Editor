@@ -17,12 +17,12 @@ const Path = styled.path`
 `;
 
 const Button = styled.button`
-  border-radius: 50%;
-  height: 23px;
   width: 23px;
-  line-height: 21px;
-  border: 1px solid;
+  height: 23px;
   padding: 0;
+  border: 1px solid;
+  border-radius: 50%;
+  line-height: 21px;
   text-align: center;
   vertical-align: middle;
 `;
