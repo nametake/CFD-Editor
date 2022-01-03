@@ -57,6 +57,7 @@ export const makeRules = (
   }
 };
 
+// TODO Test
 export const mergeRules = (grid: CellType[][], rules: Rule[]): CellType[][] => {
   const newGrid = grid.map((row) => row.slice(0, 3));
   const headerRows = grid.reduce<number[]>((prev, row, index) => {
@@ -66,14 +67,17 @@ export const mergeRules = (grid: CellType[][], rules: Rule[]): CellType[][] => {
 
   // TODO remove magic number
   const actionHeaderRow = headerRows[1];
-  rules.forEach((rule) => {
+  rules.forEach((rule, ruleIndex) => {
     newGrid.forEach((row, i) => {
-      const isConditionHeader = i === 0 && row[0].value.type === 'TITLE';
-      const isActionHeader = i !== 0 && row[0].value.type === 'TITLE';
+      const isConditionHeader = i === 0 && row[1].value.type === 'TITLE';
+      const isActionHeader = i !== 0 && row[1].value.type === 'TITLE';
       if (isConditionHeader) {
         newGrid[i] = [
           ...row,
-          { value: { type: 'TITLE', value: `${i + 1}` }, readOnly: true },
+          {
+            value: { type: 'TITLE', value: `${ruleIndex + 1}` },
+            readOnly: true,
+          },
         ];
         return;
       }
@@ -83,12 +87,13 @@ export const mergeRules = (grid: CellType[][], rules: Rule[]): CellType[][] => {
       }
 
       const stubId = makeId({ row: i, col: STUB_COLUMN });
-      if (actionHeaderRow <= i) {
+      if (actionHeaderRow > i) {
         if (rule.conditionStubIds.find((id) => id === stubId)) {
           newGrid[i] = [
             ...row,
             { value: { type: 'CONDITION_RULE', value: 'yes' } },
           ];
+          return;
         }
         newGrid[i] = [
           ...row,
