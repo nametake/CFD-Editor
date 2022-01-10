@@ -11,7 +11,7 @@ import {
   makeConditions,
 } from '@/app/ui/DecisionTable';
 
-import { MainAction, initialState, reducer } from './state';
+import { MainAction, initialState, reducer } from './reducer';
 import { makeRules, mergeRules } from './utils';
 
 export const mapButton = (
