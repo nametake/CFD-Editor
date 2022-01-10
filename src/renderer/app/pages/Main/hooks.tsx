@@ -28,13 +28,13 @@ import { assertUnreachable } from '@/app/utils/assert';
 
 import { makeRules, mergeRules } from './utils';
 
-export type MainViewState = {
+export type MainState = {
   nodes: Node[];
   edges: Edge[];
   grid: CellType[][];
 };
 
-export const initialState: MainViewState = {
+export const initialState: MainState = {
   nodes: [],
   edges: [],
   grid: [
@@ -81,7 +81,7 @@ export const initialState: MainViewState = {
   ],
 };
 
-export type MainViewAction =
+export type MainAction =
   | {
     type: 'CHANGED_CELLS';
     payload: { changes: ReactDataSheet.CellsChangedArgs<CellType> };
@@ -110,10 +110,10 @@ const merge = (prevNodes: Node[], newNodes: Node[]): Node[] =>
     };
   });
 
-const reducer: Reducer<MainViewState, MainViewAction> = (
-  prev: MainViewState,
-  action: MainViewAction
-): MainViewState => {
+const reducer: Reducer<MainState, MainAction> = (
+  prev: MainState,
+  action: MainAction
+): MainState => {
   switch (action.type) {
     case 'CHANGED_CELLS': {
       const { changes } = action.payload;
@@ -213,7 +213,7 @@ const reducer: Reducer<MainViewState, MainViewAction> = (
 
 export const mapButton = (
   grid: CellType[][],
-  dispatch: Dispatch<MainViewAction>
+  dispatch: Dispatch<MainAction>
 ): CellType[][] =>
   grid.map((row, rowNumber) =>
     row.map((cell) => {
@@ -258,7 +258,7 @@ export const mapButton = (
   );
 
 export const mapEdgeData =
-  (dispatch: Dispatch<MainViewAction>) =>
+  (dispatch: Dispatch<MainAction>) =>
     (edge: Edge): Edge => ({
       ...edge,
       data: {
@@ -268,14 +268,14 @@ export const mapEdgeData =
       },
     });
 
-type UseMainViewResult = {
+type UseMainResult = {
   conditions: Condition[];
   actions: Action[];
   causeFlowProps: CauseFlowProps;
   decisionTableProps: DecisionTableProps;
 };
 
-export const useMainView = (): UseMainViewResult => {
+export const useMain = (): UseMainResult => {
   const [state, dispatch] = useReducer(reducer, initialState);
   // TODO merge rule refactor
   const startNode = state.nodes.find((node) => node.type === 'cause');

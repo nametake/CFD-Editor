@@ -9,7 +9,7 @@ export type MainProps = {
 };
 
 /* eslint-disable react/jsx-props-no-spreading */
-export const MainView = function MainView({
+export const Main = function Main({
   causeFlowProps,
   decisionTableProps,
 }: MainProps): JSX.Element {
