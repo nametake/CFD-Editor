@@ -1,7 +1,6 @@
 import { initialState } from '../hooks';
-import { CellType } from '../types';
 import { makeConditions } from '../utils';
-import { Condition } from '@/app/types';
+import { CellType, Condition } from '@/app/types';
 
 describe('utils/makeCondition', () => {
   test('2 conditions and 2 stubs', () => {

@@ -4,6 +4,7 @@ import { Connection, NodeChange } from 'react-flow-renderer';
 
 import {
   Action,
+  CellType,
   Condition,
   Edge,
   Node,
@@ -19,7 +20,6 @@ import {
   mapStyle,
 } from '@/app/ui/CauseFlow';
 import {
-  CellType,
   DecisionTableProps,
   makeActions,
   makeConditions,

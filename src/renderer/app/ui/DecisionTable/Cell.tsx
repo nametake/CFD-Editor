@@ -3,9 +3,8 @@ import ReactDataSheet from 'react-datasheet';
 
 import styled from '@emotion/styled';
 
+import { CellType } from '@/app/types';
 import { assertUnreachable } from '@/app/utils/assert';
-
-import { CellType } from './types';
 
 const DefaultCell = styled.td`
   vertical-align: middle !important;

@@ -1,7 +1,6 @@
 import { initialState } from '../hooks';
-import { CellType } from '../types';
 import { makeActions } from '../utils';
-import { Action } from '@/app/types';
+import { Action, CellType } from '@/app/types';
 
 describe('utils/makeActions', () => {
   test('2 actions 2 stubs', () => {

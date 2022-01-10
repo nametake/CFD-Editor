@@ -1,6 +1,12 @@
-import { Action, ActionStub, Condition, ConditionStub } from '@/app/types';
-
-import { CellType, MAIN_COLUMN, STUB_COLUMN } from './types';
+import {
+  Action,
+  ActionStub,
+  CellType,
+  Condition,
+  ConditionStub,
+  MAIN_COLUMN,
+  STUB_COLUMN,
+} from '@/app/types';
 
 export const makeId = ({ row, col }: { row: number; col: number }) =>
   `${row}-${col}`;

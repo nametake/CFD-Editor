@@ -1,10 +1,12 @@
-import { Edge, Node, Rule } from '@/app/types';
 import {
   CellType,
+  Edge,
   MAIN_COLUMN,
+  Node,
+  Rule,
   STUB_COLUMN,
-  makeId,
-} from '@/app/ui/DecisionTable';
+} from '@/app/types';
+import { makeId } from '@/app/ui/DecisionTable';
 import { assertUnreachable } from '@/app/utils/assert';
 
 export const makeRules = (

@@ -1,12 +1,11 @@
 import React, { Dispatch, Reducer, useCallback, useReducer } from 'react';
 import ReactDataSheet from 'react-datasheet';
 
-import { Action, Condition } from '@/app/types';
+import { Action, CellType, Condition } from '@/app/types';
 import { Button } from '@/app/ui/Button';
 import { assertUnreachable } from '@/app/utils/assert';
 
 import { DecisionTableProps } from './DecisionTable';
-import { CellType } from './types';
 import { makeActions, makeConditions } from './utils';
 
 type DecisionTableState = {
