@@ -9,7 +9,7 @@ import { Main } from './Main';
 
 // eslint-disable-next-line import/no-default-export
 export default {
-  title: 'Main',
+  title: 'pages/Main',
   component: Main,
 } as ComponentMeta<typeof Main>;
 

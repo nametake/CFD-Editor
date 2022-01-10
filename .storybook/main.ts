@@ -3,7 +3,7 @@ import { StorybookConfig } from '@storybook/core-common';
 
 const config: StorybookConfig = {
   stories: [
-    '../src/renderer/app/ui/MainView/index.stories.tsx',
+    '../src/renderer/app/pages/Main/index.stories.tsx',
     '../src/**/*.stories.mdx',
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
   ],
