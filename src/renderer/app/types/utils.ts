@@ -1,5 +1,5 @@
+import { Action, Condition } from './models';
 import { Node } from './node';
-import { Action, Condition } from './types';
 
 export const makeCauseNodes = (condtions: Condition[]): Node[] =>
   condtions.flatMap((condtion) => [

@@ -1,3 +1,3 @@
 export * from './node';
-export * from './types';
+export * from './models';
 export * from './utils';
