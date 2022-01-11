@@ -10,9 +10,9 @@ import {
   makeActions,
   makeConditions,
 } from '@/app/ui/DecisionTable';
+import { makeRules, mergeRules } from '@/app/utils/data';
 
 import { MainAction, initialState, reducer } from './reducer';
-import { makeRules, mergeRules } from './utils';
 
 export const mapButton = (
   grid: CellType[][],
