@@ -1,4 +1,4 @@
-import { makeRules } from '../utils';
+import { makeRules } from '../makeRules';
 import { Edge, Node, Rule } from '@/app/types';
 
 describe('makeRules', () => {
