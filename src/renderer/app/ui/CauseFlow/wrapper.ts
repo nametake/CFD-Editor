@@ -2,8 +2,6 @@ import {
   Connection,
   EdgeChange,
   NodeChange,
-  Edge as ReactFlowEdge,
-  Node as ReactFlowNode,
   addEdge as addEdgeReactFlow,
   applyEdgeChanges as applyEdgeChangesReactFlow,
   applyNodeChanges as applyNodeChangesReactFlow,
@@ -27,17 +25,19 @@ export const applyNodeChanges = (
   changes: NodeChange[],
   nodes: Node[]
 ): Node[] =>
-  applyNodeChangesReactFlow(changes, nodes as ReactFlowNode[]).map<Node>(
-    (node) => ({ ...node, type: toType(node.type) })
-  );
+  applyNodeChangesReactFlow(changes, nodes).map<Node>((node) => ({
+    ...node,
+    type: toType(node.type),
+  }));
 
 export const applyEdgeChanges = (
   changes: EdgeChange[],
-  nodes: Edge[]
+  edges: Edge[]
 ): Edge[] =>
-  applyEdgeChangesReactFlow(changes, nodes as ReactFlowEdge[]).map<Edge>(
-    (edge) => ({ ...edge, type: 'removable' })
-  );
+  applyEdgeChangesReactFlow(changes, edges).map<Edge>((edge) => ({
+    ...edge,
+    type: 'removable',
+  }));
 
 export const addEdge = (edgeParams: Edge | Connection, edges: Edge[]): Edge[] =>
   addEdgeReactFlow(edgeParams, edges).map<Edge>((edge) => ({
