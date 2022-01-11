@@ -6,9 +6,10 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
 
 import { Node } from '@/app/types';
+import { layoutNodes } from '@/app/utils/layouts';
 
 import { CauseFlow } from './CauseFlow';
-import { layoutNodes, mapStyle } from './layouts';
+import { mapStyle } from './utils';
 import { applyNodeChanges } from './wrapper';
 
 // eslint-disable-next-line import/no-default-export
@@ -35,7 +36,7 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
       style={{ width: '1024', height: '1024px' }}
       onNodesChange={useCallback(
         (changeNodes: NodeChange[]) => {
-          sort(layoutNodes(applyNodeChanges(changeNodes, nodes)));
+          sort(layoutNodes(applyNodeChanges(changeNodes, nodes).map(mapStyle)));
         },
         [nodes, sort]
       )}

@@ -1,14 +1,10 @@
 import { Reducer } from 'react';
 
 import { Node, makeCauseNodes, makeResultNodes } from '@/app/types';
-import {
-  addEdge,
-  applyNodeChanges,
-  layoutNodes,
-  mapStyle,
-} from '@/app/ui/CauseFlow';
+import { addEdge, applyNodeChanges, mapStyle } from '@/app/ui/CauseFlow';
 import { makeActions, makeConditions } from '@/app/ui/DecisionTable';
 import { assertUnreachable } from '@/app/utils/assert';
+import { layoutNodes } from '@/app/utils/layouts';
 
 import { MainAction } from './action';
 import { MainState } from './state';
@@ -56,12 +52,14 @@ export const reducer: Reducer<MainState, MainAction> = (
       return {
         ...prev,
         grid,
-        nodes: layoutNodes(merge(prev.nodes, nodes.map(mapStyle))),
+        nodes: layoutNodes(
+          merge(prev.nodes, nodes.map(mapStyle)).map(mapStyle)
+        ),
       };
     }
     case 'CHANGED_NODES': {
       const newNodes = layoutNodes(
-        applyNodeChanges(action.payload.changes, prev.nodes)
+        applyNodeChanges(action.payload.changes, prev.nodes).map(mapStyle)
       );
       return {
         ...prev,
