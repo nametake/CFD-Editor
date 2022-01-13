@@ -1,13 +1,12 @@
 import React, { Dispatch, Reducer, useCallback, useReducer } from 'react';
 import ReactDataSheet from 'react-datasheet';
 
-import { Action, Condition } from '@/app/types';
+import { Action, CellType, Condition } from '@/app/types';
 import { Button } from '@/app/ui/Button';
 import { assertUnreachable } from '@/app/utils/assert';
+import { Grid } from '@/app/utils/grid';
 
 import { DecisionTableProps } from './DecisionTable';
-import { CellType } from './types';
-import { makeActions, makeConditions } from './utils';
 
 type DecisionTableState = {
   grid: CellType[][];
@@ -173,8 +172,8 @@ const mapButton = (
 export const useDecisionTable = (): UseDecisionTableResult => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return {
-    conditions: makeConditions(state.grid),
-    actions: makeActions(state.grid),
+    conditions: Grid.toConditions(state.grid),
+    actions: Grid.toActions(state.grid),
     decisionTableProps: {
       data: mapButton(state.grid, dispatch),
       onCellsChanged: useCallback(

@@ -3,9 +3,9 @@ import ReactDataSheet from 'react-datasheet';
 
 import styled from '@emotion/styled';
 
+import { CellType } from '@/app/types';
+import { Button } from '@/app/ui/Button';
 import { assertUnreachable } from '@/app/utils/assert';
-
-import { CellType } from './types';
 
 const DefaultCell = styled.td`
   vertical-align: middle !important;
@@ -65,8 +65,17 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
     case 'TITLE':
       return <TitleCell {...cellProps}>{children}</TitleCell>;
     case 'HEADER_ADD_ROW_BUTTON':
+      return (
+        <DefaultCell {...cellProps}>
+          <Button onClick={cell.value.onClick}>+</Button>
+        </DefaultCell>
+      );
     case 'REMOVE_ROW':
-      return <DefaultCell {...cellProps}>{children}</DefaultCell>;
+      return (
+        <DefaultCell {...cellProps}>
+          <Button onClick={cell.value.onClick}>-</Button>
+        </DefaultCell>
+      );
     case 'TEXT':
     case 'ACTION_RULE':
     case 'CONDITION_RULE':

@@ -1,10 +1,8 @@
-import { initialState } from '../hooks';
-import { CellType } from '../types';
-import { makeActions } from '../utils';
-import { Action } from '@/app/types';
+import { toConditions } from '../toConditions';
+import { CellType, Condition } from '@/app/types';
 
-describe('utils/makeActions', () => {
-  test('2 actions 2 stubs', () => {
+describe('toConditions', () => {
+  test('2 conditions and 2 stubs', () => {
     const grid: CellType[][] = [
       [
         { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
@@ -23,8 +21,18 @@ describe('utils/makeActions', () => {
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'TEXT', value: null } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
         { value: { type: 'TEXT', value: 'Country' } },
         { value: { type: 'TEXT', value: 'Japan' } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'TEXT', value: null } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
@@ -58,45 +66,45 @@ describe('utils/makeActions', () => {
       ],
     ];
 
-    const expected: Action[] = [
+    const expected: Condition[] = [
       {
-        id: '6-1',
-        name: 'Action 1',
+        id: '1-1',
+        name: 'Card',
         stub: [
           {
-            id: '6-2',
-            actionId: '6-1',
-            name: 'Action 1 one',
+            id: '1-2',
+            conditionId: '1-1',
+            name: 'Visa',
           },
           {
-            id: '7-2',
-            actionId: '6-1',
-            name: 'Action 1 two',
+            id: '2-2',
+            conditionId: '1-1',
+            name: 'MasterCard',
           },
         ],
       },
       {
-        id: '8-1',
-        name: 'Action 2',
+        id: '4-1',
+        name: 'Country',
         stub: [
           {
-            id: '8-2',
-            actionId: '8-1',
-            name: 'Action 2 one',
+            id: '4-2',
+            conditionId: '4-1',
+            name: 'Japan',
           },
           {
-            id: '9-2',
-            actionId: '8-1',
-            name: 'Action 2 two',
+            id: '6-2',
+            conditionId: '4-1',
+            name: 'USA',
           },
         ],
       },
     ];
 
-    expect(makeActions(grid)).toStrictEqual(expected);
+    expect(toConditions(grid)).toStrictEqual(expected);
   });
 
-  test('2 actions 1 stubs', () => {
+  test('2 conditions and 1 stubs', () => {
     const grid: CellType[][] = [
       [
         { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
@@ -111,12 +119,12 @@ describe('utils/makeActions', () => {
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
         { value: { type: 'TEXT', value: null } },
-        { value: { type: 'TEXT', value: 'MasterCard' } },
+        { value: { type: 'TEXT', value: null } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
         { value: { type: 'TEXT', value: 'Country' } },
-        { value: { type: 'TEXT', value: 'Japan' } },
+        { value: { type: 'TEXT', value: null } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
@@ -136,12 +144,12 @@ describe('utils/makeActions', () => {
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
         { value: { type: 'TEXT', value: null } },
-        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'TEXT', value: 'Action 1 two' } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
         { value: { type: 'TEXT', value: 'Action 2' } },
-        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'TEXT', value: 'Action 2 one' } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
@@ -150,35 +158,35 @@ describe('utils/makeActions', () => {
       ],
     ];
 
-    const expected: Action[] = [
+    const expected: Condition[] = [
       {
-        id: '6-1',
-        name: 'Action 1',
+        id: '1-1',
+        name: 'Card',
         stub: [
           {
-            id: '6-2',
-            actionId: '6-1',
-            name: 'Action 1 one',
+            id: '1-2',
+            conditionId: '1-1',
+            name: 'Visa',
           },
         ],
       },
       {
-        id: '8-1',
-        name: 'Action 2',
+        id: '3-1',
+        name: 'Country',
         stub: [
           {
-            id: '9-2',
-            actionId: '8-1',
-            name: 'Action 2 two',
+            id: '4-2',
+            conditionId: '3-1',
+            name: 'USA',
           },
         ],
       },
     ];
 
-    expect(makeActions(grid)).toStrictEqual(expected);
+    expect(toConditions(grid)).toStrictEqual(expected);
   });
 
-  test('no action', () => {
+  test('no condition', () => {
     const grid: CellType[][] = [
       [
         { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
@@ -192,9 +200,8 @@ describe('utils/makeActions', () => {
       ],
     ];
 
-    const expected: Action[] = [];
-
-    expect(makeActions(grid)).toStrictEqual(expected);
+    const expected: Condition[] = [];
+    expect(toConditions(grid)).toStrictEqual(expected);
   });
 
   test('single stub(same row)', () => {
@@ -205,32 +212,31 @@ describe('utils/makeActions', () => {
         { value: { type: 'TITLE', value: 'Condition stub' }, readOnly: true },
       ],
       [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: 'Card' } },
+        { value: { type: 'TEXT', value: 'Visa' } },
+      ],
+      [
         { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
         { value: { type: 'TITLE', value: 'Action' }, readOnly: true },
         { value: { type: 'TITLE', value: 'Action stub' }, readOnly: true },
       ],
-      [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: 'Action 1' } },
-        { value: { type: 'TEXT', value: 'Action 1 one' } },
-      ],
     ];
 
-    const expected: Action[] = [
+    const expected: Condition[] = [
       {
-        id: '2-1',
-        name: 'Action 1',
+        id: '1-1',
+        name: 'Card',
         stub: [
           {
-            id: '2-2',
-            actionId: '2-1',
-            name: 'Action 1 one',
+            id: '1-2',
+            conditionId: '1-1',
+            name: 'Visa',
           },
         ],
       },
     ];
-
-    expect(makeActions(grid)).toStrictEqual(expected);
+    expect(toConditions(grid)).toStrictEqual(expected);
   });
 
   test('single stub(diff row)', () => {
@@ -241,43 +247,35 @@ describe('utils/makeActions', () => {
         { value: { type: 'TITLE', value: 'Condition stub' }, readOnly: true },
       ],
       [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: 'Card' } },
+        { value: { type: 'TEXT', value: null } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'TEXT', value: 'MasterCard' } },
+      ],
+      [
         { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
         { value: { type: 'TITLE', value: 'Action' }, readOnly: true },
         { value: { type: 'TITLE', value: 'Action stub' }, readOnly: true },
       ],
-      [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: 'Action 1' } },
-        { value: { type: 'TEXT', value: null } },
-      ],
-      [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: null } },
-        { value: { type: 'TEXT', value: 'Action 1 one' } },
-      ],
     ];
 
-    const expected: Action[] = [
+    const expected: Condition[] = [
       {
-        id: '2-1',
-        name: 'Action 1',
+        id: '1-1',
+        name: 'Card',
         stub: [
           {
-            id: '3-2',
-            actionId: '2-1',
-            name: 'Action 1 one',
+            id: '2-2',
+            conditionId: '1-1',
+            name: 'MasterCard',
           },
         ],
       },
     ];
-
-    expect(makeActions(grid)).toStrictEqual(expected);
-  });
-
-  test('initial state', () => {
-    const { grid } = initialState;
-
-    const expected: Action[] = [];
-    expect(makeActions(grid)).toStrictEqual(expected);
+    expect(toConditions(grid)).toStrictEqual(expected);
   });
 });

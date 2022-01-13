@@ -1,7 +1,7 @@
-import { makeRules } from '../utils';
+import { traverseRules } from '../traverseRules';
 import { Edge, Node, Rule } from '@/app/types';
 
-describe('makeRules', () => {
+describe('traverseRules', () => {
   describe('connected cause node', () => {
     const nodes: Node[] = [
       {
@@ -105,19 +105,7 @@ describe('makeRules', () => {
         },
       ];
 
-      expect(
-        makeRules(
-          { conditionStubIds: [], actionId: null },
-          {
-            id: '1-1',
-            data: { label: { text: 'Card' } },
-            type: 'cause',
-            position: { x: 0, y: 0 },
-          },
-          nodes,
-          edges
-        )
-      ).toStrictEqual(expected);
+      expect(traverseRules(nodes, edges)).toStrictEqual(expected);
     });
   });
 
@@ -227,19 +215,7 @@ describe('makeRules', () => {
         },
       ];
 
-      expect(
-        makeRules(
-          { conditionStubIds: [], actionId: null },
-          {
-            id: '1-1',
-            data: { label: { text: 'Card' } },
-            type: 'cause',
-            position: { x: 0, y: 0 },
-          },
-          nodes,
-          edges
-        )
-      ).toStrictEqual(expected);
+      expect(traverseRules(nodes, edges)).toStrictEqual(expected);
     });
   });
 });

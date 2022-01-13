@@ -4,20 +4,20 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
 
-import { useMainView } from './hooks';
-import { MainView } from './MainView';
+import { useMain } from './hooks';
+import { Main } from './Main';
 
 // eslint-disable-next-line import/no-default-export
 export default {
-  title: 'MainView',
-  component: MainView,
-} as ComponentMeta<typeof MainView>;
+  title: 'pages/Main',
+  component: Main,
+} as ComponentMeta<typeof Main>;
 
 /* eslint-disable react/jsx-props-no-spreading */
-const Template: ComponentStory<typeof MainView> = function Template() {
-  const { causeFlowProps, decisionTableProps } = useMainView();
+const Template: ComponentStory<typeof Main> = function Template() {
+  const { causeFlowProps, decisionTableProps } = useMain();
   return (
-    <MainView
+    <Main
       causeFlowProps={causeFlowProps}
       decisionTableProps={decisionTableProps}
     />

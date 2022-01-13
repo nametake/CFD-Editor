@@ -4,10 +4,7 @@ import {
   Node,
   ResultNodeType,
 } from '@/app/types';
-import { causeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
-import { elementNodeStyle } from '@/app/ui/ElementNode';
-import { resultNodeStyle } from '@/app/ui/ResultNode';
-import { assertUnreachable } from '@/app/utils/assert';
+import { causeNodeStyle } from '@/app/ui/CauseNode';
 import { parseLength } from '@/app/utils/css';
 
 export type AlignOption = {
@@ -139,58 +136,19 @@ export const resizeCauseNode = (
   };
 };
 
-export const mapStyle = (node: Node): Node => {
-  switch (node.type) {
-    case 'cause':
-      return {
-        ...node,
-        data: {
-          ...node.data,
-          label: {
-            ...node.data.label,
-            style: causeLabelStyle,
-          },
-        },
-        style: {
-          ...node.style,
-          ...causeNodeStyle,
-        },
-      };
-    case 'element':
-      return {
-        ...node,
-        style: {
-          ...node.style,
-          ...elementNodeStyle,
-        },
-      };
-    case 'result':
-      return {
-        ...node,
-        style: {
-          ...node.style,
-          ...resultNodeStyle,
-        },
-      };
-    default:
-      return assertUnreachable(node);
-  }
-};
-
 // TODO remove magic number
 export const layoutNodes = (nodes: Node[]) => {
   const elementsTopMargin = 20;
   const elementGap = 10;
   const nodeGap = 80;
   const resultGap = 45;
-  const styledNodes = nodes.map(mapStyle);
-  const causeNodes = makeCauseNode(styledNodes).map((node) =>
+  const causeNodes = makeCauseNode(nodes).map((node) =>
     resizeCauseNode(node, {
       elementGap,
       elementsTopMargin,
     })
   );
-  const resultNodes = makeResultNode(styledNodes);
+  const resultNodes = makeResultNode(nodes);
 
   const layoutedNodes = alignHorizontal(causeNodes, { gap: nodeGap }).map(
     ({ elements, ...node }) => ({
