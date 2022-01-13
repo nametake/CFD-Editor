@@ -1,7 +1,7 @@
 import { Edge, Node, Rule } from '@/app/types';
 import { assertUnreachable } from '@/app/utils/assert';
 
-export const makeRules = (
+const traverse = (
   currentRule: Rule,
   currentNode: Node | undefined,
   nodes: Node[],
@@ -23,7 +23,7 @@ export const makeRules = (
           const edge = edges.find((e) => e.source === element.id);
           return node.id === edge?.target;
         });
-        return makeRules(
+        return traverse(
           nextRule,
           elementNextNode || causeNextNode,
           nodes,
@@ -40,7 +40,7 @@ export const makeRules = (
         ...currentRule,
         conditionStubIds: [...currentRule.conditionStubIds, currentNode.id],
       };
-      return [...makeRules(nextRule, nextNode, nodes, edges)];
+      return [...traverse(nextRule, nextNode, nodes, edges)];
     }
     case 'result':
       return [{ ...currentRule, actionId: currentNode.id }];
@@ -49,4 +49,16 @@ export const makeRules = (
     default:
       return assertUnreachable(currentNode);
   }
+};
+
+export const traverseRules = (nodes: Node[], edges: Edge[]): Rule[] => {
+  const startNode = nodes.find((node) => node.type === 'cause');
+  return startNode
+    ? traverse(
+      { conditionStubIds: [], actionId: null },
+      startNode,
+      nodes,
+      edges
+    )
+    : [];
 };

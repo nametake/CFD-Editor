@@ -6,8 +6,8 @@ import { Action, CellType, Condition, Edge } from '@/app/types';
 import { Button } from '@/app/ui/Button';
 import { CauseFlowProps } from '@/app/ui/CauseFlow';
 import { DecisionTableProps } from '@/app/ui/DecisionTable';
-import { makeRules } from '@/app/utils/data';
 import { Grid } from '@/app/utils/grid';
+import { Node } from '@/app/utils/node';
 
 import { MainAction, initialState, reducer } from './reducer';
 
@@ -77,16 +77,7 @@ type UseMainResult = {
 
 export const useMain = (): UseMainResult => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  // TODO merge rule refactor
-  const startNode = state.nodes.find((node) => node.type === 'cause');
-  const rules = startNode
-    ? makeRules(
-      { conditionStubIds: [], actionId: null },
-      startNode,
-      state.nodes,
-      state.edges
-    )
-    : [];
+  const rules = Node.traverseRules(state.nodes, state.edges);
   const grid = Grid.mergeRules(state.grid, rules);
   return {
     conditions: Grid.toConditions(state.grid),
