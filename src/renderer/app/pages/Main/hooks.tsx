@@ -9,7 +9,7 @@ import { DecisionTableProps } from '@/app/ui/DecisionTable';
 import { Grid } from '@/app/utils/grid';
 import { Node } from '@/app/utils/node';
 
-import { MainAction, initialState, reducer } from './reducer';
+import { MainAction, initialState, reducer } from './state';
 
 export const mapButton = (
   grid: CellType[][],
