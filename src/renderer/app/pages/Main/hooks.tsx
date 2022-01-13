@@ -9,51 +9,46 @@ import { DecisionTableProps } from '@/app/ui/DecisionTable';
 
 import { MainAction, initialState, reducer } from './state';
 
-const mapGridButton = (
-  grid: CellType[][],
-  dispatch: Dispatch<MainAction>
-): CellType[][] =>
-  grid.map((row, rowNumber) =>
-    row.map((cell) => {
-      if (cell.value.type === 'HEADER_ADD_ROW_BUTTON') {
-        const handleClick = () => {
-          dispatch({
-            type: 'CLICK_ADD_ROW_BOTTOM_BUTTON',
-            payload: { row: rowNumber },
-          });
-        };
-        return {
-          ...cell,
-          forceComponent: true,
-          component: (
-            <Button type="button" onClick={handleClick}>
-              +
-            </Button>
-          ),
-        };
-      }
+const mapCellButton = (dispatch: Dispatch<MainAction>, rowNumber: number) =>
+  function innerMapCellButton(cell: CellType): CellType {
+    if (cell.value.type === 'HEADER_ADD_ROW_BUTTON') {
+      const handleClick = () => {
+        dispatch({
+          type: 'CLICK_ADD_ROW_BOTTOM_BUTTON',
+          payload: { row: rowNumber },
+        });
+      };
+      return {
+        ...cell,
+        forceComponent: true,
+        component: (
+          <Button type="button" onClick={handleClick}>
+            +
+          </Button>
+        ),
+      };
+    }
 
-      if (cell.value.type === 'REMOVE_ROW') {
-        const handleClick = () => {
-          dispatch({
-            type: 'CLICK_REMOVE_ROW_BUTTON',
-            payload: { row: rowNumber },
-          });
-        };
-        return {
-          ...cell,
-          forceComponent: true,
-          component: (
-            <Button type="button" onClick={handleClick}>
-              -
-            </Button>
-          ),
-        };
-      }
+    if (cell.value.type === 'REMOVE_ROW') {
+      const handleClick = () => {
+        dispatch({
+          type: 'CLICK_REMOVE_ROW_BUTTON',
+          payload: { row: rowNumber },
+        });
+      };
+      return {
+        ...cell,
+        forceComponent: true,
+        component: (
+          <Button type="button" onClick={handleClick}>
+            -
+          </Button>
+        ),
+      };
+    }
 
-      return cell;
-    })
-  );
+    return cell;
+  };
 
 const mapEdgeButton =
   (dispatch: Dispatch<MainAction>) =>
@@ -85,7 +80,9 @@ export const useMain = (): UseMainResult => {
       }, []),
     },
     decisionTableProps: {
-      data: mapGridButton(state.grid, dispatch),
+      data: state.grid.map((row, rowNumber) =>
+        row.map(mapCellButton(dispatch, rowNumber))
+      ),
       onCellsChanged: useCallback(
         (changes: ReactDataSheet.CellsChangedArgs<CellType>) => {
           dispatch({ type: 'CHANGED_CELLS', payload: { changes } });
