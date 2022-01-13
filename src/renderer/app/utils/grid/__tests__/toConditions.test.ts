@@ -1,7 +1,7 @@
-import { Grid } from '../index';
+import { toConditions } from '../toConditions';
 import { CellType, Condition } from '@/app/types';
 
-describe('Grid.toConditions', () => {
+describe('toConditions', () => {
   test('2 conditions and 2 stubs', () => {
     const grid: CellType[][] = [
       [
@@ -101,7 +101,7 @@ describe('Grid.toConditions', () => {
       },
     ];
 
-    expect(Grid.toCondition(grid)).toStrictEqual(expected);
+    expect(toConditions(grid)).toStrictEqual(expected);
   });
 
   test('2 conditions and 1 stubs', () => {
@@ -183,7 +183,7 @@ describe('Grid.toConditions', () => {
       },
     ];
 
-    expect(Grid.toCondition(grid)).toStrictEqual(expected);
+    expect(toConditions(grid)).toStrictEqual(expected);
   });
 
   test('no condition', () => {
@@ -201,7 +201,7 @@ describe('Grid.toConditions', () => {
     ];
 
     const expected: Condition[] = [];
-    expect(Grid.toCondition(grid)).toStrictEqual(expected);
+    expect(toConditions(grid)).toStrictEqual(expected);
   });
 
   test('single stub(same row)', () => {
@@ -236,7 +236,7 @@ describe('Grid.toConditions', () => {
         ],
       },
     ];
-    expect(Grid.toCondition(grid)).toStrictEqual(expected);
+    expect(toConditions(grid)).toStrictEqual(expected);
   });
 
   test('single stub(diff row)', () => {
@@ -276,6 +276,6 @@ describe('Grid.toConditions', () => {
         ],
       },
     ];
-    expect(Grid.toCondition(grid)).toStrictEqual(expected);
+    expect(toConditions(grid)).toStrictEqual(expected);
   });
 });

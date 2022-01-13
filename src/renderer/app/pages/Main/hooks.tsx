@@ -89,7 +89,7 @@ export const useMain = (): UseMainResult => {
     : [];
   const grid = Grid.mergeRules(state.grid, rules);
   return {
-    conditions: Grid.toCondition(state.grid),
+    conditions: Grid.toConditions(state.grid),
     actions: Grid.toActions(state.grid),
     causeFlowProps: {
       nodes: state.nodes,

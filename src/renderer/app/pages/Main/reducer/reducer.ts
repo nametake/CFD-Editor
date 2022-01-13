@@ -39,7 +39,7 @@ const actionReducer: Reducer<MainState, MainAction> = (
         };
       });
 
-      const conditions = Grid.toCondition(grid);
+      const conditions = Grid.toConditions(grid);
       const conditionNodes = makeCauseNodes(conditions);
 
       const actions = Grid.toActions(grid);

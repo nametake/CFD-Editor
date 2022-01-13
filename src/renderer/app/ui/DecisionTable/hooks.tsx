@@ -172,7 +172,7 @@ const mapButton = (
 export const useDecisionTable = (): UseDecisionTableResult => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return {
-    conditions: Grid.toCondition(state.grid),
+    conditions: Grid.toConditions(state.grid),
     actions: Grid.toActions(state.grid),
     decisionTableProps: {
       data: mapButton(state.grid, dispatch),
