@@ -9,7 +9,7 @@ import { DecisionTableProps } from '@/app/ui/DecisionTable';
 
 import { MainAction, initialState, reducer } from './state';
 
-export const mapButton = (
+const mapGridButton = (
   grid: CellType[][],
   dispatch: Dispatch<MainAction>
 ): CellType[][] =>
@@ -55,7 +55,7 @@ export const mapButton = (
     })
   );
 
-export const mapEdgeData =
+const mapEdgeButton =
   (dispatch: Dispatch<MainAction>) =>
     (edge: Edge): Edge => ({
       ...edge,
@@ -76,7 +76,7 @@ export const useMain = (): UseMainResult => {
   return {
     causeFlowProps: {
       nodes: state.nodes,
-      edges: state.edges.map(mapEdgeData(dispatch)),
+      edges: state.edges.map(mapEdgeButton(dispatch)),
       onNodesChange: useCallback((changes: NodeChange[]) => {
         dispatch({ type: 'CHANGED_NODES', payload: { changes } });
       }, []),
@@ -85,7 +85,7 @@ export const useMain = (): UseMainResult => {
       }, []),
     },
     decisionTableProps: {
-      data: mapButton(state.grid, dispatch),
+      data: mapGridButton(state.grid, dispatch),
       onCellsChanged: useCallback(
         (changes: ReactDataSheet.CellsChangedArgs<CellType>) => {
           dispatch({ type: 'CHANGED_CELLS', payload: { changes } });
