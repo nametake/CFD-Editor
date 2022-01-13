@@ -119,15 +119,23 @@ const actionReducer: Reducer<MainState, MainAction> = (
   }
 };
 
+const rulesReducer: Reducer<MainState, MainAction> = (
+  state: MainState
+): MainState => {
+  const rules = NodeUtils.traverseRules(state.nodes, state.edges);
+  const grid = Grid.mergeRules(state.grid, rules);
+  return { ...state, grid };
+};
+
 const layoutReducer: Reducer<MainState, MainAction> = (
-  prev: MainState
-): MainState => ({ ...prev, nodes: layoutNodes(prev.nodes.map(mapStyle)) });
+  state: MainState
+): MainState => ({ ...state, nodes: layoutNodes(state.nodes.map(mapStyle)) });
 
 export const reducer: Reducer<MainState, MainAction> = (
   prev: MainState,
   action: MainAction
 ): MainState =>
-  [actionReducer, layoutReducer].reduce(
+  [actionReducer, rulesReducer, layoutReducer].reduce(
     (prevState, fn) => fn(prevState, action),
     prev
   );

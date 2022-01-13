@@ -2,12 +2,10 @@ import React, { Dispatch, useCallback, useReducer } from 'react';
 import ReactDataSheet from 'react-datasheet';
 import { Connection, NodeChange } from 'react-flow-renderer';
 
-import { Action, CellType, Condition, Edge } from '@/app/types';
+import { CellType, Edge } from '@/app/types';
 import { Button } from '@/app/ui/Button';
 import { CauseFlowProps } from '@/app/ui/CauseFlow';
 import { DecisionTableProps } from '@/app/ui/DecisionTable';
-import { Grid } from '@/app/utils/grid';
-import { Node } from '@/app/utils/node';
 
 import { MainAction, initialState, reducer } from './state';
 
@@ -69,19 +67,13 @@ export const mapEdgeData =
     });
 
 type UseMainResult = {
-  conditions: Condition[];
-  actions: Action[];
   causeFlowProps: CauseFlowProps;
   decisionTableProps: DecisionTableProps;
 };
 
 export const useMain = (): UseMainResult => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const rules = Node.traverseRules(state.nodes, state.edges);
-  const grid = Grid.mergeRules(state.grid, rules);
   return {
-    conditions: Grid.toConditions(state.grid),
-    actions: Grid.toActions(state.grid),
     causeFlowProps: {
       nodes: state.nodes,
       edges: state.edges.map(mapEdgeData(dispatch)),
@@ -93,7 +85,7 @@ export const useMain = (): UseMainResult => {
       }, []),
     },
     decisionTableProps: {
-      data: mapButton(grid, dispatch),
+      data: mapButton(state.grid, dispatch),
       onCellsChanged: useCallback(
         (changes: ReactDataSheet.CellsChangedArgs<CellType>) => {
           dispatch({ type: 'CHANGED_CELLS', payload: { changes } });
