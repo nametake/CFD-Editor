@@ -22,22 +22,20 @@ const merge = (prevNodes: Node[], newNodes: Node[]): Node[] =>
     };
   });
 
-export const reducer: Reducer<MainState, MainAction> = (
+const actionReducer: Reducer<MainState, MainAction> = (
   prev: MainState,
   action: MainAction
 ): MainState => {
   switch (action.type) {
     case 'CHANGED_CELLS': {
+      // TODO change cell to ui/DecisionTable/utils
       const { changes } = action.payload;
       const grid = [...prev.grid];
       changes.forEach(({ cell, row, col, value }) => {
         if (cell?.value.type !== 'TEXT') return;
         grid[row][col] = {
           ...cell,
-          value: {
-            ...cell.value,
-            value,
-          },
+          value: { ...cell.value, value },
         };
       });
 
@@ -52,18 +50,13 @@ export const reducer: Reducer<MainState, MainAction> = (
       return {
         ...prev,
         grid,
-        nodes: layoutNodes(
-          merge(prev.nodes, nodes.map(mapStyle)).map(mapStyle)
-        ),
+        nodes: merge(prev.nodes, nodes),
       };
     }
     case 'CHANGED_NODES': {
-      const newNodes = layoutNodes(
-        applyNodeChanges(action.payload.changes, prev.nodes).map(mapStyle)
-      );
       return {
         ...prev,
-        nodes: newNodes,
+        nodes: applyNodeChanges(action.payload.changes, prev.nodes),
       };
     }
     case 'ADDED_CONNECTION': {
@@ -124,3 +117,16 @@ export const reducer: Reducer<MainState, MainAction> = (
       return assertUnreachable(action);
   }
 };
+
+const layoutReducer: Reducer<MainState, MainAction> = (
+  prev: MainState
+): MainState => ({ ...prev, nodes: layoutNodes(prev.nodes.map(mapStyle)) });
+
+export const reducer: Reducer<MainState, MainAction> = (
+  prev: MainState,
+  action: MainAction
+): MainState =>
+  [actionReducer, layoutReducer].reduce(
+    (prevState, fn) => fn(prevState, action),
+    prev
+  );
