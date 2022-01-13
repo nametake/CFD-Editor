@@ -1,8 +1,7 @@
-import { initialState } from '../hooks';
-import { makeActions } from '../utils';
+import { Grid } from '../index';
 import { Action, CellType } from '@/app/types';
 
-describe('utils/makeActions', () => {
+describe('Grid.toActions', () => {
   test('2 actions 2 stubs', () => {
     const grid: CellType[][] = [
       [
@@ -92,7 +91,7 @@ describe('utils/makeActions', () => {
       },
     ];
 
-    expect(makeActions(grid)).toStrictEqual(expected);
+    expect(Grid.toActions(grid)).toStrictEqual(expected);
   });
 
   test('2 actions 1 stubs', () => {
@@ -174,7 +173,7 @@ describe('utils/makeActions', () => {
       },
     ];
 
-    expect(makeActions(grid)).toStrictEqual(expected);
+    expect(Grid.toActions(grid)).toStrictEqual(expected);
   });
 
   test('no action', () => {
@@ -193,7 +192,7 @@ describe('utils/makeActions', () => {
 
     const expected: Action[] = [];
 
-    expect(makeActions(grid)).toStrictEqual(expected);
+    expect(Grid.toActions(grid)).toStrictEqual(expected);
   });
 
   test('single stub(same row)', () => {
@@ -229,7 +228,7 @@ describe('utils/makeActions', () => {
       },
     ];
 
-    expect(makeActions(grid)).toStrictEqual(expected);
+    expect(Grid.toActions(grid)).toStrictEqual(expected);
   });
 
   test('single stub(diff row)', () => {
@@ -270,13 +269,6 @@ describe('utils/makeActions', () => {
       },
     ];
 
-    expect(makeActions(grid)).toStrictEqual(expected);
-  });
-
-  test('initial state', () => {
-    const { grid } = initialState;
-
-    const expected: Action[] = [];
-    expect(makeActions(grid)).toStrictEqual(expected);
+    expect(Grid.toActions(grid)).toStrictEqual(expected);
   });
 });

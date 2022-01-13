@@ -1,8 +1,7 @@
-import { initialState } from '../hooks';
-import { makeConditions } from '../utils';
+import { Grid } from '../index';
 import { CellType, Condition } from '@/app/types';
 
-describe('utils/makeCondition', () => {
+describe('Grid.toConditions', () => {
   test('2 conditions and 2 stubs', () => {
     const grid: CellType[][] = [
       [
@@ -102,7 +101,7 @@ describe('utils/makeCondition', () => {
       },
     ];
 
-    expect(makeConditions(grid)).toStrictEqual(expected);
+    expect(Grid.toCondition(grid)).toStrictEqual(expected);
   });
 
   test('2 conditions and 1 stubs', () => {
@@ -184,7 +183,7 @@ describe('utils/makeCondition', () => {
       },
     ];
 
-    expect(makeConditions(grid)).toStrictEqual(expected);
+    expect(Grid.toCondition(grid)).toStrictEqual(expected);
   });
 
   test('no condition', () => {
@@ -202,7 +201,7 @@ describe('utils/makeCondition', () => {
     ];
 
     const expected: Condition[] = [];
-    expect(makeConditions(grid)).toStrictEqual(expected);
+    expect(Grid.toCondition(grid)).toStrictEqual(expected);
   });
 
   test('single stub(same row)', () => {
@@ -237,7 +236,7 @@ describe('utils/makeCondition', () => {
         ],
       },
     ];
-    expect(makeConditions(grid)).toStrictEqual(expected);
+    expect(Grid.toCondition(grid)).toStrictEqual(expected);
   });
 
   test('single stub(diff row)', () => {
@@ -277,13 +276,6 @@ describe('utils/makeCondition', () => {
         ],
       },
     ];
-    expect(makeConditions(grid)).toStrictEqual(expected);
-  });
-
-  test('initial state', () => {
-    const { grid } = initialState;
-
-    const expected: Condition[] = [];
-    expect(makeConditions(grid)).toStrictEqual(expected);
+    expect(Grid.toCondition(grid)).toStrictEqual(expected);
   });
 });
