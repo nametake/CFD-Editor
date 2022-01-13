@@ -2,8 +2,8 @@ import { Reducer } from 'react';
 
 import { Node, makeCauseNodes, makeResultNodes } from '@/app/types';
 import { addEdge, applyNodeChanges, mapStyle } from '@/app/ui/CauseFlow';
-import { makeActions, makeConditions } from '@/app/ui/DecisionTable';
 import { assertUnreachable } from '@/app/utils/assert';
+import { Grid } from '@/app/utils/grid';
 import { layoutNodes } from '@/app/utils/layouts';
 
 import { MainAction } from './action';
@@ -39,10 +39,10 @@ const actionReducer: Reducer<MainState, MainAction> = (
         };
       });
 
-      const conditions = makeConditions(grid);
+      const conditions = Grid.toCondition(grid);
       const conditionNodes = makeCauseNodes(conditions);
 
-      const actions = makeActions(grid);
+      const actions = Grid.toActions(grid);
       const resultNodes = makeResultNodes(actions);
 
       const nodes = [...conditionNodes, ...resultNodes];

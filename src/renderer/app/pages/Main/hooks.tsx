@@ -5,12 +5,9 @@ import { Connection, NodeChange } from 'react-flow-renderer';
 import { Action, CellType, Condition, Edge } from '@/app/types';
 import { Button } from '@/app/ui/Button';
 import { CauseFlowProps } from '@/app/ui/CauseFlow';
-import {
-  DecisionTableProps,
-  makeActions,
-  makeConditions,
-} from '@/app/ui/DecisionTable';
-import { makeRules, mergeRules } from '@/app/utils/data';
+import { DecisionTableProps } from '@/app/ui/DecisionTable';
+import { makeRules } from '@/app/utils/data';
+import { Grid } from '@/app/utils/grid';
 
 import { MainAction, initialState, reducer } from './reducer';
 
@@ -90,10 +87,10 @@ export const useMain = (): UseMainResult => {
       state.edges
     )
     : [];
-  const grid = mergeRules(state.grid, rules);
+  const grid = Grid.mergeRules(state.grid, rules);
   return {
-    conditions: makeConditions(state.grid),
-    actions: makeActions(state.grid),
+    conditions: Grid.toCondition(state.grid),
+    actions: Grid.toActions(state.grid),
     causeFlowProps: {
       nodes: state.nodes,
       edges: state.edges.map(mapEdgeData(dispatch)),
