@@ -6,21 +6,26 @@ import { makeId } from './utils';
 type MergeRulesOption = {
   nameColumn?: number;
   stubColumn?: number;
-}
+};
 
-// TODO Test
-export const mergeRules = (grid: CellType[][], rules: Rule[], option?: MergeRulesOption): CellType[][] => {
-  const nameColumn = option?.nameColumn ?? NAME_COLUMN
-  const stubColumn = option?.stubColumn ?? STUB_COLUMN
+export const mergeRules = (
+  grid: CellType[][],
+  rules: Rule[],
+  option?: MergeRulesOption
+): CellType[][] => {
+  const nameColumn = option?.nameColumn ?? NAME_COLUMN;
+  const stubColumn = option?.stubColumn ?? STUB_COLUMN;
 
   const newGrid = grid.map((row) => row.slice(0, 3));
 
-  const actionHeaderRow = findActionRow(newGrid)
+  const actionHeaderRow = findActionRow(newGrid);
 
   rules.forEach((rule, ruleIndex) => {
     newGrid.forEach((row, i) => {
-      const isConditionHeader = i === 0 && row[nameColumn].value.type === 'CONDITION_HEADER';
-      const isActionHeader = i !== 0 && row[nameColumn].value.type === 'ACTION_HEADER';
+      const isConditionHeader =
+        i === 0 && row[nameColumn].value.type === 'CONDITION_HEADER';
+      const isActionHeader =
+        i !== 0 && row[nameColumn].value.type === 'ACTION_HEADER';
       if (isConditionHeader) {
         newGrid[i] = [
           ...row,

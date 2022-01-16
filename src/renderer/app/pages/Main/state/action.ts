@@ -1,13 +1,9 @@
-import ReactDataSheet from 'react-datasheet';
 import { Connection, NodeChange } from 'react-flow-renderer';
 
-import { CellType } from '@/app/types';
+import { CellsChangedArgs } from '@/app/types';
 
 export type MainAction =
-  | {
-    type: 'CHANGED_CELLS';
-    payload: { changes: ReactDataSheet.CellsChangedArgs<CellType> };
-  }
+  | { type: 'CHANGED_CELLS'; payload: { changes: CellsChangedArgs } }
   | { type: 'CHANGED_NODES'; payload: { changes: NodeChange[] } }
   | { type: 'ADDED_CONNECTION'; payload: { connection: Connection } }
   | { type: 'CLICK_ADD_ROW_TOP_BUTTON'; payload: { row: number } }
