@@ -8,7 +8,7 @@ import { layoutNodes } from '@/app/utils/layouts';
 import { Node as NodeUtils } from '@/app/utils/node';
 
 import { MainAction } from './action';
-import { MainState } from './state';
+import { MainState, emptyActionRow, emptyConditionRow } from './state';
 
 const merge = (prevNodes: Node[], newNodes: Node[]): Node[] =>
   newNodes.map((newNode) => {
@@ -33,11 +33,19 @@ const actionReducer: Reducer<MainState, MainAction> = (
       const { changes } = action.payload;
       const grid = [...prev.grid];
       changes.forEach(({ cell, row, col, value }) => {
-        if (cell?.value.type !== 'TEXT') return;
-        grid[row][col] = {
-          ...cell,
-          value: { ...cell.value, value },
-        };
+        switch (cell?.value.type) {
+          case 'CONDITION_NAME':
+          case 'CONDITION_STUB':
+          case 'ACTION_NAME':
+          case 'ACTION_STUB': {
+            grid[row][col] = {
+              ...cell,
+              value: { ...cell.value, value },
+            };
+            break;
+          }
+          default:
+        }
       });
 
       const conditions = Grid.toConditions(grid);
@@ -79,11 +87,7 @@ const actionReducer: Reducer<MainState, MainAction> = (
         ...prev,
         grid: [
           ...prev.grid.slice(0, row),
-          [
-            { value: { type: 'REMOVE_ROW', value: null }, readOnly: true },
-            { value: { type: 'TEXT', value: null } },
-            { value: { type: 'TEXT', value: null } },
-          ],
+          emptyConditionRow,
           ...prev.grid.slice(row, end),
         ],
       };
@@ -95,11 +99,7 @@ const actionReducer: Reducer<MainState, MainAction> = (
         ...prev,
         grid: [
           ...prev.grid.slice(0, row + 1),
-          [
-            { value: { type: 'REMOVE_ROW', value: null }, readOnly: true },
-            { value: { type: 'TEXT', value: null } },
-            { value: { type: 'TEXT', value: null } },
-          ],
+          emptyActionRow,
           ...prev.grid.slice(row + 1, end),
         ],
       };
