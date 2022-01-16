@@ -21,7 +21,7 @@ export const toActions = (
   const nameColumn = option?.nameColumn ?? NAME_COLUMN;
   const stubColumn = option?.stubColumn ?? STUB_COLUMN;
 
-  const actionHeaderRow = findActionRow(grid)
+  const actionHeaderRow = findActionRow(grid);
 
   const actionRowRanges = grid.reduce<RowRange[]>(
     (prev, row, rowIndex): RowRange[] => {
@@ -30,7 +30,7 @@ export const toActions = (
       if (cell.value.type !== 'ACTION_NAME') return prev;
 
       // new condition
-      if (cell.value.value !== null) {
+      if (cell.value.value !== null && cell.value.value !== '') {
         return [...prev, { start: rowIndex, end: rowIndex + 1 }];
       }
 
