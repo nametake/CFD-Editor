@@ -29,24 +29,7 @@ const actionReducer: Reducer<MainState, MainAction> = (
 ): MainState => {
   switch (action.type) {
     case 'CHANGED_CELLS': {
-      // TODO change cell to ui/DecisionTable/utils
-      const { changes } = action.payload;
-      const grid = [...prev.grid];
-      changes.forEach(({ cell, row, col, value }) => {
-        switch (cell?.value.type) {
-          case 'CONDITION_NAME':
-          case 'CONDITION_STUB':
-          case 'ACTION_NAME':
-          case 'ACTION_STUB': {
-            grid[row][col] = {
-              ...cell,
-              value: { ...cell.value, value },
-            };
-            break;
-          }
-          default:
-        }
-      });
+      const grid = Grid.applyCellsChanges(prev.grid, action.payload.changes);
 
       const conditions = Grid.toConditions(grid);
       const conditionNodes = NodeUtils.fromConditions(conditions);
