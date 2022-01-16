@@ -104,14 +104,13 @@ export const resizeCauseNode = (
   }
   const { elementsTopMargin, elementGap } = option ?? {};
   const newWidth =
-    causeNode.elements
-      .map((el) => el.width ?? 0)
-      .reduce((prev, width) => (prev < width ? width : prev), 0) +
+    Math.max(...causeNode.elements.map<number>((el) => el.width ?? 0)) +
     (parseLength(causeNode.style?.paddingLeft) ?? 0) +
     (parseLength(causeNode.style?.paddingRight) ?? 0);
 
   const newHeight =
     (elementsTopMargin ?? 0) +
+    // sum elements height and gap
     causeNode.elements
       .map((el) => el.height ?? 0)
       .reduce(
@@ -138,6 +137,7 @@ export const resizeCauseNode = (
 
 // TODO remove magic number
 export const layoutNodes = (nodes: Node[]) => {
+  // console.log(nodes.map((node) => `${node.width},${node.style?.width}`));
   const elementsTopMargin = 20;
   const elementGap = 10;
   const nodeGap = 80;
