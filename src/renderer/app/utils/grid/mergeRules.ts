@@ -1,26 +1,31 @@
-import { CellType, MAIN_COLUMN, Rule, STUB_COLUMN } from '@/app/types';
+import { CellType, NAME_COLUMN, Rule, STUB_COLUMN } from '@/app/types';
 
+import { findActionRow } from './findActionRow';
 import { makeId } from './utils';
 
-// TODO Test
-export const mergeRules = (grid: CellType[][], rules: Rule[]): CellType[][] => {
-  const newGrid = grid.map((row) => row.slice(0, 3));
-  const headerRows = grid.reduce<number[]>((prev, row, index) => {
-    if (row[MAIN_COLUMN].value.type !== 'TITLE') return prev;
-    return [...prev, index];
-  }, []);
+type MergeRulesOption = {
+  nameColumn?: number;
+  stubColumn?: number;
+}
 
-  // TODO remove magic number
-  const actionHeaderRow = headerRows[1];
+// TODO Test
+export const mergeRules = (grid: CellType[][], rules: Rule[], option?: MergeRulesOption): CellType[][] => {
+  const nameColumn = option?.nameColumn ?? NAME_COLUMN
+  const stubColumn = option?.stubColumn ?? STUB_COLUMN
+
+  const newGrid = grid.map((row) => row.slice(0, 3));
+
+  const actionHeaderRow = findActionRow(newGrid)
+
   rules.forEach((rule, ruleIndex) => {
     newGrid.forEach((row, i) => {
-      const isConditionHeader = i === 0 && row[1].value.type === 'TITLE';
-      const isActionHeader = i !== 0 && row[1].value.type === 'TITLE';
+      const isConditionHeader = i === 0 && row[nameColumn].value.type === 'CONDITION_HEADER';
+      const isActionHeader = i !== 0 && row[nameColumn].value.type === 'ACTION_HEADER';
       if (isConditionHeader) {
         newGrid[i] = [
           ...row,
           {
-            value: { type: 'TITLE', value: `${ruleIndex + 1}` },
+            value: { type: 'CONDITION_HEADER', value: `${ruleIndex + 1}` },
             readOnly: true,
           },
         ];
@@ -31,7 +36,7 @@ export const mergeRules = (grid: CellType[][], rules: Rule[]): CellType[][] => {
         return;
       }
 
-      const stubId = makeId({ row: i, col: STUB_COLUMN });
+      const stubId = makeId({ row: i, col: stubColumn });
       if (actionHeaderRow > i) {
         if (rule.conditionStubIds.find((id) => id === stubId)) {
           newGrid[i] = [

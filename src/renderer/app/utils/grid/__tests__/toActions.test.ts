@@ -5,54 +5,54 @@ describe('toActions', () => {
   test('2 actions 2 stubs', () => {
     const grid: CellType[][] = [
       [
-        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Condition' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Condition stub' }, readOnly: true },
+        { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition' }, readOnly: true },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition stub' }, readOnly: true },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: 'Card' } },
-        { value: { type: 'TEXT', value: 'Visa' } },
+        { value: { type: 'CONDITION_NAME', value: 'Card' } },
+        { value: { type: 'CONDITION_STUB', value: 'Visa' } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: null } },
-        { value: { type: 'TEXT', value: 'MasterCard' } },
+        { value: { type: 'CONDITION_NAME', value: null } },
+        { value: { type: 'CONDITION_STUB', value: 'MasterCard' } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: 'Country' } },
-        { value: { type: 'TEXT', value: 'Japan' } },
+        { value: { type: 'CONDITION_NAME', value: 'Country' } },
+        { value: { type: 'CONDITION_STUB', value: 'Japan' } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: null } },
-        { value: { type: 'TEXT', value: 'USA' } },
+        { value: { type: 'CONDITION_NAME', value: null } },
+        { value: { type: 'CONDITION_STUB', value: 'USA' } },
       ],
       [
-        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Action' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Action stub' }, readOnly: true },
-      ],
-      [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: 'Action 1' } },
-        { value: { type: 'TEXT', value: 'Action 1 one' } },
+        { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
+        { value: { type: 'ACTION_HEADER', value: 'Action stub' }, readOnly: true },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: null } },
-        { value: { type: 'TEXT', value: 'Action 1 two' } },
+        { value: { type: 'ACTION_NAME', value: 'Action 1' } },
+        { value: { type: 'ACTION_STUB', value: 'Action 1 one' } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: 'Action 2' } },
-        { value: { type: 'TEXT', value: 'Action 2 one' } },
+        { value: { type: 'ACTION_NAME', value: null } },
+        { value: { type: 'ACTION_STUB', value: 'Action 1 two' } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: null } },
-        { value: { type: 'TEXT', value: 'Action 2 two' } },
+        { value: { type: 'ACTION_NAME', value: 'Action 2' } },
+        { value: { type: 'ACTION_STUB', value: 'Action 2 one' } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'ACTION_NAME', value: null } },
+        { value: { type: 'ACTION_STUB', value: 'Action 2 two' } },
       ],
     ];
 
@@ -97,54 +97,54 @@ describe('toActions', () => {
   test('2 actions 1 stubs', () => {
     const grid: CellType[][] = [
       [
-        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Condition' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Condition stub' }, readOnly: true },
+        { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition' }, readOnly: true },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition stub' }, readOnly: true },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: 'Card' } },
-        { value: { type: 'TEXT', value: 'Visa' } },
+        { value: { type: 'CONDITION_NAME', value: 'Card' } },
+        { value: { type: 'CONDITION_STUB', value: 'Visa' } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: null } },
-        { value: { type: 'TEXT', value: 'MasterCard' } },
+        { value: { type: 'CONDITION_NAME', value: null } },
+        { value: { type: 'CONDITION_STUB', value: 'MasterCard' } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: 'Country' } },
-        { value: { type: 'TEXT', value: 'Japan' } },
+        { value: { type: 'CONDITION_NAME', value: 'Country' } },
+        { value: { type: 'CONDITION_STUB', value: 'Japan' } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: null } },
-        { value: { type: 'TEXT', value: 'USA' } },
+        { value: { type: 'CONDITION_NAME', value: null } },
+        { value: { type: 'CONDITION_STUB', value: 'USA' } },
       ],
       [
-        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Action' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Action stub' }, readOnly: true },
-      ],
-      [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: 'Action 1' } },
-        { value: { type: 'TEXT', value: 'Action 1 one' } },
+        { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
+        { value: { type: 'ACTION_HEADER', value: 'Action stub' }, readOnly: true },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: null } },
-        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'ACTION_NAME', value: 'Action 1' } },
+        { value: { type: 'ACTION_STUB', value: 'Action 1 one' } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: 'Action 2' } },
-        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'ACTION_NAME', value: null } },
+        { value: { type: 'ACTION_STUB', value: null } },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: null } },
-        { value: { type: 'TEXT', value: 'Action 2 two' } },
+        { value: { type: 'ACTION_NAME', value: 'Action 2' } },
+        { value: { type: 'ACTION_STUB', value: null } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'ACTION_NAME', value: null } },
+        { value: { type: 'ACTION_STUB', value: 'Action 2 two' } },
       ],
     ];
 
@@ -179,14 +179,14 @@ describe('toActions', () => {
   test('no action', () => {
     const grid: CellType[][] = [
       [
-        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Condition' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Condition stub' }, readOnly: true },
+        { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition' }, readOnly: true },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition stub' }, readOnly: true },
       ],
       [
-        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Action' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Action stub' }, readOnly: true },
+        { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
+        { value: { type: 'ACTION_HEADER', value: 'Action stub' }, readOnly: true },
       ],
     ];
 
@@ -198,19 +198,19 @@ describe('toActions', () => {
   test('single stub(same row)', () => {
     const grid: CellType[][] = [
       [
-        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Condition' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Condition stub' }, readOnly: true },
+        { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition' }, readOnly: true },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition stub' }, readOnly: true },
       ],
       [
-        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Action' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Action stub' }, readOnly: true },
+        { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
+        { value: { type: 'ACTION_HEADER', value: 'Action stub' }, readOnly: true },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: 'Action 1' } },
-        { value: { type: 'TEXT', value: 'Action 1 one' } },
+        { value: { type: 'ACTION_NAME', value: 'Action 1' } },
+        { value: { type: 'ACTION_STUB', value: 'Action 1 one' } },
       ],
     ];
 
@@ -234,24 +234,24 @@ describe('toActions', () => {
   test('single stub(diff row)', () => {
     const grid: CellType[][] = [
       [
-        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Condition' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Condition stub' }, readOnly: true },
+        { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition' }, readOnly: true },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition stub' }, readOnly: true },
       ],
       [
-        { value: { type: 'HEADER_ADD_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Action' }, readOnly: true },
-        { value: { type: 'TITLE', value: 'Action stub' }, readOnly: true },
-      ],
-      [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: 'Action 1' } },
-        { value: { type: 'TEXT', value: null } },
+        { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
+        { value: { type: 'ACTION_HEADER', value: 'Action stub' }, readOnly: true },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
-        { value: { type: 'TEXT', value: null } },
-        { value: { type: 'TEXT', value: 'Action 1 one' } },
+        { value: { type: 'ACTION_NAME', value: 'Action 1' } },
+        { value: { type: 'ACTION_STUB', value: null } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'ACTION_NAME', value: null } },
+        { value: { type: 'ACTION_STUB', value: 'Action 1 one' } },
       ],
     ];
 
