@@ -6,6 +6,7 @@ import {
   STUB_COLUMN,
 } from '@/app/types';
 
+import { findActionRow } from './findActionRow';
 import { RowRange, getName, makeId } from './utils';
 
 type ToConditionsOption = {
@@ -20,23 +21,16 @@ export const toConditions = (
   const nameColumn = option?.nameColumn ?? NAME_COLUMN;
   const stubColumn = option?.stubColumn ?? STUB_COLUMN;
 
-  const headerRows = grid.reduce<number[]>((prev, row, index) => {
-    if (row[nameColumn].value.type !== 'TITLE') return prev;
-    return [...prev, index];
-  }, []);
+  const actionHeaderRow = findActionRow(grid)
 
-  // TODO remove magic number
-  const actionHeaderRow = headerRows[1];
-
-  // TODO split other function
   const conditionRowRanges = grid.reduce<RowRange[]>(
     (prev, row, rowIndex): RowRange[] => {
       const cell = row[nameColumn];
       if (actionHeaderRow <= rowIndex) return prev;
-      if (cell.value.type !== 'TEXT') return prev;
+      if (cell.value.type !== 'CONDITION_NAME') return prev;
 
       // new condition
-      if (cell.value.value !== null) {
+      if (cell.value.value !== null || cell.value.value === '') {
         return [...prev, { start: rowIndex, end: rowIndex + 1 }];
       }
 
