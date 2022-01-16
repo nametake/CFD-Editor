@@ -11,7 +11,10 @@ import { MainAction, initialState, reducer } from './state';
 const mapCellEvent =
   (dispatch: Dispatch<MainAction>, rowNumber: number) =>
     (cell: CellType): CellType => {
-      if (cell.value.type === 'ADD_CONDITION_ROW_BUTTON' || cell.value.type === 'ADD_ACTION_ROW_BUTTON') {
+      if (
+        cell.value.type === 'ADD_CONDITION_ROW_BUTTON' ||
+        cell.value.type === 'ADD_ACTION_ROW_BUTTON'
+      ) {
         const handleClick = () => {
           dispatch({
             type: 'CLICK_ADD_ROW_BOTTOM_BUTTON',
