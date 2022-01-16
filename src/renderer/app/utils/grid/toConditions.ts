@@ -9,7 +9,7 @@ import {
 import { RowRange, getName, makeId } from './utils';
 
 type ToConditionsOption = {
-  mainColumn?: number;
+  nameColumn?: number;
   stubColumn?: number;
 };
 
@@ -17,11 +17,11 @@ export const toConditions = (
   grid: CellType[][],
   option?: ToConditionsOption
 ): Condition[] => {
-  const conditionColumn = option?.mainColumn ?? NAME_COLUMN;
-  const conditionStubColumn = option?.stubColumn ?? STUB_COLUMN;
+  const nameColumn = option?.nameColumn ?? NAME_COLUMN;
+  const stubColumn = option?.stubColumn ?? STUB_COLUMN;
 
   const headerRows = grid.reduce<number[]>((prev, row, index) => {
-    if (row[conditionColumn].value.type !== 'TITLE') return prev;
+    if (row[nameColumn].value.type !== 'TITLE') return prev;
     return [...prev, index];
   }, []);
 
@@ -31,7 +31,7 @@ export const toConditions = (
   // TODO split other function
   const conditionRowRanges = grid.reduce<RowRange[]>(
     (prev, row, rowIndex): RowRange[] => {
-      const cell = row[conditionColumn];
+      const cell = row[nameColumn];
       if (actionHeaderRow <= rowIndex) return prev;
       if (cell.value.type !== 'TEXT') return prev;
 
@@ -54,18 +54,18 @@ export const toConditions = (
 
   const conditions = conditionRowRanges
     .map<Condition | null>((rowRange) => {
-      const cell = grid[rowRange.start][conditionColumn];
+      const cell = grid[rowRange.start][nameColumn];
       const conditionName = getName(cell);
       if (!conditionName) {
         return null;
       }
       const condition: Condition = {
-        id: makeId({ row: rowRange.start, col: conditionColumn }),
+        id: makeId({ row: rowRange.start, col: nameColumn }),
         name: conditionName,
         stub: grid
           .slice(rowRange.start, rowRange.end)
           .map<ConditionStub | null>((row, i): ConditionStub | null => {
-            const c = row[conditionStubColumn];
+            const c = row[stubColumn];
             const name = getName(c);
             if (!name) {
               return null;
@@ -73,11 +73,11 @@ export const toConditions = (
             return {
               id: makeId({
                 row: rowRange.start + i,
-                col: conditionStubColumn,
+                col: stubColumn,
               }),
               conditionId: makeId({
                 row: rowRange.start,
-                col: conditionColumn,
+                col: nameColumn,
               }),
               name,
             };

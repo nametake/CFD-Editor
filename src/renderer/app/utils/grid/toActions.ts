@@ -9,7 +9,7 @@ import {
 import { RowRange, getName, makeId } from './utils';
 
 type ToActionsOption = {
-  mainColumn?: number;
+  nameColumn?: number;
   stubColumn?: number;
 };
 
@@ -17,11 +17,11 @@ export const toActions = (
   grid: CellType[][],
   option?: ToActionsOption
 ): Action[] => {
-  const conditionColumn = option?.mainColumn ?? NAME_COLUMN;
-  const conditionStubColumn = option?.stubColumn ?? STUB_COLUMN;
+  const nameColumn = option?.nameColumn ?? NAME_COLUMN;
+  const stubColumn = option?.stubColumn ?? STUB_COLUMN;
 
   const headerRows = grid.reduce<number[]>((prev, row, index) => {
-    if (row[conditionColumn].value.type !== 'TITLE') return prev;
+    if (row[nameColumn].value.type !== 'TITLE') return prev;
     return [...prev, index];
   }, []);
 
@@ -30,7 +30,7 @@ export const toActions = (
 
   const actionRowRanges = grid.reduce<RowRange[]>(
     (prev, row, rowIndex): RowRange[] => {
-      const cell = row[conditionColumn];
+      const cell = row[nameColumn];
       if (actionHeaderRow > rowIndex) return prev;
       if (cell.value.type !== 'TEXT') return prev;
 
@@ -53,18 +53,18 @@ export const toActions = (
 
   const actions = actionRowRanges
     .map<Action | null>((rowRange) => {
-      const cell = grid[rowRange.start][conditionColumn];
+      const cell = grid[rowRange.start][nameColumn];
       const actionName = getName(cell);
       if (!actionName) {
         return null;
       }
       const action: Action = {
-        id: makeId({ row: rowRange.start, col: conditionColumn }),
+        id: makeId({ row: rowRange.start, col: nameColumn }),
         name: actionName,
         stub: grid
           .slice(rowRange.start, rowRange.end)
           .map<ActionStub | null>((row, i): ActionStub | null => {
-            const c = row[conditionStubColumn];
+            const c = row[stubColumn];
             const name = getName(c);
             if (!name) {
               return null;
@@ -72,9 +72,9 @@ export const toActions = (
             return {
               id: makeId({
                 row: rowRange.start + i,
-                col: conditionStubColumn,
+                col: stubColumn,
               }),
-              actionId: makeId({ row: rowRange.start, col: conditionColumn }),
+              actionId: makeId({ row: rowRange.start, col: nameColumn }),
               name,
             };
           })
