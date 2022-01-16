@@ -62,9 +62,11 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
   switch (cell.value.type) {
     case 'EMPTY':
       return <DefaultCell {...cellProps}>{children}</DefaultCell>;
-    case 'TITLE':
+    case 'CONDITION_HEADER':
+    case 'ACTION_HEADER':
       return <TitleCell {...cellProps}>{children}</TitleCell>;
-    case 'HEADER_ADD_ROW_BUTTON':
+    case 'ADD_CONDITION_ROW_BUTTON':
+    case 'ADD_ACTION_ROW_BUTTON':
       return (
         <DefaultCell {...cellProps}>
           <Button onClick={cell.value.onClick}>+</Button>
@@ -76,9 +78,12 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
           <Button onClick={cell.value.onClick}>-</Button>
         </DefaultCell>
       );
-    case 'TEXT':
-    case 'ACTION_RULE':
+    case 'CONDITION_NAME':
+    case 'CONDITION_STUB':
     case 'CONDITION_RULE':
+    case 'ACTION_NAME':
+    case 'ACTION_STUB':
+    case 'ACTION_RULE':
       return <TextCell {...cellProps}>{children}</TextCell>;
     default:
       return assertUnreachable(cell.value);
@@ -90,14 +95,18 @@ export const CellValue: ReactDataSheet.ValueRenderer<CellType> =
   function Value({ value }) {
     switch (value.type) {
       case 'EMPTY':
-        return null;
-      case 'HEADER_ADD_ROW_BUTTON':
       case 'REMOVE_ROW':
+      case 'ADD_CONDITION_ROW_BUTTON':
+      case 'ADD_ACTION_ROW_BUTTON':
         return null;
-      case 'TITLE':
-      case 'TEXT':
-      case 'ACTION_RULE':
+      case 'CONDITION_HEADER':
+      case 'CONDITION_NAME':
+      case 'CONDITION_STUB':
       case 'CONDITION_RULE':
+      case 'ACTION_HEADER':
+      case 'ACTION_NAME':
+      case 'ACTION_STUB':
+      case 'ACTION_RULE':
         return value.value;
       default:
         return assertUnreachable(value);
