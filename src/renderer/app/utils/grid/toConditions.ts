@@ -2,7 +2,7 @@ import {
   CellType,
   Condition,
   ConditionStub,
-  MAIN_COLUMN,
+  NAME_COLUMN,
   STUB_COLUMN,
 } from '@/app/types';
 
@@ -17,7 +17,7 @@ export const toConditions = (
   grid: CellType[][],
   option?: ToConditionsOption
 ): Condition[] => {
-  const conditionColumn = option?.mainColumn ?? MAIN_COLUMN;
+  const conditionColumn = option?.mainColumn ?? NAME_COLUMN;
   const conditionStubColumn = option?.stubColumn ?? STUB_COLUMN;
 
   const headerRows = grid.reduce<number[]>((prev, row, index) => {

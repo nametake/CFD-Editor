@@ -1,6 +1,6 @@
 import ReactDataSheet from 'react-datasheet';
 
-export const MAIN_COLUMN = 1;
+export const NAME_COLUMN = 1;
 export const STUB_COLUMN = 2;
 
 export type ValueType =

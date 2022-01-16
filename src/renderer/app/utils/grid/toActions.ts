@@ -2,7 +2,7 @@ import {
   Action,
   ActionStub,
   CellType,
-  MAIN_COLUMN,
+  NAME_COLUMN,
   STUB_COLUMN,
 } from '@/app/types';
 
@@ -17,7 +17,7 @@ export const toActions = (
   grid: CellType[][],
   option?: ToActionsOption
 ): Action[] => {
-  const conditionColumn = option?.mainColumn ?? MAIN_COLUMN;
+  const conditionColumn = option?.mainColumn ?? NAME_COLUMN;
   const conditionStubColumn = option?.stubColumn ?? STUB_COLUMN;
 
   const headerRows = grid.reduce<number[]>((prev, row, index) => {

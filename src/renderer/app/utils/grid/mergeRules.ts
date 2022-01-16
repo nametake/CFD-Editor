@@ -1,4 +1,4 @@
-import { CellType, MAIN_COLUMN, Rule, STUB_COLUMN } from '@/app/types';
+import { CellType, NAME_COLUMN, Rule, STUB_COLUMN } from '@/app/types';
 
 import { makeId } from './utils';
 
@@ -6,7 +6,7 @@ import { makeId } from './utils';
 export const mergeRules = (grid: CellType[][], rules: Rule[]): CellType[][] => {
   const newGrid = grid.map((row) => row.slice(0, 3));
   const headerRows = grid.reduce<number[]>((prev, row, index) => {
-    if (row[MAIN_COLUMN].value.type !== 'TITLE') return prev;
+    if (row[NAME_COLUMN].value.type !== 'TITLE') return prev;
     return [...prev, index];
   }, []);
 
