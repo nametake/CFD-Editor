@@ -6,8 +6,14 @@ describe('toConditions', () => {
     const grid: CellType[][] = [
       [
         { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: 'Condition' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: 'Condition stub' }, readOnly: true },
+        {
+          value: { type: 'CONDITION_HEADER', value: 'Condition' },
+          readOnly: true,
+        },
+        {
+          value: { type: 'CONDITION_HEADER', value: 'Condition stub' },
+          readOnly: true,
+        },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
@@ -42,7 +48,10 @@ describe('toConditions', () => {
       [
         { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
         { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
-        { value: { type: 'ACTION_HEADER', value: 'Action stub' }, readOnly: true },
+        {
+          value: { type: 'ACTION_HEADER', value: 'Action stub' },
+          readOnly: true,
+        },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
@@ -108,8 +117,14 @@ describe('toConditions', () => {
     const grid: CellType[][] = [
       [
         { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: 'Condition' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: 'Condition stub' }, readOnly: true },
+        {
+          value: { type: 'CONDITION_HEADER', value: 'Condition' },
+          readOnly: true,
+        },
+        {
+          value: { type: 'CONDITION_HEADER', value: 'Condition stub' },
+          readOnly: true,
+        },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
@@ -134,7 +149,10 @@ describe('toConditions', () => {
       [
         { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
         { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
-        { value: { type: 'ACTION_HEADER', value: 'Action stub' }, readOnly: true },
+        {
+          value: { type: 'ACTION_HEADER', value: 'Action stub' },
+          readOnly: true,
+        },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
@@ -190,13 +208,22 @@ describe('toConditions', () => {
     const grid: CellType[][] = [
       [
         { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: 'Condition' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: 'Condition stub' }, readOnly: true },
+        {
+          value: { type: 'CONDITION_HEADER', value: 'Condition' },
+          readOnly: true,
+        },
+        {
+          value: { type: 'CONDITION_HEADER', value: 'Condition stub' },
+          readOnly: true,
+        },
       ],
       [
         { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
         { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
-        { value: { type: 'ACTION_HEADER', value: 'Action stub' }, readOnly: true },
+        {
+          value: { type: 'ACTION_HEADER', value: 'Action stub' },
+          readOnly: true,
+        },
       ],
     ];
 
@@ -208,8 +235,14 @@ describe('toConditions', () => {
     const grid: CellType[][] = [
       [
         { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: 'Condition' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: 'Condition stub' }, readOnly: true },
+        {
+          value: { type: 'CONDITION_HEADER', value: 'Condition' },
+          readOnly: true,
+        },
+        {
+          value: { type: 'CONDITION_HEADER', value: 'Condition stub' },
+          readOnly: true,
+        },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
@@ -219,7 +252,10 @@ describe('toConditions', () => {
       [
         { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
         { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
-        { value: { type: 'ACTION_HEADER', value: 'Action stub' }, readOnly: true },
+        {
+          value: { type: 'ACTION_HEADER', value: 'Action stub' },
+          readOnly: true,
+        },
       ],
     ];
 
@@ -243,8 +279,14 @@ describe('toConditions', () => {
     const grid: CellType[][] = [
       [
         { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: 'Condition' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: 'Condition stub' }, readOnly: true },
+        {
+          value: { type: 'CONDITION_HEADER', value: 'Condition' },
+          readOnly: true,
+        },
+        {
+          value: { type: 'CONDITION_HEADER', value: 'Condition stub' },
+          readOnly: true,
+        },
       ],
       [
         { value: { type: 'REMOVE_ROW' }, readOnly: true },
@@ -259,7 +301,10 @@ describe('toConditions', () => {
       [
         { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
         { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
-        { value: { type: 'ACTION_HEADER', value: 'Action stub' }, readOnly: true },
+        {
+          value: { type: 'ACTION_HEADER', value: 'Action stub' },
+          readOnly: true,
+        },
       ],
     ];
 
@@ -276,6 +321,80 @@ describe('toConditions', () => {
         ],
       },
     ];
+    expect(toConditions(grid)).toStrictEqual(expected);
+  });
+
+  test('empty string value', () => {
+    const grid: CellType[][] = [
+      [
+        { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
+        {
+          value: { type: 'CONDITION_HEADER', value: 'Condition' },
+          readOnly: true,
+        },
+        {
+          value: { type: 'CONDITION_HEADER', value: 'Condition stub' },
+          readOnly: true,
+        },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'CONDITION_NAME', value: 'Condition 1' } },
+        { value: { type: 'CONDITION_STUB', value: 'A' } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'CONDITION_NAME', value: '' } },
+        { value: { type: 'CONDITION_STUB', value: 'B' } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'CONDITION_NAME', value: 'Condition 2' } },
+        { value: { type: 'CONDITION_STUB', value: 'C' } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'CONDITION_NAME', value: '' } },
+        { value: { type: 'CONDITION_STUB', value: 'D' } },
+      ],
+      [
+        { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
+        { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
+        {
+          value: { type: 'ACTION_HEADER', value: 'Action stub' },
+          readOnly: true,
+        },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'ACTION_NAME', value: null } },
+        { value: { type: 'ACTION_STUB', value: null } },
+      ],
+      [
+        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'ACTION_NAME', value: null } },
+        { value: { type: 'ACTION_STUB', value: null } },
+      ],
+    ];
+    const expected: Condition[] = [
+      {
+        id: '1-1',
+        name: 'Condition 1',
+        stub: [
+          { id: '1-2', name: 'A', conditionId: '1-1' },
+          { id: '2-2', name: 'B', conditionId: '1-1' },
+        ],
+      },
+      {
+        id: '3-1',
+        name: 'Condition 2',
+        stub: [
+          { id: '3-2', name: 'C', conditionId: '3-1' },
+          { id: '4-2', name: 'D', conditionId: '3-1' },
+        ],
+      },
+    ];
+
     expect(toConditions(grid)).toStrictEqual(expected);
   });
 });
