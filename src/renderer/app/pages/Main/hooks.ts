@@ -11,22 +11,27 @@ import { MainAction, initialState, reducer } from './state';
 const mapCellEvent =
   (dispatch: Dispatch<MainAction>, rowNumber: number) =>
     (cell: CellType): CellType => {
-      if (
-        cell.value.type === 'ADD_CONDITION_ROW_BUTTON' ||
-        cell.value.type === 'ADD_ACTION_ROW_BUTTON'
-      ) {
-        const handleClick = () => {
-          dispatch({
-            type: 'CLICK_ADD_ROW_BOTTOM_BUTTON',
-            payload: { row: rowNumber },
-          });
-        };
+      if (cell.value.type === 'ADD_CONDITION_ROW_BUTTON') {
         return {
           ...cell,
           forceComponent: true,
           value: {
             ...cell.value,
-            onClick: handleClick,
+            onClick: () => {
+              dispatch({ type: 'DECISION_TABLE/CLICK_ADD_CONDITION_ROW' });
+            },
+          },
+        };
+      }
+      if (cell.value.type === 'ADD_ACTION_ROW_BUTTON') {
+        return {
+          ...cell,
+          forceComponent: true,
+          value: {
+            ...cell.value,
+            onClick: () => {
+              dispatch({ type: 'DECISION_TABLE/CLICK_ADD_ACTION_ROW' });
+            },
           },
         };
       }
@@ -34,7 +39,7 @@ const mapCellEvent =
       if (cell.value.type === 'REMOVE_ROW') {
         const handleClick = () => {
           dispatch({
-            type: 'CLICK_REMOVE_ROW_BUTTON',
+            type: 'DECISION_TABLE/CLICK_REMOVE_ROW',
             payload: { row: rowNumber },
           });
         };
@@ -56,7 +61,10 @@ const mapEdgeEvent =
       ...edge,
       data: {
         onClickRemove: () => {
-          dispatch({ type: 'CLICK_REMOVE_EDGE', payload: { id: edge.id } });
+          dispatch({
+            type: 'CAUSE_FLOW/CLICK_REMOVE_EDGE',
+            payload: { id: edge.id },
+          });
         },
       },
     });
@@ -73,10 +81,13 @@ export const useMain = (): UseMainResult => {
       nodes: state.nodes,
       edges: state.edges.map(mapEdgeEvent(dispatch)),
       onNodesChange: useCallback((changes: NodeChange[]) => {
-        dispatch({ type: 'CHANGED_NODES', payload: { changes } });
+        dispatch({ type: 'CAUSE_FLOW/CHANGED_NODES', payload: { changes } });
       }, []),
       onConnect: useCallback((connection: Connection) => {
-        dispatch({ type: 'ADDED_CONNECTION', payload: { connection } });
+        dispatch({
+          type: 'CAUSE_FLOW/ADDED_CONNECTION',
+          payload: { connection },
+        });
       }, []),
     },
     decisionTableProps: {
@@ -85,7 +96,10 @@ export const useMain = (): UseMainResult => {
       ),
       onCellsChanged: useCallback(
         (changes: ReactDataSheet.CellsChangedArgs<CellType>) => {
-          dispatch({ type: 'CHANGED_CELLS', payload: { changes } });
+          dispatch({
+            type: 'DECISION_TABLE/CHANGED_CELLS',
+            payload: { changes },
+          });
         },
         []
       ),

@@ -10,6 +10,66 @@ import { Node as NodeUtils } from '@/app/utils/node';
 import { MainAction } from './action';
 import { MainState, emptyActionRow, emptyConditionRow } from './state';
 
+const actionReducer: Reducer<MainState, MainAction> = (
+  prev: MainState,
+  action: MainAction
+): MainState => {
+  switch (action.type) {
+    case 'CAUSE_FLOW/CHANGED_NODES': {
+      return {
+        ...prev,
+        nodes: applyNodeChanges(action.payload.changes, prev.nodes),
+      };
+    }
+    case 'CAUSE_FLOW/ADDED_CONNECTION': {
+      return {
+        ...prev,
+        edges: addEdge(action.payload.connection, prev.edges),
+      };
+    }
+    case 'CAUSE_FLOW/CLICK_REMOVE_EDGE': {
+      return {
+        ...prev,
+        edges: prev.edges.filter((edge) => edge.id !== action.payload.id),
+      };
+    }
+    case 'DECISION_TABLE/CHANGED_CELLS': {
+      return {
+        ...prev,
+        grid: Grid.applyCellsChanges(prev.grid, action.payload.changes),
+      };
+    }
+    case 'DECISION_TABLE/CLICK_ADD_CONDITION_ROW': {
+      const actionRowIndex = Grid.findActionRow(prev.grid);
+      const end = prev.grid.length;
+      return {
+        ...prev,
+        grid: [
+          ...prev.grid.slice(0, actionRowIndex),
+          emptyConditionRow,
+          ...prev.grid.slice(actionRowIndex, end),
+        ],
+      };
+    }
+    case 'DECISION_TABLE/CLICK_ADD_ACTION_ROW': {
+      return {
+        ...prev,
+        grid: [...prev.grid, emptyActionRow],
+      };
+    }
+    case 'DECISION_TABLE/CLICK_REMOVE_ROW': {
+      const { row } = action.payload;
+      const end = prev.grid.length;
+      return {
+        ...prev,
+        grid: [...prev.grid.slice(0, row), ...prev.grid.slice(row + 1, end)],
+      };
+    }
+    default:
+      return assertUnreachable(action);
+  }
+};
+
 const merge = (prevNodes: Node[], newNodes: Node[]): Node[] =>
   newNodes.map((newNode) => {
     const prevNode = prevNodes.find((node) => node.id === newNode.id);
@@ -23,83 +83,21 @@ const merge = (prevNodes: Node[], newNodes: Node[]): Node[] =>
     };
   });
 
-const actionReducer: Reducer<MainState, MainAction> = (
-  prev: MainState,
-  action: MainAction
+const nodesReducer: Reducer<MainState, MainAction> = (
+  state: MainState
 ): MainState => {
-  switch (action.type) {
-    case 'CHANGED_CELLS': {
-      const grid = Grid.applyCellsChanges(prev.grid, action.payload.changes);
+  const conditions = Grid.toConditions(state.grid);
+  const conditionNodes = NodeUtils.fromConditions(conditions);
 
-      const conditions = Grid.toConditions(grid);
-      const conditionNodes = NodeUtils.fromConditions(conditions);
+  const actions = Grid.toActions(state.grid);
+  const resultNodes = NodeUtils.fromActions(actions);
 
-      const actions = Grid.toActions(grid);
-      const resultNodes = NodeUtils.fromActions(actions);
+  const nodes = [...conditionNodes, ...resultNodes];
 
-      const nodes = [...conditionNodes, ...resultNodes];
-
-      return {
-        ...prev,
-        grid,
-        nodes: merge(prev.nodes, nodes),
-      };
-    }
-    case 'CHANGED_NODES': {
-      return {
-        ...prev,
-        nodes: applyNodeChanges(action.payload.changes, prev.nodes),
-      };
-    }
-    case 'ADDED_CONNECTION': {
-      return {
-        ...prev,
-        edges: addEdge(action.payload.connection, prev.edges),
-      };
-    }
-    case 'CLICK_REMOVE_EDGE': {
-      return {
-        ...prev,
-        edges: prev.edges.filter((edge) => edge.id !== action.payload.id),
-      };
-    }
-    case 'CLICK_ADD_ROW_TOP_BUTTON': {
-      const { row } = action.payload;
-      const end = prev.grid.length;
-      return {
-        ...prev,
-        grid: [
-          ...prev.grid.slice(0, row),
-          emptyConditionRow,
-          ...prev.grid.slice(row, end),
-        ],
-      };
-    }
-    case 'CLICK_ADD_ROW_BOTTOM_BUTTON': {
-      const { row } = action.payload;
-      const end = prev.grid.length;
-      return {
-        ...prev,
-        grid: [
-          ...prev.grid.slice(0, row + 1),
-          emptyActionRow,
-          ...prev.grid.slice(row + 1, end),
-        ],
-      };
-    }
-    case 'CLICK_REMOVE_ROW_BUTTON': {
-      const { row } = action.payload;
-      const end = prev.grid.length;
-      return {
-        ...prev,
-        grid: [...prev.grid.slice(0, row), ...prev.grid.slice(row + 1, end)],
-      };
-    }
-    case 'REMOVE_CONDITION_ROW':
-      return prev;
-    default:
-      return assertUnreachable(action);
-  }
+  return {
+    ...state,
+    nodes: merge(state.nodes, nodes),
+  };
 };
 
 const rulesReducer: Reducer<MainState, MainAction> = (
@@ -118,7 +116,7 @@ export const reducer: Reducer<MainState, MainAction> = (
   prev: MainState,
   action: MainAction
 ): MainState =>
-  [actionReducer, rulesReducer, layoutReducer].reduce(
+  [actionReducer, nodesReducer, rulesReducer, layoutReducer].reduce(
     (prevState, fn) => fn(prevState, action),
     prev
   );
