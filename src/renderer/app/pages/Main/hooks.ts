@@ -61,7 +61,7 @@ const mapEdgeEvent =
       ...edge,
       data: {
         onClickRemove: () => {
-          dispatch({ type: 'CLICK_REMOVE_EDGE', payload: { id: edge.id } });
+          dispatch({ type: 'NODE/CLICK_REMOVE_EDGE', payload: { id: edge.id } });
         },
       },
     });
@@ -78,10 +78,10 @@ export const useMain = (): UseMainResult => {
       nodes: state.nodes,
       edges: state.edges.map(mapEdgeEvent(dispatch)),
       onNodesChange: useCallback((changes: NodeChange[]) => {
-        dispatch({ type: 'CHANGED_NODES', payload: { changes } });
+        dispatch({ type: 'NODE/CHANGED_NODES', payload: { changes } });
       }, []),
       onConnect: useCallback((connection: Connection) => {
-        dispatch({ type: 'ADDED_CONNECTION', payload: { connection } });
+        dispatch({ type: 'NODE/ADDED_CONNECTION', payload: { connection } });
       }, []),
     },
     decisionTableProps: {
@@ -90,7 +90,7 @@ export const useMain = (): UseMainResult => {
       ),
       onCellsChanged: useCallback(
         (changes: ReactDataSheet.CellsChangedArgs<CellType>) => {
-          dispatch({ type: 'CHANGED_CELLS', payload: { changes } });
+          dispatch({ type: 'GRID/CHANGED_CELLS', payload: { changes } });
         },
         []
       ),

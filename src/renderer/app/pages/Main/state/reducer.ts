@@ -15,28 +15,28 @@ const actionReducer: Reducer<MainState, MainAction> = (
   action: MainAction
 ): MainState => {
   switch (action.type) {
-    case 'CHANGED_CELLS': {
-      return {
-        ...prev,
-        grid: Grid.applyCellsChanges(prev.grid, action.payload.changes),
-      };
-    }
-    case 'CHANGED_NODES': {
+    case 'NODE/CHANGED_NODES': {
       return {
         ...prev,
         nodes: applyNodeChanges(action.payload.changes, prev.nodes),
       };
     }
-    case 'ADDED_CONNECTION': {
+    case 'NODE/ADDED_CONNECTION': {
       return {
         ...prev,
         edges: addEdge(action.payload.connection, prev.edges),
       };
     }
-    case 'CLICK_REMOVE_EDGE': {
+    case 'NODE/CLICK_REMOVE_EDGE': {
       return {
         ...prev,
         edges: prev.edges.filter((edge) => edge.id !== action.payload.id),
+      };
+    }
+    case 'GRID/CHANGED_CELLS': {
+      return {
+        ...prev,
+        grid: Grid.applyCellsChanges(prev.grid, action.payload.changes),
       };
     }
     case 'GRID/CLICK_ADD_CONDITION_ROW': {
