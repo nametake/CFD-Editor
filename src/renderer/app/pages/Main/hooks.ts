@@ -18,7 +18,7 @@ const mapCellEvent =
           value: {
             ...cell.value,
             onClick: () => {
-              dispatch({ type: 'GRID/CLICK_ADD_CONDITION_ROW' });
+              dispatch({ type: 'DECISION_TABLE/CLICK_ADD_CONDITION_ROW' });
             },
           },
         };
@@ -30,7 +30,7 @@ const mapCellEvent =
           value: {
             ...cell.value,
             onClick: () => {
-              dispatch({ type: 'GRID/CLICK_ADD_ACTION_ROW' });
+              dispatch({ type: 'DECISION_TABLE/CLICK_ADD_ACTION_ROW' });
             },
           },
         };
@@ -39,7 +39,7 @@ const mapCellEvent =
       if (cell.value.type === 'REMOVE_ROW') {
         const handleClick = () => {
           dispatch({
-            type: 'GRID/CLICK_REMOVE_ROW',
+            type: 'DECISION_TABLE/CLICK_REMOVE_ROW',
             payload: { row: rowNumber },
           });
         };
@@ -61,7 +61,10 @@ const mapEdgeEvent =
       ...edge,
       data: {
         onClickRemove: () => {
-          dispatch({ type: 'NODE/CLICK_REMOVE_EDGE', payload: { id: edge.id } });
+          dispatch({
+            type: 'CAUSE_FLOW/CLICK_REMOVE_EDGE',
+            payload: { id: edge.id },
+          });
         },
       },
     });
@@ -78,10 +81,13 @@ export const useMain = (): UseMainResult => {
       nodes: state.nodes,
       edges: state.edges.map(mapEdgeEvent(dispatch)),
       onNodesChange: useCallback((changes: NodeChange[]) => {
-        dispatch({ type: 'NODE/CHANGED_NODES', payload: { changes } });
+        dispatch({ type: 'CAUSE_FLOW/CHANGED_NODES', payload: { changes } });
       }, []),
       onConnect: useCallback((connection: Connection) => {
-        dispatch({ type: 'NODE/ADDED_CONNECTION', payload: { connection } });
+        dispatch({
+          type: 'CAUSE_FLOW/ADDED_CONNECTION',
+          payload: { connection },
+        });
       }, []),
     },
     decisionTableProps: {
@@ -90,7 +96,10 @@ export const useMain = (): UseMainResult => {
       ),
       onCellsChanged: useCallback(
         (changes: ReactDataSheet.CellsChangedArgs<CellType>) => {
-          dispatch({ type: 'GRID/CHANGED_CELLS', payload: { changes } });
+          dispatch({
+            type: 'DECISION_TABLE/CHANGED_CELLS',
+            payload: { changes },
+          });
         },
         []
       ),
