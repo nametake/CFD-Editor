@@ -11,22 +11,27 @@ import { MainAction, initialState, reducer } from './state';
 const mapCellEvent =
   (dispatch: Dispatch<MainAction>, rowNumber: number) =>
     (cell: CellType): CellType => {
-      if (
-        cell.value.type === 'ADD_CONDITION_ROW_BUTTON' ||
-        cell.value.type === 'ADD_ACTION_ROW_BUTTON'
-      ) {
-        const handleClick = () => {
-          dispatch({
-            type: 'CLICK_ADD_ROW_BOTTOM_BUTTON',
-            payload: { row: rowNumber },
-          });
-        };
+      if (cell.value.type === 'ADD_CONDITION_ROW_BUTTON') {
         return {
           ...cell,
           forceComponent: true,
           value: {
             ...cell.value,
-            onClick: handleClick,
+            onClick: () => {
+              dispatch({ type: 'GRID/CLICK_ADD_CONDITION_ROW' });
+            },
+          },
+        };
+      }
+      if (cell.value.type === 'ADD_ACTION_ROW_BUTTON') {
+        return {
+          ...cell,
+          forceComponent: true,
+          value: {
+            ...cell.value,
+            onClick: () => {
+              dispatch({ type: 'GRID/CLICK_ADD_ACTION_ROW' });
+            },
           },
         };
       }

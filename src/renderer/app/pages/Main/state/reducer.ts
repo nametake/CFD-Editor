@@ -63,6 +63,24 @@ const actionReducer: Reducer<MainState, MainAction> = (
         edges: prev.edges.filter((edge) => edge.id !== action.payload.id),
       };
     }
+    case 'GRID/CLICK_ADD_CONDITION_ROW': {
+      const actionRowIndex = Grid.findActionRow(prev.grid);
+      const end = prev.grid.length;
+      return {
+        ...prev,
+        grid: [
+          ...prev.grid.slice(0, actionRowIndex),
+          emptyConditionRow,
+          ...prev.grid.slice(actionRowIndex, end),
+        ],
+      };
+    }
+    case 'GRID/CLICK_ADD_ACTION_ROW': {
+      return {
+        ...prev,
+        grid: [...prev.grid, emptyActionRow],
+      };
+    }
     case 'CLICK_ADD_ROW_TOP_BUTTON': {
       const { row } = action.payload;
       const end = prev.grid.length;
