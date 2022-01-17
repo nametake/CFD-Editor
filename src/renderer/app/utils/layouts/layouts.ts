@@ -104,14 +104,13 @@ export const resizeCauseNode = (
   }
   const { elementsTopMargin, elementGap } = option ?? {};
   const newWidth =
-    causeNode.elements
-      .map((el) => el.width ?? 0)
-      .reduce((prev, width) => (prev < width ? width : prev), 0) +
+    Math.max(...causeNode.elements.map<number>((el) => el.width ?? 0)) +
     (parseLength(causeNode.style?.paddingLeft) ?? 0) +
     (parseLength(causeNode.style?.paddingRight) ?? 0);
 
   const newHeight =
     (elementsTopMargin ?? 0) +
+    // sum elements height and gap
     causeNode.elements
       .map((el) => el.height ?? 0)
       .reduce(
@@ -125,12 +124,18 @@ export const resizeCauseNode = (
 
   return {
     ...causeNode,
+    data: {
+      ...causeNode.data,
+      elements: {
+        width: Math.max(
+          ...causeNode.elements.map<number>((el) => el.width ?? 0)
+        ),
+      },
+    },
     width: newWidth >= (causeNode.width ?? 0) ? newWidth : causeNode.width,
     height: newHeight,
     style: {
       ...causeNode.style,
-      width:
-        newWidth >= (causeNode.width ?? 0) ? newWidth : causeNodeStyle.width,
       height: newHeight,
     },
   };

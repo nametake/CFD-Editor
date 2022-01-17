@@ -27,6 +27,12 @@ const Label = styled.div`
   display: flex;
 `;
 
+// For risizing by element nodes
+const DummyElementsNode = styled.div<{ width?: number }>`
+  width: ${({ width = 0 }) => `${width}px`};
+  height: 0;
+`;
+
 export const causeLabelStyle: CSSProperties = {
   height: 24,
 };
@@ -38,6 +44,7 @@ export const CauseNode = function CauseNode<T extends CauseNodeDataType>({
     <Wrapper>
       <Handle type="target" position={Position.Left} />
       <Label style={data.label?.style}>{data.label?.text}</Label>
+      <DummyElementsNode width={data.elements?.width} />
       <Handle type="source" position={Position.Right} />
     </Wrapper>
   );

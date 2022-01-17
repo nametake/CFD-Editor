@@ -46,6 +46,9 @@ describe('resizeCauseNode', () => {
             height: 10,
           },
         },
+        elements: {
+          width: 10,
+        },
       },
       position: { x: 0, y: 0 },
       width: 50,
@@ -55,7 +58,6 @@ describe('resizeCauseNode', () => {
         paddingRight: 20,
         paddingBottom: 20,
         paddingLeft: 20,
-        width: 50,
         height: 60,
       },
       elements: [
@@ -124,6 +126,9 @@ describe('resizeCauseNode', () => {
             height: 10,
           },
         },
+        elements: {
+          width: 10,
+        },
       },
       position: { x: 0, y: 0 },
       width: 50,
@@ -133,7 +138,6 @@ describe('resizeCauseNode', () => {
         paddingRight: 20,
         paddingBottom: 20,
         paddingLeft: 20,
-        width: 50,
         height: 70,
       },
       elements: [
@@ -220,6 +224,9 @@ describe('resizeCauseNode', () => {
             height: 10,
           },
         },
+        elements: {
+          width: 10,
+        },
       },
       position: { x: 0, y: 0 },
       width: 50,
@@ -229,7 +236,6 @@ describe('resizeCauseNode', () => {
         paddingRight: 20,
         paddingBottom: 20,
         paddingLeft: 20,
-        width: 50,
         height: 80,
       },
       elements: [
@@ -319,6 +325,9 @@ describe('resizeCauseNode', () => {
             height: 10,
           },
         },
+        elements: {
+          width: 10,
+        },
       },
       position: { x: 0, y: 0 },
       width: 50,
@@ -328,7 +337,6 @@ describe('resizeCauseNode', () => {
         paddingRight: 20,
         paddingBottom: 20,
         paddingLeft: 20,
-        width: 50,
         height: 74,
       },
       elements: [
@@ -399,6 +407,9 @@ describe('resizeCauseNode', () => {
             height: 10,
           },
         },
+        elements: {
+          width: 10,
+        },
       },
       position: { x: 0, y: 0 },
       width: 100,
@@ -408,7 +419,7 @@ describe('resizeCauseNode', () => {
         paddingRight: 20,
         paddingBottom: 20,
         paddingLeft: 20,
-        width: 'fit-content',
+        width: 100,
         height: 60,
       },
       elements: [
