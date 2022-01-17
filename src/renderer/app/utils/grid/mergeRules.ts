@@ -26,6 +26,8 @@ export const mergeRules = (
         i === 0 && row[nameColumn].value.type === 'CONDITION_HEADER';
       const isActionHeader =
         i !== 0 && row[nameColumn].value.type === 'ACTION_HEADER';
+
+      // --- Condition header ---
       if (isConditionHeader) {
         newGrid[i] = [
           ...row,
@@ -36,12 +38,27 @@ export const mergeRules = (
         ];
         return;
       }
+
+      // --- Action header ---
       if (isActionHeader) {
         newGrid[i] = [...row, { value: { type: 'EMPTY' }, readOnly: true }];
         return;
       }
 
+      // --- Stub cell empty ---
+      const stubCell = row[stubColumn];
+      if (
+        (stubCell.value.type === 'CONDITION_STUB' ||
+          stubCell.value.type === 'ACTION_STUB') &&
+        !stubCell.value.value
+      ) {
+        newGrid[i] = [...row, { value: { type: 'EMPTY' } }];
+        return;
+      }
+
       const stubId = makeId({ row: i, col: stubColumn });
+
+      // --- Condition rule ---
       if (actionHeaderRow > i) {
         if (rule.conditionStubIds.find((id) => id === stubId)) {
           newGrid[i] = [
@@ -56,6 +73,8 @@ export const mergeRules = (
         ];
         return;
       }
+
+      // --- Action rule ---
       if (stubId === rule.actionId) {
         newGrid[i] = [
           ...row,
