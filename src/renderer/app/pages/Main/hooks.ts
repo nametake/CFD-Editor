@@ -6,7 +6,7 @@ import { CellType, Edge } from '@/app/types';
 import { CauseFlowProps } from '@/app/ui/CauseFlow';
 import { DecisionTableProps } from '@/app/ui/DecisionTable';
 
-import { MainAction, initialState, reducer } from './state';
+import { MainAction, MainState, initialState, reducer } from './state';
 
 const mapCellEvent =
   (dispatch: Dispatch<MainAction>, rowNumber: number) =>
@@ -69,13 +69,20 @@ const mapEdgeEvent =
       },
     });
 
+type UseMainArgs = {
+  initialState?: MainState;
+};
+
 type UseMainResult = {
   causeFlowProps: CauseFlowProps;
   decisionTableProps: DecisionTableProps;
 };
 
-export const useMain = (): UseMainResult => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+export const useMain = (args?: UseMainArgs): UseMainResult => {
+  const [state, dispatch] = useReducer(
+    reducer,
+    args?.initialState ?? initialState
+  );
   return {
     causeFlowProps: {
       nodes: state.nodes,
