@@ -81,6 +81,14 @@ const actionReducer: Reducer<MainState, MainAction> = (
         grid: [...prev.grid, emptyActionRow],
       };
     }
+    case 'GRID/CLICK_REMOVE_ROW': {
+      const { row } = action.payload;
+      const end = prev.grid.length;
+      return {
+        ...prev,
+        grid: [...prev.grid.slice(0, row), ...prev.grid.slice(row + 1, end)],
+      };
+    }
     case 'CLICK_ADD_ROW_TOP_BUTTON': {
       const { row } = action.payload;
       const end = prev.grid.length;

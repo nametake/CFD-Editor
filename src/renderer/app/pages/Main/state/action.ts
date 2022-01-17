@@ -8,6 +8,7 @@ export type MainAction =
   | { type: 'ADDED_CONNECTION'; payload: { connection: Connection } }
   | { type: 'GRID/CLICK_ADD_CONDITION_ROW' }
   | { type: 'GRID/CLICK_ADD_ACTION_ROW' }
+  | { type: 'GRID/CLICK_REMOVE_ROW'; payload: { row: number } }
   | { type: 'CLICK_ADD_ROW_TOP_BUTTON'; payload: { row: number } }
   | { type: 'CLICK_REMOVE_EDGE'; payload: { id: string } }
   | { type: 'CLICK_ADD_ROW_BOTTOM_BUTTON'; payload: { row: number } }

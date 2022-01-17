@@ -39,7 +39,7 @@ const mapCellEvent =
       if (cell.value.type === 'REMOVE_ROW') {
         const handleClick = () => {
           dispatch({
-            type: 'CLICK_REMOVE_ROW_BUTTON',
+            type: 'GRID/CLICK_REMOVE_ROW',
             payload: { row: rowNumber },
           });
         };
