@@ -124,12 +124,18 @@ export const resizeCauseNode = (
 
   return {
     ...causeNode,
+    data: {
+      ...causeNode.data,
+      elements: {
+        width: Math.max(
+          ...causeNode.elements.map<number>((el) => el.width ?? 0)
+        ),
+      },
+    },
     width: newWidth >= (causeNode.width ?? 0) ? newWidth : causeNode.width,
     height: newHeight,
     style: {
       ...causeNode.style,
-      width:
-        newWidth >= (causeNode.width ?? 0) ? newWidth : causeNodeStyle.width,
       height: newHeight,
     },
   };

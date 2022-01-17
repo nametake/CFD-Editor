@@ -13,6 +13,9 @@ export type CauseNodeDataType = {
     text: string;
     style?: CSSProperties;
   };
+  elements?: {
+    width: number;
+  };
 };
 
 export type CauseNodeType = Omit<ReactFlowNode<CauseNodeDataType>, 'type'> & {
