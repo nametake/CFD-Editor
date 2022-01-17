@@ -85,7 +85,6 @@ Default.args = {
 
 export const WithRule = Template.bind({});
 WithRule.args = {
-  title: 'aaa',
   data: [
     [
       { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
