@@ -143,7 +143,6 @@ export const resizeCauseNode = (
 
 // TODO remove magic number
 export const layoutNodes = (nodes: Node[]) => {
-  // console.log(nodes.map((node) => `${node.width},${node.style?.width}`));
   const elementsTopMargin = 20;
   const elementGap = 10;
   const nodeGap = 80;
