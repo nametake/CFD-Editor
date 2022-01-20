@@ -1,4 +1,4 @@
-import { AlignOption, alignHorizontal } from '../layouts';
+import { AlignOption, alignHorizontal } from '../alignHorizontal';
 import { Node } from '@/app/types';
 
 describe('alignHorizontal', () => {

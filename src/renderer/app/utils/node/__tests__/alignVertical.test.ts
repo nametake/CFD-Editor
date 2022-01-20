@@ -1,4 +1,4 @@
-import { AlignOption, alignVertical } from '../layouts';
+import { AlignOption, alignVertical } from '../alignVertical';
 import { Node } from '@/app/types';
 
 describe('alignVertical', () => {
