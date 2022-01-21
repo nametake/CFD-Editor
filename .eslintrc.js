@@ -46,7 +46,19 @@ const rules = {
         '^use(Async|AsyncFn|AsyncRetry|Debounce|UpdateEffect|IsomorphicLayoutEffect|DeepCompareEffect|ShallowCompareEffect|IpcRecieve)$',
     },
   ],
+  '@typescript-eslint/no-unused-vars': 'off',
+  'unused-imports/no-unused-imports': 'error',
+  'unused-imports/no-unused-vars': [
+    'error',
+    {
+      vars: 'all',
+      varsIgnorePattern: '^_',
+      args: 'after-used',
+      argsIgnorePattern: '^_',
+    },
+  ],
 };
+
 module.exports = {
   extends: [
     'eslint:recommended',
@@ -83,7 +95,7 @@ module.exports = {
         'airbnb/hooks',
         'prettier', // Must be last
       ],
-      plugins: ['@typescript-eslint'],
+      plugins: ['@typescript-eslint', 'unused-imports'],
       rules,
       parserOptions: {
         ecmaFeatures: {
