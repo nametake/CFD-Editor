@@ -14,9 +14,7 @@ const toElementNode = (nodes: Node[], parentNode: Node): ElementNodeType[] =>
     .filter((node): node is ElementNodeType => node.type === 'element')
     .filter((node) => node.parentNode === parentNode.id);
 
-export const toCauseNodeWithElements = (
-  nodes: Node[]
-): CauseNodeWithElements[] =>
+const toCauseNodeWithElements = (nodes: Node[]): CauseNodeWithElements[] =>
   nodes
     .filter((node): node is CauseNodeType => node.type === 'cause')
     .map<CauseNodeWithElements>((node) => ({
@@ -24,5 +22,20 @@ export const toCauseNodeWithElements = (
       elements: toElementNode(nodes, node),
     }));
 
-export const toResultNode = (nodes: Node[]): ResultNodeType[] =>
+const toResultNode = (nodes: Node[]): ResultNodeType[] =>
   nodes.filter((node): node is ResultNodeType => node.type === 'result');
+
+export const expandNodes = (
+  nodes: Node[]
+): [CauseNodeWithElements[], ResultNodeType[]] => [
+    toCauseNodeWithElements(nodes),
+    toResultNode(nodes),
+  ];
+
+export const mergeNodes = ([causeNodes, resultNodes]: [
+  CauseNodeWithElements[],
+  ResultNodeType[]
+]): Node[] => [
+    ...causeNodes.flatMap(({ elements, ...node }) => [node, ...elements]),
+    ...resultNodes,
+  ];
