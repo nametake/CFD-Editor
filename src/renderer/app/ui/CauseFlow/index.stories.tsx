@@ -164,6 +164,17 @@ Default.args = {
   ],
 };
 
+const option = {
+  nodeStyles: {
+    causeNodeStyle,
+    causeNodeLabelStyle: causeLabelStyle,
+    elementNodeStyle,
+  },
+  elementNodePosition: {
+    elementGap: 0,
+  },
+};
+
 /* eslint-disable react/jsx-props-no-spreading */
 const Template: ComponentStory<typeof CauseFlow> = function Template({
   nodes: argsNodes,
@@ -179,7 +190,11 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
       style={{ width: '1024px', height: '1024px' }}
       onNodesChange={useCallback(
         (changeNodes: NodeChange[]) => {
-          setNodes(applyNodeChanges(changeNodes, nodes));
+          const nextNodes = setStyle(
+            applyNodeChanges(changeNodes, nodes),
+            option
+          );
+          setNodes(nextNodes);
         },
         [nodes]
       )}
@@ -188,48 +203,39 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
 };
 /* eslint-enable */
 
-export const CauseNodeWithElement = Template.bind({});
-CauseNodeWithElement.args = {
-  nodes: setStyle(
-    [
-      {
-        id: 'c1',
-        type: 'cause',
-        data: {
-          label: {
-            text: 'Cause 1',
-          },
-        },
-        position: { x: 0, y: 0 },
-      },
-      {
-        id: 'c1-e1',
-        parentNode: 'c1',
-        type: 'element',
-        data: { label: 'Cause 1 Element 1' },
-        position: { x: 0, y: 0 },
-      },
-      {
-        id: 'c1-e2',
-        parentNode: 'c1',
-        type: 'element',
-        data: { label: 'Cause 1 Element 2' },
-        position: { x: 0, y: 0 },
-      },
-      {
-        id: 'c1-e3',
-        parentNode: 'c1',
-        type: 'element',
-        data: { label: 'Cause 1 Element 3' },
-        position: { x: 0, y: 0 },
-      },
-    ],
+export const CauseNodeWithElements = Template.bind({});
+CauseNodeWithElements.args = {
+  nodes: [
     {
-      nodeStyles: {
-        causeNodeStyle,
-        causeNodeLabelStyle: causeLabelStyle,
-        elementNodeStyle,
+      id: 'c1',
+      type: 'cause',
+      data: {
+        label: {
+          text: 'Cause 1',
+        },
       },
-    }
-  ),
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: 'c1-e1',
+      parentNode: 'c1',
+      type: 'element',
+      data: { label: 'Cause 1 Element 1' },
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: 'c1-e2',
+      parentNode: 'c1',
+      type: 'element',
+      data: { label: 'Cause 1 Element 2' },
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: 'c1-e3',
+      parentNode: 'c1',
+      type: 'element',
+      data: { label: 'Cause 1 Element 3' },
+      position: { x: 0, y: 0 },
+    },
+  ],
 };
