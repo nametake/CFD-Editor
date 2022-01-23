@@ -78,7 +78,7 @@ const mapElementNodePosition = (
           (parseLength(elementGap) ?? 0),
       },
       gap: parseLength(elementGap) ?? 0,
-    }),
+    }).map((elementNode) => ({ ...elementNode, draggable: false })),
   });
 };
 
