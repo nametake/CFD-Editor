@@ -16,7 +16,7 @@ import { setElementPosition } from '@/app/utils/node/setElementPosition';
 import { CauseFlow } from './CauseFlow';
 import { applyNodeChanges } from './wrapper';
 
-import { mapStyle as mapStyleUtil } from ".";
+import { mapStyle as mapStyleUtil } from '.';
 
 // eslint-disable-next-line import/no-default-export
 export default {
@@ -190,11 +190,7 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
       onNodesChange={useCallback(
         (changeNodes: NodeChange[]) => {
           const nextNodes = applyNodeChanges(changeNodes, nodes);
-          setNodes(
-            setElementPosition(nextNodes.map(mapStyle(mapStyleOption)), {
-              elementGap: 10,
-            })
-          );
+          setNodes(setElementPosition(nextNodes, { elementGap: 10 }));
         },
         [nodes]
       )}
