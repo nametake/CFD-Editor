@@ -6,14 +6,17 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
 
 import { Node } from '@/app/types';
-import { causeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
+import { causeNodeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
 import { elementNodeStyle } from '@/app/ui/ElementNode';
+import { resultNodeStyle } from '@/app/ui/ResultNode';
 import { layoutNodes } from '@/app/utils/layouts';
-import { setStyle } from '@/app/utils/node/setStyle';
+import { MapStyleOption, mapStyle } from '@/app/utils/node/mapStyle';
+import { setElementPosition } from '@/app/utils/node/setElementPosition';
 
 import { CauseFlow } from './CauseFlow';
-import { mapStyle } from './utils';
 import { applyNodeChanges } from './wrapper';
+
+import { mapStyle as mapStyleUtil } from ".";
 
 // eslint-disable-next-line import/no-default-export
 export default {
@@ -151,7 +154,7 @@ const defaultNodes: Node[] = [
 
 export const Default = TemplateWithLayout.bind({});
 Default.args = {
-  nodes: defaultNodes.map(mapStyle),
+  nodes: defaultNodes.map(mapStyleUtil),
   edges: [
     { id: 'c1-e1_c2-e1', source: 'c1-e1', target: 'c2-e1', type: 'removable' },
     { id: 'c1-e2_c2', source: 'c1-e2', target: 'c2', type: 'removable' },
@@ -164,15 +167,11 @@ Default.args = {
   ],
 };
 
-const option = {
-  nodeStyles: {
-    causeNodeStyle,
-    causeNodeLabelStyle: causeLabelStyle,
-    elementNodeStyle,
-  },
-  elementNodePosition: {
-    elementGap: 0,
-  },
+const mapStyleOption: MapStyleOption = {
+  causeNodeStyle,
+  causeNodeLabelStyle,
+  resultNodeStyle,
+  elementNodeStyle,
 };
 
 /* eslint-disable react/jsx-props-no-spreading */
@@ -181,7 +180,7 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
   edges: argsEdges,
   ...args
 }) {
-  const [nodes, setNodes] = useState(argsNodes);
+  const [nodes, setNodes] = useState(argsNodes.map(mapStyle(mapStyleOption)));
   return (
     <CauseFlow
       {...args}
@@ -190,11 +189,12 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
       style={{ width: '1024px', height: '1024px' }}
       onNodesChange={useCallback(
         (changeNodes: NodeChange[]) => {
-          const nextNodes = setStyle(
-            applyNodeChanges(changeNodes, nodes),
-            option
+          const nextNodes = applyNodeChanges(changeNodes, nodes);
+          setNodes(
+            setElementPosition(nextNodes.map(mapStyle(mapStyleOption)), {
+              elementGap: 10,
+            })
           );
-          setNodes(nextNodes);
         },
         [nodes]
       )}

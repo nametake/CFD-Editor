@@ -33,7 +33,7 @@ const DummyElementsNode = styled.div<{ width?: number }>`
   height: 0;
 `;
 
-export const causeLabelStyle: CSSProperties = {
+export const causeNodeLabelStyle: CSSProperties = {
   height: 24,
 };
 
