@@ -130,6 +130,7 @@ export const resizeCauseNode = (
         width: Math.max(
           ...causeNode.elements.map<number>((el) => el.width ?? 0)
         ),
+        height: 0,
       },
     },
     width: newWidth >= (causeNode.width ?? 0) ? newWidth : causeNode.width,

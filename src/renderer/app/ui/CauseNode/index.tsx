@@ -8,12 +8,16 @@ import { Handle } from '@/app/ui/Handle';
 
 export const causeNodeStyle: CSSProperties = {
   width: 'fit-content',
-  height: undefined,
+  height: 'fit-content',
   border: '1px solid',
   paddingTop: 10,
   paddingRight: 20,
   paddingBottom: 10,
   paddingLeft: 20,
+};
+
+export const causeNodeLabelStyle: CSSProperties = {
+  height: 24,
 };
 
 type CauseNodeProps<T> = NodeProps<T>;
@@ -28,14 +32,10 @@ const Label = styled.div`
 `;
 
 // For risizing by element nodes
-const DummyElementsNode = styled.div<{ width?: number }>`
+const DummyElementsNode = styled.div<{ width?: number; height?: number }>`
   width: ${({ width = 0 }) => `${width}px`};
-  height: 0;
+  height: ${({ height = 0 }) => `${height}px`};
 `;
-
-export const causeNodeLabelStyle: CSSProperties = {
-  height: 24,
-};
 
 export const CauseNode = function CauseNode<T extends CauseNodeDataType>({
   data,
@@ -44,7 +44,10 @@ export const CauseNode = function CauseNode<T extends CauseNodeDataType>({
     <Wrapper>
       <Handle type="target" position={Position.Left} />
       <Label style={data.label?.style}>{data.label?.text}</Label>
-      <DummyElementsNode width={data.elements?.width} />
+      <DummyElementsNode
+        width={data.elements?.width}
+        height={data.elements?.height}
+      />
       <Handle type="source" position={Position.Right} />
     </Wrapper>
   );

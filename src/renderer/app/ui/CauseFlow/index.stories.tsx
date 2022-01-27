@@ -190,7 +190,7 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
       onNodesChange={useCallback(
         (changeNodes: NodeChange[]) => {
           const nextNodes = applyNodeChanges(changeNodes, nodes);
-          setNodes(setElementPosition(nextNodes, { elementGap: 10 }));
+          setNodes(setElementPosition(nextNodes, { elementGap: 20 }));
         },
         [nodes]
       )}

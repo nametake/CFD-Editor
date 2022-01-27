@@ -48,6 +48,7 @@ describe('resizeCauseNode', () => {
         },
         elements: {
           width: 10,
+          height: 0,
         },
       },
       position: { x: 0, y: 0 },
@@ -128,6 +129,7 @@ describe('resizeCauseNode', () => {
         },
         elements: {
           width: 10,
+          height: 0,
         },
       },
       position: { x: 0, y: 0 },
@@ -226,6 +228,7 @@ describe('resizeCauseNode', () => {
         },
         elements: {
           width: 10,
+          height: 0,
         },
       },
       position: { x: 0, y: 0 },
@@ -327,6 +330,7 @@ describe('resizeCauseNode', () => {
         },
         elements: {
           width: 10,
+          height: 0,
         },
       },
       position: { x: 0, y: 0 },
@@ -409,6 +413,7 @@ describe('resizeCauseNode', () => {
         },
         elements: {
           width: 10,
+          height: 0,
         },
       },
       position: { x: 0, y: 0 },

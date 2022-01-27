@@ -38,7 +38,7 @@ const TemplateWithInitialState: ComponentStory<typeof Main> =
             id: '1-1',
             data: {
               label: { text: 'Card', style: { height: 24 } },
-              elements: { width: 71 },
+              elements: { width: 71, height: 0 },
             },
             type: 'cause',
             position: { x: 0, y: 0 },
@@ -88,7 +88,7 @@ const TemplateWithInitialState: ComponentStory<typeof Main> =
             id: '3-1',
             data: {
               label: { text: 'Age', style: { height: 24 } },
-              elements: { width: 93 },
+              elements: { width: 93, height: 0 },
             },
             type: 'cause',
             position: { x: 193, y: 0 },
