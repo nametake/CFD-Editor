@@ -10,8 +10,7 @@ import { causeNodeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
 import { elementNodeStyle } from '@/app/ui/ElementNode';
 import { resultNodeStyle } from '@/app/ui/ResultNode';
 import { layoutNodes } from '@/app/utils/layouts';
-import { MapStyleOption, mapStyle } from '@/app/utils/node/mapStyle';
-import { setElementPosition } from '@/app/utils/node/setElementPosition';
+import { Node as NodeUtils } from '@/app/utils/node';
 
 import { CauseFlow } from './CauseFlow';
 import { applyNodeChanges } from './wrapper';
@@ -167,7 +166,7 @@ Default.args = {
   ],
 };
 
-const mapStyleOption: MapStyleOption = {
+const mapStyleOption = {
   causeNodeStyle,
   causeNodeLabelStyle,
   resultNodeStyle,
@@ -180,7 +179,9 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
   edges: argsEdges,
   ...args
 }) {
-  const [nodes, setNodes] = useState(argsNodes.map(mapStyle(mapStyleOption)));
+  const [nodes, setNodes] = useState(
+    argsNodes.map(NodeUtils.mapStyle(mapStyleOption))
+  );
   return (
     <CauseFlow
       {...args}
@@ -190,7 +191,12 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
       onNodesChange={useCallback(
         (changeNodes: NodeChange[]) => {
           const nextNodes = applyNodeChanges(changeNodes, nodes);
-          setNodes(setElementPosition(nextNodes, { elementGap: 20 }));
+          setNodes(
+            NodeUtils.layoutCauseNode(nextNodes, {
+              elementGap: 10,
+              labelMarginBottom: 20,
+            })
+          );
         },
         [nodes]
       )}
