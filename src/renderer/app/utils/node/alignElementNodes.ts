@@ -8,7 +8,7 @@ import { LengthType, parseLength } from '@/app/utils/css';
 
 import { alignVertical } from './alignVertical';
 
-export type LayoutCauseNodeOption = {
+export type AlignElementNodesOption = {
   labelMarginBottom?: LengthType;
   elementGap?: LengthType;
 };
@@ -39,7 +39,7 @@ const toResultNode = (nodes: Node[]): ResultNodeType[] =>
 // elements height = SUM(elements height)
 //            + (elementGap * (elements count-1))
 //            + labelMarginBottom
-const setElementsDimention = (option?: LayoutCauseNodeOption) => {
+const setElementsDimention = (option?: AlignElementNodesOption) => {
   const { elementGap, labelMarginBottom } = option ?? {};
   return (causeNode: CauseNodeWithElements): CauseNodeWithElements => {
     if (causeNode.elements.length === 0) {
@@ -82,7 +82,7 @@ const setElementsDimention = (option?: LayoutCauseNodeOption) => {
   };
 };
 
-const setElementPosition = (option?: LayoutCauseNodeOption) => {
+const setElementPosition = (option?: AlignElementNodesOption) => {
   const { elementGap, labelMarginBottom } = option ?? {};
   return ({
     elements,
@@ -102,9 +102,9 @@ const setElementPosition = (option?: LayoutCauseNodeOption) => {
   });
 };
 
-export const layoutCauseNode = (
+export const alignElementNodes = (
   nodes: Node[],
-  option?: LayoutCauseNodeOption
+  option?: AlignElementNodesOption
 ): Node[] => {
   const causeNodes = toCauseNodeWithElements(nodes);
   const resultNodes = toResultNode(nodes);

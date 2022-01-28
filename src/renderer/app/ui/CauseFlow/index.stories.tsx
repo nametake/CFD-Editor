@@ -192,7 +192,7 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
         (changeNodes: NodeChange[]) => {
           const nextNodes = applyNodeChanges(changeNodes, nodes);
           setNodes(
-            NodeUtils.layoutCauseNode(nextNodes, {
+            NodeUtils.alignElementNodes(nextNodes, {
               elementGap: 10,
               labelMarginBottom: 20,
             })
