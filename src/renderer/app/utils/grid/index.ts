@@ -7,7 +7,7 @@ import { toConditions } from './toConditions';
 export const Grid = {
   applyCellsChanges,
   findActionRow,
+  mergeRules,
   toActions,
   toConditions,
-  mergeRules,
-};
+} as const;

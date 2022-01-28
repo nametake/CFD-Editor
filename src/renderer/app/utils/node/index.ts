@@ -10,4 +10,4 @@ export const Node = {
   layoutCauseNode,
   mapStyle,
   traverseRules,
-};
+} as const;
