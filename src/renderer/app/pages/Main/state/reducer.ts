@@ -79,7 +79,8 @@ const mapStyleOption = {
 };
 
 const createNodesReducer: Reducer<MainState, MainAction> = (
-  state: MainState
+  state: MainState,
+  action: MainAction
 ): MainState => {
   const conditions = Grid.toConditions(state.grid);
   const causeAndElementNodes = NodeUtils.fromConditions(conditions);
@@ -91,35 +92,26 @@ const createNodesReducer: Reducer<MainState, MainAction> = (
     NodeUtils.mapStyle(mapStyleOption)
   );
 
-  const nextNodes = NodeUtils.merge({ oldNodes: state.nodes, newNodes: nodes });
+  const nextNodes = NodeUtils.alignElementNodes(
+    NodeUtils.merge({ oldNodes: state.nodes, newNodes: nodes }),
+    {
+      labelMarginBottom: 10,
+      elementGap: 10,
+    }
+  );
 
-  const alignedNextNodes = NodeUtils.alignElementNodes(nextNodes, {
-    labelMarginBottom: 10,
-    elementGap: 10,
-  });
-
-  return {
-    ...state,
-    nodes: alignedNextNodes,
-  };
-};
-
-const alignNodesReducer: Reducer<MainState, MainAction> = (
-  prev: MainState,
-  action: MainAction
-): MainState => {
   switch (action.type) {
     case 'CAUSE_FLOW/CHANGED_NODES':
     case 'CAUSE_FLOW/ADDED_CONNECTION':
     case 'CAUSE_FLOW/CLICK_REMOVE_EDGE':
-      return prev;
+      return { ...state, nodes: nextNodes };
     case 'DECISION_TABLE/CHANGED_CELLS':
     case 'DECISION_TABLE/CLICK_ADD_CONDITION_ROW':
     case 'DECISION_TABLE/CLICK_ADD_ACTION_ROW':
     case 'DECISION_TABLE/CLICK_REMOVE_ROW':
       return {
-        ...prev,
-        nodes: NodeUtils.alignParentNodes(prev.nodes, {
+        ...state,
+        nodes: NodeUtils.alignParentNodes(nextNodes, {
           causeNodeGap: 80,
           resultNodeGap: 40,
           causeNodeAndResultNodeGap: 80,
@@ -145,6 +137,5 @@ export const reducer: Reducer<MainState, MainAction> = (
   [
     actionReducer, // must first
     createNodesReducer,
-    alignNodesReducer, // must before createNodesReducer
     rulesReducer,
   ].reduce((prevState, fn) => fn(prevState, action), prev);
