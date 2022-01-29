@@ -1,37 +1,17 @@
-import {
-  CauseNodeType,
-  ElementNodeType,
-  Node,
-  ResultNodeType,
-} from '@/app/types';
+import { Node } from '@/app/types';
 import { LengthType, parseLength } from '@/app/utils/css';
 
 import { alignVertical } from './alignVertical';
+import {
+  CauseNodeWithElements,
+  toCauseNodeWithElements,
+  toResultNode,
+} from './types';
 
 export type AlignElementNodesOption = {
   labelMarginBottom?: LengthType;
   elementGap?: LengthType;
 };
-
-type CauseNodeWithElements = CauseNodeType & {
-  elements: ElementNodeType[];
-};
-
-const toElementNode = (nodes: Node[], parentNode: Node): ElementNodeType[] =>
-  nodes
-    .filter((node): node is ElementNodeType => node.type === 'element')
-    .filter((node) => node.parentNode === parentNode.id);
-
-const toCauseNodeWithElements = (nodes: Node[]): CauseNodeWithElements[] =>
-  nodes
-    .filter((node): node is CauseNodeType => node.type === 'cause')
-    .map<CauseNodeWithElements>((node) => ({
-      ...node,
-      elements: toElementNode(nodes, node),
-    }));
-
-const toResultNode = (nodes: Node[]): ResultNodeType[] =>
-  nodes.filter((node): node is ResultNodeType => node.type === 'result');
 
 // setElementsDimention sets elements dimention in CauseNode.
 //
