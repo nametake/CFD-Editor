@@ -9,13 +9,15 @@ import { Node } from '@/app/types';
 import { causeNodeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
 import { elementNodeStyle } from '@/app/ui/ElementNode';
 import { resultNodeStyle } from '@/app/ui/ResultNode';
-import { layoutNodes } from '@/app/utils/layouts';
 import { Node as NodeUtils } from '@/app/utils/node';
+import { alignElementNodes } from '@/app/utils/node/alignElementNodes';
+import { alignParentNodes } from '@/app/utils/node/alignParentNodes';
 
 import { CauseFlow } from './CauseFlow';
 import { applyNodeChanges } from './wrapper';
 
 import { mapStyle as mapStyleUtil } from '.';
+
 
 // eslint-disable-next-line import/no-default-export
 export default {
@@ -35,7 +37,17 @@ const TemplateWithLayout: ComponentStory<typeof CauseFlow> =
         style={{ width: '1024px', height: '1024px' }}
         onNodesChange={useCallback(
           (changeNodes: NodeChange[]) => {
-            setNodes(layoutNodes(applyNodeChanges(changeNodes, nodes)));
+            const appliedNodes = applyNodeChanges(changeNodes, nodes);
+            const alignedElementNodes = alignElementNodes(appliedNodes, {
+              elementGap: 10,
+              labelMarginBottom: 10,
+            });
+            const alignedParentNodes = alignParentNodes(alignedElementNodes, {
+              causeNodeGap: 80,
+              resultNodeGap: 40,
+              causeNodeAndResultNodeGap: 80,
+            });
+            setNodes(alignedParentNodes);
           },
           [nodes]
         )}
