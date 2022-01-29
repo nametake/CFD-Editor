@@ -10,12 +10,16 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "test": "jest",
+    "coverage": "jest --coverage",
     "lint:ts": "eslint \"./**/*.{js,jsx,ts,tsx}\"",
     "lint:css": "stylelint \"./**/*.{jsx,tsx}\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}"
+    ],
     "moduleNameMapper": {
       "^@/(.+)$": "<rootDir>/src/renderer/$1",
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
