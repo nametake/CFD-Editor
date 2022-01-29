@@ -78,7 +78,7 @@ const mapStyleOption = {
   resultNodeStyle,
 };
 
-const nodesReducer: Reducer<MainState, MainAction> = (
+const createNodesReducer: Reducer<MainState, MainAction> = (
   state: MainState
 ): MainState => {
   const conditions = Grid.toConditions(state.grid);
@@ -104,6 +104,32 @@ const nodesReducer: Reducer<MainState, MainAction> = (
   };
 };
 
+const alignNodesReducer: Reducer<MainState, MainAction> = (
+  prev: MainState,
+  action: MainAction
+): MainState => {
+  switch (action.type) {
+    case 'CAUSE_FLOW/CHANGED_NODES':
+    case 'CAUSE_FLOW/ADDED_CONNECTION':
+    case 'CAUSE_FLOW/CLICK_REMOVE_EDGE':
+      return prev;
+    case 'DECISION_TABLE/CHANGED_CELLS':
+    case 'DECISION_TABLE/CLICK_ADD_CONDITION_ROW':
+    case 'DECISION_TABLE/CLICK_ADD_ACTION_ROW':
+    case 'DECISION_TABLE/CLICK_REMOVE_ROW':
+      return {
+        ...prev,
+        nodes: NodeUtils.alignParentNodes(prev.nodes, {
+          causeNodeGap: 80,
+          resultNodeGap: 40,
+          causeNodeAndResultNodeGap: 80,
+        }),
+      };
+    default:
+      return assertUnreachable(action);
+  }
+};
+
 const rulesReducer: Reducer<MainState, MainAction> = (
   state: MainState
 ): MainState => {
@@ -116,7 +142,9 @@ export const reducer: Reducer<MainState, MainAction> = (
   prev: MainState,
   action: MainAction
 ): MainState =>
-  [actionReducer, nodesReducer, rulesReducer].reduce(
-    (prevState, fn) => fn(prevState, action),
-    prev
-  );
+  [
+    actionReducer, // must first
+    createNodesReducer,
+    alignNodesReducer, // must before createNodesReducer
+    rulesReducer,
+  ].reduce((prevState, fn) => fn(prevState, action), prev);
