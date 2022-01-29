@@ -1,10 +1,11 @@
 import { Reducer } from 'react';
 
-import { Node } from '@/app/types';
-import { addEdge, applyNodeChanges, mapStyle } from '@/app/ui/CauseFlow';
+import { addEdge, applyNodeChanges } from '@/app/ui/CauseFlow';
+import { causeNodeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
+import { elementNodeStyle } from '@/app/ui/ElementNode';
+import { resultNodeStyle } from '@/app/ui/ResultNode';
 import { assertUnreachable } from '@/app/utils/assert';
 import { Grid } from '@/app/utils/grid';
-import { layoutNodes } from '@/app/utils/layouts';
 import { Node as NodeUtils } from '@/app/utils/node';
 
 import { MainAction } from './action';
@@ -70,18 +71,12 @@ const actionReducer: Reducer<MainState, MainAction> = (
   }
 };
 
-const merge = (prevNodes: Node[], newNodes: Node[]): Node[] =>
-  newNodes.map((newNode) => {
-    const prevNode = prevNodes.find((node) => node.id === newNode.id);
-    return {
-      ...prevNode,
-      ...newNode,
-      style: {
-        ...prevNode?.style,
-        ...newNode.style,
-      },
-    };
-  });
+const mapStyleOption = {
+  causeNodeStyle,
+  causeNodeLabelStyle,
+  elementNodeStyle,
+  resultNodeStyle,
+};
 
 const nodesReducer: Reducer<MainState, MainAction> = (
   state: MainState
@@ -94,9 +89,16 @@ const nodesReducer: Reducer<MainState, MainAction> = (
 
   const nodes = [...conditionNodes, ...resultNodes];
 
+  const nextNodes = NodeUtils.merge({ oldNodes: state.nodes, newNodes: nodes });
+
+  const alignedNextNodes = NodeUtils.alignElementNodes(nextNodes, {
+    labelMarginBottom: 10,
+    elementGap: 10,
+  });
+
   return {
     ...state,
-    nodes: merge(state.nodes, nodes),
+    nodes: alignedNextNodes.map(NodeUtils.mapStyle(mapStyleOption)),
   };
 };
 
@@ -108,15 +110,11 @@ const rulesReducer: Reducer<MainState, MainAction> = (
   return { ...state, grid };
 };
 
-const layoutReducer: Reducer<MainState, MainAction> = (
-  state: MainState
-): MainState => ({ ...state, nodes: layoutNodes(state.nodes.map(mapStyle)) });
-
 export const reducer: Reducer<MainState, MainAction> = (
   prev: MainState,
   action: MainAction
 ): MainState =>
-  [actionReducer, nodesReducer, rulesReducer, layoutReducer].reduce(
+  [actionReducer, nodesReducer, rulesReducer].reduce(
     (prevState, fn) => fn(prevState, action),
     prev
   );
