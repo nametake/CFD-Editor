@@ -82,12 +82,14 @@ const nodesReducer: Reducer<MainState, MainAction> = (
   state: MainState
 ): MainState => {
   const conditions = Grid.toConditions(state.grid);
-  const conditionNodes = NodeUtils.fromConditions(conditions);
+  const causeAndElementNodes = NodeUtils.fromConditions(conditions);
 
   const actions = Grid.toActions(state.grid);
   const resultNodes = NodeUtils.fromActions(actions);
 
-  const nodes = [...conditionNodes, ...resultNodes];
+  const nodes = [...causeAndElementNodes, ...resultNodes].map(
+    NodeUtils.mapStyle(mapStyleOption)
+  );
 
   const nextNodes = NodeUtils.merge({ oldNodes: state.nodes, newNodes: nodes });
 
@@ -98,7 +100,7 @@ const nodesReducer: Reducer<MainState, MainAction> = (
 
   return {
     ...state,
-    nodes: alignedNextNodes.map(NodeUtils.mapStyle(mapStyleOption)),
+    nodes: alignedNextNodes,
   };
 };
 
