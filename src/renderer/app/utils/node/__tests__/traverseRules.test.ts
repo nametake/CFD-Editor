@@ -461,7 +461,7 @@ describe('traverseRules', () => {
       expect(traverseRules(nodes, edges)).toStrictEqual([]);
     });
 
-    test('elmeent node to cause node', () => {
+    test('element node to cause node', () => {
       const edges: Edge[] = [
         {
           source: '1-1',
@@ -484,7 +484,7 @@ describe('traverseRules', () => {
       expect(traverseRules(nodes, edges)).toStrictEqual([]);
     });
 
-    test('elmeent node to element node', () => {
+    test('element node to element node', () => {
       const edges: Edge[] = [
         {
           source: '1-2',
@@ -500,6 +500,21 @@ describe('traverseRules', () => {
           target: '1-1',
           targetHandle: null,
           id: 'reactflow__edge-2-2-1-2',
+          type: 'removable',
+        },
+      ];
+
+      expect(traverseRules(nodes, edges)).toStrictEqual([]);
+    });
+
+    test('self element node loop', () => {
+      const edges: Edge[] = [
+        {
+          source: '1-2',
+          sourceHandle: null,
+          target: '1-2',
+          targetHandle: null,
+          id: 'reactflow__edge-1-2-1-2',
           type: 'removable',
         },
       ];
