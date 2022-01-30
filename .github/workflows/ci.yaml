@@ -34,6 +34,23 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
       - name: 'Test'
         run: yarn test
+  build:
+    name: Build
+    needs:
+      - setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          cache: yarn
+      - name: Restore node modules
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+      - name: 'Build'
+        run: yarn build
   package:
     name: Package
     needs:
