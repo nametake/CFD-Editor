@@ -1,25 +1,18 @@
-import {
-  CellType,
-  Condition,
-  ConditionStub,
-  NAME_COLUMN,
-  STUB_COLUMN,
-} from '@/app/types';
+import { CellType, Condition, ConditionStub } from '@/app/types';
 
 import { findActionRow } from './findActionRow';
 import { RowRange, getName, makeId } from './utils';
 
 type ToConditionsOption = {
-  nameColumn?: number;
-  stubColumn?: number;
+  nameColumn: number;
+  stubColumn: number;
 };
 
 export const toConditions = (
   grid: CellType[][],
-  option?: ToConditionsOption
+  option: ToConditionsOption
 ): Condition[] => {
-  const nameColumn = option?.nameColumn ?? NAME_COLUMN;
-  const stubColumn = option?.stubColumn ?? STUB_COLUMN;
+  const { nameColumn, stubColumn } = option;
 
   const actionHeaderRow = findActionRow(grid);
 

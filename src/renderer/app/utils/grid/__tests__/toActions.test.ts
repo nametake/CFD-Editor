@@ -1,6 +1,11 @@
 import { toActions } from '../toActions';
 import { Action, CellType } from '@/app/types';
 
+const defaultOption = {
+  nameColumn: 1,
+  stubColumn: 2,
+};
+
 describe('toActions', () => {
   test('2 actions 2 stubs', () => {
     const grid: CellType[][] = [
@@ -100,7 +105,7 @@ describe('toActions', () => {
       },
     ];
 
-    expect(toActions(grid)).toStrictEqual(expected);
+    expect(toActions(grid, defaultOption)).toStrictEqual(expected);
   });
 
   test('2 actions 1 stubs', () => {
@@ -191,7 +196,7 @@ describe('toActions', () => {
       },
     ];
 
-    expect(toActions(grid)).toStrictEqual(expected);
+    expect(toActions(grid, defaultOption)).toStrictEqual(expected);
   });
 
   test('no action', () => {
@@ -219,7 +224,7 @@ describe('toActions', () => {
 
     const expected: Action[] = [];
 
-    expect(toActions(grid)).toStrictEqual(expected);
+    expect(toActions(grid, defaultOption)).toStrictEqual(expected);
   });
 
   test('single stub(same row)', () => {
@@ -264,7 +269,7 @@ describe('toActions', () => {
       },
     ];
 
-    expect(toActions(grid)).toStrictEqual(expected);
+    expect(toActions(grid, defaultOption)).toStrictEqual(expected);
   });
 
   test('single stub(diff row)', () => {
@@ -314,7 +319,7 @@ describe('toActions', () => {
       },
     ];
 
-    expect(toActions(grid)).toStrictEqual(expected);
+    expect(toActions(grid, defaultOption)).toStrictEqual(expected);
   });
 
   test('empty string value', () => {
@@ -384,6 +389,6 @@ describe('toActions', () => {
       },
     ];
 
-    expect(toActions(grid)).toStrictEqual(expected);
+    expect(toActions(grid, defaultOption)).toStrictEqual(expected);
   });
 });

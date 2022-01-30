@@ -11,6 +11,11 @@ import { Node } from '@/app/utils/node';
 import { MainAction } from './action';
 import { MainState, emptyActionRow, emptyConditionRow } from './state';
 
+const gridOption = {
+  nameColumn: 1,
+  stubColumn: 2,
+};
+
 const actionReducer: Reducer<MainState, MainAction> = (
   prev: MainState,
   action: MainAction
@@ -82,10 +87,10 @@ const createNodesReducer: Reducer<MainState, MainAction> = (
   state: MainState,
   action: MainAction
 ): MainState => {
-  const conditions = Grid.toConditions(state.grid);
+  const conditions = Grid.toConditions(state.grid, gridOption);
   const causeAndElementNodes = Node.fromConditions(conditions);
 
-  const actions = Grid.toActions(state.grid);
+  const actions = Grid.toActions(state.grid, gridOption);
   const resultNodes = Node.fromActions(actions);
 
   const nodes = [...causeAndElementNodes, ...resultNodes].map(
@@ -126,7 +131,7 @@ const rulesReducer: Reducer<MainState, MainAction> = (
   state: MainState
 ): MainState => {
   const rules = Node.traverseRules(state.nodes, state.edges);
-  const grid = Grid.mergeRules(state.grid, rules);
+  const grid = Grid.mergeRules(state.grid, rules, gridOption);
   return { ...state, grid };
 };
 
