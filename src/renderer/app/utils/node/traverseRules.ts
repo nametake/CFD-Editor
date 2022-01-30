@@ -14,6 +14,15 @@ const traverse = (
         return node.id === edge?.target;
       });
       const elementNodes = nodes.filter((n) => n.parentNode === currentNode.id);
+
+      if (
+        elementNodes.some((node) =>
+          currentRule.conditionStubIds.includes(node.id)
+        )
+      ) {
+        return [];
+      }
+
       return elementNodes.flatMap((element) => {
         const nextRule: Rule = {
           ...currentRule,

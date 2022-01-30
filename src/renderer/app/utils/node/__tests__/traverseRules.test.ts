@@ -407,4 +407,58 @@ describe('traverseRules', () => {
 
     expect(traverseRules(nodes, edges)).toStrictEqual(expected);
   });
+
+  test('loop connection', () => {
+    const nodes: Node[] = [
+      {
+        id: '1-1',
+        data: { label: { text: 'Cause1' } },
+        type: 'cause',
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: '1-2',
+        data: { label: 'Element1' },
+        parentNode: '1-1',
+        type: 'element',
+        position: { x: 20, y: 44 },
+      },
+      {
+        id: '2-1',
+        data: { label: { text: 'Cause2' } },
+        type: 'cause',
+        position: { x: 214, y: 0 },
+      },
+      {
+        id: '2-2',
+        data: { label: 'Element2' },
+        parentNode: '2-1',
+        type: 'element',
+        position: { x: 20, y: 44 },
+      },
+    ];
+
+    const edges: Edge[] = [
+      {
+        source: '1-1',
+        sourceHandle: null,
+        target: '2-1',
+        targetHandle: null,
+        id: 'reactflow__edge-1-1-2-1',
+        type: 'removable',
+      },
+      {
+        source: '2-2',
+        sourceHandle: null,
+        target: '1-1',
+        targetHandle: null,
+        id: 'reactflow__edge-2-2-1-1',
+        type: 'removable',
+      },
+    ];
+
+    const expected: Rule[] = [];
+
+    expect(traverseRules(nodes, edges)).toStrictEqual(expected);
+  });
 });
