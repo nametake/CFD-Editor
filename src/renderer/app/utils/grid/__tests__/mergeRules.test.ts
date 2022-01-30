@@ -1,6 +1,11 @@
 import { mergeRules } from '../mergeRules';
 import { CellType, Rule } from '@/app/types';
 
+const defaultOption = {
+  nameColumn: 1,
+  stubColumn: 2,
+};
+
 describe('mergeRules', () => {
   test('simple all patter', () => {
     const grid: CellType[][] = [
@@ -143,7 +148,7 @@ describe('mergeRules', () => {
         { value: { type: 'CONDITION_RULE', value: 'yes' } },
       ],
     ];
-    expect(mergeRules(grid, rules)).toStrictEqual(expected);
+    expect(mergeRules(grid, rules, defaultOption)).toStrictEqual(expected);
   });
 
   test('empty stub row', () => {
@@ -344,6 +349,6 @@ describe('mergeRules', () => {
         { value: { type: 'CONDITION_RULE', value: 'yes' } },
       ],
     ];
-    expect(mergeRules(grid, rules)).toStrictEqual(expected);
+    expect(mergeRules(grid, rules, defaultOption)).toStrictEqual(expected);
   });
 });

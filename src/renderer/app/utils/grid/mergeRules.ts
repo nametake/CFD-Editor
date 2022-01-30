@@ -1,20 +1,19 @@
-import { CellType, NAME_COLUMN, Rule, STUB_COLUMN } from '@/app/types';
+import { CellType, Rule } from '@/app/types';
 
 import { findActionRow } from './findActionRow';
 import { makeId } from './utils';
 
 type MergeRulesOption = {
-  nameColumn?: number;
-  stubColumn?: number;
+  nameColumn: number;
+  stubColumn: number;
 };
 
 export const mergeRules = (
   grid: CellType[][],
   rules: Rule[],
-  option?: MergeRulesOption
+  option: MergeRulesOption
 ): CellType[][] => {
-  const nameColumn = option?.nameColumn ?? NAME_COLUMN;
-  const stubColumn = option?.stubColumn ?? STUB_COLUMN;
+  const { nameColumn, stubColumn } = option;
 
   const newGrid = grid.map((row) => row.slice(0, 3));
 

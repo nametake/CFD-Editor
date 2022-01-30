@@ -1,11 +1,9 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import * as path from 'path';
 
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { Configuration as WebpackConfiguration } from 'webpack';
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
-/* eslint-enable */
 
 interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;

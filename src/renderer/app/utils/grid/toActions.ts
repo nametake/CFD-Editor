@@ -1,25 +1,18 @@
-import {
-  Action,
-  ActionStub,
-  CellType,
-  NAME_COLUMN,
-  STUB_COLUMN,
-} from '@/app/types';
+import { Action, ActionStub, CellType } from '@/app/types';
 
 import { findActionRow } from './findActionRow';
 import { RowRange, getName, makeId } from './utils';
 
 type ToActionsOption = {
-  nameColumn?: number;
-  stubColumn?: number;
+  nameColumn: number;
+  stubColumn: number;
 };
 
 export const toActions = (
   grid: CellType[][],
-  option?: ToActionsOption
+  option: ToActionsOption
 ): Action[] => {
-  const nameColumn = option?.nameColumn ?? NAME_COLUMN;
-  const stubColumn = option?.stubColumn ?? STUB_COLUMN;
+  const { nameColumn, stubColumn } = option;
 
   const actionHeaderRow = findActionRow(grid);
 
