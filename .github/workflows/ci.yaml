@@ -9,6 +9,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
+          node-version: latest
           cache: yarn
       - name: 'Install'
         run: yarn install
@@ -26,6 +27,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
+          node-version: latest
           cache: yarn
       - name: Restore node modules
         uses: actions/cache@v2
@@ -43,6 +45,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
+          node-version: latest
           cache: yarn
       - name: Restore node modules
         uses: actions/cache@v2
@@ -60,6 +63,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
+          node-version: latest
           cache: yarn
       - name: Restore node modules
         uses: actions/cache@v2
@@ -77,6 +81,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
+          node-version: latest
           cache: yarn
       - name: Restore node modules
         uses: actions/cache@v2
