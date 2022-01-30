@@ -5,6 +5,7 @@ import { alignVertical } from './alignVertical';
 import {
   CauseNodeWithElements,
   toCauseNodeWithElements,
+  toNoParentElementNode,
   toResultNode,
 } from './types';
 
@@ -88,12 +89,14 @@ export const alignElementNodes = (
 ): Node[] => {
   const causeNodes = toCauseNodeWithElements(nodes);
   const resultNodes = toResultNode(nodes);
+  const noParentElementNodes = toNoParentElementNode(nodes);
 
   return [
     ...causeNodes
       .map(setElementsDimention(option))
       .map(setElementPosition(option))
       .flatMap(({ elements, ...node }) => [node, ...elements]),
+    ...noParentElementNodes,
     ...resultNodes,
   ];
 };

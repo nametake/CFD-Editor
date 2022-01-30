@@ -24,5 +24,10 @@ export const toCauseNodeWithElements = (
       elements: toElementNode(nodes, node),
     }));
 
+export const toNoParentElementNode = (nodes: Node[]): ElementNodeType[] =>
+  nodes
+    .filter((node): node is ElementNodeType => node.type === 'element')
+    .filter((node) => node.parentNode == null);
+
 export const toResultNode = (nodes: Node[]): ResultNodeType[] =>
   nodes.filter((node): node is ResultNodeType => node.type === 'result');
