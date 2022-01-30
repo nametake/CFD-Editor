@@ -6,7 +6,7 @@ import { elementNodeStyle } from '@/app/ui/ElementNode';
 import { resultNodeStyle } from '@/app/ui/ResultNode';
 import { assertUnreachable } from '@/app/utils/assert';
 import { Grid } from '@/app/utils/grid';
-import { Node as NodeUtils } from '@/app/utils/node';
+import { Node } from '@/app/utils/node';
 
 import { MainAction } from './action';
 import { MainState, emptyActionRow, emptyConditionRow } from './state';
@@ -83,17 +83,17 @@ const createNodesReducer: Reducer<MainState, MainAction> = (
   action: MainAction
 ): MainState => {
   const conditions = Grid.toConditions(state.grid);
-  const causeAndElementNodes = NodeUtils.fromConditions(conditions);
+  const causeAndElementNodes = Node.fromConditions(conditions);
 
   const actions = Grid.toActions(state.grid);
-  const resultNodes = NodeUtils.fromActions(actions);
+  const resultNodes = Node.fromActions(actions);
 
   const nodes = [...causeAndElementNodes, ...resultNodes].map(
-    NodeUtils.mapStyle(mapStyleOption)
+    Node.mapStyle(mapStyleOption)
   );
 
-  const nextNodes = NodeUtils.alignElementNodes(
-    NodeUtils.merge({ oldNodes: state.nodes, newNodes: nodes }),
+  const nextNodes = Node.alignElementNodes(
+    Node.merge({ oldNodes: state.nodes, newNodes: nodes }),
     {
       labelMarginBottom: 10,
       elementGap: 10,
@@ -111,7 +111,7 @@ const createNodesReducer: Reducer<MainState, MainAction> = (
     case 'DECISION_TABLE/CLICK_REMOVE_ROW':
       return {
         ...state,
-        nodes: NodeUtils.alignParentNodes(nextNodes, {
+        nodes: Node.alignParentNodes(nextNodes, {
           causeNodeGap: 80,
           resultNodeGap: 40,
           causeNodeAndResultNodeGap: 80,
@@ -125,7 +125,7 @@ const createNodesReducer: Reducer<MainState, MainAction> = (
 const rulesReducer: Reducer<MainState, MainAction> = (
   state: MainState
 ): MainState => {
-  const rules = NodeUtils.traverseRules(state.nodes, state.edges);
+  const rules = Node.traverseRules(state.nodes, state.edges);
   const grid = Grid.mergeRules(state.grid, rules);
   return { ...state, grid };
 };
