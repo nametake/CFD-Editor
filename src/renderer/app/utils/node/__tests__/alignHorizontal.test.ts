@@ -121,7 +121,7 @@ describe('alignHorizontal', () => {
     expect(alignHorizontal(nodes, option)).toStrictEqual(expected);
   });
 
-  test('no width', () => {
+  test('no dimension', () => {
     const nodes: Node[] = [
       {
         id: 'c1',
