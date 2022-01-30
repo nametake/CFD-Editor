@@ -120,4 +120,49 @@ describe('alignHorizontal', () => {
 
     expect(alignHorizontal(nodes, option)).toStrictEqual(expected);
   });
+
+  test('no width', () => {
+    const nodes: Node[] = [
+      {
+        id: 'c1',
+        type: 'cause',
+        data: { label: { text: 'Cause 1' } },
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'c2',
+        type: 'cause',
+        data: { label: { text: 'Cause 2' } },
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'c3',
+        type: 'cause',
+        data: { label: { text: 'Cause 3' } },
+        position: { x: 0, y: 0 },
+      },
+    ];
+    const expected: Node[] = [
+      {
+        id: 'c1',
+        type: 'cause',
+        data: { label: { text: 'Cause 1' } },
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'c2',
+        type: 'cause',
+        data: { label: { text: 'Cause 2' } },
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'c3',
+        type: 'cause',
+        data: { label: { text: 'Cause 3' } },
+        position: { x: 0, y: 0 },
+      },
+    ];
+
+    expect(alignHorizontal(nodes)).toStrictEqual(expected);
+  });
 });

@@ -88,8 +88,8 @@ export const alignElementNodes = (
   option?: AlignElementNodesOption
 ): Node[] => {
   const causeNodes = toCauseNodeWithElements(nodes);
-  const resultNodes = toResultNode(nodes);
   const noParentElementNodes = toNoParentElementNode(nodes);
+  const resultNodes = toResultNode(nodes);
 
   return [
     ...causeNodes
