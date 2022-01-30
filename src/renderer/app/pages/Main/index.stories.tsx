@@ -4,6 +4,13 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
 
+
+import { Node } from '@/app/types';
+import { causeNodeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
+import { elementNodeStyle } from '@/app/ui/ElementNode';
+import { resultNodeStyle } from '@/app/ui/ResultNode';
+import { Node as NodeUitls } from '@/app/utils/node';
+
 import { useMain } from './hooks';
 import { Main } from './Main';
 
@@ -28,141 +35,74 @@ const Template: ComponentStory<typeof Main> = function Template() {
 export const Default = Template.bind({});
 Default.args = {};
 
+const initialNode: Node[] = [
+  {
+    id: '1-1',
+    data: { label: { text: 'Card' } },
+    type: 'cause',
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: '1-2',
+    data: { label: 'Suica' },
+    parentNode: '1-1',
+    type: 'element',
+    position: { x: 20, y: 44 },
+  },
+  {
+    id: '2-2',
+    data: { label: 'Pasmo' },
+    parentNode: '1-1',
+    type: 'element',
+    position: { x: 20, y: 94 },
+  },
+  {
+    id: '3-1',
+    data: { label: { text: 'Age' } },
+    type: 'cause',
+    position: { x: 193, y: 0 },
+  },
+  {
+    id: '3-2',
+    data: { label: 'Over 60' },
+    parentNode: '3-1',
+    type: 'element',
+    position: { x: 20, y: 44 },
+  },
+  {
+    id: '4-2',
+    data: { label: 'Under 60' },
+    parentNode: '3-1',
+    type: 'element',
+    position: { x: 20, y: 94 },
+  },
+  {
+    id: '6-2',
+    data: { label: 'Yes' },
+    type: 'result',
+    position: { x: 408, y: 0 },
+  },
+  {
+    id: '7-2',
+    data: { label: 'No' },
+    type: 'result',
+    position: { x: 408, y: 101 },
+  },
+];
+
 /* eslint-disable react/jsx-props-no-spreading */
 const TemplateWithInitialState: ComponentStory<typeof Main> =
   function TemplateWithInitialState() {
     const { causeFlowProps, decisionTableProps } = useMain({
       initialState: {
-        nodes: [
-          {
-            id: '1-1',
-            data: {
-              label: { text: 'Card', style: { height: 24 } },
-              elements: { width: 71 },
-            },
-            type: 'cause',
-            position: { x: 0, y: 0 },
-            style: {
-              width: 'fit-content',
-              height: 154,
-              border: '1px solid',
-              paddingTop: 10,
-              paddingRight: 20,
-              paddingBottom: 10,
-              paddingLeft: 20,
-            },
-            width: 113,
-            height: 154,
-          },
-          {
-            id: '1-2',
-            data: { label: 'Suica' },
-            parentNode: '1-1',
-            type: 'element',
-            position: { x: 20, y: 44 },
-            style: {
-              borderRadius: '8px',
-              padding: 8,
-              border: '1px solid',
-              textAlign: 'center',
-            },
-            width: 61,
-            height: 40,
-          },
-          {
-            id: '2-2',
-            data: { label: 'Pasmo' },
-            parentNode: '1-1',
-            type: 'element',
-            position: { x: 20, y: 94 },
-            style: {
-              borderRadius: '8px',
-              padding: 8,
-              border: '1px solid',
-              textAlign: 'center',
-            },
-            width: 71,
-            height: 40,
-          },
-          {
-            id: '3-1',
-            data: {
-              label: { text: 'Age', style: { height: 24 } },
-              elements: { width: 93 },
-            },
-            type: 'cause',
-            position: { x: 193, y: 0 },
-            style: {
-              width: 'fit-content',
-              height: 154,
-              border: '1px solid',
-              paddingTop: 10,
-              paddingRight: 20,
-              paddingBottom: 10,
-              paddingLeft: 20,
-            },
-            width: 135,
-            height: 154,
-          },
-          {
-            id: '3-2',
-            data: { label: 'Over 60' },
-            parentNode: '3-1',
-            type: 'element',
-            position: { x: 20, y: 44 },
-            style: {
-              borderRadius: '8px',
-              padding: 8,
-              border: '1px solid',
-              textAlign: 'center',
-            },
-            width: 82,
-            height: 40,
-          },
-          {
-            id: '4-2',
-            data: { label: 'Under 60' },
-            parentNode: '3-1',
-            type: 'element',
-            position: { x: 20, y: 94 },
-            style: {
-              borderRadius: '8px',
-              padding: 8,
-              border: '1px solid',
-              textAlign: 'center',
-            },
-            width: 93,
-            height: 40,
-          },
-          {
-            id: '6-2',
-            data: { label: 'Yes' },
-            type: 'result',
-            position: { x: 408, y: 0 },
-            style: {
-              borderRadius: '50%',
-              padding: 16,
-              border: '1px solid',
-              textAlign: 'center',
-            },
-            width: 62,
-            height: 56,
-          },
-          {
-            id: '7-2',
-            data: { label: 'No' },
-            type: 'result',
-            position: { x: 408, y: 101 },
-            style: {
-              borderRadius: '50%',
-              padding: 16,
-              border: '1px solid',
-              textAlign: 'center',
-            },
-            width: 56,
-            height: 56,
-          },
-        ],
+        nodes: initialNode.map(
+          NodeUitls.mapStyle({
+            causeNodeStyle,
+            causeNodeLabelStyle,
+            elementNodeStyle,
+            resultNodeStyle,
+          })
+        ),
         edges: [
           {
             source: '1-1',

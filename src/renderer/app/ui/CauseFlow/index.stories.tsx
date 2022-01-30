@@ -6,11 +6,18 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
 
 import { Node } from '@/app/types';
-import { layoutNodes } from '@/app/utils/layouts';
+import { causeNodeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
+import { elementNodeStyle } from '@/app/ui/ElementNode';
+import { resultNodeStyle } from '@/app/ui/ResultNode';
+import { Node as NodeUtils } from '@/app/utils/node';
+import { alignElementNodes } from '@/app/utils/node/alignElementNodes';
+import { alignParentNodes } from '@/app/utils/node/alignParentNodes';
 
 import { CauseFlow } from './CauseFlow';
-import { mapStyle } from './utils';
 import { applyNodeChanges } from './wrapper';
+
+import { mapStyle as mapStyleUtil } from '.';
+
 
 // eslint-disable-next-line import/no-default-export
 export default {
@@ -19,30 +26,34 @@ export default {
 } as ComponentMeta<typeof CauseFlow>;
 
 /* eslint-disable react/jsx-props-no-spreading */
-const Template: ComponentStory<typeof CauseFlow> = function Template({
-  nodes: argsNodes,
-  edges: argsEdges,
-  ...args
-}) {
-  const [nodes, setNodes] = useState(argsNodes);
-  const sort = useCallback((newNodes: Node[]) => {
-    setNodes(newNodes);
-  }, []);
-  return (
-    <CauseFlow
-      {...args}
-      nodes={nodes}
-      edges={argsEdges}
-      style={{ width: '1024', height: '1024px' }}
-      onNodesChange={useCallback(
-        (changeNodes: NodeChange[]) => {
-          sort(layoutNodes(applyNodeChanges(changeNodes, nodes).map(mapStyle)));
-        },
-        [nodes, sort]
-      )}
-    />
-  );
-};
+const TemplateWithLayout: ComponentStory<typeof CauseFlow> =
+  function TemplateWithLayout({ nodes: argsNodes, edges: argsEdges, ...args }) {
+    const [nodes, setNodes] = useState(argsNodes);
+    return (
+      <CauseFlow
+        {...args}
+        nodes={nodes}
+        edges={argsEdges}
+        style={{ width: '1024px', height: '1024px' }}
+        onNodesChange={useCallback(
+          (changeNodes: NodeChange[]) => {
+            const appliedNodes = applyNodeChanges(changeNodes, nodes);
+            const alignedElementNodes = alignElementNodes(appliedNodes, {
+              elementGap: 10,
+              labelMarginBottom: 10,
+            });
+            const alignedParentNodes = alignParentNodes(alignedElementNodes, {
+              causeNodeGap: 80,
+              resultNodeGap: 40,
+              causeNodeAndResultNodeGap: 80,
+            });
+            setNodes(alignedParentNodes);
+          },
+          [nodes]
+        )}
+      />
+    );
+  };
 /* eslint-enable */
 
 const defaultNodes: Node[] = [
@@ -152,9 +163,9 @@ const defaultNodes: Node[] = [
   },
 ];
 
-export const Default = Template.bind({});
+export const Default = TemplateWithLayout.bind({});
 Default.args = {
-  nodes: defaultNodes.map(mapStyle),
+  nodes: defaultNodes.map(mapStyleUtil),
   edges: [
     { id: 'c1-e1_c2-e1', source: 'c1-e1', target: 'c2-e1', type: 'removable' },
     { id: 'c1-e2_c2', source: 'c1-e2', target: 'c2', type: 'removable' },
@@ -164,5 +175,81 @@ Default.args = {
     { id: 'c3-e2_r2', source: 'c3-e2', target: 'r2', type: 'removable' },
     { id: 'c1-e4_r3', source: 'c1-e4', target: 'r3', type: 'removable' },
     { id: 'c2-e2_r3', source: 'c2-e2', target: 'r3', type: 'removable' },
+  ],
+};
+
+const mapStyleOption = {
+  causeNodeStyle,
+  causeNodeLabelStyle,
+  resultNodeStyle,
+  elementNodeStyle,
+};
+
+/* eslint-disable react/jsx-props-no-spreading */
+const Template: ComponentStory<typeof CauseFlow> = function Template({
+  nodes: argsNodes,
+  edges: argsEdges,
+  ...args
+}) {
+  const [nodes, setNodes] = useState(
+    argsNodes.map(NodeUtils.mapStyle(mapStyleOption))
+  );
+  return (
+    <CauseFlow
+      {...args}
+      nodes={nodes}
+      edges={argsEdges}
+      style={{ width: '1024px', height: '1024px' }}
+      onNodesChange={useCallback(
+        (changeNodes: NodeChange[]) => {
+          const nextNodes = applyNodeChanges(changeNodes, nodes);
+          setNodes(
+            NodeUtils.alignElementNodes(nextNodes, {
+              elementGap: 10,
+              labelMarginBottom: 20,
+            })
+          );
+        },
+        [nodes]
+      )}
+    />
+  );
+};
+/* eslint-enable */
+
+export const CauseNodeWithElements = Template.bind({});
+CauseNodeWithElements.args = {
+  nodes: [
+    {
+      id: 'c1',
+      type: 'cause',
+      data: {
+        label: {
+          text: 'Cause 1',
+        },
+      },
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: 'c1-e1',
+      parentNode: 'c1',
+      type: 'element',
+      data: { label: 'Cause 1 Element 1' },
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: 'c1-e2',
+      parentNode: 'c1',
+      type: 'element',
+      data: { label: 'Cause 1 Element 2' },
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: 'c1-e3',
+      parentNode: 'c1',
+      type: 'element',
+      data: { label: 'Cause 1 Element 3' },
+      position: { x: 0, y: 0 },
+    },
   ],
 };

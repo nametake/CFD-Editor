@@ -9,26 +9,27 @@ const traverse = (
 ): Rule[] => {
   switch (currentNode?.type) {
     case 'cause': {
-      const causeNextNode = nodes.find((node) => {
+      const nextNode = nodes.find((node) => {
         const edge = edges.find((e) => e.source === currentNode.id);
         return node.id === edge?.target;
       });
+
       const elementNodes = nodes.filter((n) => n.parentNode === currentNode.id);
+
       return elementNodes.flatMap((element) => {
+        // loop check
+        if (currentRule.conditionStubIds.includes(element.id)) {
+          return [];
+        }
         const nextRule: Rule = {
           ...currentRule,
           conditionStubIds: [...currentRule.conditionStubIds, element.id],
         };
-        const elementNextNode = nodes.find((node) => {
+        const nextElementNode = nodes.find((node) => {
           const edge = edges.find((e) => e.source === element.id);
           return node.id === edge?.target;
         });
-        return traverse(
-          nextRule,
-          elementNextNode || causeNextNode,
-          nodes,
-          edges
-        );
+        return traverse(nextRule, nextElementNode || nextNode, nodes, edges);
       });
     }
     case 'element': {
@@ -36,6 +37,12 @@ const traverse = (
         const edge = edges.find((e) => e.source === currentNode.id);
         return node.id === edge?.target;
       });
+
+      // loop check
+      if (nextNode?.id && currentRule.conditionStubIds.includes(nextNode.id)) {
+        return [];
+      }
+
       const nextRule: Rule = {
         ...currentRule,
         conditionStubIds: [...currentRule.conditionStubIds, currentNode.id],

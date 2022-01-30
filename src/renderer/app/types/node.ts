@@ -15,6 +15,7 @@ export type CauseNodeDataType = {
   };
   elements?: {
     width: number;
+    height: number;
   };
 };
 

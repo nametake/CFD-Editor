@@ -4,10 +4,18 @@ import { mergeRules } from './mergeRules';
 import { toActions } from './toActions';
 import { toConditions } from './toConditions';
 
-export const Grid = {
+type GridType = {
+  applyCellsChanges: typeof applyCellsChanges;
+  findActionRow: typeof findActionRow;
+  mergeRules: typeof mergeRules;
+  toActions: typeof toActions;
+  toConditions: typeof toConditions;
+};
+
+export const Grid: GridType = {
   applyCellsChanges,
   findActionRow,
+  mergeRules,
   toActions,
   toConditions,
-  mergeRules,
-};
+} as const;

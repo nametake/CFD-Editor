@@ -1,4 +1,4 @@
-import { AlignOption, alignVertical } from '../layouts';
+import { AlignOption, alignVertical } from '../alignVertical';
 import { Node } from '@/app/types';
 
 describe('alignVertical', () => {
@@ -118,5 +118,50 @@ describe('alignVertical', () => {
     };
 
     expect(alignVertical(nodes, option)).toStrictEqual(expected);
+  });
+
+  test('no dimension', () => {
+    const nodes: Node[] = [
+      {
+        id: 'c1',
+        type: 'cause',
+        data: { label: { text: 'Cause 1' } },
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'c2',
+        type: 'cause',
+        data: { label: { text: 'Cause 2' } },
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'c3',
+        type: 'cause',
+        data: { label: { text: 'Cause 3' } },
+        position: { x: 0, y: 0 },
+      },
+    ];
+    const expected: Node[] = [
+      {
+        id: 'c1',
+        type: 'cause',
+        data: { label: { text: 'Cause 1' } },
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'c2',
+        type: 'cause',
+        data: { label: { text: 'Cause 2' } },
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'c3',
+        type: 'cause',
+        data: { label: { text: 'Cause 3' } },
+        position: { x: 0, y: 0 },
+      },
+    ];
+
+    expect(alignVertical(nodes)).toStrictEqual(expected);
   });
 });

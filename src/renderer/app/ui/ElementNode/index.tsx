@@ -11,6 +11,7 @@ export const elementNodeStyle: CSSProperties = {
   padding: 8,
   border: '1px solid',
   textAlign: 'center',
+  pointerEvents: 'none',
 };
 
 type ElementNodeProps<T> = NodeProps<T>;

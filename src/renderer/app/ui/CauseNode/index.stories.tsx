@@ -6,7 +6,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { CauseFlow } from '@/app/ui/CauseFlow';
 
-import { CauseNode, causeLabelStyle, causeNodeStyle } from './index';
+import { CauseNode, causeNodeLabelStyle, causeNodeStyle } from './index';
 
 // eslint-disable-next-line import/no-default-export
 export default {
@@ -16,7 +16,7 @@ export default {
     data: {
       label: {
         text: 'Cause',
-        style: causeLabelStyle,
+        style: causeNodeLabelStyle,
       },
     },
   },

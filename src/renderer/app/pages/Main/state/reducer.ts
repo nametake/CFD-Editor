@@ -1,10 +1,11 @@
 import { Reducer } from 'react';
 
-import { Node } from '@/app/types';
-import { addEdge, applyNodeChanges, mapStyle } from '@/app/ui/CauseFlow';
+import { addEdge, applyNodeChanges } from '@/app/ui/CauseFlow';
+import { causeNodeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
+import { elementNodeStyle } from '@/app/ui/ElementNode';
+import { resultNodeStyle } from '@/app/ui/ResultNode';
 import { assertUnreachable } from '@/app/utils/assert';
 import { Grid } from '@/app/utils/grid';
-import { layoutNodes } from '@/app/utils/layouts';
 import { Node as NodeUtils } from '@/app/utils/node';
 
 import { MainAction } from './action';
@@ -70,34 +71,55 @@ const actionReducer: Reducer<MainState, MainAction> = (
   }
 };
 
-const merge = (prevNodes: Node[], newNodes: Node[]): Node[] =>
-  newNodes.map((newNode) => {
-    const prevNode = prevNodes.find((node) => node.id === newNode.id);
-    return {
-      ...prevNode,
-      ...newNode,
-      style: {
-        ...prevNode?.style,
-        ...newNode.style,
-      },
-    };
-  });
+const mapStyleOption = {
+  causeNodeStyle,
+  causeNodeLabelStyle,
+  elementNodeStyle,
+  resultNodeStyle,
+};
 
-const nodesReducer: Reducer<MainState, MainAction> = (
-  state: MainState
+const createNodesReducer: Reducer<MainState, MainAction> = (
+  state: MainState,
+  action: MainAction
 ): MainState => {
   const conditions = Grid.toConditions(state.grid);
-  const conditionNodes = NodeUtils.fromConditions(conditions);
+  const causeAndElementNodes = NodeUtils.fromConditions(conditions);
 
   const actions = Grid.toActions(state.grid);
   const resultNodes = NodeUtils.fromActions(actions);
 
-  const nodes = [...conditionNodes, ...resultNodes];
+  const nodes = [...causeAndElementNodes, ...resultNodes].map(
+    NodeUtils.mapStyle(mapStyleOption)
+  );
 
-  return {
-    ...state,
-    nodes: merge(state.nodes, nodes),
-  };
+  const nextNodes = NodeUtils.alignElementNodes(
+    NodeUtils.merge({ oldNodes: state.nodes, newNodes: nodes }),
+    {
+      labelMarginBottom: 10,
+      elementGap: 10,
+    }
+  );
+
+  switch (action.type) {
+    case 'CAUSE_FLOW/CHANGED_NODES':
+    case 'CAUSE_FLOW/ADDED_CONNECTION':
+    case 'CAUSE_FLOW/CLICK_REMOVE_EDGE':
+      return { ...state, nodes: nextNodes };
+    case 'DECISION_TABLE/CHANGED_CELLS':
+    case 'DECISION_TABLE/CLICK_ADD_CONDITION_ROW':
+    case 'DECISION_TABLE/CLICK_ADD_ACTION_ROW':
+    case 'DECISION_TABLE/CLICK_REMOVE_ROW':
+      return {
+        ...state,
+        nodes: NodeUtils.alignParentNodes(nextNodes, {
+          causeNodeGap: 80,
+          resultNodeGap: 40,
+          causeNodeAndResultNodeGap: 80,
+        }),
+      };
+    default:
+      return assertUnreachable(action);
+  }
 };
 
 const rulesReducer: Reducer<MainState, MainAction> = (
@@ -108,15 +130,12 @@ const rulesReducer: Reducer<MainState, MainAction> = (
   return { ...state, grid };
 };
 
-const layoutReducer: Reducer<MainState, MainAction> = (
-  state: MainState
-): MainState => ({ ...state, nodes: layoutNodes(state.nodes.map(mapStyle)) });
-
 export const reducer: Reducer<MainState, MainAction> = (
   prev: MainState,
   action: MainAction
 ): MainState =>
-  [actionReducer, nodesReducer, rulesReducer, layoutReducer].reduce(
-    (prevState, fn) => fn(prevState, action),
-    prev
-  );
+  [
+    actionReducer, // must first
+    createNodesReducer,
+    rulesReducer,
+  ].reduce((prevState, fn) => fn(prevState, action), prev);
