@@ -408,7 +408,7 @@ describe('traverseRules', () => {
     expect(traverseRules(nodes, edges)).toStrictEqual(expected);
   });
 
-  test('loop connection', () => {
+  describe('loop connection', () => {
     const nodes: Node[] = [
       {
         id: '1-1',
@@ -438,27 +438,73 @@ describe('traverseRules', () => {
       },
     ];
 
-    const edges: Edge[] = [
-      {
-        source: '1-1',
-        sourceHandle: null,
-        target: '2-1',
-        targetHandle: null,
-        id: 'reactflow__edge-1-1-2-1',
-        type: 'removable',
-      },
-      {
-        source: '2-2',
-        sourceHandle: null,
-        target: '1-1',
-        targetHandle: null,
-        id: 'reactflow__edge-2-2-1-1',
-        type: 'removable',
-      },
-    ];
+    test('cause node to cause node', () => {
+      const edges: Edge[] = [
+        {
+          source: '1-1',
+          sourceHandle: null,
+          target: '2-1',
+          targetHandle: null,
+          id: 'reactflow__edge-1-1-2-1',
+          type: 'removable',
+        },
+        {
+          source: '2-1',
+          sourceHandle: null,
+          target: '1-1',
+          targetHandle: null,
+          id: 'reactflow__edge-2-1-1-1',
+          type: 'removable',
+        },
+      ];
 
-    const expected: Rule[] = [];
+      expect(traverseRules(nodes, edges)).toStrictEqual([]);
+    });
 
-    expect(traverseRules(nodes, edges)).toStrictEqual(expected);
+    test('elmeent node to cause node', () => {
+      const edges: Edge[] = [
+        {
+          source: '1-1',
+          sourceHandle: null,
+          target: '2-1',
+          targetHandle: null,
+          id: 'reactflow__edge-1-1-2-1',
+          type: 'removable',
+        },
+        {
+          source: '2-2',
+          sourceHandle: null,
+          target: '1-1',
+          targetHandle: null,
+          id: 'reactflow__edge-2-2-1-1',
+          type: 'removable',
+        },
+      ];
+
+      expect(traverseRules(nodes, edges)).toStrictEqual([]);
+    });
+
+    test('elmeent node to element node', () => {
+      const edges: Edge[] = [
+        {
+          source: '1-2',
+          sourceHandle: null,
+          target: '2-2',
+          targetHandle: null,
+          id: 'reactflow__edge-1-2-2-2',
+          type: 'removable',
+        },
+        {
+          source: '2-2',
+          sourceHandle: null,
+          target: '1-1',
+          targetHandle: null,
+          id: 'reactflow__edge-2-2-1-2',
+          type: 'removable',
+        },
+      ];
+
+      expect(traverseRules(nodes, edges)).toStrictEqual([]);
+    });
   });
 });
