@@ -15,6 +15,7 @@ const traverse = (
       });
       const elementNodes = nodes.filter((n) => n.parentNode === currentNode.id);
 
+      // loop check
       if (
         elementNodes.some((node) =>
           currentRule.conditionStubIds.includes(node.id)
