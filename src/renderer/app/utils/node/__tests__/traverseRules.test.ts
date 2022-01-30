@@ -2,7 +2,7 @@ import { traverseRules } from '../traverseRules';
 import { Edge, Node, Rule } from '@/app/types';
 
 describe('traverseRules', () => {
-  describe('connected cause node to action node', () => {
+  test('connected cause node to action node', () => {
     const nodes: Node[] = [
       {
         id: '1-1',
@@ -85,31 +85,29 @@ describe('traverseRules', () => {
       },
     ];
 
-    test('cause node start', () => {
-      const expected: Rule[] = [
-        {
-          conditionStubIds: ['1-2', '3-2'],
-          actionId: '6-2',
-        },
-        {
-          conditionStubIds: ['1-2', '4-2'],
-          actionId: '7-2',
-        },
-        {
-          conditionStubIds: ['2-2', '3-2'],
-          actionId: '6-2',
-        },
-        {
-          conditionStubIds: ['2-2', '4-2'],
-          actionId: '7-2',
-        },
-      ];
+    const expected: Rule[] = [
+      {
+        conditionStubIds: ['1-2', '3-2'],
+        actionId: '6-2',
+      },
+      {
+        conditionStubIds: ['1-2', '4-2'],
+        actionId: '7-2',
+      },
+      {
+        conditionStubIds: ['2-2', '3-2'],
+        actionId: '6-2',
+      },
+      {
+        conditionStubIds: ['2-2', '4-2'],
+        actionId: '7-2',
+      },
+    ];
 
-      expect(traverseRules(nodes, edges)).toStrictEqual(expected);
-    });
+    expect(traverseRules(nodes, edges)).toStrictEqual(expected);
   });
 
-  describe('connected element node to action node', () => {
+  test('connected element node to action node', () => {
     const nodes: Node[] = [
       {
         id: '1-1',
@@ -199,27 +197,25 @@ describe('traverseRules', () => {
       },
     ];
 
-    test('cause node start', () => {
-      const expected: Rule[] = [
-        {
-          conditionStubIds: ['1-2', '3-2'],
-          actionId: '6-2',
-        },
-        {
-          conditionStubIds: ['1-2', '4-2'],
-          actionId: '7-2',
-        },
-        {
-          conditionStubIds: ['2-2'],
-          actionId: '7-2',
-        },
-      ];
+    const expected: Rule[] = [
+      {
+        conditionStubIds: ['1-2', '3-2'],
+        actionId: '6-2',
+      },
+      {
+        conditionStubIds: ['1-2', '4-2'],
+        actionId: '7-2',
+      },
+      {
+        conditionStubIds: ['2-2'],
+        actionId: '7-2',
+      },
+    ];
 
-      expect(traverseRules(nodes, edges)).toStrictEqual(expected);
-    });
+    expect(traverseRules(nodes, edges)).toStrictEqual(expected);
   });
 
-  describe('connected element node to element node', () => {
+  test('connected element node to element node', () => {
     const nodes: Node[] = [
       {
         id: '1-1',
@@ -314,23 +310,21 @@ describe('traverseRules', () => {
       },
     ];
 
-    test('cause node start', () => {
-      const expected: Rule[] = [
-        {
-          conditionStubIds: ['1-2', '3-2'],
-          actionId: '6-2',
-        },
-        {
-          conditionStubIds: ['2-2', '4-2'],
-          actionId: '7-2',
-        },
-      ];
+    const expected: Rule[] = [
+      {
+        conditionStubIds: ['1-2', '3-2'],
+        actionId: '6-2',
+      },
+      {
+        conditionStubIds: ['2-2', '4-2'],
+        actionId: '7-2',
+      },
+    ];
 
-      expect(traverseRules(nodes, edges)).toStrictEqual(expected);
-    });
+    expect(traverseRules(nodes, edges)).toStrictEqual(expected);
   });
 
-  describe('not connect action node', () => {
+  test('not connect action node', () => {
     const nodes: Node[] = [
       {
         id: '1-1',
@@ -409,10 +403,8 @@ describe('traverseRules', () => {
       },
     ];
 
-    test('cause node start', () => {
-      const expected: Rule[] = [];
+    const expected: Rule[] = [];
 
-      expect(traverseRules(nodes, edges)).toStrictEqual(expected);
-    });
+    expect(traverseRules(nodes, edges)).toStrictEqual(expected);
   });
 });
