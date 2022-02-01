@@ -4,7 +4,6 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
 
-
 import { Node } from '@/app/types';
 import { causeNodeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
 import { elementNodeStyle } from '@/app/ui/ElementNode';
@@ -131,22 +130,20 @@ const TemplateWithInitialState: ComponentStory<typeof Main> =
         ],
         grid: [
           [
-            { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
+            { value: { type: 'ADD_CONDITION_ROW_BUTTON' } },
             {
               value: { type: 'CONDITION_HEADER', value: 'Condition' },
-              readOnly: true,
             },
             {
               value: { type: 'CONDITION_HEADER', value: 'Condition stub' },
-              readOnly: true,
             },
-            { value: { type: 'CONDITION_HEADER', value: '1' }, readOnly: true },
-            { value: { type: 'CONDITION_HEADER', value: '2' }, readOnly: true },
-            { value: { type: 'CONDITION_HEADER', value: '3' }, readOnly: true },
-            { value: { type: 'CONDITION_HEADER', value: '4' }, readOnly: true },
+            { value: { type: 'CONDITION_HEADER', value: '1' } },
+            { value: { type: 'CONDITION_HEADER', value: '2' } },
+            { value: { type: 'CONDITION_HEADER', value: '3' } },
+            { value: { type: 'CONDITION_HEADER', value: '4' } },
           ],
           [
-            { value: { type: 'REMOVE_ROW' }, readOnly: true },
+            { value: { type: 'REMOVE_ROW' } },
             { value: { type: 'CONDITION_NAME', value: 'Card' } },
             { value: { type: 'CONDITION_STUB', value: 'Suica' } },
             { value: { type: 'CONDITION_RULE', value: 'yes' } },
@@ -155,7 +152,7 @@ const TemplateWithInitialState: ComponentStory<typeof Main> =
             { value: { type: 'CONDITION_RULE', value: 'no' } },
           ],
           [
-            { value: { type: 'REMOVE_ROW' }, readOnly: true },
+            { value: { type: 'REMOVE_ROW' } },
             { value: { type: 'CONDITION_NAME', value: '' } },
             { value: { type: 'CONDITION_STUB', value: 'Pasmo' } },
             { value: { type: 'CONDITION_RULE', value: 'no' } },
@@ -164,7 +161,7 @@ const TemplateWithInitialState: ComponentStory<typeof Main> =
             { value: { type: 'CONDITION_RULE', value: 'yes' } },
           ],
           [
-            { value: { type: 'REMOVE_ROW' }, readOnly: true },
+            { value: { type: 'REMOVE_ROW' } },
             { value: { type: 'CONDITION_NAME', value: 'Age' } },
             { value: { type: 'CONDITION_STUB', value: 'Over 60' } },
             { value: { type: 'CONDITION_RULE', value: 'yes' } },
@@ -173,7 +170,7 @@ const TemplateWithInitialState: ComponentStory<typeof Main> =
             { value: { type: 'CONDITION_RULE', value: 'no' } },
           ],
           [
-            { value: { type: 'REMOVE_ROW' }, readOnly: true },
+            { value: { type: 'REMOVE_ROW' } },
             { value: { type: 'CONDITION_NAME', value: '' } },
             { value: { type: 'CONDITION_STUB', value: 'Under 60' } },
             { value: { type: 'CONDITION_RULE', value: 'no' } },
@@ -182,22 +179,20 @@ const TemplateWithInitialState: ComponentStory<typeof Main> =
             { value: { type: 'CONDITION_RULE', value: 'yes' } },
           ],
           [
-            { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
+            { value: { type: 'ADD_ACTION_ROW_BUTTON' } },
             {
               value: { type: 'ACTION_HEADER', value: 'Action' },
-              readOnly: true,
             },
             {
               value: { type: 'ACTION_HEADER', value: 'Action stub' },
-              readOnly: true,
             },
-            { value: { type: 'EMPTY' }, readOnly: true },
-            { value: { type: 'EMPTY' }, readOnly: true },
-            { value: { type: 'EMPTY' }, readOnly: true },
-            { value: { type: 'EMPTY' }, readOnly: true },
+            { value: { type: 'EMPTY' } },
+            { value: { type: 'EMPTY' } },
+            { value: { type: 'EMPTY' } },
+            { value: { type: 'EMPTY' } },
           ],
           [
-            { value: { type: 'REMOVE_ROW' }, readOnly: true },
+            { value: { type: 'REMOVE_ROW' } },
             { value: { type: 'ACTION_NAME', value: 'Discount' } },
             { value: { type: 'ACTION_STUB', value: 'Yes' } },
             { value: { type: 'CONDITION_RULE', value: 'yes' } },
@@ -206,7 +201,7 @@ const TemplateWithInitialState: ComponentStory<typeof Main> =
             { value: { type: 'CONDITION_RULE', value: 'no' } },
           ],
           [
-            { value: { type: 'REMOVE_ROW' }, readOnly: true },
+            { value: { type: 'REMOVE_ROW' } },
             { value: { type: 'ACTION_NAME', value: '' } },
             { value: { type: 'ACTION_STUB', value: 'No' } },
             { value: { type: 'CONDITION_RULE', value: 'no' } },

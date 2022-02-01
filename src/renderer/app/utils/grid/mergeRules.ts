@@ -32,7 +32,6 @@ export const mergeRules = (
           ...row,
           {
             value: { type: 'CONDITION_HEADER', value: `${ruleIndex + 1}` },
-            readOnly: true,
           },
         ];
         return;
@@ -40,7 +39,10 @@ export const mergeRules = (
 
       // --- Action header ---
       if (isActionHeader) {
-        newGrid[i] = [...row, { value: { type: 'EMPTY' }, readOnly: true }];
+        newGrid[i] = [
+          ...row,
+          { value: { type: 'ACTION_HEADER', value: null } },
+        ];
         return;
       }
 

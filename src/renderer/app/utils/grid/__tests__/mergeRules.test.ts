@@ -10,51 +10,42 @@ describe('mergeRules', () => {
   test('simple all patter', () => {
     const grid: CellType[][] = [
       [
-        { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
-        {
-          value: { type: 'CONDITION_HEADER', value: 'Condition' },
-          readOnly: true,
-        },
-        {
-          value: { type: 'CONDITION_HEADER', value: 'Condition stub' },
-          readOnly: true,
-        },
+        { value: { type: 'ADD_CONDITION_ROW_BUTTON' } },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition' } },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition stub' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: 'Condition 1' } },
         { value: { type: 'CONDITION_STUB', value: 'Stub 1' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: null } },
         { value: { type: 'CONDITION_STUB', value: 'Stub 2' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: 'Condition 2' } },
         { value: { type: 'CONDITION_STUB', value: 'Sbut 3' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: null } },
         { value: { type: 'CONDITION_STUB', value: 'Stub 4' } },
       ],
       [
-        { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
-        {
-          value: { type: 'ACTION_HEADER', value: 'Action stub' },
-          readOnly: true,
-        },
+        { value: { type: 'ADD_ACTION_ROW_BUTTON' } },
+        { value: { type: 'ACTION_HEADER', value: 'Action' } },
+        { value: { type: 'ACTION_HEADER', value: 'Action stub' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'ACTION_NAME', value: 'Action' } },
         { value: { type: 'ACTION_STUB', value: 'Action Stub 1' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'ACTION_NAME', value: null } },
         { value: { type: 'ACTION_STUB', value: 'Action Stub 2' } },
       ],
@@ -67,22 +58,16 @@ describe('mergeRules', () => {
     ];
     const expected: CellType[][] = [
       [
-        { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
-        {
-          value: { type: 'CONDITION_HEADER', value: 'Condition' },
-          readOnly: true,
-        },
-        {
-          value: { type: 'CONDITION_HEADER', value: 'Condition stub' },
-          readOnly: true,
-        },
-        { value: { type: 'CONDITION_HEADER', value: '1' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: '2' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: '3' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: '4' }, readOnly: true },
+        { value: { type: 'ADD_CONDITION_ROW_BUTTON' } },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition' } },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition stub' } },
+        { value: { type: 'CONDITION_HEADER', value: '1' } },
+        { value: { type: 'CONDITION_HEADER', value: '2' } },
+        { value: { type: 'CONDITION_HEADER', value: '3' } },
+        { value: { type: 'CONDITION_HEADER', value: '4' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: 'Condition 1' } },
         { value: { type: 'CONDITION_STUB', value: 'Stub 1' } },
         { value: { type: 'CONDITION_RULE', value: 'yes' } },
@@ -91,7 +76,7 @@ describe('mergeRules', () => {
         { value: { type: 'CONDITION_RULE', value: 'no' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: null } },
         { value: { type: 'CONDITION_STUB', value: 'Stub 2' } },
         { value: { type: 'CONDITION_RULE', value: 'no' } },
@@ -100,7 +85,7 @@ describe('mergeRules', () => {
         { value: { type: 'CONDITION_RULE', value: 'yes' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: 'Condition 2' } },
         { value: { type: 'CONDITION_STUB', value: 'Sbut 3' } },
         { value: { type: 'CONDITION_RULE', value: 'yes' } },
@@ -109,7 +94,7 @@ describe('mergeRules', () => {
         { value: { type: 'CONDITION_RULE', value: 'no' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: null } },
         { value: { type: 'CONDITION_STUB', value: 'Stub 4' } },
         { value: { type: 'CONDITION_RULE', value: 'no' } },
@@ -118,19 +103,16 @@ describe('mergeRules', () => {
         { value: { type: 'CONDITION_RULE', value: 'yes' } },
       ],
       [
-        { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
-        {
-          value: { type: 'ACTION_HEADER', value: 'Action stub' },
-          readOnly: true,
-        },
-        { value: { type: 'EMPTY' }, readOnly: true },
-        { value: { type: 'EMPTY' }, readOnly: true },
-        { value: { type: 'EMPTY' }, readOnly: true },
-        { value: { type: 'EMPTY' }, readOnly: true },
+        { value: { type: 'ADD_ACTION_ROW_BUTTON' } },
+        { value: { type: 'ACTION_HEADER', value: 'Action' } },
+        { value: { type: 'ACTION_HEADER', value: 'Action stub' } },
+        { value: { type: 'ACTION_HEADER', value: null } },
+        { value: { type: 'ACTION_HEADER', value: null } },
+        { value: { type: 'ACTION_HEADER', value: null } },
+        { value: { type: 'ACTION_HEADER', value: null } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'ACTION_NAME', value: 'Action' } },
         { value: { type: 'ACTION_STUB', value: 'Action Stub 1' } },
         { value: { type: 'CONDITION_RULE', value: 'yes' } },
@@ -139,7 +121,7 @@ describe('mergeRules', () => {
         { value: { type: 'CONDITION_RULE', value: 'no' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'ACTION_NAME', value: null } },
         { value: { type: 'ACTION_STUB', value: 'Action Stub 2' } },
         { value: { type: 'CONDITION_RULE', value: 'no' } },
@@ -154,75 +136,67 @@ describe('mergeRules', () => {
   test('empty stub row', () => {
     const grid: CellType[][] = [
       [
-        { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
-        {
-          value: { type: 'CONDITION_HEADER', value: 'Condition' },
-          readOnly: true,
-        },
-        {
-          value: { type: 'CONDITION_HEADER', value: 'Condition stub' },
-          readOnly: true,
-        },
+        { value: { type: 'ADD_CONDITION_ROW_BUTTON' } },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition' } },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition stub' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: 'Condition 1' } },
         { value: { type: 'CONDITION_STUB', value: 'A' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: null } },
         { value: { type: 'CONDITION_STUB', value: null } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: null } },
         { value: { type: 'CONDITION_STUB', value: 'B' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: null } },
         { value: { type: 'CONDITION_STUB', value: null } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: 'Condtion 2' } },
         { value: { type: 'CONDITION_STUB', value: 'C' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: null } },
         { value: { type: 'CONDITION_STUB', value: 'D' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: null } },
         { value: { type: 'CONDITION_STUB', value: null } },
       ],
       [
-        { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
-        {
-          value: { type: 'ACTION_HEADER', value: 'Action stub' },
-          readOnly: true,
-        },
+        { value: { type: 'ADD_ACTION_ROW_BUTTON' } },
+        { value: { type: 'ACTION_HEADER', value: 'Action' } },
+        { value: { type: 'ACTION_HEADER', value: 'Action stub' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'ACTION_NAME', value: 'Action' } },
         { value: { type: 'ACTION_STUB', value: 'Foo' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'ACTION_NAME', value: null } },
         { value: { type: 'ACTION_STUB', value: null } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'ACTION_NAME', value: null } },
         { value: { type: 'ACTION_STUB', value: 'Bar' } },
       ],
     ];
+
     const rules = [
       { conditionStubIds: ['1-2', '5-2'], actionId: '9-2' },
       { conditionStubIds: ['1-2', '6-2'], actionId: '11-2' },
@@ -232,22 +206,16 @@ describe('mergeRules', () => {
 
     const expected: CellType[][] = [
       [
-        { value: { type: 'ADD_CONDITION_ROW_BUTTON' }, readOnly: true },
-        {
-          value: { type: 'CONDITION_HEADER', value: 'Condition' },
-          readOnly: true,
-        },
-        {
-          value: { type: 'CONDITION_HEADER', value: 'Condition stub' },
-          readOnly: true,
-        },
-        { value: { type: 'CONDITION_HEADER', value: '1' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: '2' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: '3' }, readOnly: true },
-        { value: { type: 'CONDITION_HEADER', value: '4' }, readOnly: true },
+        { value: { type: 'ADD_CONDITION_ROW_BUTTON' } },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition' } },
+        { value: { type: 'CONDITION_HEADER', value: 'Condition stub' } },
+        { value: { type: 'CONDITION_HEADER', value: '1' } },
+        { value: { type: 'CONDITION_HEADER', value: '2' } },
+        { value: { type: 'CONDITION_HEADER', value: '3' } },
+        { value: { type: 'CONDITION_HEADER', value: '4' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: 'Condition 1' } },
         { value: { type: 'CONDITION_STUB', value: 'A' } },
         { value: { type: 'CONDITION_RULE', value: 'yes' } },
@@ -256,7 +224,7 @@ describe('mergeRules', () => {
         { value: { type: 'CONDITION_RULE', value: 'no' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: null } },
         { value: { type: 'CONDITION_STUB', value: null } },
         { value: { type: 'EMPTY' } },
@@ -265,7 +233,7 @@ describe('mergeRules', () => {
         { value: { type: 'EMPTY' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: null } },
         { value: { type: 'CONDITION_STUB', value: 'B' } },
         { value: { type: 'CONDITION_RULE', value: 'no' } },
@@ -274,7 +242,7 @@ describe('mergeRules', () => {
         { value: { type: 'CONDITION_RULE', value: 'yes' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: null } },
         { value: { type: 'CONDITION_STUB', value: null } },
         { value: { type: 'EMPTY' } },
@@ -283,7 +251,7 @@ describe('mergeRules', () => {
         { value: { type: 'EMPTY' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: 'Condtion 2' } },
         { value: { type: 'CONDITION_STUB', value: 'C' } },
         { value: { type: 'CONDITION_RULE', value: 'yes' } },
@@ -292,7 +260,7 @@ describe('mergeRules', () => {
         { value: { type: 'CONDITION_RULE', value: 'no' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: null } },
         { value: { type: 'CONDITION_STUB', value: 'D' } },
         { value: { type: 'CONDITION_RULE', value: 'no' } },
@@ -301,7 +269,7 @@ describe('mergeRules', () => {
         { value: { type: 'CONDITION_RULE', value: 'yes' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'CONDITION_NAME', value: null } },
         { value: { type: 'CONDITION_STUB', value: null } },
         { value: { type: 'EMPTY' } },
@@ -310,19 +278,16 @@ describe('mergeRules', () => {
         { value: { type: 'EMPTY' } },
       ],
       [
-        { value: { type: 'ADD_ACTION_ROW_BUTTON' }, readOnly: true },
-        { value: { type: 'ACTION_HEADER', value: 'Action' }, readOnly: true },
-        {
-          value: { type: 'ACTION_HEADER', value: 'Action stub' },
-          readOnly: true,
-        },
-        { value: { type: 'EMPTY' }, readOnly: true },
-        { value: { type: 'EMPTY' }, readOnly: true },
-        { value: { type: 'EMPTY' }, readOnly: true },
-        { value: { type: 'EMPTY' }, readOnly: true },
+        { value: { type: 'ADD_ACTION_ROW_BUTTON' } },
+        { value: { type: 'ACTION_HEADER', value: 'Action' } },
+        { value: { type: 'ACTION_HEADER', value: 'Action stub' } },
+        { value: { type: 'ACTION_HEADER', value: null } },
+        { value: { type: 'ACTION_HEADER', value: null } },
+        { value: { type: 'ACTION_HEADER', value: null } },
+        { value: { type: 'ACTION_HEADER', value: null } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'ACTION_NAME', value: 'Action' } },
         { value: { type: 'ACTION_STUB', value: 'Foo' } },
         { value: { type: 'CONDITION_RULE', value: 'yes' } },
@@ -331,7 +296,7 @@ describe('mergeRules', () => {
         { value: { type: 'CONDITION_RULE', value: 'no' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'ACTION_NAME', value: null } },
         { value: { type: 'ACTION_STUB', value: null } },
         { value: { type: 'EMPTY' } },
@@ -340,7 +305,7 @@ describe('mergeRules', () => {
         { value: { type: 'EMPTY' } },
       ],
       [
-        { value: { type: 'REMOVE_ROW' }, readOnly: true },
+        { value: { type: 'REMOVE_ROW' } },
         { value: { type: 'ACTION_NAME', value: null } },
         { value: { type: 'ACTION_STUB', value: 'Bar' } },
         { value: { type: 'CONDITION_RULE', value: 'no' } },

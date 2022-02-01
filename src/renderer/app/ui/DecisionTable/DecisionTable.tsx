@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import { CellType } from '@/app/types';
 
 import { Cell, CellValue } from './Cell';
+import { mapCellOption } from './utils';
 
 import 'react-datasheet/lib/react-datasheet.css';
 
@@ -22,11 +23,17 @@ export type DecisionTableProps = Omit<
 >;
 
 /* eslint-disable react/jsx-props-no-spreading */
-export const DecisionTable = function DecisionTable(
-  props: DecisionTableProps
-): JSX.Element {
+export const DecisionTable = function DecisionTable({
+  data,
+  ...props
+}: DecisionTableProps): JSX.Element {
   return (
-    <StyledDataSheet {...props} cellRenderer={Cell} valueRenderer={CellValue} />
+    <StyledDataSheet
+      {...props}
+      data={data.map((row) => row.map(mapCellOption))}
+      cellRenderer={Cell}
+      valueRenderer={CellValue}
+    />
   );
 };
 /* eslint-enable */
