@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { CellType } from '@/app/types';
 
 import { Cell, CellValue } from './Cell';
-import { mapCellOption } from './utils';
+import { mapCellOption, mapRowNumber } from './utils';
 
 import 'react-datasheet/lib/react-datasheet.css';
 
@@ -30,7 +30,7 @@ export const DecisionTable = function DecisionTable({
   return (
     <StyledDataSheet
       {...props}
-      data={data.map((row) => row.map(mapCellOption))}
+      data={data.map((row) => row.map(mapCellOption)).map(mapRowNumber)}
       cellRenderer={Cell}
       valueRenderer={CellValue}
     />

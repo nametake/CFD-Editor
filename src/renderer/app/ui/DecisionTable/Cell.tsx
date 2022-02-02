@@ -11,27 +11,32 @@ const DefaultCell = styled.td`
   vertical-align: middle !important;
 
   .value-viewer {
-    min-height: 32px;
+    min-height: 28px;
     padding: 0 8px;
-    line-height: 32px;
+    line-height: 28px;
     text-align: left;
   }
 
   .data-editor {
     width: 100% !important;
     height: 100% !important;
+    padding-left: 6px;
+    text-align: left !important;
   }
 `;
 
 export const RowNumberCell = styled(DefaultCell)`
+  width: 64px;
+  color: #999;
+  font-size: 14px;
+
   .value-viewer {
+    background-color: whitesmoke;
     text-align: center;
   }
 `;
 
 export const TitleCell = styled(DefaultCell)`
-  color: black;
-
   .value-viewer {
     text-align: center;
   }

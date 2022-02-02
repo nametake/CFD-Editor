@@ -4,6 +4,10 @@ import { assertUnreachable } from '@/app/utils/assert';
 export const mapCellOption = (cell: CellType): CellType => {
   switch (cell.value.type) {
     case 'ROW_NUMBER':
+      return {
+        ...cell,
+        disableEvents: true,
+      };
     case 'CONDITION_HEADER':
     case 'ACTION_HEADER':
     case 'ADD_CONDITION_ROW_BUTTON':
@@ -25,3 +29,10 @@ export const mapCellOption = (cell: CellType): CellType => {
       return assertUnreachable(cell.value);
   }
 };
+
+export const mapRowNumber = (row: CellType[], i: number): CellType[] =>
+  row.map((cell) =>
+    cell.value.type === 'ROW_NUMBER'
+      ? { ...cell, value: { ...cell.value, value: i + 1 } }
+      : cell
+  );

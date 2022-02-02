@@ -23,7 +23,7 @@ const normalize = css`
   html {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
     /* 1 */
     line-height: 1.4;
     /* 3 */

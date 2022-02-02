@@ -22,51 +22,61 @@ export const Default = Template.bind({});
 Default.args = {
   data: [
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'ADD_CONDITION_ROW_BUTTON' } },
       { value: { type: 'CONDITION_HEADER', value: 'Condition' } },
       { value: { type: 'CONDITION_HEADER', value: 'Condition stub' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'CONDITION_NAME', value: 'Card' } },
       { value: { type: 'CONDITION_STUB', value: 'Visa' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'CONDITION_NAME', value: null } },
       { value: { type: 'CONDITION_STUB', value: 'MasterCard' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'CONDITION_NAME', value: 'Country' } },
       { value: { type: 'CONDITION_STUB', value: 'Japan' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'CONDITION_NAME', value: null } },
       { value: { type: 'CONDITION_STUB', value: 'USA' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'ADD_ACTION_ROW_BUTTON' } },
       { value: { type: 'ACTION_HEADER', value: 'Action' } },
       { value: { type: 'ACTION_HEADER', value: 'Action stub' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'ACTION_NAME', value: 'Action 1' } },
       { value: { type: 'ACTION_STUB', value: 'Action 1 one' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'ACTION_NAME', value: null } },
       { value: { type: 'ACTION_STUB', value: 'Action 1 two' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'ACTION_NAME', value: 'Action 2' } },
       { value: { type: 'ACTION_STUB', value: 'Action 2 one' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'ACTION_NAME', value: null } },
       { value: { type: 'ACTION_STUB', value: 'Action 2 two' } },
@@ -78,6 +88,7 @@ export const WithRule = Template.bind({});
 WithRule.args = {
   data: [
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'ADD_CONDITION_ROW_BUTTON' } },
       { value: { type: 'CONDITION_HEADER', value: 'Condition' } },
       { value: { type: 'CONDITION_HEADER', value: 'Condition stub' } },
@@ -87,6 +98,7 @@ WithRule.args = {
       { value: { type: 'CONDITION_HEADER', value: '4' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'CONDITION_NAME', value: 'Card' } },
       { value: { type: 'CONDITION_STUB', value: 'Suica' } },
@@ -96,6 +108,7 @@ WithRule.args = {
       { value: { type: 'CONDITION_RULE', value: 'no' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'CONDITION_NAME', value: '' } },
       { value: { type: 'CONDITION_STUB', value: 'Pasmo' } },
@@ -105,6 +118,7 @@ WithRule.args = {
       { value: { type: 'CONDITION_RULE', value: 'yes' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'CONDITION_NAME', value: '' } },
       { value: { type: 'CONDITION_STUB', value: '' } },
@@ -114,6 +128,7 @@ WithRule.args = {
       { value: { type: 'EMPTY' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'CONDITION_NAME', value: 'Age' } },
       { value: { type: 'CONDITION_STUB', value: 'Over 60' } },
@@ -123,6 +138,7 @@ WithRule.args = {
       { value: { type: 'CONDITION_RULE', value: 'no' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'CONDITION_NAME', value: '' } },
       { value: { type: 'CONDITION_STUB', value: 'Under 60' } },
@@ -132,6 +148,7 @@ WithRule.args = {
       { value: { type: 'CONDITION_RULE', value: 'yes' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'CONDITION_NAME', value: '' } },
       { value: { type: 'CONDITION_STUB', value: '' } },
@@ -141,6 +158,7 @@ WithRule.args = {
       { value: { type: 'EMPTY' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'ADD_ACTION_ROW_BUTTON' } },
       { value: { type: 'ACTION_HEADER', value: 'Action' } },
       { value: { type: 'ACTION_HEADER', value: 'Action stub' } },
@@ -150,6 +168,7 @@ WithRule.args = {
       { value: { type: 'ACTION_HEADER', value: null } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'ACTION_NAME', value: 'Discount' } },
       { value: { type: 'ACTION_STUB', value: 'Yes' } },
@@ -159,6 +178,7 @@ WithRule.args = {
       { value: { type: 'CONDITION_RULE', value: 'no' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'ACTION_NAME', value: '' } },
       { value: { type: 'ACTION_STUB', value: 'No' } },
@@ -168,6 +188,7 @@ WithRule.args = {
       { value: { type: 'CONDITION_RULE', value: 'yes' } },
     ],
     [
+      { value: { type: 'ROW_NUMBER' } },
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'ACTION_NAME', value: '' } },
       { value: { type: 'ACTION_STUB', value: '' } },
