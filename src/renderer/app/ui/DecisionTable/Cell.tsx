@@ -36,6 +36,10 @@ export const RowNumberCell = styled(DefaultCell)`
   }
 `;
 
+export const ButtonCell = styled(DefaultCell)`
+  width: 64px;
+`;
+
 export const TitleCell = styled(DefaultCell)`
   .value-viewer {
     text-align: center;
@@ -81,15 +85,15 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
     case 'ADD_CONDITION_ROW_BUTTON':
     case 'ADD_ACTION_ROW_BUTTON':
       return (
-        <DefaultCell {...cellProps}>
+        <ButtonCell {...cellProps}>
           <Button onClick={cell.value.onClick}>+</Button>
-        </DefaultCell>
+        </ButtonCell>
       );
     case 'REMOVE_ROW':
       return (
-        <DefaultCell {...cellProps}>
+        <ButtonCell {...cellProps}>
           <Button onClick={cell.value.onClick}>-</Button>
-        </DefaultCell>
+        </ButtonCell>
       );
     case 'CONDITION_NAME':
     case 'CONDITION_STUB':
