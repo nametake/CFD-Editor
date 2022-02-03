@@ -5,6 +5,10 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
 
 import { Node } from '@/app/types';
+import { causeNodeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
+import { elementNodeStyle } from '@/app/ui/ElementNode';
+import { resultNodeStyle } from '@/app/ui/ResultNode';
+import { Node as NodeUitls } from '@/app/utils/node';
 
 import { useMain } from './hooks';
 import { Main } from './Main';
@@ -34,22 +38,10 @@ const initialNode: Node[] = [
   {
     id: '1-2',
     data: {
-      label: { text: 'Card', style: { height: 24 } },
-      elements: { width: 68, height: 100 },
+      label: { text: 'Card' },
     },
     type: 'cause',
     position: { x: 0, y: 0 },
-    style: {
-      width: 'fit-content',
-      height: 'fit-content',
-      border: '1px solid',
-      paddingTop: 10,
-      paddingRight: 20,
-      paddingBottom: 10,
-      paddingLeft: 20,
-    },
-    width: 110,
-    height: 146,
   },
   {
     id: '1-3',
@@ -57,16 +49,6 @@ const initialNode: Node[] = [
     parentNode: '1-2',
     type: 'element',
     position: { x: 20, y: 44 },
-    style: {
-      borderRadius: '8px',
-      padding: 8,
-      border: '1px solid',
-      textAlign: 'center',
-      pointerEvents: 'none',
-    },
-    draggable: false,
-    width: 58,
-    height: 40,
   },
   {
     id: '2-3',
@@ -74,36 +56,14 @@ const initialNode: Node[] = [
     parentNode: '1-2',
     type: 'element',
     position: { x: 20, y: 94 },
-    style: {
-      borderRadius: '8px',
-      padding: 8,
-      border: '1px solid',
-      textAlign: 'center',
-      pointerEvents: 'none',
-    },
-    draggable: false,
-    width: 68,
-    height: 40,
   },
   {
     id: '3-2',
     data: {
-      label: { text: 'Age', style: { height: 24 } },
-      elements: { width: 84, height: 100 },
+      label: { text: 'Age' },
     },
     type: 'cause',
     position: { x: 190, y: 0 },
-    style: {
-      width: 'fit-content',
-      height: 'fit-content',
-      border: '1px solid',
-      paddingTop: 10,
-      paddingRight: 20,
-      paddingBottom: 10,
-      paddingLeft: 20,
-    },
-    width: 126,
-    height: 146,
   },
   {
     id: '3-3',
@@ -111,16 +71,6 @@ const initialNode: Node[] = [
     parentNode: '3-2',
     type: 'element',
     position: { x: 20, y: 44 },
-    style: {
-      borderRadius: '8px',
-      padding: 8,
-      border: '1px solid',
-      textAlign: 'center',
-      pointerEvents: 'none',
-    },
-    draggable: false,
-    width: 75,
-    height: 40,
   },
   {
     id: '4-3',
@@ -128,44 +78,18 @@ const initialNode: Node[] = [
     parentNode: '3-2',
     type: 'element',
     position: { x: 20, y: 94 },
-    style: {
-      borderRadius: '8px',
-      padding: 8,
-      border: '1px solid',
-      textAlign: 'center',
-      pointerEvents: 'none',
-    },
-    draggable: false,
-    width: 84,
-    height: 40,
   },
   {
     id: '6-3',
     data: { label: 'Yes' },
     type: 'result',
     position: { x: 396, y: 0 },
-    style: {
-      borderRadius: '50%',
-      padding: 16,
-      border: '1px solid',
-      textAlign: 'center',
-    },
-    width: 60,
-    height: 56,
   },
   {
     id: '7-3',
     data: { label: 'No' },
     type: 'result',
     position: { x: 396, y: 96 },
-    style: {
-      borderRadius: '50%',
-      padding: 16,
-      border: '1px solid',
-      textAlign: 'center',
-    },
-    width: 54,
-    height: 56,
   },
 ];
 
@@ -174,7 +98,14 @@ const TemplateWithInitialState: ComponentStory<typeof Main> =
   function TemplateWithInitialState() {
     const { causeFlowProps, decisionTableProps } = useMain({
       initialState: {
-        nodes: initialNode,
+        nodes: initialNode.map(
+          NodeUitls.mapStyle({
+            causeNodeStyle,
+            causeNodeLabelStyle,
+            elementNodeStyle,
+            resultNodeStyle,
+          })
+        ),
         edges: [
           {
             source: '1-2',
