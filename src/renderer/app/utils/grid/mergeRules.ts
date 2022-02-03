@@ -15,7 +15,7 @@ export const mergeRules = (
 ): CellType[][] => {
   const { nameColumn, stubColumn } = option;
 
-  const newGrid = grid.map((row) => row.slice(0, 3));
+  const newGrid = grid.map((row) => row.slice(0, stubColumn + 1));
 
   const actionHeaderRow = findActionRow(newGrid);
 

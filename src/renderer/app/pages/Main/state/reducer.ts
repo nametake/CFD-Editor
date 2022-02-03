@@ -9,12 +9,12 @@ import { Grid } from '@/app/utils/grid';
 import { Node } from '@/app/utils/node';
 
 import { MainAction } from './action';
-import { MainState, emptyActionRow, emptyConditionRow } from './state';
-
-const gridOption = {
-  nameColumn: 1,
-  stubColumn: 2,
-};
+import {
+  MainState,
+  emptyActionRow,
+  emptyConditionRow,
+  gridOption,
+} from './state';
 
 const actionReducer: Reducer<MainState, MainAction> = (
   prev: MainState,

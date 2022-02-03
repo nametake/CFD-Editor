@@ -15,7 +15,7 @@ export const getName = (cell: CellType): string | null => {
     case 'ACTION_RULE':
       return cell.value.value;
     default:
-      return null
+      return null;
   }
 };
 
