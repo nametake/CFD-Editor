@@ -7,6 +7,12 @@ import { CellType } from '@/app/types';
 import { Button } from '@/app/ui/Button';
 import { assertUnreachable } from '@/app/utils/assert';
 
+const Centering = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const DefaultCell = styled.td`
   vertical-align: middle !important;
 
@@ -36,9 +42,26 @@ export const RowNumberCell = styled(DefaultCell)`
   }
 `;
 
-export const ButtonCell = styled(DefaultCell)`
+const InnerButtonCell = styled(DefaultCell)`
   width: 64px;
+  background-color: whitesmoke !important;
 `;
+
+export const ButtonCell = function ButtonCell({
+  children,
+  ...props
+}: React.DetailedHTMLProps<
+  React.TdHTMLAttributes<HTMLTableCellElement>,
+  HTMLTableCellElement
+>): JSX.Element {
+  /* eslint-disable react/jsx-props-no-spreading */
+  return (
+    <InnerButtonCell {...props}>
+      <Centering>{children}</Centering>
+    </InnerButtonCell>
+  );
+  /* eslint-enable */
+};
 
 export const TitleCell = styled(DefaultCell)`
   .value-viewer {

@@ -4,15 +4,15 @@ import { assertUnreachable } from '@/app/utils/assert';
 export const mapCellOption = (cell: CellType): CellType => {
   switch (cell.value.type) {
     case 'ROW_NUMBER':
+    case 'ADD_CONDITION_ROW_BUTTON':
+    case 'ADD_ACTION_ROW_BUTTON':
+    case 'REMOVE_ROW':
       return {
         ...cell,
         disableEvents: true,
       };
     case 'CONDITION_HEADER':
     case 'ACTION_HEADER':
-    case 'ADD_CONDITION_ROW_BUTTON':
-    case 'ADD_ACTION_ROW_BUTTON':
-    case 'REMOVE_ROW':
       return {
         ...cell,
         readOnly: true,
