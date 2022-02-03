@@ -7,25 +7,63 @@ import { CellType } from '@/app/types';
 import { Button } from '@/app/ui/Button';
 import { assertUnreachable } from '@/app/utils/assert';
 
+const Centering = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const DefaultCell = styled.td`
   vertical-align: middle !important;
 
   .value-viewer {
-    min-height: 32px;
+    min-height: 28px;
     padding: 0 8px;
-    line-height: 32px;
+    line-height: 28px;
     text-align: left;
   }
 
   .data-editor {
     width: 100% !important;
     height: 100% !important;
+    padding-left: 6px;
+    text-align: left !important;
   }
 `;
 
-export const TitleCell = styled(DefaultCell)`
-  color: black;
+export const RowNumberCell = styled(DefaultCell)`
+  width: 64px;
+  color: #999;
+  font-size: 14px;
 
+  .value-viewer {
+    background-color: whitesmoke;
+    text-align: center;
+  }
+`;
+
+const InnerButtonCell = styled(DefaultCell)`
+  width: 64px;
+  background-color: whitesmoke !important;
+`;
+
+export const ButtonCell = function ButtonCell({
+  children,
+  ...props
+}: React.DetailedHTMLProps<
+  React.TdHTMLAttributes<HTMLTableCellElement>,
+  HTMLTableCellElement
+>): JSX.Element {
+  /* eslint-disable react/jsx-props-no-spreading */
+  return (
+    <InnerButtonCell {...props}>
+      <Centering>{children}</Centering>
+    </InnerButtonCell>
+  );
+  /* eslint-enable */
+};
+
+export const TitleCell = styled(DefaultCell)`
   .value-viewer {
     text-align: center;
   }
@@ -62,21 +100,23 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
   switch (cell.value.type) {
     case 'EMPTY':
       return <DefaultCell {...cellProps}>{children}</DefaultCell>;
+    case 'ROW_NUMBER':
+      return <RowNumberCell {...cellProps}>{children}</RowNumberCell>;
     case 'CONDITION_HEADER':
     case 'ACTION_HEADER':
       return <TitleCell {...cellProps}>{children}</TitleCell>;
     case 'ADD_CONDITION_ROW_BUTTON':
     case 'ADD_ACTION_ROW_BUTTON':
       return (
-        <DefaultCell {...cellProps}>
+        <ButtonCell {...cellProps}>
           <Button onClick={cell.value.onClick}>+</Button>
-        </DefaultCell>
+        </ButtonCell>
       );
     case 'REMOVE_ROW':
       return (
-        <DefaultCell {...cellProps}>
+        <ButtonCell {...cellProps}>
           <Button onClick={cell.value.onClick}>-</Button>
-        </DefaultCell>
+        </ButtonCell>
       );
     case 'CONDITION_NAME':
     case 'CONDITION_STUB':
@@ -99,6 +139,7 @@ export const CellValue: ReactDataSheet.ValueRenderer<CellType> =
       case 'ADD_CONDITION_ROW_BUTTON':
       case 'ADD_ACTION_ROW_BUTTON':
         return null;
+      case 'ROW_NUMBER':
       case 'CONDITION_HEADER':
       case 'CONDITION_NAME':
       case 'CONDITION_STUB':

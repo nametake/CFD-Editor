@@ -3,6 +3,7 @@ import ReactDataSheet from 'react-datasheet';
 export type ValueType =
   | { type: 'EMPTY' }
   | { type: 'REMOVE_ROW'; onClick?: () => void }
+  | { type: 'ROW_NUMBER'; value?: number }
   // Condition
   | { type: 'CONDITION_HEADER'; value: string | null }
   | { type: 'CONDITION_NAME'; value: string | null }

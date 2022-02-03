@@ -15,7 +15,7 @@ export const mergeRules = (
 ): CellType[][] => {
   const { nameColumn, stubColumn } = option;
 
-  const newGrid = grid.map((row) => row.slice(0, 3));
+  const newGrid = grid.map((row) => row.slice(0, stubColumn + 1));
 
   const actionHeaderRow = findActionRow(newGrid);
 
@@ -32,7 +32,6 @@ export const mergeRules = (
           ...row,
           {
             value: { type: 'CONDITION_HEADER', value: `${ruleIndex + 1}` },
-            readOnly: true,
           },
         ];
         return;
@@ -40,7 +39,10 @@ export const mergeRules = (
 
       // --- Action header ---
       if (isActionHeader) {
-        newGrid[i] = [...row, { value: { type: 'EMPTY' }, readOnly: true }];
+        newGrid[i] = [
+          ...row,
+          { value: { type: 'ACTION_HEADER', value: null } },
+        ];
         return;
       }
 
