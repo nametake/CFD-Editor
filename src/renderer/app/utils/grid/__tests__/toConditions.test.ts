@@ -73,33 +73,33 @@ describe('toConditions', () => {
 
     const expected: Condition[] = [
       {
-        id: '1-1',
+        id: 'condition-0',
         name: 'Card',
         stub: [
           {
-            id: '1-2',
-            conditionId: '1-1',
+            id: 'condition-stub-0-0',
+            conditionId: 'condition-0',
             name: 'Visa',
           },
           {
-            id: '2-2',
-            conditionId: '1-1',
+            id: 'condition-stub-0-1',
+            conditionId: 'condition-0',
             name: 'MasterCard',
           },
         ],
       },
       {
-        id: '4-1',
+        id: 'condition-1',
         name: 'Country',
         stub: [
           {
-            id: '4-2',
-            conditionId: '4-1',
+            id: 'condition-stub-1-0',
+            conditionId: 'condition-1',
             name: 'Japan',
           },
           {
-            id: '6-2',
-            conditionId: '4-1',
+            id: 'condition-stub-1-1',
+            conditionId: 'condition-1',
             name: 'USA',
           },
         ],
@@ -165,23 +165,23 @@ describe('toConditions', () => {
 
     const expected: Condition[] = [
       {
-        id: '1-1',
+        id: 'condition-0',
         name: 'Card',
         stub: [
           {
-            id: '1-2',
-            conditionId: '1-1',
+            id: 'condition-stub-0-0',
+            conditionId: 'condition-0',
             name: 'Visa',
           },
         ],
       },
       {
-        id: '3-1',
+        id: 'condition-1',
         name: 'Country',
         stub: [
           {
-            id: '4-2',
-            conditionId: '3-1',
+            id: 'condition-stub-1-0',
+            conditionId: 'condition-1',
             name: 'USA',
           },
         ],
@@ -230,12 +230,12 @@ describe('toConditions', () => {
 
     const expected: Condition[] = [
       {
-        id: '1-1',
+        id: 'condition-0',
         name: 'Card',
         stub: [
           {
-            id: '1-2',
-            conditionId: '1-1',
+            id: 'condition-stub-0-0',
+            conditionId: 'condition-0',
             name: 'Visa',
           },
         ],
@@ -270,12 +270,12 @@ describe('toConditions', () => {
 
     const expected: Condition[] = [
       {
-        id: '1-1',
+        id: 'condition-0',
         name: 'Card',
         stub: [
           {
-            id: '2-2',
-            conditionId: '1-1',
+            id: 'condition-stub-0-0',
+            conditionId: 'condition-0',
             name: 'MasterCard',
           },
         ],
@@ -329,19 +329,19 @@ describe('toConditions', () => {
     ];
     const expected: Condition[] = [
       {
-        id: '1-1',
+        id: 'condition-0',
         name: 'Condition 1',
         stub: [
-          { id: '1-2', name: 'A', conditionId: '1-1' },
-          { id: '2-2', name: 'B', conditionId: '1-1' },
+          { id: 'condition-stub-0-0', name: 'A', conditionId: 'condition-0' },
+          { id: 'condition-stub-0-1', name: 'B', conditionId: 'condition-0' },
         ],
       },
       {
-        id: '3-1',
+        id: 'condition-1',
         name: 'Condition 2',
         stub: [
-          { id: '3-2', name: 'C', conditionId: '3-1' },
-          { id: '4-2', name: 'D', conditionId: '3-1' },
+          { id: 'condition-stub-1-0', name: 'C', conditionId: 'condition-1' },
+          { id: 'condition-stub-1-1', name: 'D', conditionId: 'condition-1' },
         ],
       },
     ];
