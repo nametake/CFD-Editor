@@ -1,7 +1,12 @@
 import { Action, ActionStub, CellType } from '@/app/types';
 
 import { findActionRow } from './findActionRow';
-import { RowRange, getName, makeId } from './utils';
+import { RowRange, getName } from './utils';
+
+const makeActionId = (nameIndex: number) => `action-${nameIndex}`;
+
+const makeActionStubId = (nameIndex: number, stubIndex: number) =>
+  `action-stub-${nameIndex}-${stubIndex}`;
 
 type ToActionsOption = {
   nameColumn: number;
@@ -40,33 +45,37 @@ export const toActions = (
   );
 
   const actions = actionRowRanges
-    .map<Action | null>((rowRange) => {
+    .map<Action | null>((rowRange, nameIndex) => {
       const cell = grid[rowRange.start][nameColumn];
       const actionName = getName(cell);
       if (!actionName) {
         return null;
       }
+
+      type ActionStubWithoutId = Omit<ActionStub, 'id'>;
       const action: Action = {
-        id: makeId({ row: rowRange.start, col: nameColumn }),
+        id: makeActionId(nameIndex),
         name: actionName,
         stub: grid
           .slice(rowRange.start, rowRange.end)
-          .map<ActionStub | null>((row, i): ActionStub | null => {
-            const c = row[stubColumn];
-            const name = getName(c);
-            if (!name) {
-              return null;
+          .map<ActionStubWithoutId | null>(
+            (row): ActionStubWithoutId | null => {
+              const c = row[stubColumn];
+              const name = getName(c);
+              if (!name) {
+                return null;
+              }
+              return {
+                actionId: makeActionId(nameIndex),
+                name,
+              };
             }
-            return {
-              id: makeId({
-                row: rowRange.start + i,
-                col: stubColumn,
-              }),
-              actionId: makeId({ row: rowRange.start, col: nameColumn }),
-              name,
-            };
-          })
-          .filter((stub): stub is ActionStub => stub !== null),
+          )
+          .filter((stub): stub is ActionStubWithoutId => stub !== null)
+          .map<ActionStub>((stub, stubIndex) => ({
+            ...stub,
+            id: makeActionStubId(nameIndex, stubIndex),
+          })),
       };
       return action;
     })
