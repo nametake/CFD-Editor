@@ -63,33 +63,33 @@ describe('toActions', () => {
 
     const expected: Action[] = [
       {
-        id: '6-1',
+        id: 'action-0',
         name: 'Action 1',
         stub: [
           {
-            id: '6-2',
-            actionId: '6-1',
+            id: 'action-stub-0-0',
+            actionId: 'action-0',
             name: 'Action 1 one',
           },
           {
-            id: '7-2',
-            actionId: '6-1',
+            id: 'action-stub-0-1',
+            actionId: 'action-0',
             name: 'Action 1 two',
           },
         ],
       },
       {
-        id: '8-1',
+        id: 'action-1',
         name: 'Action 2',
         stub: [
           {
-            id: '8-2',
-            actionId: '8-1',
+            id: 'action-stub-1-0',
+            actionId: 'action-1',
             name: 'Action 2 one',
           },
           {
-            id: '9-2',
-            actionId: '8-1',
+            id: 'action-stub-1-1',
+            actionId: 'action-1',
             name: 'Action 2 two',
           },
         ],
@@ -155,23 +155,23 @@ describe('toActions', () => {
 
     const expected: Action[] = [
       {
-        id: '6-1',
+        id: 'action-0',
         name: 'Action 1',
         stub: [
           {
-            id: '6-2',
-            actionId: '6-1',
+            id: 'action-stub-0-0',
+            actionId: 'action-0',
             name: 'Action 1 one',
           },
         ],
       },
       {
-        id: '8-1',
+        id: 'action-1',
         name: 'Action 2',
         stub: [
           {
-            id: '9-2',
-            actionId: '8-1',
+            id: 'action-stub-1-0',
+            actionId: 'action-1',
             name: 'Action 2 two',
           },
         ],
@@ -221,12 +221,12 @@ describe('toActions', () => {
 
     const expected: Action[] = [
       {
-        id: '2-1',
+        id: 'action-0',
         name: 'Action 1',
         stub: [
           {
-            id: '2-2',
-            actionId: '2-1',
+            id: 'action-stub-0-0',
+            actionId: 'action-0',
             name: 'Action 1 one',
           },
         ],
@@ -262,12 +262,12 @@ describe('toActions', () => {
 
     const expected: Action[] = [
       {
-        id: '2-1',
+        id: 'action-0',
         name: 'Action 1',
         stub: [
           {
-            id: '3-2',
-            actionId: '2-1',
+            id: 'action-stub-0-0',
+            actionId: 'action-0',
             name: 'Action 1 one',
           },
         ],
@@ -320,19 +320,19 @@ describe('toActions', () => {
 
     const expected: Action[] = [
       {
-        id: '3-1',
+        id: 'action-0',
         name: 'Action 1',
         stub: [
-          { id: '3-2', name: 'A', actionId: '3-1' },
-          { id: '4-2', name: 'B', actionId: '3-1' },
+          { id: 'action-stub-0-0', name: 'A', actionId: 'action-0' },
+          { id: 'action-stub-0-1', name: 'B', actionId: 'action-0' },
         ],
       },
       {
-        id: '5-1',
+        id: 'action-1',
         name: 'Action 2',
         stub: [
-          { id: '5-2', name: 'C', actionId: '5-1' },
-          { id: '6-2', name: 'D', actionId: '5-1' },
+          { id: 'action-stub-1-0', name: 'C', actionId: 'action-1' },
+          { id: 'action-stub-1-1', name: 'D', actionId: 'action-1' },
         ],
       },
     ];
