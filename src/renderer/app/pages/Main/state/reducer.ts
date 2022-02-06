@@ -120,6 +120,7 @@ const createNodesReducer: Reducer<MainState, MainAction> = (
           causeNodeGap: 80,
           resultNodeGap: 40,
           causeNodeAndResultNodeGap: 80,
+          startPosition: { x: 16, y: 16 },
         }),
       };
     default:
