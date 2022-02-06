@@ -44,9 +44,9 @@
     "forge": "./forge.config.js"
   },
   "devDependencies": {
-    "@babel/core": "7.16.12",
+    "@babel/core": "7.17.0",
     "@babel/plugin-transform-modules-commonjs": "7.16.8",
-    "@babel/plugin-transform-runtime": "7.16.10",
+    "@babel/plugin-transform-runtime": "7.17.0",
     "@babel/preset-env": "7.16.11",
     "@babel/preset-react": "7.16.7",
     "@babel/preset-typescript": "7.16.7",
@@ -87,7 +87,7 @@
     "fork-ts-checker-webpack-plugin": "7.0.0",
     "html-webpack-plugin": "5.5.0",
     "husky": "7.0.4",
-    "jest": "27.4.7",
+    "jest": "27.5.0",
     "lint-staged": "12.3.3",
     "node-loader": "2.0.0",
     "postcss": "8.4.6",
