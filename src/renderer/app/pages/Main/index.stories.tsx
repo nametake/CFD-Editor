@@ -42,7 +42,7 @@ const initialState: MainState = {
         label: { text: 'Card' },
       },
       type: 'cause',
-      position: { x: 0, y: 0 },
+      position: { x: 16, y: 16 },
     },
     {
       id: 'condition-stub-0-0',
@@ -64,7 +64,7 @@ const initialState: MainState = {
         label: { text: 'Age' },
       },
       type: 'cause',
-      position: { x: 190, y: 0 },
+      position: { x: 206, y: 16 },
     },
     {
       id: 'condition-stub-1-0',
@@ -84,13 +84,13 @@ const initialState: MainState = {
       id: 'action-stub-0-0',
       data: { label: 'Yes' },
       type: 'result',
-      position: { x: 396, y: 0 },
+      position: { x: 396, y: 16 },
     },
     {
       id: 'action-stub-0-1',
       data: { label: 'No' },
       type: 'result',
-      position: { x: 396, y: 97 },
+      position: { x: 396, y: 113 },
     },
   ],
   edges: [

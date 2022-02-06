@@ -41,7 +41,7 @@ export const alignParentNodes = (
       ...elements,
     ]),
     ...alignVertical(resultNodes, {
-      startPosition: { x: resultStartX, y: 0 },
+      startPosition: { x: resultStartX, y: startPosition?.y ?? 0 },
       gap: resultNodeGap,
     }),
   ];
