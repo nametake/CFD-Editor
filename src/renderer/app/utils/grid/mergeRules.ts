@@ -13,21 +13,16 @@ type RowType =
   | 'ACTION_ROW'
   | 'EMPTY_STUB_ROW';
 
-const getRowType = (
-  row: CellType[],
-  rowIndex: number,
-  option: MergeRulesOption
-): RowType => {
-  const { nameColumn, stubColumn } = option;
-  if (rowIndex === 0 && row[nameColumn].value.type === 'CONDITION_HEADER') {
+const getRowType = (row: CellType[], option: MergeRulesOption): RowType => {
+  const { stubColumn } = option;
+  const { value } = row[stubColumn];
+  if (value.type === 'CONDITION_HEADER') {
     return 'CONDITION_HEADER';
   }
 
-  if (rowIndex !== 0 && row[nameColumn].value.type === 'ACTION_HEADER') {
+  if (value.type === 'ACTION_HEADER') {
     return 'ACTION_HEADER';
   }
-
-  const { value } = row[stubColumn];
 
   if (value.type === 'CONDITION_STUB' && value.value) {
     return 'CONDITION_ROW';
@@ -56,7 +51,7 @@ export const mergeRules = (
 
   rules.forEach((rule, ruleIndex) => {
     newGrid.forEach((row, rowIndex) => {
-      const type = getRowType(row, rowIndex, option);
+      const type = getRowType(row, option);
       switch (type) {
         case 'CONDITION_HEADER': {
           newGrid[rowIndex] = [
@@ -112,7 +107,6 @@ export const mergeRules = (
         }
         default:
           assertUnreachable(type);
-          
       }
     });
   });
