@@ -130,8 +130,16 @@ const createNodesReducer: Reducer<MainState, MainAction> = (
 const rulesReducer: Reducer<MainState, MainAction> = (
   state: MainState
 ): MainState => {
+  const conditions = Grid.toConditions(state.grid, gridOption);
+  const actions = Grid.toActions(state.grid, gridOption);
   const rules = Node.traverseRules(state.nodes, state.edges);
-  const grid = Grid.mergeRules(state.grid, rules, gridOption);
+  const grid = Grid.mergeRules(
+    state.grid,
+    conditions,
+    actions,
+    rules,
+    gridOption
+  );
   return { ...state, grid };
 };
 
