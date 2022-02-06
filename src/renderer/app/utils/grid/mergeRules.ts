@@ -1,4 +1,4 @@
-import { CellType, Rule } from '@/app/types';
+import { Action, CellType, Condition, Rule } from '@/app/types';
 
 import { findActionRow } from './findActionRow';
 import { makeId } from './utils';
@@ -10,6 +10,8 @@ type MergeRulesOption = {
 
 export const mergeRules = (
   grid: CellType[][],
+  conditions: Condition[],
+  actions: Action[],
   rules: Rule[],
   option: MergeRulesOption
 ): CellType[][] => {
