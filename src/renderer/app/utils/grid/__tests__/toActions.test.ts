@@ -65,32 +65,38 @@ describe('toActions', () => {
       {
         id: 'action-0',
         name: 'Action 1',
+        location: { column: 1, row: 6 },
         stub: [
           {
             id: 'action-stub-0-0',
             actionId: 'action-0',
             name: 'Action 1 one',
+            location: { column: 2, row: 6 },
           },
           {
             id: 'action-stub-0-1',
             actionId: 'action-0',
             name: 'Action 1 two',
+            location: { column: 2, row: 7 },
           },
         ],
       },
       {
         id: 'action-1',
         name: 'Action 2',
+        location: { column: 1, row: 8 },
         stub: [
           {
             id: 'action-stub-1-0',
             actionId: 'action-1',
             name: 'Action 2 one',
+            location: { column: 2, row: 8 },
           },
           {
             id: 'action-stub-1-1',
             actionId: 'action-1',
             name: 'Action 2 two',
+            location: { column: 2, row: 9 },
           },
         ],
       },
@@ -157,22 +163,26 @@ describe('toActions', () => {
       {
         id: 'action-0',
         name: 'Action 1',
+        location: { column: 1, row: 6 },
         stub: [
           {
             id: 'action-stub-0-0',
             actionId: 'action-0',
             name: 'Action 1 one',
+            location: { column: 2, row: 6 },
           },
         ],
       },
       {
         id: 'action-1',
         name: 'Action 2',
+        location: { column: 1, row: 8 },
         stub: [
           {
             id: 'action-stub-1-0',
             actionId: 'action-1',
             name: 'Action 2 two',
+            location: { column: 2, row: 9 },
           },
         ],
       },
@@ -223,11 +233,13 @@ describe('toActions', () => {
       {
         id: 'action-0',
         name: 'Action 1',
+        location: { column: 1, row: 2 },
         stub: [
           {
             id: 'action-stub-0-0',
             actionId: 'action-0',
             name: 'Action 1 one',
+            location: { column: 2, row: 2 },
           },
         ],
       },
@@ -264,11 +276,13 @@ describe('toActions', () => {
       {
         id: 'action-0',
         name: 'Action 1',
+        location: { column: 1, row: 2 },
         stub: [
           {
             id: 'action-stub-0-0',
             actionId: 'action-0',
             name: 'Action 1 one',
+            location: { column: 2, row: 3 },
           },
         ],
       },
@@ -292,9 +306,7 @@ describe('toActions', () => {
       [
         { value: { type: 'ADD_ACTION_ROW_BUTTON' } },
         { value: { type: 'ACTION_HEADER', value: 'Action' } },
-        {
-          value: { type: 'ACTION_HEADER', value: 'Action stub' },
-        },
+        { value: { type: 'ACTION_HEADER', value: 'Action stub' } },
       ],
       [
         { value: { type: 'REMOVE_ROW' } },
@@ -322,17 +334,39 @@ describe('toActions', () => {
       {
         id: 'action-0',
         name: 'Action 1',
+        location: { column: 1, row: 3 },
         stub: [
-          { id: 'action-stub-0-0', name: 'A', actionId: 'action-0' },
-          { id: 'action-stub-0-1', name: 'B', actionId: 'action-0' },
+          {
+            id: 'action-stub-0-0',
+            name: 'A',
+            actionId: 'action-0',
+            location: { column: 2, row: 3 },
+          },
+          {
+            id: 'action-stub-0-1',
+            name: 'B',
+            actionId: 'action-0',
+            location: { column: 2, row: 4 },
+          },
         ],
       },
       {
         id: 'action-1',
         name: 'Action 2',
+        location: { column: 1, row: 5 },
         stub: [
-          { id: 'action-stub-1-0', name: 'C', actionId: 'action-1' },
-          { id: 'action-stub-1-1', name: 'D', actionId: 'action-1' },
+          {
+            id: 'action-stub-1-0',
+            name: 'C',
+            actionId: 'action-1',
+            location: { column: 2, row: 5 },
+          },
+          {
+            id: 'action-stub-1-1',
+            name: 'D',
+            actionId: 'action-1',
+            location: { column: 2, row: 6 },
+          },
         ],
       },
     ];

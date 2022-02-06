@@ -75,32 +75,38 @@ describe('toConditions', () => {
       {
         id: 'condition-0',
         name: 'Card',
+        location: { column: 1, row: 1 },
         stub: [
           {
             id: 'condition-stub-0-0',
             conditionId: 'condition-0',
             name: 'Visa',
+            location: { column: 2, row: 1 },
           },
           {
             id: 'condition-stub-0-1',
             conditionId: 'condition-0',
             name: 'MasterCard',
+            location: { column: 2, row: 2 },
           },
         ],
       },
       {
         id: 'condition-1',
         name: 'Country',
+        location: { column: 1, row: 4 },
         stub: [
           {
             id: 'condition-stub-1-0',
             conditionId: 'condition-1',
             name: 'Japan',
+            location: { column: 2, row: 4 },
           },
           {
             id: 'condition-stub-1-1',
             conditionId: 'condition-1',
             name: 'USA',
+            location: { column: 2, row: 6 },
           },
         ],
       },
@@ -167,22 +173,26 @@ describe('toConditions', () => {
       {
         id: 'condition-0',
         name: 'Card',
+        location: { column: 1, row: 1 },
         stub: [
           {
             id: 'condition-stub-0-0',
             conditionId: 'condition-0',
             name: 'Visa',
+            location: { column: 2, row: 1 },
           },
         ],
       },
       {
         id: 'condition-1',
         name: 'Country',
+        location: { column: 1, row: 3 },
         stub: [
           {
             id: 'condition-stub-1-0',
             conditionId: 'condition-1',
             name: 'USA',
+            location: { column: 2, row: 4 },
           },
         ],
       },
@@ -232,11 +242,13 @@ describe('toConditions', () => {
       {
         id: 'condition-0',
         name: 'Card',
+        location: { column: 1, row: 1 },
         stub: [
           {
             id: 'condition-stub-0-0',
             conditionId: 'condition-0',
             name: 'Visa',
+            location: { column: 2, row: 1 },
           },
         ],
       },
@@ -272,11 +284,13 @@ describe('toConditions', () => {
       {
         id: 'condition-0',
         name: 'Card',
+        location: { column: 1, row: 1 },
         stub: [
           {
             id: 'condition-stub-0-0',
             conditionId: 'condition-0',
             name: 'MasterCard',
+            location: { column: 2, row: 2 },
           },
         ],
       },
@@ -331,17 +345,39 @@ describe('toConditions', () => {
       {
         id: 'condition-0',
         name: 'Condition 1',
+        location: { column: 1, row: 1 },
         stub: [
-          { id: 'condition-stub-0-0', name: 'A', conditionId: 'condition-0' },
-          { id: 'condition-stub-0-1', name: 'B', conditionId: 'condition-0' },
+          {
+            id: 'condition-stub-0-0',
+            name: 'A',
+            conditionId: 'condition-0',
+            location: { column: 2, row: 1 },
+          },
+          {
+            id: 'condition-stub-0-1',
+            name: 'B',
+            conditionId: 'condition-0',
+            location: { column: 2, row: 2 },
+          },
         ],
       },
       {
         id: 'condition-1',
         name: 'Condition 2',
+        location: { column: 1, row: 3 },
         stub: [
-          { id: 'condition-stub-1-0', name: 'C', conditionId: 'condition-1' },
-          { id: 'condition-stub-1-1', name: 'D', conditionId: 'condition-1' },
+          {
+            id: 'condition-stub-1-0',
+            name: 'C',
+            conditionId: 'condition-1',
+            location: { column: 2, row: 3 },
+          },
+          {
+            id: 'condition-stub-1-1',
+            name: 'D',
+            conditionId: 'condition-1',
+            location: { column: 2, row: 4 },
+          },
         ],
       },
     ];

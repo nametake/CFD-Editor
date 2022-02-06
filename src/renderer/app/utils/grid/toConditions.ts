@@ -58,24 +58,30 @@ export const toConditions = (
         name: conditionName,
         stub: grid
           .slice(rowRange.start, rowRange.end)
-          .map<ConditionStubWithoutId | null>(
-            (row): ConditionStubWithoutId | null => {
-              const c = row[stubColumn];
-              const name = getName(c);
-              if (!name) {
-                return null;
-              }
-              return {
-                conditionId: makeConditionId(nameIndex),
-                name,
-              };
+          .map<ConditionStubWithoutId | null>((row, rowIndex) => {
+            const c = row[stubColumn];
+            const name = getName(c);
+            if (!name) {
+              return null;
             }
-          )
+            return {
+              conditionId: makeConditionId(nameIndex),
+              name,
+              location: {
+                column: stubColumn,
+                row: rowRange.start + rowIndex,
+              },
+            };
+          })
           .filter((stub): stub is ConditionStubWithoutId => stub !== null)
           .map<ConditionStub>((stub, stubIndex) => ({
             ...stub,
             id: makeConditionStubId(nameIndex, stubIndex),
           })),
+        location: {
+          column: nameColumn,
+          row: rowRange.start,
+        },
       };
       return condition;
     })

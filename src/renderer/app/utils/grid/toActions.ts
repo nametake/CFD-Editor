@@ -59,7 +59,7 @@ export const toActions = (
         stub: grid
           .slice(rowRange.start, rowRange.end)
           .map<ActionStubWithoutId | null>(
-            (row): ActionStubWithoutId | null => {
+            (row, rowIndex): ActionStubWithoutId | null => {
               const c = row[stubColumn];
               const name = getName(c);
               if (!name) {
@@ -68,6 +68,10 @@ export const toActions = (
               return {
                 actionId: makeActionId(nameIndex),
                 name,
+                location: {
+                  column: stubColumn,
+                  row: rowRange.start + rowIndex,
+                },
               };
             }
           )
@@ -76,6 +80,10 @@ export const toActions = (
             ...stub,
             id: makeActionStubId(nameIndex, stubIndex),
           })),
+        location: {
+          column: nameColumn,
+          row: rowRange.start,
+        },
       };
       return action;
     })
