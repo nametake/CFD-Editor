@@ -30,13 +30,13 @@ describe('mergeRules', () => {
       {
         id: 'condition-0',
         name: 'Condition 1',
-        location: { column: 0, row: 0 },
+        location: { column: 0, row: 1 },
         stub: [
           {
             id: 'condition-0-0',
             conditionId: 'condition-0',
             name: 'Condition Stub 1',
-            location: { column: 1, row: 0 },
+            location: { column: 1, row: 1 },
           },
         ],
       },
@@ -74,12 +74,12 @@ describe('mergeRules', () => {
         { value: { type: 'CONDITION_RULE', value: 'yes' } },
       ],
       [
-        { value: { type: 'ACTION_HEADER', value: 'Action 1' } },
+        { value: { type: 'ACTION_HEADER', value: 'Action' } },
         { value: { type: 'ACTION_HEADER', value: 'Action stub' } },
         { value: { type: 'ACTION_HEADER', value: null } },
       ],
       [
-        { value: { type: 'ACTION_NAME', value: 'Action' } },
+        { value: { type: 'ACTION_NAME', value: 'Action 1' } },
         { value: { type: 'ACTION_STUB', value: 'Action Stub 1' } },
         { value: { type: 'CONDITION_RULE', value: 'yes' } },
       ],

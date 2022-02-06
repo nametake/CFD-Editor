@@ -1,7 +1,6 @@
 import { Action, CellType, Condition, Rule } from '@/app/types';
 
 import { findActionRow } from './findActionRow';
-import { makeId } from './utils';
 
 type MergeRulesOption = {
   nameColumn: number;
@@ -17,31 +16,32 @@ export const mergeRules = (
 ): CellType[][] => {
   const { nameColumn, stubColumn } = option;
 
+  const conditionStubs = conditions.flatMap((condition) => condition.stub);
+  const actionStubs = actions.flatMap((action) => action.stub);
+
   const newGrid = grid.map((row) => row.slice(0, stubColumn + 1));
 
   const actionHeaderRow = findActionRow(newGrid);
 
   rules.forEach((rule, ruleIndex) => {
-    newGrid.forEach((row, i) => {
+    newGrid.forEach((row, rowIndex) => {
       const isConditionHeader =
-        i === 0 && row[nameColumn].value.type === 'CONDITION_HEADER';
+        rowIndex === 0 && row[nameColumn].value.type === 'CONDITION_HEADER';
       const isActionHeader =
-        i !== 0 && row[nameColumn].value.type === 'ACTION_HEADER';
+        rowIndex !== 0 && row[nameColumn].value.type === 'ACTION_HEADER';
 
       // --- Condition header ---
       if (isConditionHeader) {
-        newGrid[i] = [
+        newGrid[rowIndex] = [
           ...row,
-          {
-            value: { type: 'CONDITION_HEADER', value: `${ruleIndex + 1}` },
-          },
+          { value: { type: 'CONDITION_HEADER', value: `${ruleIndex + 1}` } },
         ];
         return;
       }
 
       // --- Action header ---
       if (isActionHeader) {
-        newGrid[i] = [
+        newGrid[rowIndex] = [
           ...row,
           { value: { type: 'ACTION_HEADER', value: null } },
         ];
@@ -55,22 +55,23 @@ export const mergeRules = (
           stubCell.value.type === 'ACTION_STUB') &&
         !stubCell.value.value
       ) {
-        newGrid[i] = [...row, { value: { type: 'EMPTY' } }];
+        newGrid[rowIndex] = [...row, { value: { type: 'EMPTY' } }];
         return;
       }
 
-      const stubId = makeId({ row: i, col: stubColumn });
-
       // --- Condition rule ---
-      if (actionHeaderRow > i) {
-        if (rule.conditionStubIds.find((id) => id === stubId)) {
-          newGrid[i] = [
+      if (actionHeaderRow > rowIndex) {
+        const conditionStub = conditionStubs.find(
+          (c) => c.location.row === rowIndex
+        );
+        if (rule.conditionStubIds.find((id) => id === conditionStub?.id)) {
+          newGrid[rowIndex] = [
             ...row,
             { value: { type: 'CONDITION_RULE', value: 'yes' } },
           ];
           return;
         }
-        newGrid[i] = [
+        newGrid[rowIndex] = [
           ...row,
           { value: { type: 'CONDITION_RULE', value: 'no' } },
         ];
@@ -78,14 +79,20 @@ export const mergeRules = (
       }
 
       // --- Action rule ---
-      if (stubId === rule.actionId) {
-        newGrid[i] = [
+      const actionStub = actionStubs.find(
+        (stub) => stub.location.row === rowIndex
+      );
+      if (rule.actionId === actionStub?.id) {
+        newGrid[rowIndex] = [
           ...row,
           { value: { type: 'CONDITION_RULE', value: 'yes' } },
         ];
         return;
       }
-      newGrid[i] = [...row, { value: { type: 'CONDITION_RULE', value: 'no' } }];
+      newGrid[rowIndex] = [
+        ...row,
+        { value: { type: 'CONDITION_RULE', value: 'no' } },
+      ];
     });
   });
 
