@@ -16,9 +16,6 @@ import { alignParentNodes } from '@/app/utils/node/alignParentNodes';
 import { CauseFlow } from './CauseFlow';
 import { applyNodeChanges } from './wrapper';
 
-import { mapStyle as mapStyleUtil } from '.';
-
-
 // eslint-disable-next-line import/no-default-export
 export default {
   title: 'ui/CauseFlow',
@@ -163,9 +160,16 @@ const defaultNodes: Node[] = [
   },
 ];
 
+const mapStyleOption = {
+  causeNodeStyle,
+  causeNodeLabelStyle,
+  resultNodeStyle,
+  elementNodeStyle,
+};
+
 export const Default = TemplateWithLayout.bind({});
 Default.args = {
-  nodes: defaultNodes.map(mapStyleUtil),
+  nodes: defaultNodes.map(NodeUtils.mapStyle(mapStyleOption)),
   edges: [
     { id: 'c1-e1_c2-e1', source: 'c1-e1', target: 'c2-e1', type: 'removable' },
     { id: 'c1-e2_c2', source: 'c1-e2', target: 'c2', type: 'removable' },
@@ -176,13 +180,6 @@ Default.args = {
     { id: 'c1-e4_r3', source: 'c1-e4', target: 'r3', type: 'removable' },
     { id: 'c2-e2_r3', source: 'c2-e2', target: 'r3', type: 'removable' },
   ],
-};
-
-const mapStyleOption = {
-  causeNodeStyle,
-  causeNodeLabelStyle,
-  resultNodeStyle,
-  elementNodeStyle,
 };
 
 /* eslint-disable react/jsx-props-no-spreading */
@@ -252,4 +249,5 @@ CauseNodeWithElements.args = {
       position: { x: 0, y: 0 },
     },
   ],
+  edges: [],
 };

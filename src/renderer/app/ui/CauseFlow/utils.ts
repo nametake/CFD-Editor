@@ -1,43 +1,29 @@
-import { Node } from '@/app/types';
-import { causeNodeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
-import { elementNodeStyle } from '@/app/ui/ElementNode';
-import { resultNodeStyle } from '@/app/ui/ResultNode';
+import { Edge, Node } from '@/app/types';
 import { assertUnreachable } from '@/app/utils/assert';
 
-export const mapStyle = (node: Node): Node => {
+export const mapNodeZIndex = (node: Node): Node => {
   switch (node.type) {
     case 'cause':
       return {
         ...node,
-        data: {
-          ...node.data,
-          label: {
-            ...node.data.label,
-            style: causeNodeLabelStyle,
-          },
-        },
-        style: {
-          ...node.style,
-          ...causeNodeStyle,
-        },
+        zIndex: 100,
       };
     case 'element':
       return {
         ...node,
-        style: {
-          ...node.style,
-          ...elementNodeStyle,
-        },
+        zIndex: 101,
       };
     case 'result':
       return {
         ...node,
-        style: {
-          ...node.style,
-          ...resultNodeStyle,
-        },
+        zIndex: 102,
       };
     default:
       return assertUnreachable(node);
   }
 };
+
+export const mapEdgeZIndex = (edge: Edge): Edge => ({
+  ...edge,
+  zIndex: 1000,
+});

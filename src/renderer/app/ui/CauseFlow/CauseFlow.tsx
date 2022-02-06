@@ -9,6 +9,8 @@ import { Edge as EdgeComponent } from '@/app/ui/Edge';
 import { ElementNode } from '@/app/ui/ElementNode';
 import { ResultNode } from '@/app/ui/ResultNode';
 
+import { mapEdgeZIndex, mapNodeZIndex } from './utils';
+
 const nodeTypes: { [key in NodeType]: React.ReactNode } = {
   cause: CauseNode,
   element: ElementNode,
@@ -19,7 +21,10 @@ const edgeTypes: { [key in EdgeType]: React.ReactNode } = {
   removable: EdgeComponent,
 };
 
-export type CauseFlowProps = Omit<ReactFlowProps, 'nodes' | 'nodeTypes'> & {
+export type CauseFlowProps = Omit<
+  ReactFlowProps,
+  'nodes' | 'nodeTypes' | 'edges' | 'edgeTypes'
+> & {
   nodes: Node[];
   edges: Edge[];
 };
@@ -30,11 +35,19 @@ const StyledReactFlow = styled(ReactFlow)`
 `;
 
 /* eslint-disable react/jsx-props-no-spreading */
-export const CauseFlow = function CauseFlow(
-  props: CauseFlowProps
-): JSX.Element {
+export const CauseFlow = function CauseFlow({
+  nodes,
+  edges,
+  ...props
+}: CauseFlowProps): JSX.Element {
   return (
-    <StyledReactFlow nodeTypes={nodeTypes} edgeTypes={edgeTypes} {...props}>
+    <StyledReactFlow
+      nodeTypes={nodeTypes}
+      edgeTypes={edgeTypes}
+      nodes={nodes.map(mapNodeZIndex)}
+      edges={edges.map(mapEdgeZIndex)}
+      {...props}
+    >
       <Background color="#888" gap={16} />
     </StyledReactFlow>
   );
