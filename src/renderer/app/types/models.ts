@@ -1,34 +1,37 @@
-export type ConditionId = string;
-export type ConditionStubId = string;
+type Location = {
+  column: number;
+  row: number;
+};
 
 export type ConditionStub = {
-  id: ConditionStubId;
-  conditionId: ConditionId;
+  id: string;
+  conditionId: string;
   name: string;
+  location: Location;
 };
 
 export type Condition = {
-  id: ConditionId;
+  id: string;
   name: string;
   stub: ConditionStub[];
+  location: Location;
 };
 
-export type ActionId = string;
-export type ActionStubId = string;
-
 export type ActionStub = {
-  id: ActionStubId;
-  actionId: ActionId;
+  id: string;
+  actionId: string;
   name: string;
+  location: Location;
 };
 
 export type Action = {
-  id: ActionId;
+  id: string;
   name: string;
   stub: ActionStub[];
+  location: Location;
 };
 
 export type Rule = {
-  conditionStubIds: ConditionStubId[];
-  actionId: ActionId | null;
+  conditionStubIds: string[];
+  actionId: string | null;
 };

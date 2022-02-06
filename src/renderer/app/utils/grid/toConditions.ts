@@ -1,7 +1,12 @@
 import { CellType, Condition, ConditionStub } from '@/app/types';
 
 import { findActionRow } from './findActionRow';
-import { RowRange, getName, makeId } from './utils';
+import { RowRange, getName } from './utils';
+
+const makeConditionId = (nameIndex: number) => `condition-${nameIndex}`;
+
+const makeConditionStubId = (nameIndex: number, stubIndex: number) =>
+  `condition-stub-${nameIndex}-${stubIndex}`;
 
 type ToConditionsOption = {
   nameColumn: number;
@@ -40,36 +45,43 @@ export const toConditions = (
   );
 
   const conditions = conditionRowRanges
-    .map<Condition | null>((rowRange) => {
+    .map<Condition | null>((rowRange, nameIndex) => {
       const cell = grid[rowRange.start][nameColumn];
       const conditionName = getName(cell);
       if (!conditionName) {
         return null;
       }
+
+      type ConditionStubWithoutId = Omit<ConditionStub, 'id'>;
       const condition: Condition = {
-        id: makeId({ row: rowRange.start, col: nameColumn }),
+        id: makeConditionId(nameIndex),
         name: conditionName,
         stub: grid
           .slice(rowRange.start, rowRange.end)
-          .map<ConditionStub | null>((row, i): ConditionStub | null => {
+          .map<ConditionStubWithoutId | null>((row, rowIndex) => {
             const c = row[stubColumn];
             const name = getName(c);
             if (!name) {
               return null;
             }
             return {
-              id: makeId({
-                row: rowRange.start + i,
-                col: stubColumn,
-              }),
-              conditionId: makeId({
-                row: rowRange.start,
-                col: nameColumn,
-              }),
+              conditionId: makeConditionId(nameIndex),
               name,
+              location: {
+                column: stubColumn,
+                row: rowRange.start + rowIndex,
+              },
             };
           })
-          .filter((stub): stub is ConditionStub => stub !== null),
+          .filter((stub): stub is ConditionStubWithoutId => stub !== null)
+          .map<ConditionStub>((stub, stubIndex) => ({
+            ...stub,
+            id: makeConditionStubId(nameIndex, stubIndex),
+          })),
+        location: {
+          column: nameColumn,
+          row: rowRange.start,
+        },
       };
       return condition;
     })
