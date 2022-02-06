@@ -1,8 +1,5 @@
 import { CellType } from '@/app/types';
 
-export const makeId = ({ row, col }: { row: number; col: number }) =>
-  `${row}-${col}`;
-
 export const getName = (cell: CellType): string | null => {
   switch (cell.value.type) {
     case 'CONDITION_HEADER':
