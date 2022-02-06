@@ -8,6 +8,7 @@ export type AlignParentNodesOption = {
   causeNodeGap?: number;
   resultNodeGap?: number;
   causeNodeAndResultNodeGap?: number;
+  startPosition?: { x: number; y: number };
 };
 
 export const alignParentNodes = (
@@ -18,12 +19,16 @@ export const alignParentNodes = (
     causeNodeGap = 0,
     resultNodeGap = 0,
     causeNodeAndResultNodeGap = 0,
+    startPosition,
   } = option ?? {};
 
   const causeNodes = toCauseNodeWithElements(nodes);
   const resultNodes = toResultNode(nodes);
 
-  const layoutedCauseNodes = alignHorizontal(causeNodes, { gap: causeNodeGap });
+  const layoutedCauseNodes = alignHorizontal(causeNodes, {
+    gap: causeNodeGap,
+    startPosition,
+  });
 
   const resultStartX = layoutedCauseNodes.reduce(
     (prev, node) => prev + (node.width ?? 0),
@@ -36,7 +41,7 @@ export const alignParentNodes = (
       ...elements,
     ]),
     ...alignVertical(resultNodes, {
-      startPosition: { x: resultStartX, y: 0 },
+      startPosition: { x: resultStartX, y: startPosition?.y ?? 0 },
       gap: resultNodeGap,
     }),
   ];
