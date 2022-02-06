@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactFlow, { ReactFlowProps } from 'react-flow-renderer';
+import ReactFlow, { Background, ReactFlowProps } from 'react-flow-renderer';
 
 import styled from '@emotion/styled';
 
@@ -34,7 +34,9 @@ export const CauseFlow = function CauseFlow(
   props: CauseFlowProps
 ): JSX.Element {
   return (
-    <StyledReactFlow nodeTypes={nodeTypes} edgeTypes={edgeTypes} {...props} />
+    <StyledReactFlow nodeTypes={nodeTypes} edgeTypes={edgeTypes} {...props}>
+      <Background color="#888" gap={16} />
+    </StyledReactFlow>
   );
 };
 /* eslint-enable */

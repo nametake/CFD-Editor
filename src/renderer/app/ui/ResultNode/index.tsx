@@ -11,6 +11,7 @@ export const resultNodeStyle: CSSProperties = {
   padding: 16,
   border: '1px solid',
   textAlign: 'center',
+  backgroundColor: 'white',
 };
 
 type ResultNodeProps<T> = NodeProps<T>;

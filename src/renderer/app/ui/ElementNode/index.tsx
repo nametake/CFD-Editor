@@ -12,6 +12,7 @@ export const elementNodeStyle: CSSProperties = {
   border: '1px solid',
   textAlign: 'center',
   pointerEvents: 'none',
+  backgroundColor: 'white',
 };
 
 type ElementNodeProps<T> = NodeProps<T>;

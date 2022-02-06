@@ -14,6 +14,7 @@ export const causeNodeStyle: CSSProperties = {
   paddingRight: 20,
   paddingBottom: 10,
   paddingLeft: 20,
+  backgroundColor: 'white',
 };
 
 export const causeNodeLabelStyle: CSSProperties = {
