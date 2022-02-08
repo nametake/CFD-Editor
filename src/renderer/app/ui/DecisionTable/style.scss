@@ -1,9 +1,11 @@
 .data-grid-container {
   .data-grid {
-    .cell > input {
-      width: 100%;
-      height: 100%;
-      text-align: left;
+    .cell {
+      > input {
+        width: 100%;
+        height: 100%;
+        text-align: left;
+      }
     }
   }
 }
