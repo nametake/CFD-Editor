@@ -14,7 +14,7 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "lint:ts": "eslint \"./**/*.{js,jsx,ts,tsx}\"",
-    "lint:css": "stylelint \"./**/*.{jsx,tsx}\"",
+    "lint:css": "stylelint \"./src/**/*.{jsx,tsx,css}\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o ./dist/storybook"
   },
@@ -30,7 +30,9 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "prettier",
-      "eslint --fix",
+      "eslint --fix"
+    ],
+    "*.{jsx,tsx,css}": [
       "stylelint"
     ]
   },

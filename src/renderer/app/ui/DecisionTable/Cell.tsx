@@ -24,10 +24,7 @@ const DefaultCell = styled.td`
   }
 
   .data-editor {
-    width: 100% !important;
-    height: 100% !important;
     padding-left: 6px;
-    text-align: left !important;
   }
 `;
 

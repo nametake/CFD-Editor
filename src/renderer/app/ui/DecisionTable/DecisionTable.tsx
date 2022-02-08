@@ -9,12 +9,15 @@ import { Cell, CellValue } from './Cell';
 import { mapCellOption, mapRowNumber } from './utils';
 
 import 'react-datasheet/lib/react-datasheet.css';
+import './style.css';
 
 class DataSheet extends ReactDataSheet<CellType> { }
 
 const StyledDataSheet = styled(DataSheet)`
   width: 100%;
   height: 100%;
+  overflow-x: scroll;
+  table-layout: auto;
 `;
 
 export type DecisionTableProps = Omit<
