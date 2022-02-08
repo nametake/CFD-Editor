@@ -33,6 +33,7 @@
       "eslint --fix"
     ],
     "*.{jsx,tsx,css,scss}": [
+      "prettier",
       "stylelint"
     ]
   },
