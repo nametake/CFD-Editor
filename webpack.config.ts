@@ -23,21 +23,18 @@ const config: Configuration = {
       {
         test: /\.[t]sx?$/,
         include: path.resolve(__dirname, 'src', 'renderer'),
-        use: [
-          {
-            loader: 'babel-loader',
-          },
-        ],
+        use: [{ loader: 'babel-loader' }],
       },
       {
         test: /\.css$/,
+        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
+      },
+      {
+        test: /\.s[ac]ss$/i,
         use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-          },
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' },
         ],
       },
     ],

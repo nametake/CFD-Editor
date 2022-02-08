@@ -14,7 +14,7 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "lint:ts": "eslint \"./**/*.{js,jsx,ts,tsx}\"",
-    "lint:css": "stylelint \"./src/**/*.{jsx,tsx,css}\"",
+    "lint:css": "stylelint \"./src/**/*.{jsx,tsx,css,scss}\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o ./dist/storybook"
   },
@@ -32,7 +32,7 @@
       "prettier",
       "eslint --fix"
     ],
-    "*.{jsx,tsx,css}": [
+    "*.{jsx,tsx,css,scss}": [
       "stylelint"
     ]
   },
@@ -96,6 +96,8 @@
     "postcss-scss": "4.0.3",
     "postcss-syntax": "0.36.2",
     "prettier": "2.5.1",
+    "sass": "^1.49.7",
+    "sass-loader": "^12.4.0",
     "style-loader": "3.3.1",
     "stylelint": "14.3.0",
     "stylelint-config-idiomatic-order": "8.1.0",

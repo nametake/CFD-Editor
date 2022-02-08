@@ -21,6 +21,20 @@ const config: StorybookConfig = {
     );
     return {
       ...config,
+      module: {
+        ...config.module,
+        rules: [
+          ...(config.module?.rules ?? []),
+          {
+            test: /\.s[ac]ss$/i,
+            use: [
+              { loader: 'style-loader' },
+              { loader: 'css-loader' },
+              { loader: 'sass-loader' },
+            ],
+          },
+        ],
+      },
       resolve: {
         ...config.resolve,
         alias: {

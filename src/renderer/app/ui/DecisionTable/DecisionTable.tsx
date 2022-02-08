@@ -9,7 +9,7 @@ import { Cell, CellValue } from './Cell';
 import { mapCellOption, mapRowNumber } from './utils';
 
 import 'react-datasheet/lib/react-datasheet.css';
-import './style.css';
+import './style.scss';
 
 class DataSheet extends ReactDataSheet<CellType> { }
 
