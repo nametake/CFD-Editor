@@ -62,6 +62,8 @@ export const ButtonCell = function ButtonCell({
 
 export const TitleCell = styled(DefaultCell)`
   .value-viewer {
+    background: whitesmoke;
+    color: #999;
     text-align: center;
   }
 `;
