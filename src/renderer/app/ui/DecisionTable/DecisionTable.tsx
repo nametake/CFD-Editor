@@ -8,8 +8,7 @@ import { CellType } from '@/app/types';
 import { Cell, CellValue } from './Cell';
 import { mapCellOption, mapRowNumber } from './utils';
 
-import 'react-datasheet/lib/react-datasheet.css';
-import './style.scss';
+import './react-datasheet.scss';
 
 class DataSheet extends ReactDataSheet<CellType> { }
 
