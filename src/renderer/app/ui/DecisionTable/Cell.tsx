@@ -20,7 +20,6 @@ const DefaultCell = styled.td`
     min-height: 28px;
     padding: 0 8px;
     line-height: 28px;
-    text-align: left;
   }
 
   .data-editor {
@@ -61,11 +60,9 @@ export const ButtonCell = function ButtonCell({
 };
 
 export const TitleCell = styled(DefaultCell)`
-  .value-viewer {
-    background: whitesmoke;
-    color: #999;
-    text-align: center;
-  }
+  background: whitesmoke;
+  color: #999;
+  text-align: center;
 `;
 
 export const TextCell = styled(DefaultCell)`
