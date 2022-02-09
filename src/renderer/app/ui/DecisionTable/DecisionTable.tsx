@@ -11,7 +11,7 @@ import { mapCellOption, mapRowNumber } from './utils';
 import 'react-datasheet/lib/react-datasheet.css';
 import './style.scss';
 
-class DataSheet extends ReactDataSheet<CellType> {}
+class DataSheet extends ReactDataSheet<CellType> { }
 
 const StyledDataSheet = styled(DataSheet)`
   width: 100%;
