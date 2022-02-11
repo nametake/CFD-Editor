@@ -66,7 +66,6 @@ export const TitleCell = styled(DefaultCell)`
 
   .value-viewer {
     justify-content: center;
-    background-color: whitesmoke;
   }
 `;
 
