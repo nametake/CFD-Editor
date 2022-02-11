@@ -14,10 +14,11 @@ const Centering = styled.div`
 `;
 
 const DefaultCell = styled.td`
-  vertical-align: middle !important;
-
   .value-viewer {
+    display: flex;
+    height: 100%;
     min-height: 28px;
+    align-items: center;
     padding: 0 8px;
     line-height: 28px;
   }
@@ -33,8 +34,8 @@ export const RowNumberCell = styled(DefaultCell)`
   font-size: 14px;
 
   .value-viewer {
+    justify-content: center;
     background-color: whitesmoke;
-    text-align: center;
   }
 `;
 
@@ -62,7 +63,11 @@ export const ButtonCell = function ButtonCell({
 export const TitleCell = styled(DefaultCell)`
   background: whitesmoke;
   color: #999;
-  text-align: center;
+
+  .value-viewer {
+    justify-content: center;
+    background-color: whitesmoke;
+  }
 `;
 
 export const TextCell = styled(DefaultCell)`
