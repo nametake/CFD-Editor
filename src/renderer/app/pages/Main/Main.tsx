@@ -11,14 +11,17 @@ const Wrapper = styled.div`
   height: 100vh;
   flex-direction: column;
   justify-content: space-between;
+  padding: 8px;
+  gap: 8px;
 `;
 
 const CauseFlowWrapper = styled.div`
-  height: 50%;
+  height: 40%;
+  border: 1px solid #888;
 `;
 
 const DecisionTableWrapper = styled.div`
-  height: 50%;
+  height: 60%;
   overflow-y: auto;
 `;
 
