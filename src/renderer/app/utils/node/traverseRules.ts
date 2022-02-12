@@ -9,10 +9,7 @@ const traverse = (
 ): Rule[] => {
   switch (currentNode?.type) {
     case 'cause': {
-      const nextNode = nodes.find((node) => {
-        const edge = edges.find((e) => e.source === currentNode.id);
-        return node.id === edge?.target;
-      });
+      const edge = edges.find((e) => currentNode.id === e.source);
 
       const elementNodes = nodes.filter((n) => n.parentNode === currentNode.id);
 
@@ -21,33 +18,34 @@ const traverse = (
         if (currentRule.conditionStubIds.includes(element.id)) {
           return [];
         }
-        const nextRule: Rule = {
-          ...currentRule,
-          conditionStubIds: [...currentRule.conditionStubIds, element.id],
-        };
-        const nextElementNode = nodes.find((node) => {
-          const edge = edges.find((e) => e.source === element.id);
-          return node.id === edge?.target;
-        });
-        return traverse(nextRule, nextElementNode || nextNode, nodes, edges);
+        const nextEdges: Edge[] = [
+          ...edges,
+          edge && {
+            id: `traverse-${element.id}-${edge.id}`,
+            source: element.id,
+            target: edge.target,
+            type: 'removable',
+          },
+        ].filter((e): e is Edge => !!e);
+        return traverse(currentRule, element, nodes, nextEdges);
       });
     }
     case 'element': {
-      const nextNode = nodes.find((node) => {
-        const edge = edges.find((e) => e.source === currentNode.id);
-        return node.id === edge?.target;
-      });
-
-      // loop check
-      if (nextNode?.id && currentRule.conditionStubIds.includes(nextNode.id)) {
-        return [];
-      }
-
+      const connectedEdges = edges.filter(
+        (edge) => edge.source === currentNode.id
+      );
+      const nextNodes = nodes.filter((node) => connectedEdges.find((edge) => node.id === edge.target));
       const nextRule: Rule = {
         ...currentRule,
         conditionStubIds: [...currentRule.conditionStubIds, currentNode.id],
       };
-      return [...traverse(nextRule, nextNode, nodes, edges)];
+      return nextNodes.flatMap((nextNode) => {
+        // loop check
+        if (nextNode.id && currentRule.conditionStubIds.includes(nextNode.id)) {
+          return [];
+        }
+        return traverse(nextRule, nextNode, nodes, edges);
+      });
     }
     case 'result':
       return [{ ...currentRule, actionStubIds: [currentNode.id] }];
