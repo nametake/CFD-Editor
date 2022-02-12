@@ -30,6 +30,7 @@ const DefaultCell = styled.td`
 
 export const RowNumberCell = styled(DefaultCell)`
   width: 64px;
+  min-width: 64px;
   color: #999;
   font-size: 14px;
 
@@ -41,6 +42,7 @@ export const RowNumberCell = styled(DefaultCell)`
 
 const InnerButtonCell = styled(DefaultCell)`
   width: 64px;
+  min-width: 64px;
   background-color: whitesmoke !important;
 `;
 
@@ -66,11 +68,27 @@ export const TitleCell = styled(DefaultCell)`
 
   .value-viewer {
     justify-content: center;
+    white-space: nowrap;
   }
 `;
 
 export const TextCell = styled(DefaultCell)`
   color: black;
+`;
+
+export const EditableCell = styled(DefaultCell)`
+  min-width: 180px;
+  color: black;
+`;
+
+export const RuleCell = styled(DefaultCell)`
+  min-width: 48px;
+  color: black;
+
+  .value-viewer {
+    justify-content: center;
+    white-space: nowrap;
+  }
 `;
 
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions,react/jsx-props-no-spreading */
@@ -120,11 +138,12 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
       );
     case 'CONDITION_NAME':
     case 'CONDITION_STUB':
-    case 'CONDITION_RULE':
     case 'ACTION_NAME':
     case 'ACTION_STUB':
+      return <EditableCell {...cellProps}>{children}</EditableCell>;
+    case 'CONDITION_RULE':
     case 'ACTION_RULE':
-      return <TextCell {...cellProps}>{children}</TextCell>;
+      return <RuleCell {...cellProps}>{children}</RuleCell>;
     default:
       return assertUnreachable(cell.value);
   }

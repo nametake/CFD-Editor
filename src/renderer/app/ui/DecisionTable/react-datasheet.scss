@@ -8,8 +8,8 @@ span.data-grid-container {
 
 .data-grid-container {
   .data-grid {
+    width: auto;
     border-collapse: collapse;
-    table-layout: fixed;
 
     .cell.updated {
       background-color: rgb(0 145 253 / 16%);
@@ -17,7 +17,6 @@ span.data-grid-container {
     }
 
     .cell {
-      height: 17px;
       padding: 0;
       border: 1px solid #ddd;
       cursor: cell;
