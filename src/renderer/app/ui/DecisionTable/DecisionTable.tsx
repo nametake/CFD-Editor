@@ -13,9 +13,6 @@ import './react-datasheet.scss';
 class DataSheet extends ReactDataSheet<CellType> { }
 
 const StyledDataSheet = styled(DataSheet)`
-  width: 100%;
-  height: 100%;
-  overflow-x: scroll;
   table-layout: auto;
 `;
 
