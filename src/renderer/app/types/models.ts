@@ -33,5 +33,5 @@ export type Action = {
 
 export type Rule = {
   conditionStubIds: string[];
-  actionId: string | null;
+  actionStubIds: string[];
 };

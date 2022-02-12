@@ -50,7 +50,7 @@ const traverse = (
       return [...traverse(nextRule, nextNode, nodes, edges)];
     }
     case 'result':
-      return [{ ...currentRule, actionId: currentNode.id }];
+      return [{ ...currentRule, actionStubIds: [currentNode.id] }];
     case undefined:
       return [];
     default:
@@ -62,10 +62,10 @@ export const traverseRules = (nodes: Node[], edges: Edge[]): Rule[] => {
   const startNode = nodes.find((node) => node.type === 'cause');
   return startNode
     ? traverse(
-        { conditionStubIds: [], actionId: null },
-        startNode,
-        nodes,
-        edges
-      )
+      { conditionStubIds: [], actionStubIds: [] },
+      startNode,
+      nodes,
+      edges
+    )
     : [];
 };

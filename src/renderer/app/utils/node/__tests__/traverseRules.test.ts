@@ -88,19 +88,19 @@ describe('traverseRules', () => {
     const expected: Rule[] = [
       {
         conditionStubIds: ['1-2', '3-2'],
-        actionId: '6-2',
+        actionStubIds: ['6-2'],
       },
       {
         conditionStubIds: ['1-2', '4-2'],
-        actionId: '7-2',
+        actionStubIds: ['7-2'],
       },
       {
         conditionStubIds: ['2-2', '3-2'],
-        actionId: '6-2',
+        actionStubIds: ['6-2'],
       },
       {
         conditionStubIds: ['2-2', '4-2'],
-        actionId: '7-2',
+        actionStubIds: ['7-2'],
       },
     ];
 
@@ -200,15 +200,15 @@ describe('traverseRules', () => {
     const expected: Rule[] = [
       {
         conditionStubIds: ['1-2', '3-2'],
-        actionId: '6-2',
+        actionStubIds: ['6-2'],
       },
       {
         conditionStubIds: ['1-2', '4-2'],
-        actionId: '7-2',
+        actionStubIds: ['7-2'],
       },
       {
         conditionStubIds: ['2-2'],
-        actionId: '7-2',
+        actionStubIds: ['7-2'],
       },
     ];
 
@@ -313,11 +313,11 @@ describe('traverseRules', () => {
     const expected: Rule[] = [
       {
         conditionStubIds: ['1-2', '3-2'],
-        actionId: '6-2',
+        actionStubIds: ['6-2'],
       },
       {
         conditionStubIds: ['2-2', '4-2'],
-        actionId: '7-2',
+        actionStubIds: ['7-2'],
       },
     ];
 
