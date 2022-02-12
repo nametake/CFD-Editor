@@ -88,7 +88,7 @@ export const mergeRules = (
           const actionStub = actionStubs.find(
             (stub) => stub.location.row === rowIndex
           );
-          if (rule.actionId === actionStub?.id) {
+          if (rule.actionStubIds.find((id) => id === actionStub?.id)) {
             newGrid[rowIndex] = [
               ...row,
               { value: { type: 'CONDITION_RULE', value: 'yes' } },

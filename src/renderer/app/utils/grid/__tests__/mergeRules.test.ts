@@ -59,7 +59,7 @@ describe('mergeRules', () => {
     const rules: Rule[] = [
       {
         conditionStubIds: ['condition-0-0'],
-        actionId: 'action-0-0',
+        actionStubIds: ['action-0-0'],
       },
     ];
     const expected: CellType[][] = [
@@ -149,7 +149,7 @@ describe('mergeRules', () => {
     const rules: Rule[] = [
       {
         conditionStubIds: ['condition-0-0'],
-        actionId: 'action-0-0',
+        actionStubIds: ['action-0-0'],
       },
     ];
     const expected: CellType[][] = [

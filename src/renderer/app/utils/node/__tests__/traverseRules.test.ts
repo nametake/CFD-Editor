@@ -88,19 +88,19 @@ describe('traverseRules', () => {
     const expected: Rule[] = [
       {
         conditionStubIds: ['1-2', '3-2'],
-        actionId: '6-2',
+        actionStubIds: ['6-2'],
       },
       {
         conditionStubIds: ['1-2', '4-2'],
-        actionId: '7-2',
+        actionStubIds: ['7-2'],
       },
       {
         conditionStubIds: ['2-2', '3-2'],
-        actionId: '6-2',
+        actionStubIds: ['6-2'],
       },
       {
         conditionStubIds: ['2-2', '4-2'],
-        actionId: '7-2',
+        actionStubIds: ['7-2'],
       },
     ];
 
@@ -200,15 +200,15 @@ describe('traverseRules', () => {
     const expected: Rule[] = [
       {
         conditionStubIds: ['1-2', '3-2'],
-        actionId: '6-2',
+        actionStubIds: ['6-2'],
       },
       {
         conditionStubIds: ['1-2', '4-2'],
-        actionId: '7-2',
+        actionStubIds: ['7-2'],
       },
       {
         conditionStubIds: ['2-2'],
-        actionId: '7-2',
+        actionStubIds: ['7-2'],
       },
     ];
 
@@ -313,11 +313,11 @@ describe('traverseRules', () => {
     const expected: Rule[] = [
       {
         conditionStubIds: ['1-2', '3-2'],
-        actionId: '6-2',
+        actionStubIds: ['6-2'],
       },
       {
         conditionStubIds: ['2-2', '4-2'],
-        actionId: '7-2',
+        actionStubIds: ['7-2'],
       },
     ];
 
@@ -521,5 +521,63 @@ describe('traverseRules', () => {
 
       expect(traverseRules(nodes, edges)).toStrictEqual([]);
     });
+  });
+
+  test('connected multiple action ndoes', () => {
+    const nodes: Node[] = [
+      {
+        id: 'cause-1',
+        data: { label: { text: 'Cause1' } },
+        type: 'cause',
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'element-1',
+        data: { label: 'Element1' },
+        parentNode: 'cause-1',
+        type: 'element',
+        position: { x: 20, y: 44 },
+      },
+      {
+        id: 'action-1',
+        data: { label: 'Action 1' },
+        type: 'result',
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'action-2',
+        data: { label: 'Action 2' },
+        type: 'result',
+        position: { x: 0, y: 0 },
+      },
+    ];
+
+    const edges: Edge[] = [
+      {
+        source: 'element-1',
+        sourceHandle: null,
+        target: 'action-1',
+        targetHandle: null,
+        id: 'reactflow__edge-element-1-action-1',
+        type: 'removable',
+      },
+      {
+        source: 'element-1',
+        sourceHandle: null,
+        target: 'action-2',
+        targetHandle: null,
+        id: 'reactflow__edge-element-1-action-2',
+        type: 'removable',
+      },
+    ];
+
+    const expected: Rule[] = [
+      {
+        conditionStubIds: ['element-1'],
+        actionStubIds: ['action-1', 'action-2'],
+      },
+    ];
+
+    expect(traverseRules(nodes, edges)).toStrictEqual(expected);
   });
 });
