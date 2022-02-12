@@ -62,10 +62,10 @@ export const traverseRules = (nodes: Node[], edges: Edge[]): Rule[] => {
   const startNode = nodes.find((node) => node.type === 'cause');
   return startNode
     ? traverse(
-      { conditionStubIds: [], actionId: null },
-      startNode,
-      nodes,
-      edges
-    )
+        { conditionStubIds: [], actionId: null },
+        startNode,
+        nodes,
+        edges
+      )
     : [];
 };

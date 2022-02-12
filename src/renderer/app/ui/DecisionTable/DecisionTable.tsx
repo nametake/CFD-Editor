@@ -8,13 +8,12 @@ import { CellType } from '@/app/types';
 import { Cell, CellValue } from './Cell';
 import { mapCellOption, mapRowNumber } from './utils';
 
-import 'react-datasheet/lib/react-datasheet.css';
+import './react-datasheet.scss';
 
 class DataSheet extends ReactDataSheet<CellType> { }
 
 const StyledDataSheet = styled(DataSheet)`
-  width: 100%;
-  height: 100%;
+  table-layout: auto;
 `;
 
 export type DecisionTableProps = Omit<

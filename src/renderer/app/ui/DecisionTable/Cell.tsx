@@ -14,36 +14,35 @@ const Centering = styled.div`
 `;
 
 const DefaultCell = styled.td`
-  vertical-align: middle !important;
-
   .value-viewer {
+    display: flex;
+    height: 100%;
     min-height: 28px;
+    align-items: center;
     padding: 0 8px;
     line-height: 28px;
-    text-align: left;
   }
 
   .data-editor {
-    width: 100% !important;
-    height: 100% !important;
     padding-left: 6px;
-    text-align: left !important;
   }
 `;
 
 export const RowNumberCell = styled(DefaultCell)`
   width: 64px;
+  min-width: 64px;
   color: #999;
   font-size: 14px;
 
   .value-viewer {
+    justify-content: center;
     background-color: whitesmoke;
-    text-align: center;
   }
 `;
 
 const InnerButtonCell = styled(DefaultCell)`
   width: 64px;
+  min-width: 64px;
   background-color: whitesmoke !important;
 `;
 
@@ -64,13 +63,32 @@ export const ButtonCell = function ButtonCell({
 };
 
 export const TitleCell = styled(DefaultCell)`
+  background: whitesmoke;
+  color: #999;
+
   .value-viewer {
-    text-align: center;
+    justify-content: center;
+    white-space: nowrap;
   }
 `;
 
 export const TextCell = styled(DefaultCell)`
   color: black;
+`;
+
+export const EditableCell = styled(DefaultCell)`
+  min-width: 180px;
+  color: black;
+`;
+
+export const RuleCell = styled(DefaultCell)`
+  min-width: 48px;
+  color: black;
+
+  .value-viewer {
+    justify-content: center;
+    white-space: nowrap;
+  }
 `;
 
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions,react/jsx-props-no-spreading */
@@ -120,11 +138,12 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
       );
     case 'CONDITION_NAME':
     case 'CONDITION_STUB':
-    case 'CONDITION_RULE':
     case 'ACTION_NAME':
     case 'ACTION_STUB':
+      return <EditableCell {...cellProps}>{children}</EditableCell>;
+    case 'CONDITION_RULE':
     case 'ACTION_RULE':
-      return <TextCell {...cellProps}>{children}</TextCell>;
+      return <RuleCell {...cellProps}>{children}</RuleCell>;
     default:
       return assertUnreachable(cell.value);
   }
