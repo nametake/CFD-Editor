@@ -32,7 +32,6 @@ export type CauseFlowProps = Omit<
 const StyledReactFlow = styled(ReactFlow)`
   width: 100%;
   height: 100%;
-  min-height: 512px;
 `;
 
 /* eslint-disable react/jsx-props-no-spreading */
