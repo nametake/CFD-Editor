@@ -23,6 +23,7 @@ const mapCellEvent =
           },
         };
       }
+
       if (cell.value.type === 'ADD_ACTION_ROW_BUTTON') {
         return {
           ...cell,
