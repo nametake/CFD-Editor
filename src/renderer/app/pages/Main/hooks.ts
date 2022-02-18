@@ -91,6 +91,9 @@ export const useMain = (args?: UseMainArgs): UseMainResult => {
       onNodesChange: useCallback((changes: NodeChange[]) => {
         dispatch({ type: 'CAUSE_FLOW/CHANGED_NODES', payload: { changes } });
       }, []),
+      onNodeDragStop: useCallback(() => {
+        dispatch({ type: 'CAUSE_FLOW/DRAG_STOP' });
+      }, []),
       onConnect: useCallback((connection: Connection) => {
         dispatch({
           type: 'CAUSE_FLOW/ADDED_CONNECTION',

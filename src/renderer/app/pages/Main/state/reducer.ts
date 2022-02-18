@@ -27,6 +27,12 @@ const actionReducer: Reducer<MainState, MainAction> = (
         nodes: applyNodeChanges(action.payload.changes, prev.nodes),
       };
     }
+    case 'CAUSE_FLOW/DRAG_STOP': {
+      return {
+        ...prev,
+        nodes: prev.nodes.map((node) => ({ ...node, selected: false })),
+      };
+    }
     case 'CAUSE_FLOW/ADDED_CONNECTION': {
       return {
         ...prev,
@@ -107,6 +113,7 @@ const createNodesReducer: Reducer<MainState, MainAction> = (
 
   switch (action.type) {
     case 'CAUSE_FLOW/CHANGED_NODES':
+    case 'CAUSE_FLOW/DRAG_STOP':
     case 'CAUSE_FLOW/ADDED_CONNECTION':
     case 'CAUSE_FLOW/CLICK_REMOVE_EDGE':
       return { ...state, nodes: nextNodes };
