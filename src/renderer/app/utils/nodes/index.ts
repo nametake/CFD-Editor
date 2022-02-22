@@ -6,7 +6,7 @@ import { mapStyle } from './mapStyle';
 import { merge } from './merge';
 import { traverseRules } from './traverseRules';
 
-type NodeType = {
+type NodesType = {
   alignElementNodes: typeof alignElementNodes;
   alignParentNodes: typeof alignParentNodes;
   fromActions: typeof fromActions;
@@ -16,7 +16,7 @@ type NodeType = {
   traverseRules: typeof traverseRules;
 };
 
-export const Node: NodeType = {
+export const Nodes: NodesType = {
   alignElementNodes,
   alignParentNodes,
   fromActions,

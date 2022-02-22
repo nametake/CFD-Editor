@@ -7,7 +7,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { causeNodeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
 import { elementNodeStyle } from '@/app/ui/ElementNode';
 import { resultNodeStyle } from '@/app/ui/ResultNode';
-import { Node as NodeUitls } from '@/app/utils/node';
+import { Nodes } from '@/app/utils/nodes';
 
 import { useMain } from './hooks';
 import { Main } from './Main';
@@ -210,7 +210,7 @@ const TemplateWithInitialState: ComponentStory<typeof Main> =
       initialState: {
         ...initialState,
         nodes: initialState.nodes.map(
-          NodeUitls.mapStyle({
+          Nodes.mapStyle({
             causeNodeStyle,
             causeNodeLabelStyle,
             elementNodeStyle,
