@@ -6,7 +6,7 @@ import { elementNodeStyle } from '@/app/ui/ElementNode';
 import { resultNodeStyle } from '@/app/ui/ResultNode';
 import { assertUnreachable } from '@/app/utils/assert';
 import { Grid } from '@/app/utils/grid';
-import { Node } from '@/app/utils/node';
+import { Nodes } from '@/app/utils/nodes';
 
 import { MainAction } from './action';
 import {
@@ -94,17 +94,17 @@ const createNodesReducer: Reducer<MainState, MainAction> = (
   action: MainAction
 ): MainState => {
   const conditions = Grid.toConditions(state.grid, gridOption);
-  const causeAndElementNodes = Node.fromConditions(conditions);
+  const causeAndElementNodes = Nodes.fromConditions(conditions);
 
   const actions = Grid.toActions(state.grid, gridOption);
-  const resultNodes = Node.fromActions(actions);
+  const resultNodes = Nodes.fromActions(actions);
 
   const nodes = [...causeAndElementNodes, ...resultNodes].map(
-    Node.mapStyle(mapStyleOption)
+    Nodes.mapStyle(mapStyleOption)
   );
 
-  const nextNodes = Node.alignElementNodes(
-    Node.merge({ oldNodes: state.nodes, newNodes: nodes }),
+  const nextNodes = Nodes.alignElementNodes(
+    Nodes.merge({ oldNodes: state.nodes, newNodes: nodes }),
     {
       labelMarginBottom: 10,
       elementGap: 10,
@@ -123,7 +123,7 @@ const createNodesReducer: Reducer<MainState, MainAction> = (
     case 'DECISION_TABLE/CLICK_REMOVE_ROW':
       return {
         ...state,
-        nodes: Node.alignParentNodes(nextNodes, {
+        nodes: Nodes.alignParentNodes(nextNodes, {
           causeNodeGap: 80,
           resultNodeGap: 40,
           causeNodeAndResultNodeGap: 80,
@@ -140,7 +140,7 @@ const rulesReducer: Reducer<MainState, MainAction> = (
 ): MainState => {
   const conditions = Grid.toConditions(state.grid, gridOption);
   const actions = Grid.toActions(state.grid, gridOption);
-  const rules = Node.traverseRules(state.nodes, state.edges);
+  const rules = Nodes.traverseRules(state.nodes, state.edges);
   const grid = Grid.mergeRules(
     state.grid,
     conditions,

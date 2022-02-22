@@ -9,9 +9,7 @@ import { Node } from '@/app/types';
 import { causeNodeLabelStyle, causeNodeStyle } from '@/app/ui/CauseNode';
 import { elementNodeStyle } from '@/app/ui/ElementNode';
 import { resultNodeStyle } from '@/app/ui/ResultNode';
-import { Node as NodeUtils } from '@/app/utils/node';
-import { alignElementNodes } from '@/app/utils/node/alignElementNodes';
-import { alignParentNodes } from '@/app/utils/node/alignParentNodes';
+import { Nodes } from '@/app/utils/nodes';
 
 import { CauseFlow } from './CauseFlow';
 import { applyNodeChanges } from './wrapper';
@@ -35,15 +33,18 @@ const TemplateWithLayout: ComponentStory<typeof CauseFlow> =
         onNodesChange={useCallback(
           (changeNodes: NodeChange[]) => {
             const appliedNodes = applyNodeChanges(changeNodes, nodes);
-            const alignedElementNodes = alignElementNodes(appliedNodes, {
+            const alignedElementNodes = Nodes.alignElementNodes(appliedNodes, {
               elementGap: 10,
               labelMarginBottom: 10,
             });
-            const alignedParentNodes = alignParentNodes(alignedElementNodes, {
-              causeNodeGap: 80,
-              resultNodeGap: 40,
-              causeNodeAndResultNodeGap: 80,
-            });
+            const alignedParentNodes = Nodes.alignParentNodes(
+              alignedElementNodes,
+              {
+                causeNodeGap: 80,
+                resultNodeGap: 40,
+                causeNodeAndResultNodeGap: 80,
+              }
+            );
             setNodes(alignedParentNodes);
           },
           [nodes]
@@ -169,7 +170,7 @@ const mapStyleOption = {
 
 export const Default = TemplateWithLayout.bind({});
 Default.args = {
-  nodes: defaultNodes.map(NodeUtils.mapStyle(mapStyleOption)),
+  nodes: defaultNodes.map(Nodes.mapStyle(mapStyleOption)),
   edges: [
     { id: 'c1-e1_c2-e1', source: 'c1-e1', target: 'c2-e1', type: 'removable' },
     { id: 'c1-e2_c2', source: 'c1-e2', target: 'c2', type: 'removable' },
@@ -189,7 +190,7 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
   ...args
 }) {
   const [nodes, setNodes] = useState(
-    argsNodes.map(NodeUtils.mapStyle(mapStyleOption))
+    argsNodes.map(Nodes.mapStyle(mapStyleOption))
   );
   return (
     <CauseFlow
@@ -201,7 +202,7 @@ const Template: ComponentStory<typeof CauseFlow> = function Template({
         (changeNodes: NodeChange[]) => {
           const nextNodes = applyNodeChanges(changeNodes, nodes);
           setNodes(
-            NodeUtils.alignElementNodes(nextNodes, {
+            Nodes.alignElementNodes(nextNodes, {
               elementGap: 10,
               labelMarginBottom: 20,
             })
