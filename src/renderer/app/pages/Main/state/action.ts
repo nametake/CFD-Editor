@@ -7,6 +7,7 @@ export type MainAction =
   | { type: 'CAUSE_FLOW/DRAG_STOP' }
   | { type: 'CAUSE_FLOW/ADDED_CONNECTION'; payload: { connection: Connection } }
   | { type: 'CAUSE_FLOW/CLICK_REMOVE_EDGE'; payload: { id: string } }
+  | { type: 'DECISION_TABLE/CHANGE_INVALID_FLAG'; payload: { row: number } }
   | {
     type: 'DECISION_TABLE/CHANGED_CELLS';
     payload: { changes: CellsChangedArgs };

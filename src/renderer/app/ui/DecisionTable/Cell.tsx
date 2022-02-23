@@ -143,7 +143,7 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
       return <RowNumberCell {...cellProps}>{children}</RowNumberCell>;
     case 'INVALID_FLAG':
       return (
-        <FlagCell>
+        <FlagCell {...cellProps}>
           <input
             type="checkbox"
             checked={cell.value.value}

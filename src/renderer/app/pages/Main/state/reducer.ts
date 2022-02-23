@@ -7,6 +7,7 @@ import { resultNodeStyle } from '@/app/ui/ResultNode';
 import { assertUnreachable } from '@/app/utils/assert';
 import { Grid } from '@/app/utils/grid';
 import { Nodes } from '@/app/utils/nodes';
+import { Rules } from '@/app/utils/rules';
 
 import { MainAction } from './action';
 import {
@@ -43,6 +44,29 @@ const actionReducer: Reducer<MainState, MainAction> = (
       return {
         ...prev,
         edges: prev.edges.filter((edge) => edge.id !== action.payload.id),
+      };
+    }
+    case 'DECISION_TABLE/CHANGE_INVALID_FLAG': {
+      const rowIndex = action.payload.row;
+      return {
+        ...prev,
+        grid: prev.grid.map((row, i) => {
+          if (i !== rowIndex) {
+            return row;
+          }
+          return row.map((cell) => {
+            if (cell.value.type !== 'INVALID_FLAG') {
+              return cell;
+            }
+            return {
+              ...cell,
+              value: {
+                ...cell.value,
+                value: !cell.value.value,
+              },
+            };
+          });
+        }),
       };
     }
     case 'DECISION_TABLE/CHANGED_CELLS': {
@@ -116,6 +140,7 @@ const createNodesReducer: Reducer<MainState, MainAction> = (
     case 'CAUSE_FLOW/DRAG_STOP':
     case 'CAUSE_FLOW/ADDED_CONNECTION':
     case 'CAUSE_FLOW/CLICK_REMOVE_EDGE':
+    case 'DECISION_TABLE/CHANGE_INVALID_FLAG':
       return { ...state, nodes: nextNodes };
     case 'DECISION_TABLE/CHANGED_CELLS':
     case 'DECISION_TABLE/CLICK_ADD_CONDITION_ROW':
@@ -140,7 +165,8 @@ const rulesReducer: Reducer<MainState, MainAction> = (
 ): MainState => {
   const conditions = Grid.toConditions(state.grid, gridOption);
   const actions = Grid.toActions(state.grid, gridOption);
-  const rules = Nodes.traverseRules(state.nodes, state.edges);
+  const baseRules = Nodes.traverseRules(state.nodes, state.edges);
+  const rules = Rules.filterInvalidRules(baseRules, conditions, actions);
   const grid = Grid.mergeRules(
     state.grid,
     conditions,

@@ -53,6 +53,22 @@ const mapCellEvent =
         };
       }
 
+      if (cell.value.type === 'INVALID_FLAG') {
+        const handleClick = () => {
+          dispatch({
+            type: 'DECISION_TABLE/CHANGE_INVALID_FLAG',
+            payload: { row: rowNumber },
+          });
+        };
+        return {
+          ...cell,
+          value: {
+            ...cell.value,
+            onClick: handleClick,
+          },
+        };
+      }
+
       return cell;
     };
 
