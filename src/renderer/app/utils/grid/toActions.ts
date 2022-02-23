@@ -67,6 +67,7 @@ export const toActions = (
               }
               return {
                 actionId: makeActionId(nameIndex),
+                type: 'valid',
                 name,
                 location: {
                   column: stubColumn,

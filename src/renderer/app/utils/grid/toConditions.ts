@@ -66,6 +66,7 @@ export const toConditions = (
             }
             return {
               conditionId: makeConditionId(nameIndex),
+              type: 'valid',
               name,
               location: {
                 column: stubColumn,
