@@ -1,7 +1,7 @@
 import { Action, ActionStub, CellType } from '@/app/types';
 
 import { findActionRow } from './findActionRow';
-import { RowRange, getName } from './utils';
+import { RowRange, getInvalidType, getName } from './utils';
 
 const makeActionId = (nameIndex: number) => `action-${nameIndex}`;
 
@@ -67,7 +67,7 @@ export const toActions = (
               }
               return {
                 actionId: makeActionId(nameIndex),
-                type: 'valid',
+                type: getInvalidType(row),
                 name,
                 location: {
                   column: stubColumn,

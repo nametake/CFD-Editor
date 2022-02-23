@@ -20,3 +20,10 @@ export type RowRange = {
   start: number;
   end: number;
 };
+
+export const getInvalidType = (row: CellType[]): 'valid' | 'invalid' => {
+  const flagCell = row.find((cell) => cell.value.type === 'INVALID_FLAG');
+  return flagCell?.value.type === 'INVALID_FLAG' && flagCell.value.value
+    ? 'invalid'
+    : 'valid';
+};
