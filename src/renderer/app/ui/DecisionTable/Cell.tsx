@@ -62,6 +62,27 @@ export const ButtonCell = function ButtonCell({
   /* eslint-enable */
 };
 
+const InnerFlagCell = styled(DefaultCell)`
+  width: 32px;
+  min-width: 32px;
+`;
+
+export const FlagCell = function FlagCell({
+  children,
+  ...props
+}: React.DetailedHTMLProps<
+  React.TdHTMLAttributes<HTMLTableCellElement>,
+  HTMLTableCellElement
+>): JSX.Element {
+  /* eslint-disable react/jsx-props-no-spreading */
+  return (
+    <InnerFlagCell {...props}>
+      <Centering>{children}</Centering>
+    </InnerFlagCell>
+  );
+  /* eslint-enable */
+};
+
 export const TitleCell = styled(DefaultCell)`
   background: whitesmoke;
   color: #999;
@@ -120,6 +141,16 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
       return <DefaultCell {...cellProps}>{children}</DefaultCell>;
     case 'ROW_NUMBER':
       return <RowNumberCell {...cellProps}>{children}</RowNumberCell>;
+    case 'INVALID_FLAG':
+      return (
+        <FlagCell {...cellProps}>
+          <input
+            type="checkbox"
+            checked={cell.value.value}
+            onClick={cell.value.onClick}
+          />
+        </FlagCell>
+      );
     case 'CONDITION_HEADER':
     case 'ACTION_HEADER':
       return <TitleCell {...cellProps}>{children}</TitleCell>;
@@ -154,6 +185,7 @@ export const CellValue: ReactDataSheet.ValueRenderer<CellType> =
   function Value({ value }) {
     switch (value.type) {
       case 'EMPTY':
+      case 'INVALID_FLAG':
       case 'REMOVE_ROW':
       case 'ADD_CONDITION_ROW_BUTTON':
       case 'ADD_ACTION_ROW_BUTTON':

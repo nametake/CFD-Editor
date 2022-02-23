@@ -123,6 +123,7 @@ const initialState: MainState = {
     [
       { value: { type: 'ADD_CONDITION_ROW_BUTTON' } },
       { value: { type: 'ROW_NUMBER' } },
+      { value: { type: 'CONDITION_HEADER', value: 'IV' } },
       { value: { type: 'CONDITION_HEADER', value: 'Condition' } },
       { value: { type: 'CONDITION_HEADER', value: 'Condition stub' } },
       { value: { type: 'CONDITION_HEADER', value: '1' } },
@@ -133,6 +134,7 @@ const initialState: MainState = {
     [
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'ROW_NUMBER' } },
+      { value: { type: 'INVALID_FLAG' } },
       { value: { type: 'CONDITION_NAME', value: 'Card' } },
       { value: { type: 'CONDITION_STUB', value: 'Suica' } },
       { value: { type: 'CONDITION_RULE', value: 'yes' } },
@@ -143,6 +145,7 @@ const initialState: MainState = {
     [
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'ROW_NUMBER' } },
+      { value: { type: 'INVALID_FLAG' } },
       { value: { type: 'CONDITION_NAME', value: '' } },
       { value: { type: 'CONDITION_STUB', value: 'Pasmo' } },
       { value: { type: 'CONDITION_RULE', value: 'no' } },
@@ -153,6 +156,7 @@ const initialState: MainState = {
     [
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'ROW_NUMBER' } },
+      { value: { type: 'INVALID_FLAG' } },
       { value: { type: 'CONDITION_NAME', value: 'Age' } },
       { value: { type: 'CONDITION_STUB', value: 'Over 60' } },
       { value: { type: 'CONDITION_RULE', value: 'yes' } },
@@ -163,6 +167,7 @@ const initialState: MainState = {
     [
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'ROW_NUMBER' } },
+      { value: { type: 'INVALID_FLAG' } },
       { value: { type: 'CONDITION_NAME', value: '' } },
       { value: { type: 'CONDITION_STUB', value: 'Under 60' } },
       { value: { type: 'CONDITION_RULE', value: 'no' } },
@@ -173,6 +178,7 @@ const initialState: MainState = {
     [
       { value: { type: 'ADD_ACTION_ROW_BUTTON' } },
       { value: { type: 'ROW_NUMBER' } },
+      { value: { type: 'ACTION_HEADER', value: null } },
       { value: { type: 'ACTION_HEADER', value: 'Action' } },
       { value: { type: 'ACTION_HEADER', value: 'Action stub' } },
       { value: { type: 'ACTION_HEADER', value: null } },
@@ -183,6 +189,7 @@ const initialState: MainState = {
     [
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'ROW_NUMBER' } },
+      { value: { type: 'INVALID_FLAG' } },
       { value: { type: 'ACTION_NAME', value: 'Discount' } },
       { value: { type: 'ACTION_STUB', value: 'Yes' } },
       { value: { type: 'CONDITION_RULE', value: 'yes' } },
@@ -193,6 +200,7 @@ const initialState: MainState = {
     [
       { value: { type: 'REMOVE_ROW' } },
       { value: { type: 'ROW_NUMBER' } },
+      { value: { type: 'INVALID_FLAG' } },
       { value: { type: 'ACTION_NAME', value: '' } },
       { value: { type: 'ACTION_STUB', value: 'No' } },
       { value: { type: 'CONDITION_RULE', value: 'no' } },

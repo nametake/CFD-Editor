@@ -69,12 +69,14 @@ describe('toActions', () => {
         stub: [
           {
             id: 'action-stub-0-0',
+            type: 'valid',
             actionId: 'action-0',
             name: 'Action 1 one',
             location: { column: 2, row: 6 },
           },
           {
             id: 'action-stub-0-1',
+            type: 'valid',
             actionId: 'action-0',
             name: 'Action 1 two',
             location: { column: 2, row: 7 },
@@ -88,12 +90,14 @@ describe('toActions', () => {
         stub: [
           {
             id: 'action-stub-1-0',
+            type: 'valid',
             actionId: 'action-1',
             name: 'Action 2 one',
             location: { column: 2, row: 8 },
           },
           {
             id: 'action-stub-1-1',
+            type: 'valid',
             actionId: 'action-1',
             name: 'Action 2 two',
             location: { column: 2, row: 9 },
@@ -167,6 +171,7 @@ describe('toActions', () => {
         stub: [
           {
             id: 'action-stub-0-0',
+            type: 'valid',
             actionId: 'action-0',
             name: 'Action 1 one',
             location: { column: 2, row: 6 },
@@ -180,6 +185,7 @@ describe('toActions', () => {
         stub: [
           {
             id: 'action-stub-1-0',
+            type: 'valid',
             actionId: 'action-1',
             name: 'Action 2 two',
             location: { column: 2, row: 9 },
@@ -237,6 +243,7 @@ describe('toActions', () => {
         stub: [
           {
             id: 'action-stub-0-0',
+            type: 'valid',
             actionId: 'action-0',
             name: 'Action 1 one',
             location: { column: 2, row: 2 },
@@ -280,6 +287,7 @@ describe('toActions', () => {
         stub: [
           {
             id: 'action-stub-0-0',
+            type: 'valid',
             actionId: 'action-0',
             name: 'Action 1 one',
             location: { column: 2, row: 3 },
@@ -338,12 +346,14 @@ describe('toActions', () => {
         stub: [
           {
             id: 'action-stub-0-0',
+            type: 'valid',
             name: 'A',
             actionId: 'action-0',
             location: { column: 2, row: 3 },
           },
           {
             id: 'action-stub-0-1',
+            type: 'valid',
             name: 'B',
             actionId: 'action-0',
             location: { column: 2, row: 4 },
@@ -357,12 +367,14 @@ describe('toActions', () => {
         stub: [
           {
             id: 'action-stub-1-0',
+            type: 'valid',
             name: 'C',
             actionId: 'action-1',
             location: { column: 2, row: 5 },
           },
           {
             id: 'action-stub-1-1',
+            type: 'valid',
             name: 'D',
             actionId: 'action-1',
             location: { column: 2, row: 6 },

@@ -1,7 +1,7 @@
 import { CellType, Condition, ConditionStub } from '@/app/types';
 
 import { findActionRow } from './findActionRow';
-import { RowRange, getName } from './utils';
+import { RowRange, getInvalidType, getName } from './utils';
 
 const makeConditionId = (nameIndex: number) => `condition-${nameIndex}`;
 
@@ -66,6 +66,7 @@ export const toConditions = (
             }
             return {
               conditionId: makeConditionId(nameIndex),
+              type: getInvalidType(row),
               name,
               location: {
                 column: stubColumn,

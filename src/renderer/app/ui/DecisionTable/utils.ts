@@ -6,6 +6,7 @@ export const mapCellOption = (cell: CellType): CellType => {
     case 'ROW_NUMBER':
     case 'ADD_CONDITION_ROW_BUTTON':
     case 'ADD_ACTION_ROW_BUTTON':
+    case 'INVALID_FLAG':
     case 'REMOVE_ROW':
       return {
         ...cell,

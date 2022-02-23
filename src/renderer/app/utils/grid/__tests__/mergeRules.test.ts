@@ -34,6 +34,7 @@ describe('mergeRules', () => {
         stub: [
           {
             id: 'condition-0-0',
+            type: 'valid',
             conditionId: 'condition-0',
             name: 'Condition Stub 1',
             location: { column: 1, row: 1 },
@@ -49,6 +50,7 @@ describe('mergeRules', () => {
         stub: [
           {
             id: 'action-0-0',
+            type: 'valid',
             actionId: 'action-0',
             name: 'Action Stub 1',
             location: { column: 1, row: 3 },
@@ -124,6 +126,7 @@ describe('mergeRules', () => {
         stub: [
           {
             id: 'condition-0-0',
+            type: 'valid',
             conditionId: 'condition-0',
             name: 'Condition Stub 1',
             location: { column: 1, row: 1 },
@@ -139,6 +142,7 @@ describe('mergeRules', () => {
         stub: [
           {
             id: 'action-0-0',
+            type: 'valid',
             actionId: 'action-0',
             name: 'Action Stub 1',
             location: { column: 1, row: 5 },

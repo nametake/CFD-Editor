@@ -5,6 +5,7 @@ type Location = {
 
 export type ConditionStub = {
   id: string;
+  type: 'valid' | 'invalid';
   conditionId: string;
   name: string;
   location: Location;
@@ -19,6 +20,7 @@ export type Condition = {
 
 export type ActionStub = {
   id: string;
+  type: 'valid' | 'invalid';
   actionId: string;
   name: string;
   location: Location;
