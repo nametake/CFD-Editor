@@ -4,6 +4,7 @@ export type ValueType =
   | { type: 'EMPTY' }
   | { type: 'REMOVE_ROW'; onClick?: () => void }
   | { type: 'ROW_NUMBER'; value?: number }
+  | { type: 'INVALID_FLAG'; onClick?: () => void; value?: boolean }
   // Condition
   | { type: 'CONDITION_HEADER'; value: string | null }
   | { type: 'CONDITION_NAME'; value: string | null }
