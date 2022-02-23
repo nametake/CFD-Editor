@@ -8,33 +8,38 @@ export const filterInvalidRules = (
   const invalidConditionStubIds = conditions.flatMap((condition) =>
     condition.stub.filter((s) => s.type === 'invalid').map((s) => s.id)
   );
-  const invalidAcitonStubIds = actions.flatMap((action) =>
+  const isInvalidConditionStubId = (id: string): boolean =>
+    !!invalidConditionStubIds.find((stubId) => stubId === id);
+
+  const invalidActionStubIds = actions.flatMap((action) =>
     action.stub.filter((s) => s.type === 'invalid').map((s) => s.id)
   );
+  const isInvalidActionStubId = (id: string): boolean =>
+    !!invalidActionStubIds.find((stubId) => stubId === id);
 
   const set = new Set<string>();
 
   return rules.reduce<Rule[]>((prev, rule) => {
-    const isAllInvalidIds = rule.actionStubIds.every((ruleActionId) =>
-      invalidAcitonStubIds.find((id) => id === ruleActionId)
+    const isAllInvalidIds = rule.actionStubIds.every((id) =>
+      isInvalidActionStubId(id)
     );
     if (!isAllInvalidIds) {
       return [...prev, rule];
     }
 
     const invalidIds = rule.conditionStubIds.filter((id) =>
-      invalidConditionStubIds.find((i) => i === id)
+      isInvalidConditionStubId(id)
     );
     if (invalidIds.length === 0) {
       return [...prev, rule];
     }
 
-    const exist = invalidIds.find((id) => !set.has(id));
-    if (exist === undefined) {
+    const existId = invalidIds.find((id) => !set.has(id));
+    if (existId === undefined) {
       return prev;
     }
 
-    set.add(exist);
+    set.add(existId);
     return [...prev, rule];
   }, []);
 };
