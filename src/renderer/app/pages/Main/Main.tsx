@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 
 const CauseFlowWrapper = styled.div`
   height: 40%;
-  min-height: 512px;
+  min-height: 480px;
   border: 1px solid #888;
 `;
 

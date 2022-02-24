@@ -116,6 +116,12 @@ export const useMain = (args?: UseMainArgs): UseMainResult => {
           payload: { connection },
         });
       }, []),
+      onClickRemoveAllEdgesButton: useCallback(() => {
+        dispatch({ type: 'CAUSE_FLOW/REMOVE_ALL_EDGES' });
+      }, []),
+      onClickAlignNodes: useCallback(() => {
+        dispatch({ type: 'CAUSE_FLOW/ALIGN_NODES' });
+      }, []),
     },
     decisionTableProps: {
       data: state.grid.map((row, rowNumber) =>
