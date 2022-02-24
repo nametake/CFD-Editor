@@ -1,5 +1,9 @@
 import React from 'react';
-import ReactFlow, { Background, ReactFlowProps } from 'react-flow-renderer';
+import ReactFlow, {
+  Background,
+  Controls,
+  ReactFlowProps,
+} from 'react-flow-renderer';
 
 import styled from '@emotion/styled';
 
@@ -48,6 +52,7 @@ export const CauseFlow = function CauseFlow({
       edges={edges.map(mapEdgeZIndex)}
       {...props}
     >
+      <Controls />
       <Background color="#888" gap={16} />
     </StyledReactFlow>
   );
