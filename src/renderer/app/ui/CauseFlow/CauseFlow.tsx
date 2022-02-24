@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactFlow, {
   Background,
-  Controls,
+  Controls as ReactFlowControls,
   ReactFlowProps,
 } from 'react-flow-renderer';
 
@@ -33,6 +33,25 @@ export type CauseFlowProps = Omit<
   edges: Edge[];
 };
 
+const Controls = styled.div`
+  position: absolute;
+  z-index: 5;
+  top: 20px;
+  right: 15px;
+`;
+
+const ControlButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #eee;
+  background: #fefefe;
+  cursor: pointer;
+  user-select: none;
+`;
+
+ControlButton.defaultProps = { type: 'button' };
+
 const StyledReactFlow = styled(ReactFlow)`
   width: 100%;
   height: 100%;
@@ -52,7 +71,11 @@ export const CauseFlow = function CauseFlow({
       edges={edges.map(mapEdgeZIndex)}
       {...props}
     >
-      <Controls />
+      <Controls>
+        <ControlButton type="button">Remove all edges</ControlButton>
+        <ControlButton type="button">Align nodes</ControlButton>
+      </Controls>
+      <ReactFlowControls />
       <Background color="#888" gap={16} />
     </StyledReactFlow>
   );
