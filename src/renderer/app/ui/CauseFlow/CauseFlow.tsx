@@ -9,7 +9,6 @@ import styled from '@emotion/styled';
 import { FaEraser } from 'react-icons/fa';
 import { RiAlignTop } from 'react-icons/ri';
 
-
 import { Edge, EdgeType, Node, NodeType } from '@/app/types';
 import { CauseNode } from '@/app/ui/CauseNode';
 import { Edge as EdgeComponent } from '@/app/ui/Edge';
@@ -56,6 +55,10 @@ const ControlButton = styled.button`
   background: #fefefe;
   cursor: pointer;
   user-select: none;
+
+  :hover {
+    background: #f4f4f4;
+  }
 `;
 
 ControlButton.defaultProps = { type: 'button' };
@@ -80,10 +83,10 @@ export const CauseFlow = function CauseFlow({
       {...props}
     >
       <Controls>
-        <ControlButton type="button">
+        <ControlButton type="button" title="Remove all edges">
           <FaEraser />
         </ControlButton>
-        <ControlButton type="button">
+        <ControlButton type="button" title="Align all nodes">
           <RiAlignTop />
         </ControlButton>
       </Controls>
