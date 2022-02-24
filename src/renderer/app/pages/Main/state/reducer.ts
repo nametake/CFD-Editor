@@ -28,6 +28,11 @@ const actionReducer: Reducer<MainState, MainAction> = (
         edges: [],
       };
     }
+    case 'CAUSE_FLOW/ALIGN_NODES': {
+      return {
+        ...prev,
+      };
+    }
     case 'CAUSE_FLOW/CHANGED_NODES': {
       return {
         ...prev,
@@ -149,6 +154,7 @@ const createNodesReducer: Reducer<MainState, MainAction> = (
     case 'CAUSE_FLOW/CLICK_REMOVE_EDGE':
     case 'DECISION_TABLE/CHANGE_INVALID_FLAG':
       return { ...state, nodes: nextNodes };
+    case 'CAUSE_FLOW/ALIGN_NODES':
     case 'DECISION_TABLE/CHANGED_CELLS':
     case 'DECISION_TABLE/CLICK_ADD_CONDITION_ROW':
     case 'DECISION_TABLE/CLICK_ADD_ACTION_ROW':
