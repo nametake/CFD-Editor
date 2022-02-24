@@ -22,6 +22,12 @@ const actionReducer: Reducer<MainState, MainAction> = (
   action: MainAction
 ): MainState => {
   switch (action.type) {
+    case 'CAUSE_FLOW/REMOVE_ALL_EDGES': {
+      return {
+        ...prev,
+        edges: [],
+      };
+    }
     case 'CAUSE_FLOW/CHANGED_NODES': {
       return {
         ...prev,
@@ -136,6 +142,7 @@ const createNodesReducer: Reducer<MainState, MainAction> = (
   );
 
   switch (action.type) {
+    case 'CAUSE_FLOW/REMOVE_ALL_EDGES':
     case 'CAUSE_FLOW/CHANGED_NODES':
     case 'CAUSE_FLOW/DRAG_STOP':
     case 'CAUSE_FLOW/ADDED_CONNECTION':
