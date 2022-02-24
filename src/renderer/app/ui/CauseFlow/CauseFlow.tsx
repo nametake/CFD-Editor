@@ -6,6 +6,9 @@ import ReactFlow, {
 } from 'react-flow-renderer';
 
 import styled from '@emotion/styled';
+import { FaEraser } from 'react-icons/fa';
+import { RiAlignTop } from 'react-icons/ri';
+
 
 import { Edge, EdgeType, Node, NodeType } from '@/app/types';
 import { CauseNode } from '@/app/ui/CauseNode';
@@ -36,15 +39,20 @@ export type CauseFlowProps = Omit<
 const Controls = styled.div`
   position: absolute;
   z-index: 5;
-  top: 20px;
+  top: 15px;
   right: 15px;
+  box-shadow: 0 0 1px 1px rgb(0 0 0 / 8%);
 `;
 
 const ControlButton = styled.button`
   display: flex;
+  width: 26px;
+  height: 26px;
   align-items: center;
   justify-content: center;
-  border: 2px solid #eee;
+  padding: 0;
+  border: none;
+  border-bottom: 1px solid #eee;
   background: #fefefe;
   cursor: pointer;
   user-select: none;
@@ -72,8 +80,12 @@ export const CauseFlow = function CauseFlow({
       {...props}
     >
       <Controls>
-        <ControlButton type="button">Remove all edges</ControlButton>
-        <ControlButton type="button">Align nodes</ControlButton>
+        <ControlButton type="button">
+          <FaEraser />
+        </ControlButton>
+        <ControlButton type="button">
+          <RiAlignTop />
+        </ControlButton>
       </Controls>
       <ReactFlowControls />
       <Background color="#888" gap={16} />
