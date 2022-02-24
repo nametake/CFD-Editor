@@ -33,6 +33,8 @@ export type CauseFlowProps = Omit<
 > & {
   nodes: Node[];
   edges: Edge[];
+  onClickRemoveAllEdgesButton?: () => void;
+  onClickAlignNodes?: () => void;
 };
 
 const Controls = styled.div`
@@ -72,6 +74,8 @@ const StyledReactFlow = styled(ReactFlow)`
 export const CauseFlow = function CauseFlow({
   nodes,
   edges,
+  onClickRemoveAllEdgesButton,
+  onClickAlignNodes,
   ...props
 }: CauseFlowProps): JSX.Element {
   return (
@@ -83,10 +87,18 @@ export const CauseFlow = function CauseFlow({
       {...props}
     >
       <Controls>
-        <ControlButton type="button" title="Remove all edges">
+        <ControlButton
+          type="button"
+          title="Remove all edges"
+          onClick={onClickRemoveAllEdgesButton}
+        >
           <FaEraser />
         </ControlButton>
-        <ControlButton type="button" title="Align all nodes">
+        <ControlButton
+          type="button"
+          title="Align all nodes"
+          onClick={onClickAlignNodes}
+        >
           <RiAlignTop />
         </ControlButton>
       </Controls>
