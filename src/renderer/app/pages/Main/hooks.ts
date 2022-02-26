@@ -54,7 +54,7 @@ const mapCellEvent =
       }
 
       if (cell.value.type === 'INVALID_FLAG') {
-        const handleClick = () => {
+        const handleChange = () => {
           dispatch({
             type: 'DECISION_TABLE/CHANGE_INVALID_FLAG',
             payload: { row: rowNumber },
@@ -64,7 +64,7 @@ const mapCellEvent =
           ...cell,
           value: {
             ...cell.value,
-            onClick: handleClick,
+            onChange: handleChange,
           },
         };
       }

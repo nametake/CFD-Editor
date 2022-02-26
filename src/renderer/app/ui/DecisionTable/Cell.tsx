@@ -147,7 +147,7 @@ export const Cell: ReactDataSheet.CellRenderer<CellType> = function Cell({
           <input
             type="checkbox"
             checked={cell.value.value}
-            onClick={cell.value.onClick}
+            onChange={cell.value.onChange}
           />
         </FlagCell>
       );

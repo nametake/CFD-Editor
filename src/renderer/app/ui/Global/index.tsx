@@ -194,10 +194,11 @@ const normalize = css`
      ========================================================================== */
   /*
    * Correct overflow not hidden in IE 9/10/11.
+   * NOTE: https://github.com/wbkd/react-flow/issues/1820
    */
-  svg:not(:root) {
+  /* svg:not(:root) {
     overflow: hidden;
-  }
+  } */
 
   /* ==========================================================================
      Grouping content

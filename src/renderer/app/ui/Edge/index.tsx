@@ -78,14 +78,9 @@ export const Edge = function Edge({
         height={foreignObjectSize}
         x={edgeCenterX - foreignObjectSize / 2}
         y={edgeCenterY - foreignObjectSize / 2}
-        className="edgebutton-foreignobject"
         requiredExtensions="http://www.w3.org/1999/xhtml"
       >
-        <body>
-          <Button className="edgebutton" onClick={handleClick}>
-            ×
-          </Button>
-        </body>
+        <Button onClick={handleClick}>×</Button>
       </foreignObject>
     </>
   );
