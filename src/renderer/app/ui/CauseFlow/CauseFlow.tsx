@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactFlow, {
   Background,
-  Controls as ReactFlowControls,
+  Controls,
   ReactFlowProps,
 } from 'react-flow-renderer';
 
@@ -37,7 +37,7 @@ export type CauseFlowProps = Omit<
   onClickAlignNodes?: () => void;
 };
 
-const Controls = styled.div`
+const NodesControls = styled.div`
   position: absolute;
   z-index: 5;
   top: 15px;
@@ -45,7 +45,7 @@ const Controls = styled.div`
   box-shadow: 0 0 1px 1px rgb(0 0 0 / 8%);
 `;
 
-const ControlButton = styled.button`
+const NodesControlButton = styled.button`
   display: flex;
   width: 26px;
   height: 26px;
@@ -63,7 +63,22 @@ const ControlButton = styled.button`
   }
 `;
 
-ControlButton.defaultProps = { type: 'button' };
+NodesControlButton.defaultProps = { type: 'button' };
+
+const EdgeLabelControl = styled.div`
+  position: absolute;
+  z-index: 5;
+  right: 10px;
+  bottom: 20px;
+`;
+
+const Text = styled.div`
+  font-size: 8px;
+`;
+
+const Input = styled.input`
+  width: 100px;
+`;
 
 const StyledReactFlow = styled(ReactFlow)`
   width: 100%;
@@ -86,23 +101,27 @@ export const CauseFlow = function CauseFlow({
       edges={edges.map(mapEdgeZIndex)}
       {...props}
     >
-      <Controls>
-        <ControlButton
+      <NodesControls>
+        <NodesControlButton
           type="button"
           title="Remove all edges"
           onClick={onClickRemoveAllEdgesButton}
         >
           <FaEraser />
-        </ControlButton>
-        <ControlButton
+        </NodesControlButton>
+        <NodesControlButton
           type="button"
           title="Align all nodes"
           onClick={onClickAlignNodes}
         >
           <RiAlignTop />
-        </ControlButton>
-      </Controls>
-      <ReactFlowControls />
+        </NodesControlButton>
+      </NodesControls>
+      <EdgeLabelControl>
+        <Text>Edge label</Text>
+        <Input />
+      </EdgeLabelControl>
+      <Controls />
       <Background color="#888" gap={16} />
     </StyledReactFlow>
   );
