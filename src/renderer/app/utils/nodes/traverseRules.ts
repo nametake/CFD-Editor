@@ -9,8 +9,7 @@ const traverse = (
 ): Rule[] => {
   switch (currentNode?.type) {
     case 'cause': {
-      const edge = edges.find((e) => currentNode.id === e.source);
-
+      const causeEdges = edges.filter((e) => currentNode.id === e.source);
       const elementNodes = nodes.filter((n) => n.parentNode === currentNode.id);
 
       return elementNodes.flatMap((element) => {
@@ -20,12 +19,12 @@ const traverse = (
         }
         const nextEdges: Edge[] = [
           ...edges,
-          edge && {
+          ...causeEdges.map((edge) => ({
             id: `traverse-${element.id}-${edge.id}`,
             source: element.id,
             target: edge.target,
             type: 'removable',
-          },
+          })),
         ].filter((e): e is Edge => !!e);
         return traverse(currentRule, element, nodes, nextEdges);
       });
@@ -34,16 +33,17 @@ const traverse = (
       const connectedEdges = edges.filter(
         (edge) => edge.source === currentNode.id
       );
-      const nextNodes = nodes.filter((node) =>
-        connectedEdges.find((edge) => node.id === edge.target)
-      );
       const nextRule: Rule = {
         ...currentRule,
         conditionStubIds: [...currentRule.conditionStubIds, currentNode.id],
       };
-      return nextNodes.flatMap((nextNode) => {
+      return connectedEdges.flatMap((edge) => {
+        const nextNode = nodes.find((node) => node.id === edge.target);
         // loop check
-        if (nextNode.id && currentRule.conditionStubIds.includes(nextNode.id)) {
+        if (
+          nextNode?.id &&
+          currentRule.conditionStubIds.includes(nextNode.id)
+        ) {
           return [];
         }
         return traverse(nextRule, nextNode, nodes, edges);
@@ -80,13 +80,17 @@ export const traverseRules = (nodes: Node[], edges: Edge[]): Rule[] => {
     ]);
   });
 
-  return [...map.values()].map((value) => value.reduce((prev, rule) => {
-      if (!prev) {
-        return rule;
-      }
-      return {
-        ...prev,
-        actionStubIds: [...prev.actionStubIds, ...rule.actionStubIds],
-      };
-    }), null);
+  return [...map.values()].map(
+    (value) =>
+      value.reduce((prev, rule) => {
+        if (!prev) {
+          return rule;
+        }
+        return {
+          ...prev,
+          actionStubIds: [...prev.actionStubIds, ...rule.actionStubIds],
+        };
+      }),
+    null
+  );
 };
