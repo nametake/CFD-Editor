@@ -77,7 +77,7 @@ const Text = styled.div`
 `;
 
 const Input = styled.input`
-  width: 100px;
+  width: 80px;
 `;
 
 const StyledReactFlow = styled(ReactFlow)`
@@ -118,7 +118,7 @@ export const CauseFlow = function CauseFlow({
         </NodesControlButton>
       </NodesControls>
       <EdgeLabelControl>
-        <Text>Edge label</Text>
+        <Text>Edge ID</Text>
         <Input />
       </EdgeLabelControl>
       <Controls />
