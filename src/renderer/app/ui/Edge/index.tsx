@@ -62,7 +62,7 @@ export const Edge = function Edge({
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       e.stopPropagation();
-      data?.onClickRemove();
+      data?.onClickRemove?.();
     },
     [data]
   );

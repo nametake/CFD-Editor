@@ -580,4 +580,138 @@ describe('traverseRules', () => {
 
     expect(traverseRules(nodes, edges)).toStrictEqual(expected);
   });
+
+  test('label routes', () => {
+    const nodes: Node[] = [
+      {
+        id: 'cause-1',
+        data: { label: { text: 'Cause1' } },
+        type: 'cause',
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'cause-1-element-1',
+        data: { label: 'Cause1 Element1' },
+        parentNode: 'cause-1',
+        type: 'element',
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'cause-1-element-2',
+        data: { label: 'Cuase1 Element2' },
+        parentNode: 'cause-1',
+        type: 'element',
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'cause-2',
+        data: { label: { text: 'Cause2' } },
+        type: 'cause',
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'cause-2-element-1',
+        data: { label: 'Cuase2 Element1' },
+        parentNode: 'cause-2',
+        type: 'element',
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'cause-2-element-2',
+        data: { label: 'Cuase2 Element2' },
+        parentNode: 'cause-2',
+        type: 'element',
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'action-1',
+        data: { label: 'Action 1' },
+        type: 'result',
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'action-2',
+        data: { label: 'Action 2' },
+        type: 'result',
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: 'action-3',
+        data: { label: 'Action 3' },
+        type: 'result',
+        position: { x: 0, y: 0 },
+      },
+    ];
+
+    const edges: Edge[] = [
+      // cause-1-element-1 to cause2 edges
+      {
+        id: '1',
+        source: 'cause-1-element-1',
+        target: 'cause-2-element-1',
+        type: 'removable',
+      },
+      {
+        id: '2',
+        source: 'cause-1-element-1',
+        target: 'cause-2-element-2',
+        type: 'removable',
+      },
+      // cause-1-element-2 to cause2 edges
+      {
+        id: '3',
+        source: 'cause-1-element-2',
+        target: 'cause-2-element-1',
+        type: 'removable',
+      },
+      {
+        id: '4',
+        source: 'cause-1-element-2',
+        target: 'cause-2-element-2',
+        type: 'removable',
+        data: { label: 'A' },
+      },
+      // actions
+      {
+        id: '5',
+        source: 'cause-2-element-1',
+        target: 'action-1',
+        type: 'removable',
+      },
+      {
+        id: '6',
+        source: 'cause-2-element-2',
+        target: 'action-2',
+        type: 'removable',
+      },
+      {
+        id: '7',
+        source: 'cause-2-element-2',
+        target: 'action-3',
+        type: 'removable',
+        data: { label: 'A' },
+      },
+    ];
+
+    const expected: Rule[] = [
+      {
+        conditionStubIds: ['cause-1-element-1', 'cause-2-element-1'],
+        actionStubIds: ['action-1'],
+      },
+      {
+        conditionStubIds: ['cause-1-element-2', 'cause-2-element-1'],
+        actionStubIds: ['action-1'],
+      },
+      {
+        conditionStubIds: ['cause-1-element-1', 'cause-2-element-2'],
+        actionStubIds: ['action-2'],
+      },
+      {
+        conditionStubIds: ['cause-1-element-2', 'cause-2-element-2'],
+        actionStubIds: ['action-3'],
+      },
+    ];
+
+    expect(traverseRules(nodes, edges)).toStrictEqual(expected);
+  });
 });
