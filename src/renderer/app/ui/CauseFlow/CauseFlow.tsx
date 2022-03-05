@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import ReactFlow, {
   Background,
   Controls,
@@ -35,7 +35,7 @@ export type CauseFlowProps = Omit<
   edges: Edge[];
   onClickRemoveAllEdgesButton?: () => void;
   onClickAlignNodes?: () => void;
-  onChangeEdgeId?: () => void;
+  onChangeEdgeId?: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const NodesControls = styled.div`

@@ -9,6 +9,7 @@ export type MainState = {
   nodes: Node[];
   edges: Edge[];
   grid: CellType[][];
+  edgeId?: string;
 };
 
 export const initialState: MainState = {

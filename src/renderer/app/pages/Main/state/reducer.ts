@@ -57,6 +57,12 @@ const actionReducer: Reducer<MainState, MainAction> = (
         edges: prev.edges.filter((edge) => edge.id !== action.payload.id),
       };
     }
+    case 'CAUSE_FLOW/CHANGE_EDGE_ID': {
+      return {
+        ...prev,
+        edgeId: action.payload.edgeId,
+      };
+    }
     case 'DECISION_TABLE/CHANGE_INVALID_FLAG': {
       const rowIndex = action.payload.row;
       return {
@@ -152,6 +158,7 @@ const createNodesReducer: Reducer<MainState, MainAction> = (
     case 'CAUSE_FLOW/DRAG_STOP':
     case 'CAUSE_FLOW/ADDED_CONNECTION':
     case 'CAUSE_FLOW/CLICK_REMOVE_EDGE':
+    case 'CAUSE_FLOW/CHANGE_EDGE_ID':
     case 'DECISION_TABLE/CHANGE_INVALID_FLAG':
       return { ...state, nodes: nextNodes };
     case 'CAUSE_FLOW/ALIGN_NODES':

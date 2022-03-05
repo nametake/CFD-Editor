@@ -1,4 +1,4 @@
-import { Dispatch, useCallback, useReducer } from 'react';
+import { ChangeEvent, Dispatch, useCallback, useReducer } from 'react';
 import ReactDataSheet from 'react-datasheet';
 import { Connection, NodeChange } from 'react-flow-renderer';
 
@@ -121,6 +121,13 @@ export const useMain = (args?: UseMainArgs): UseMainResult => {
       }, []),
       onClickAlignNodes: useCallback(() => {
         dispatch({ type: 'CAUSE_FLOW/ALIGN_NODES' });
+      }, []),
+      onChangeEdgeId: useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        dispatch({
+          type: 'CAUSE_FLOW/CHANGE_EDGE_ID',
+          payload: { edgeId: value },
+        });
       }, []),
     },
     decisionTableProps: {
