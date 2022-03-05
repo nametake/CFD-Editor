@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import {
+  EdgeText,
   EdgeProps as ReactFlowEdgeProps,
   getBezierPath,
   getEdgeCenter,
@@ -13,7 +14,7 @@ const foreignObjectSize = 24;
 
 const Path = styled.path`
   stroke: #b1b1b7;
-  stroke-width: 1px;
+  stroke-width: 2px;
 `;
 
 const Button = styled.button`
@@ -60,7 +61,7 @@ export const Edge = function Edge({
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       e.stopPropagation();
-      data?.onClickRemove();
+      data?.onClickRemove?.();
     },
     [data]
   );
@@ -82,6 +83,13 @@ export const Edge = function Edge({
       >
         <Button onClick={handleClick}>×</Button>
       </foreignObject>
+      {data?.label && (
+        <EdgeText
+          x={edgeCenterX}
+          y={34 + edgeCenterY - foreignObjectSize / 2}
+          label={data?.label}
+        />
+      )}
     </>
   );
 };

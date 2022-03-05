@@ -32,7 +32,8 @@ export type ResultNodeType = Omit<ReactFlowNode<NodeDataType>, 'type'> & {
 export type Node = CauseNodeType | ElementNodeType | ResultNodeType;
 
 export type EdgeDataType = {
-  onClickRemove: () => void;
+  label?: string;
+  onClickRemove?: () => void;
 };
 
 export type Edge = Omit<ReactFlowEdge<EdgeDataType>, 'type'> & {
