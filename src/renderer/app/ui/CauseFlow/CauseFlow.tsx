@@ -35,6 +35,7 @@ export type CauseFlowProps = Omit<
   edges: Edge[];
   onClickRemoveAllEdgesButton?: () => void;
   onClickAlignNodes?: () => void;
+  onChangeEdgeId?: () => void;
 };
 
 const NodesControls = styled.div`
@@ -91,6 +92,7 @@ export const CauseFlow = function CauseFlow({
   edges,
   onClickRemoveAllEdgesButton,
   onClickAlignNodes,
+  onChangeEdgeId,
   ...props
 }: CauseFlowProps): JSX.Element {
   return (
@@ -119,7 +121,7 @@ export const CauseFlow = function CauseFlow({
       </NodesControls>
       <EdgeLabelControl>
         <Text>Edge ID</Text>
-        <Input />
+        <Input onChange={onChangeEdgeId} />
       </EdgeLabelControl>
       <Controls />
       <Background color="#888" gap={16} />
