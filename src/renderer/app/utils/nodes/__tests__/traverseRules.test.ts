@@ -523,7 +523,7 @@ describe('traverseRules', () => {
     });
   });
 
-  test('connected multiple action ndoes', () => {
+  test('connected multiple action nodes', () => {
     const nodes: Node[] = [
       {
         id: 'cause-1',
@@ -699,12 +699,12 @@ describe('traverseRules', () => {
         actionStubIds: ['action-1'],
       },
       {
-        conditionStubIds: ['cause-1-element-2', 'cause-2-element-1'],
-        actionStubIds: ['action-1'],
-      },
-      {
         conditionStubIds: ['cause-1-element-1', 'cause-2-element-2'],
         actionStubIds: ['action-2'],
+      },
+      {
+        conditionStubIds: ['cause-1-element-2', 'cause-2-element-1'],
+        actionStubIds: ['action-1'],
       },
       {
         conditionStubIds: ['cause-1-element-2', 'cause-2-element-2'],

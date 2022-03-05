@@ -59,28 +59,39 @@ const traverse = (
 };
 
 export const traverseRules = (nodes: Node[], edges: Edge[]): Rule[] => {
+  const edgesMap = edges.reduce<Map<string, Edge[]>>((map, edge) => {
+    const key = edge.data?.label ?? '';
+    const prevEdges = map.get(key);
+    map.set(key, [...(prevEdges ?? []), edge]);
+    return map;
+  }, new Map());
+
   const startNode = nodes.find((node) => node.type === 'cause');
   if (!startNode) {
     return [];
   }
-  const rules = traverse(
-    { conditionStubIds: [], actionStubIds: [] },
-    startNode,
-    nodes,
-    edges
+
+  type RuleWithLabel = Rule & { label: string };
+  const rules = [...edgesMap.values()].flatMap((e) =>
+    traverse(
+      { conditionStubIds: [], actionStubIds: [] },
+      startNode,
+      nodes,
+      e
+    ).map<RuleWithLabel>((r) => ({ ...r, label: e?.[0]?.data?.label ?? '' }))
   );
 
-  const map = new Map<string, Rule[]>();
+  const rulesMap = rules.reduce<Map<string, Rule[]>>(
+    (map, { label, ...rule }) => {
+      const key = `${rule.conditionStubIds.join(':')}:${label}`;
+      const prevRules = map.get(key);
+      map.set(key, [...(prevRules ?? []), rule]);
+      return map;
+    },
+    new Map()
+  );
 
-  rules.forEach((rule) => {
-    const prevRules = map.get(JSON.stringify(rule.conditionStubIds));
-    map.set(JSON.stringify(rule.conditionStubIds), [
-      ...(prevRules ?? []),
-      rule,
-    ]);
-  });
-
-  return [...map.values()].map(
+  return [...rulesMap.values()].map(
     (value) =>
       value.reduce((prev, rule) => {
         if (!prev) {
