@@ -48,7 +48,14 @@ const actionReducer: Reducer<MainState, MainAction> = (
     case 'CAUSE_FLOW/ADDED_CONNECTION': {
       return {
         ...prev,
-        edges: addEdge(action.payload.connection, prev.edges),
+        edges: addEdge(
+          {
+            ...action.payload.connection,
+            label: prev.edgeId,
+            data: { label: prev.edgeId },
+          },
+          prev.edges
+        ),
       };
     }
     case 'CAUSE_FLOW/CLICK_REMOVE_EDGE': {

@@ -77,6 +77,7 @@ const mapEdgeEvent =
     (edge: Edge): Edge => ({
       ...edge,
       data: {
+        ...edge.data,
         onClickRemove: () => {
           dispatch({
             type: 'CAUSE_FLOW/CLICK_REMOVE_EDGE',

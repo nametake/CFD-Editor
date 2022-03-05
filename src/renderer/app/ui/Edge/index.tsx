@@ -42,7 +42,6 @@ export const Edge = function Edge({
   targetPosition,
   style = {},
   data,
-  label,
   markerEnd,
 }: EdgeProps): JSX.Element {
   const edgePath = getBezierPath({
@@ -84,11 +83,11 @@ export const Edge = function Edge({
       >
         <Button onClick={handleClick}>×</Button>
       </foreignObject>
-      {label && (
+      {data?.label && (
         <EdgeText
           x={edgeCenterX}
           y={34 + edgeCenterY - foreignObjectSize / 2}
-          label={label}
+          label={data?.label}
         />
       )}
     </>
