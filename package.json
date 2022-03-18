@@ -91,7 +91,7 @@
     "html-webpack-plugin": "5.5.0",
     "husky": "7.0.4",
     "jest": "27.5.1",
-    "lint-staged": "12.3.6",
+    "lint-staged": "12.3.7",
     "node-loader": "2.0.0",
     "postcss": "8.4.12",
     "postcss-scss": "4.0.3",
