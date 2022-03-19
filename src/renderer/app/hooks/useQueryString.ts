@@ -6,15 +6,11 @@ type QueryStringIO<S> = {
   from: (t: URLSearchParams) => S;
 };
 
-export type UseQueryStringArgs<T> = {
-  initialState: T;
-  io: QueryStringIO<T>;
-};
 
-export function useQueryString<T>({
-  initialState,
-  io,
-}: UseQueryStringArgs<T>): [T, (v: T) => void] {
+export function useQueryString<S>(
+  initialState: S,
+  io: QueryStringIO<S>,
+): [S, (v: S) => void] {
   const [searchParams, setSearchParams] = useSearchParams();
   const [desiredState, setDesiredState] = useState(() =>
     [...searchParams.keys()].length !== 0 ? io.from(searchParams) : initialState
@@ -31,19 +27,14 @@ export function useQueryString<T>({
   return [desiredState, setDesiredState];
 }
 
-export type UseQueryStringReducerArgs<T, A> = {
-  reducer: Reducer<T, A>
-  initialState: T;
-  io: QueryStringIO<T>;
-};
 
-export function useQueryStringReducer<S, A>({ reducer, initialState, io }: UseQueryStringReducerArgs<S, A>
+export function useQueryStringReducer<S, A>(
+  reducer: Reducer<S, A>,
+  initialState: S,
+  io: QueryStringIO<S>,
 ): [S, Dispatch<A>] {
 
-  const [state, setState] = useQueryString({
-    initialState,
-    io,
-  });
+  const [state, setState] = useQueryString(initialState, io,);
 
   const dispatch = useCallback(
     (action: A) => setState(reducer(state, action)),
