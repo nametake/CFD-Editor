@@ -1,7 +1,8 @@
-import { ChangeEvent, Dispatch, useCallback, useReducer } from 'react';
+import { ChangeEvent, Dispatch, useCallback, } from 'react';
 import ReactDataSheet from 'react-datasheet';
 import { Connection, NodeChange } from 'react-flow-renderer';
 
+import { useQueryStringReducer } from '@/app/hooks/useQueryString';
 import { CellType, Edge } from '@/app/types';
 import { CauseFlowProps } from '@/app/ui/CauseFlow';
 import { DecisionTableProps } from '@/app/ui/DecisionTable';
@@ -97,9 +98,15 @@ type UseMainResult = {
 };
 
 export const useMain = (args?: UseMainArgs): UseMainResult => {
-  const [state, dispatch] = useReducer(
+  const [state, dispatch] = useQueryStringReducer(
     reducer,
-    args?.initialState ?? initialState
+    args?.initialState ?? initialState,
+    {
+      from: () => initialState, to: (s) => {
+        const { value } = s.grid[1][3]
+        return new URLSearchParams({ data: value.type === 'CONDITION_NAME' ? value.value ?? '' : '' })
+      }
+    }
   );
   return {
     causeFlowProps: {
@@ -107,29 +114,29 @@ export const useMain = (args?: UseMainArgs): UseMainResult => {
       edges: state.edges.map(mapEdgeEvent(dispatch)),
       onNodesChange: useCallback((changes: NodeChange[]) => {
         dispatch({ type: 'CAUSE_FLOW/CHANGED_NODES', payload: { changes } });
-      }, []),
+      }, [dispatch]),
       onNodeDragStop: useCallback(() => {
         dispatch({ type: 'CAUSE_FLOW/DRAG_STOP' });
-      }, []),
+      }, [dispatch]),
       onConnect: useCallback((connection: Connection) => {
         dispatch({
           type: 'CAUSE_FLOW/ADDED_CONNECTION',
           payload: { connection },
         });
-      }, []),
+      }, [dispatch]),
       onClickRemoveAllEdgesButton: useCallback(() => {
         dispatch({ type: 'CAUSE_FLOW/REMOVE_ALL_EDGES' });
-      }, []),
+      }, [dispatch]),
       onClickAlignNodes: useCallback(() => {
         dispatch({ type: 'CAUSE_FLOW/ALIGN_NODES' });
-      }, []),
+      }, [dispatch]),
       onChangeEdgeId: useCallback((e: ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
         dispatch({
           type: 'CAUSE_FLOW/CHANGE_EDGE_ID',
           payload: { edgeId: value },
         });
-      }, []),
+      }, [dispatch]),
     },
     decisionTableProps: {
       data: state.grid.map((row, rowNumber) =>
@@ -142,7 +149,7 @@ export const useMain = (args?: UseMainArgs): UseMainResult => {
             payload: { changes },
           });
         },
-        []
+        [dispatch]
       ),
     },
   };
