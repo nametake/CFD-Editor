@@ -1,7 +1,7 @@
 import { Dispatch, Reducer, useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-type QueryStringIO<S> = {
+export type QueryStringIO<S> = {
   to: (t: S) => URLSearchParams;
   from: (t: URLSearchParams) => S;
 };
