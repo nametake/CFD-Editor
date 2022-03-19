@@ -14,7 +14,6 @@ export function useQueryStringReducer<S, A>(
   const [searchParams, setSearchParams] = useSearchParams();
   const [state, setState] = useState([...searchParams.keys()].length !== 0 ? io.from(searchParams) : initialState);
 
-
   const dispatch = useCallback(
     (action: A) => {
       const next = reducer(state, action)

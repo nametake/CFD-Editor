@@ -102,7 +102,8 @@ export const useMain = (args?: UseMainArgs): UseMainResult => {
     reducer,
     args?.initialState ?? initialState,
     {
-      from: () => initialState, to: (s) => {
+      from: () => initialState,
+      to: (s) => {
         const { value } = s.grid[1][3]
         return new URLSearchParams({ data: value.type === 'CONDITION_NAME' ? value.value ?? '' : '' })
       }
