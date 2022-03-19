@@ -2,7 +2,7 @@ import { ChangeEvent, Dispatch, useCallback, } from 'react';
 import ReactDataSheet from 'react-datasheet';
 import { Connection, NodeChange } from 'react-flow-renderer';
 
-import { useQueryStringReducer } from '@/app/hooks/useQueryString';
+import { useQueryStringReducer } from '@/app/hooks/useQueryStringReducer';
 import { CellType, Edge } from '@/app/types';
 import { CauseFlowProps } from '@/app/ui/CauseFlow';
 import { DecisionTableProps } from '@/app/ui/DecisionTable';
