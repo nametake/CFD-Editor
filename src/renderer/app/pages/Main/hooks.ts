@@ -7,8 +7,10 @@ import {
   useQueryStringReducer,
 } from '@/app/hooks/useQueryStringReducer';
 import { CellType, Edge } from '@/app/types';
+import { StoreModel } from '@/app/types/store';
 import { CauseFlowProps } from '@/app/ui/CauseFlow';
 import { DecisionTableProps } from '@/app/ui/DecisionTable';
+import { Store } from '@/app/utils/store';
 
 import { MainAction, MainState, initialState, reducer } from './state';
 
@@ -96,14 +98,24 @@ type UseMainArgs = {
 };
 
 const queryStringIO: QueryStringIO<MainState> = {
-  from: () => 
-    // TODO
-     initialState
-  ,
+  from: (searchParams) => {
+    const data = searchParams.get('data');
+    if (!data) {
+      return initialState;
+    }
+    const model = JSON.parse(
+      Buffer.from(data, 'base64url').toString()
+    ) as StoreModel;
+    return Store.to(model);
+  },
   to: (state) => {
-    const { value } = state.grid[1][3];
+    const model = Store.from({
+      nodes: state.nodes,
+      edges: state.edges,
+      grid: state.grid,
+    });
     return new URLSearchParams({
-      data: value.type === 'CONDITION_NAME' ? value.value ?? '' : '',
+      data: Buffer.from(JSON.stringify(model)).toString('base64url'),
     });
   },
 };
