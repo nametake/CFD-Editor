@@ -1,16 +1,10 @@
-import { ChangeEvent, Dispatch, useCallback } from 'react';
+import { ChangeEvent, Dispatch, useCallback, useReducer } from 'react';
 import ReactDataSheet from 'react-datasheet';
 import { Connection, NodeChange } from 'react-flow-renderer';
 
-import {
-  QueryStringIO,
-  useQueryStringReducer,
-} from '@/app/hooks/useQueryStringReducer';
 import { CellType, Edge } from '@/app/types';
-import { StoreModel } from '@/app/types/store';
 import { CauseFlowProps } from '@/app/ui/CauseFlow';
 import { DecisionTableProps } from '@/app/ui/DecisionTable';
-import { Store } from '@/app/utils/store';
 
 import { MainAction, MainState, initialState, reducer } from './state';
 
@@ -97,28 +91,28 @@ type UseMainArgs = {
   initialState?: MainState;
 };
 
-const queryStringIO: QueryStringIO<MainState> = {
-  from: (searchParams) => {
-    const data = searchParams.get('data');
-    if (!data) {
-      return initialState;
-    }
-    const model = JSON.parse(
-      Buffer.from(data, 'base64url').toString()
-    ) as StoreModel;
-    return Store.to(model);
-  },
-  to: (state) => {
-    const model = Store.from({
-      nodes: state.nodes,
-      edges: state.edges,
-      grid: state.grid,
-    });
-    return new URLSearchParams({
-      data: Buffer.from(JSON.stringify(model)).toString('base64url'),
-    });
-  },
-};
+// const queryStringIO: QueryStringIO<MainState> = {
+//   from: (searchParams) => {
+//     const data = searchParams.get('data');
+//     if (!data) {
+//       return initialState;
+//     }
+//     const model = JSON.parse(
+//       Buffer.from(data, 'base64url').toString()
+//     ) as StoreModel;
+//     return Store.to(model);
+//   },
+//   to: (state) => {
+//     const model = Store.from({
+//       nodes: state.nodes,
+//       edges: state.edges,
+//       grid: state.grid,
+//     });
+//     return new URLSearchParams({
+//       data: Buffer.from(JSON.stringify(model)).toString('base64url'),
+//     });
+//   },
+// };
 
 type UseMainResult = {
   causeFlowProps: CauseFlowProps;
@@ -126,10 +120,9 @@ type UseMainResult = {
 };
 
 export const useMain = (args?: UseMainArgs): UseMainResult => {
-  const [state, dispatch] = useQueryStringReducer(
+  const [state, dispatch] = useReducer(
     reducer,
-    args?.initialState ?? initialState,
-    queryStringIO
+    args?.initialState ?? initialState
   );
   return {
     causeFlowProps: {
