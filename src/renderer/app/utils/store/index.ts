@@ -9,8 +9,34 @@ export type ToArgs = {
 };
 
 export const from = ({ nodes, edges, grid }: ToArgs): StoreModel => ({
-  nodes: nodes.map<StoreNode>((node) => ({ id: node.id })),
-  edges: edges.map<StoreEdge>((edge) => ({ id: edge.id })),
+  nodes: nodes.map<StoreNode>((node) => {
+    const n: StoreNode = {
+      id: node.id,
+      type: node.type,
+      position: node.position,
+    };
+    switch (node.type) {
+      case 'cause':
+        return {
+          ...n,
+          label: node.data.label.text,
+        };
+      case 'element':
+      case 'result':
+        return {
+          ...n,
+          label: node.data.label,
+        };
+      default:
+        return assertUnreachable(node);
+    }
+  }),
+  edges: edges.map<StoreEdge>((edge) => ({
+    id: edge.id,
+    type: edge.type,
+    source: edge.source,
+    target: edge.target,
+  })),
   grid: grid.map<StoreCell[]>((row) =>
     row.map<StoreCell>((cell) => ({ value: cell.value }))
   ),
