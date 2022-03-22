@@ -3,6 +3,7 @@ import { Connection, NodeChange } from 'react-flow-renderer';
 import { CellsChangedArgs } from '@/app/types';
 
 export type MainAction =
+  | { type: 'INITIALIZE' }
   | { type: 'CAUSE_FLOW/REMOVE_ALL_EDGES' }
   | { type: 'CAUSE_FLOW/ALIGN_NODES' }
   | { type: 'CAUSE_FLOW/CHANGED_NODES'; payload: { changes: NodeChange[] } }

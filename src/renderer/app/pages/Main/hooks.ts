@@ -105,8 +105,7 @@ const queryStringIO: QueryStringIO<MainState> = {
     }
     const s = Buffer.from(data, 'base64').toString();
     const model: StoreModel = JSON.parse(s) as StoreModel;
-    // TODO Fix action
-    return reducer(Store.to(model), { type: 'CAUSE_FLOW/DRAG_STOP' });
+    return reducer(Store.to(model), { type: 'INITIALIZE' });
   },
   to: (state) => {
     const model = Store.from({
