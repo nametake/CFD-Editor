@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 /* eslint-enable */
@@ -17,6 +18,13 @@ import { MainState } from './state';
 export default {
   title: 'pages/Main',
   component: Main,
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
 } as ComponentMeta<typeof Main>;
 
 /* eslint-disable react/jsx-props-no-spreading */

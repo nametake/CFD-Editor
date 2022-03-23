@@ -2,7 +2,7 @@ import * as path from 'path';
 
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { Configuration as WebpackConfiguration } from 'webpack';
+import { ProvidePlugin, Configuration as WebpackConfiguration } from 'webpack';
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 
 interface Configuration extends WebpackConfiguration {
@@ -49,6 +49,9 @@ const config: Configuration = {
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'renderer', 'index.html'),
+    }),
+    new ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
     }),
   ],
   devServer: {

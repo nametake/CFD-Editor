@@ -6,7 +6,7 @@ import ReactFlow, {
 } from 'react-flow-renderer';
 
 import styled from '@emotion/styled';
-import { FaEraser } from 'react-icons/fa';
+import { FaEraser, FaSave } from 'react-icons/fa';
 import { RiAlignTop } from 'react-icons/ri';
 
 import { Edge, EdgeType, Node, NodeType } from '@/app/types';
@@ -35,6 +35,7 @@ export type CauseFlowProps = Omit<
   edges: Edge[];
   onClickRemoveAllEdgesButton?: () => void;
   onClickAlignNodes?: () => void;
+  onClickSave?: () => void;
   onChangeEdgeId?: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -92,6 +93,7 @@ export const CauseFlow = function CauseFlow({
   edges,
   onClickRemoveAllEdgesButton,
   onClickAlignNodes,
+  onClickSave,
   onChangeEdgeId,
   ...props
 }: CauseFlowProps): JSX.Element {
@@ -105,18 +107,16 @@ export const CauseFlow = function CauseFlow({
     >
       <NodesControls>
         <NodesControlButton
-          type="button"
           title="Remove all edges"
           onClick={onClickRemoveAllEdgesButton}
         >
           <FaEraser />
         </NodesControlButton>
-        <NodesControlButton
-          type="button"
-          title="Align all nodes"
-          onClick={onClickAlignNodes}
-        >
+        <NodesControlButton title="Align all nodes" onClick={onClickAlignNodes}>
           <RiAlignTop />
+        </NodesControlButton>
+        <NodesControlButton title="Save" onClick={onClickSave}>
+          <FaSave />
         </NodesControlButton>
       </NodesControls>
       <EdgeLabelControl>
