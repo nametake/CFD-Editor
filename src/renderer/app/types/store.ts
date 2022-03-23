@@ -12,6 +12,7 @@ export type StoreEdge = {
   type?: EdgeType;
   source?: string;
   target?: string;
+  label?: string;
 };
 
 export type StoreRow = {

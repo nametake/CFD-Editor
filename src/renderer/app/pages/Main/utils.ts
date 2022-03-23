@@ -47,6 +47,7 @@ const from = (
     type: edge.type,
     source: edge.source,
     target: edge.target,
+    label: edge.data?.label,
   })),
   grid: {
     conditions: grid.reduce<StoreRow[]>((prev, row) => {
@@ -134,6 +135,7 @@ export const to = ({
       type: edge.type ?? throwError(`edge: not found type`),
       source: edge.source ?? throwError(`edge: not found source`),
       target: edge.target ?? throwError(`edge: not found target`),
+      data: { label: edge.label },
     })
   ),
   grid: [
