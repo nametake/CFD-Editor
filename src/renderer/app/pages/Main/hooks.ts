@@ -96,12 +96,12 @@ type UseMainArgs = {
   initialState?: MainState;
 };
 
-export type QueryStringIO<S> = {
-  to: (t: S) => URLSearchParams;
-  from: (t: URLSearchParams) => S;
+export type QueryStringIO = {
+  to: (t: MainState) => URLSearchParams;
+  from: (t: URLSearchParams) => MainState;
 };
 
-const queryStringIO: QueryStringIO<MainState> = {
+const queryStringIO: QueryStringIO = {
   from: (searchParams) => {
     const data = searchParams.get('data');
     if (!data) {
