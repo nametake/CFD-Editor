@@ -20,7 +20,7 @@ export const App = function App(): JSX.Element {
   return (
     <>
       <Global />
-      <BrowserRouter>
+      <BrowserRouter basename="/">
         <Routes>
           <Route path="/" element={<AppRoot />} />
         </Routes>
