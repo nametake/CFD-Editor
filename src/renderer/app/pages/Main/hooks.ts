@@ -2,6 +2,8 @@ import { ChangeEvent, Dispatch, useCallback } from 'react';
 import ReactDataSheet from 'react-datasheet';
 import { Connection, NodeChange } from 'react-flow-renderer';
 
+import JSONCrush from 'jsoncrush';
+
 import {
   QueryStringIO,
   useQueryStringReducer,
@@ -103,7 +105,7 @@ const queryStringIO: QueryStringIO<MainState> = {
     if (!data) {
       return initialState;
     }
-    const s = Buffer.from(data, 'base64').toString();
+    const s = JSONCrush.uncrush(data);
     const model: StoreModel = JSON.parse(s) as StoreModel;
     return reducer(Store.to(model), { type: 'INITIALIZE' });
   },
@@ -115,7 +117,7 @@ const queryStringIO: QueryStringIO<MainState> = {
     });
     const s = JSON.stringify(model);
     return new URLSearchParams({
-      data: Buffer.from(s).toString('base64'),
+      data: JSONCrush.crush(s),
     });
   },
 };
