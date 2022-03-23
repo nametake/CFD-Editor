@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import { Main, useMain } from '@/app/pages/Main';
 import { Global } from '@/app/ui/Global';
@@ -20,11 +20,11 @@ export const App = function App(): JSX.Element {
   return (
     <>
       <Global />
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<AppRoot />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 };
