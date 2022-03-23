@@ -15,12 +15,14 @@ export const AppRoot = function AppRoot(): JSX.Element {
   );
 };
 
+const getBasename = (path: string) => path.substr(0, path.lastIndexOf('/'));
+
 /* eslint-disable react/jsx-props-no-spreading */
 export const App = function App(): JSX.Element {
   return (
     <>
       <Global />
-      <BrowserRouter basename="/">
+      <BrowserRouter basename={getBasename(window.location.pathname)}>
         <Routes>
           <Route path="/" element={<AppRoot />} />
         </Routes>
