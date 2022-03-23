@@ -10,9 +10,9 @@ import { CellType, Edge } from '@/app/types';
 import { StoreModel } from '@/app/types/store';
 import { CauseFlowProps } from '@/app/ui/CauseFlow';
 import { DecisionTableProps } from '@/app/ui/DecisionTable';
-import { Store } from '@/app/utils/store';
 
 import { MainAction, MainState, initialState, reducer } from './state';
+import { Store } from './utils';
 
 const mapCellEvent =
   (dispatch: Dispatch<MainAction>, rowNumber: number) =>
@@ -108,10 +108,10 @@ const queryStringIO: QueryStringIO<MainState> = {
     return reducer(Store.to(model), { type: 'INITIALIZE' });
   },
   to: (state) => {
-    const model = Store.from({
-      nodes: state.nodes,
-      edges: state.edges,
-      grid: state.grid,
+    const model = Store.from(state, {
+      invalidColumn: 2,
+      nameColumn: 3,
+      stubColumn: 4,
     });
     const s = JSON.stringify(model);
     return new URLSearchParams({

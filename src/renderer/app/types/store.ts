@@ -1,4 +1,3 @@
-import { ValueType } from './cell';
 import { EdgeType, NodeType } from './node';
 
 export type StoreNode = {
@@ -15,12 +14,19 @@ export type StoreEdge = {
   target?: string;
 };
 
-export type StoreCell = {
-  value?: ValueType;
+export type StoreRow = {
+  iv: boolean;
+  name: string;
+  stub: string;
+};
+
+export type StoreGrid = {
+  conditions: StoreRow[];
+  actions: StoreRow[];
 };
 
 export type StoreModel = {
   nodes: StoreNode[];
   edges: StoreEdge[];
-  grid: StoreCell[][];
+  grid: StoreGrid;
 };
