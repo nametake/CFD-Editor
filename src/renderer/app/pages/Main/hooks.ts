@@ -1,13 +1,10 @@
-import { ChangeEvent, Dispatch, useCallback } from 'react';
+import { ChangeEvent, Dispatch, useCallback, useReducer } from 'react';
 import ReactDataSheet from 'react-datasheet';
 import { Connection, NodeChange } from 'react-flow-renderer';
+import { useSearchParams } from 'react-router-dom';
 
 import JSONCrush from 'jsoncrush';
 
-import {
-  QueryStringIO,
-  useQueryStringReducer,
-} from '@/app/hooks/useQueryStringReducer';
 import { CellType, Edge } from '@/app/types';
 import { StoreModel } from '@/app/types/store';
 import { CauseFlowProps } from '@/app/ui/CauseFlow';
@@ -99,6 +96,11 @@ type UseMainArgs = {
   initialState?: MainState;
 };
 
+export type QueryStringIO<S> = {
+  to: (t: S) => URLSearchParams;
+  from: (t: URLSearchParams) => S;
+};
+
 const queryStringIO: QueryStringIO<MainState> = {
   from: (searchParams) => {
     const data = searchParams.get('data');
@@ -128,10 +130,12 @@ type UseMainResult = {
 };
 
 export const useMain = (args?: UseMainArgs): UseMainResult => {
-  const [state, dispatch] = useQueryStringReducer(
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [state, dispatch] = useReducer(
     reducer,
-    args?.initialState ?? initialState,
-    queryStringIO
+    [...searchParams.values()].length !== 0
+      ? queryStringIO.from(searchParams)
+      : args?.initialState ?? initialState
   );
   return {
     causeFlowProps: {
@@ -161,6 +165,9 @@ export const useMain = (args?: UseMainArgs): UseMainResult => {
       onClickAlignNodes: useCallback(() => {
         dispatch({ type: 'CAUSE_FLOW/ALIGN_NODES' });
       }, [dispatch]),
+      onClickSave: useCallback(() => {
+        setSearchParams(queryStringIO.to(state));
+      }, [setSearchParams, state]),
       onChangeEdgeId: useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
           const { value } = e.target;
