@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import ReactFlow, {
   Background,
+  ControlButton,
   Controls,
   ReactFlowProps,
 } from 'react-flow-renderer';
@@ -38,34 +39,6 @@ export type CauseFlowProps = Omit<
   onClickSave?: () => void;
   onChangeEdgeId?: (e: ChangeEvent<HTMLInputElement>) => void;
 };
-
-const NodesControls = styled.div`
-  position: absolute;
-  z-index: 5;
-  top: 15px;
-  right: 15px;
-  box-shadow: 0 0 1px 1px rgb(0 0 0 / 8%);
-`;
-
-const NodesControlButton = styled.button`
-  display: flex;
-  width: 26px;
-  height: 26px;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: none;
-  border-bottom: 1px solid #eee;
-  background: #fefefe;
-  cursor: pointer;
-  user-select: none;
-
-  :hover {
-    background: #f4f4f4;
-  }
-`;
-
-NodesControlButton.defaultProps = { type: 'button' };
 
 const EdgeLabelControl = styled.div`
   position: absolute;
@@ -105,25 +78,21 @@ export const CauseFlow = function CauseFlow({
       edges={edges.map(mapEdgeZIndex)}
       {...props}
     >
-      <NodesControls>
-        <NodesControlButton
-          title="Remove all edges"
-          onClick={onClickRemoveAllEdgesButton}
-        >
-          <FaEraser />
-        </NodesControlButton>
-        <NodesControlButton title="Align all nodes" onClick={onClickAlignNodes}>
-          <RiAlignTop />
-        </NodesControlButton>
-        <NodesControlButton title="Save" onClick={onClickSave}>
-          <FaSave />
-        </NodesControlButton>
-      </NodesControls>
       <EdgeLabelControl>
         <Text>Edge ID</Text>
         <Input onChange={onChangeEdgeId} />
       </EdgeLabelControl>
-      <Controls />
+      <Controls>
+        <ControlButton onClick={onClickAlignNodes}>
+          <RiAlignTop />
+        </ControlButton>
+        <ControlButton onClick={onClickRemoveAllEdgesButton}>
+          <FaEraser />
+        </ControlButton>
+        <ControlButton onClick={onClickSave}>
+          <FaSave />
+        </ControlButton>
+      </Controls>
       <Background color="#888" gap={16} />
     </StyledReactFlow>
   );
