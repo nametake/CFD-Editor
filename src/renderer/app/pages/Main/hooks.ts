@@ -159,7 +159,7 @@ export const useMain = (args?: UseMainArgs): UseMainResult => {
         },
         [dispatch]
       ),
-      onClickRemoveAllEdgesButton: useCallback(() => {
+      onClickRemoveAllEdges: useCallback(() => {
         dispatch({ type: 'CAUSE_FLOW/REMOVE_ALL_EDGES' });
       }, [dispatch]),
       onClickAlignNodes: useCallback(() => {

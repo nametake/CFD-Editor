@@ -34,7 +34,7 @@ export type CauseFlowProps = Omit<
 > & {
   nodes: Node[];
   edges: Edge[];
-  onClickRemoveAllEdgesButton?: () => void;
+  onClickRemoveAllEdges?: () => void;
   onClickAlignNodes?: () => void;
   onClickSave?: () => void;
   onChangeEdgeId?: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -64,7 +64,7 @@ const StyledReactFlow = styled(ReactFlow)`
 export const CauseFlow = function CauseFlow({
   nodes,
   edges,
-  onClickRemoveAllEdgesButton,
+  onClickRemoveAllEdges,
   onClickAlignNodes,
   onClickSave,
   onChangeEdgeId,
@@ -86,7 +86,7 @@ export const CauseFlow = function CauseFlow({
         <ControlButton onClick={onClickAlignNodes}>
           <RiAlignTop />
         </ControlButton>
-        <ControlButton onClick={onClickRemoveAllEdgesButton}>
+        <ControlButton onClick={onClickRemoveAllEdges}>
           <FaEraser />
         </ControlButton>
         <ControlButton onClick={onClickSave}>
