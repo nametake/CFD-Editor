@@ -4358,10 +4358,15 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.4.tgz#fec0ce0526abb6062fd206d72a642811b887a111"
   integrity sha512-6xwbrW4JJiJLgF+zNypN5wr2ykM9/jHcL7rQ8fZe2vuftggjzZeRSM4OwRc6Xk8qWjwJ99qVHo/JgOGmomWRog==
 
-"@types/node@^14.0.10", "@types/node@^14.6.2":
+"@types/node@^14.0.10":
   version "14.18.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.18.2.tgz#00fe4d1686d5f6cf3a2f2e9a0eef42594d06abfc"
   integrity sha512-fqtSN5xn/bBzDxMT77C1rJg6CsH/R49E7qsGuvdPJa20HtV5zSTuLJPNfnlyVH3wauKnkHdLggTVkOW/xP9oQg==
+
+"@types/node@^16.11.26":
+  version "16.11.26"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.26.tgz#63d204d136c9916fb4dcd1b50f9740fe86884e47"
+  integrity sha512-GZ7bu5A6+4DtG7q9GsoHXy3ALcgeIHP4NnL0Vv2wu0uUB/yQex26v0tf6/na1mm0+bS9Uw+0DFex7aaKr2qawQ==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -7742,13 +7747,13 @@ electron-winstaller@^5.0.0:
     lodash.template "^4.2.2"
     temp "^0.9.0"
 
-electron@17.3.0:
-  version "17.3.0"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-17.3.0.tgz#cdcc46a7a3cd0b6f2a1757fbeb807f6b2fce847e"
-  integrity sha512-KuYHCOw1a+CE9thZlWRqTScf6M81KLd6n5qpdBGb0rl62+50RUuau9CnYpBb3EJxrjsXLaiQCBBSdPsozf/XUg==
+electron@18.0.0:
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-18.0.0.tgz#c43fda5b8470a69313cdd79ba370ee6e42cda5b8"
+  integrity sha512-olAmqc+pNCDM9/nvYnZxhbAwQlMF01lDCesTKJjwItu2DaWZZm959OFTD+1mc/Q/YHDq9eqyD7MjqxjKuoWgWQ==
   dependencies:
     "@electron/get" "^1.13.0"
-    "@types/node" "^14.6.2"
+    "@types/node" "^16.11.26"
     extract-zip "^1.0.3"
 
 element-resize-detector@^1.2.2:
