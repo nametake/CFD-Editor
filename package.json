@@ -67,7 +67,7 @@
     "@storybook/manager-webpack5": "6.4.22",
     "@storybook/react": "6.4.22",
     "@types/jest": "27.4.1",
-    "@types/react-dom": "18.0.1",
+    "@types/react-dom": "18.0.2",
     "@types/react-router-dom": "5.3.3",
     "@typescript-eslint/eslint-plugin": "5.20.0",
     "@typescript-eslint/parser": "5.20.0",
