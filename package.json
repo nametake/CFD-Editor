@@ -90,7 +90,7 @@
     "fork-ts-checker-webpack-plugin": "7.2.6",
     "html-webpack-plugin": "5.5.0",
     "husky": "7.0.4",
-    "jest": "27.5.1",
+    "jest": "28.0.2",
     "lint-staged": "12.4.0",
     "node-loader": "2.0.0",
     "postcss": "8.4.12",
