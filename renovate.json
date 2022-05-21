@@ -2,7 +2,12 @@
   "extends": [
     "config:base",
     "group:allNonMajor",
+    "group:babelMonorepo",
     "group:definitelyTyped",
+    "group:electron-forgeMonorepo",
+    "group:jestMonorepo",
+    "group:reactMonorepo",
+    "group:storybookMonorepo",
     "packages:linters"
   ]
 }
