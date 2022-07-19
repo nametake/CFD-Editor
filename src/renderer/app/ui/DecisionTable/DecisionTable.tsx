@@ -10,7 +10,7 @@ import { mapCellOption, mapRowNumber } from './utils';
 
 import './react-datasheet.scss';
 
-class DataSheet extends ReactDataSheet<CellType> { }
+class DataSheet extends ReactDataSheet<CellType> {}
 
 const StyledDataSheet = styled(DataSheet)`
   table-layout: auto;

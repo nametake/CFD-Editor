@@ -13,9 +13,9 @@ export type MainAction =
   | { type: 'CAUSE_FLOW/CHANGE_EDGE_ID'; payload: { edgeId: string } }
   | { type: 'DECISION_TABLE/CHANGE_INVALID_FLAG'; payload: { row: number } }
   | {
-    type: 'DECISION_TABLE/CHANGED_CELLS';
-    payload: { changes: CellsChangedArgs };
-  }
+      type: 'DECISION_TABLE/CHANGED_CELLS';
+      payload: { changes: CellsChangedArgs };
+    }
   | { type: 'DECISION_TABLE/CLICK_ADD_CONDITION_ROW' }
   | { type: 'DECISION_TABLE/CLICK_ADD_ACTION_ROW' }
   | { type: 'DECISION_TABLE/CLICK_REMOVE_ROW'; payload: { row: number } };
