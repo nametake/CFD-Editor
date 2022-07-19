@@ -15,6 +15,7 @@
     "coverage": "jest --coverage",
     "lint:ts": "eslint \"./**/*.{js,jsx,ts,tsx}\"",
     "lint:css": "stylelint \"./src/**/*.{jsx,tsx,css,scss}\"",
+    "fmt": "prettier ./src --write",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o ./dist/storybook"
   },
