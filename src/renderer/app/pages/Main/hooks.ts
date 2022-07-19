@@ -15,82 +15,82 @@ import { Store } from './utils';
 
 const mapCellEvent =
   (dispatch: Dispatch<MainAction>, rowNumber: number) =>
-    (cell: CellType): CellType => {
-      if (cell.value.type === 'ADD_CONDITION_ROW_BUTTON') {
-        return {
-          ...cell,
-          forceComponent: true,
-          value: {
-            ...cell.value,
-            onClick: () => {
-              dispatch({ type: 'DECISION_TABLE/CLICK_ADD_CONDITION_ROW' });
-            },
+  (cell: CellType): CellType => {
+    if (cell.value.type === 'ADD_CONDITION_ROW_BUTTON') {
+      return {
+        ...cell,
+        forceComponent: true,
+        value: {
+          ...cell.value,
+          onClick: () => {
+            dispatch({ type: 'DECISION_TABLE/CLICK_ADD_CONDITION_ROW' });
           },
-        };
-      }
+        },
+      };
+    }
 
-      if (cell.value.type === 'ADD_ACTION_ROW_BUTTON') {
-        return {
-          ...cell,
-          forceComponent: true,
-          value: {
-            ...cell.value,
-            onClick: () => {
-              dispatch({ type: 'DECISION_TABLE/CLICK_ADD_ACTION_ROW' });
-            },
+    if (cell.value.type === 'ADD_ACTION_ROW_BUTTON') {
+      return {
+        ...cell,
+        forceComponent: true,
+        value: {
+          ...cell.value,
+          onClick: () => {
+            dispatch({ type: 'DECISION_TABLE/CLICK_ADD_ACTION_ROW' });
           },
-        };
-      }
+        },
+      };
+    }
 
-      if (cell.value.type === 'REMOVE_ROW') {
-        const handleClick = () => {
-          dispatch({
-            type: 'DECISION_TABLE/CLICK_REMOVE_ROW',
-            payload: { row: rowNumber },
-          });
-        };
-        return {
-          ...cell,
-          value: {
-            ...cell.value,
-            onClick: handleClick,
-          },
-        };
-      }
+    if (cell.value.type === 'REMOVE_ROW') {
+      const handleClick = () => {
+        dispatch({
+          type: 'DECISION_TABLE/CLICK_REMOVE_ROW',
+          payload: { row: rowNumber },
+        });
+      };
+      return {
+        ...cell,
+        value: {
+          ...cell.value,
+          onClick: handleClick,
+        },
+      };
+    }
 
-      if (cell.value.type === 'INVALID_FLAG') {
-        const handleChange = () => {
-          dispatch({
-            type: 'DECISION_TABLE/CHANGE_INVALID_FLAG',
-            payload: { row: rowNumber },
-          });
-        };
-        return {
-          ...cell,
-          value: {
-            ...cell.value,
-            onChange: handleChange,
-          },
-        };
-      }
+    if (cell.value.type === 'INVALID_FLAG') {
+      const handleChange = () => {
+        dispatch({
+          type: 'DECISION_TABLE/CHANGE_INVALID_FLAG',
+          payload: { row: rowNumber },
+        });
+      };
+      return {
+        ...cell,
+        value: {
+          ...cell.value,
+          onChange: handleChange,
+        },
+      };
+    }
 
-      return cell;
-    };
+    return cell;
+  };
 
 const mapEdgeEvent =
   (dispatch: Dispatch<MainAction>) =>
-    (edge: Edge): Edge => ({
-      ...edge,
-      data: {
-        ...edge.data,
-        onClickRemove: () => {
-          dispatch({
-            type: 'CAUSE_FLOW/CLICK_REMOVE_EDGE',
-            payload: { id: edge.id },
-          });
-        },
+  (edge: Edge): Edge => ({
+    ...edge,
+    data: {
+      ...edge.data,
+      onClickRemove: () => {
+        dispatch({
+          type: 'CAUSE_FLOW/CLICK_REMOVE_EDGE',
+          payload: { id: edge.id },
+        });
       },
-    });
+    },
+  });
 
 type UseMainArgs = {
   initialState?: MainState;

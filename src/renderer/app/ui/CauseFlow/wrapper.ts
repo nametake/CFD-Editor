@@ -42,9 +42,9 @@ export const applyNodeChanges = (
   nodes: Node[]
 ): Node[] =>
   applyNodeChangesReactFlow<Node['data']>(changes, nodes).map<Node>((node) => ({
-      ...node,
-      ...toTypeAndData({ type: node.type, data: node.data }),
-    }));
+    ...node,
+    ...toTypeAndData({ type: node.type, data: node.data }),
+  }));
 
 export const applyEdgeChanges = (
   changes: EdgeChange[],
