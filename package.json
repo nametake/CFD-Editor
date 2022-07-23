@@ -30,11 +30,10 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "prettier",
-      "eslint --fix"
+      "eslint --fix",
+      "prettier"
     ],
     "*.{jsx,tsx,css,scss}": [
-      "prettier",
       "stylelint"
     ]
   },
