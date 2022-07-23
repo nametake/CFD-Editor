@@ -1,5 +1,9 @@
 module.exports = {
-  extends: ['stylelint-config-standard', 'stylelint-config-idiomatic-order'],
+  extends: [
+    'stylelint-config-standard',
+    'stylelint-config-idiomatic-order',
+    'stylelint-config-standard-scss',
+  ],
   overrides: [
     {
       files: ['src/**/*.{jsx,tsx}'],
@@ -8,6 +12,7 @@ module.exports = {
         'function-no-unknown': null,
         'no-empty-first-line': null,
         'string-quotes': 'single',
+        'scss/operator-no-unspaced': null,
       },
     },
   ],
