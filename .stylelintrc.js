@@ -2,13 +2,18 @@ module.exports = {
   extends: [
     'stylelint-config-standard',
     'stylelint-config-idiomatic-order',
-    'stylelint-config-styled-components',
+    'stylelint-config-standard-scss',
   ],
-  customSyntax: 'postcss-scss',
   overrides: [
     {
-      files: ['**/*.{jsx,tsx}'],
-      processors: ['stylelint-processor-styled-components'],
+      files: ['src/**/*.{jsx,tsx}'],
+      customSyntax: '@stylelint/postcss-css-in-js',
+      rules: {
+        'function-no-unknown': null,
+        'no-empty-first-line': null,
+        'string-quotes': 'single',
+        'scss/operator-no-unspaced': null,
+      },
     },
   ],
 };
