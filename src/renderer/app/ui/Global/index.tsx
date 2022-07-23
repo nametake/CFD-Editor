@@ -2,8 +2,9 @@ import React from 'react';
 
 import { Global as EmotionGlobal, css } from '@emotion/react';
 
-/* stylelint-disable */
 const normalize = css`
+  /* stylelint-disable */
+
   /*!
    * Initialize.css (v1.3.1) is a complete and customizable collection of CSS best practices based on Normalize.css and HTML5 Boilerplate.
    * http://jeroenoomsnl.github.io/initialize-css
@@ -471,8 +472,8 @@ const normalize = css`
   /* ==========================================================================
      Print styles
      ========================================================================== */
+  /* stylelint-enable */
 `;
-/* stylelint-enable */
 
 export const Global = function Global(): JSX.Element {
   return <EmotionGlobal styles={normalize} />;
