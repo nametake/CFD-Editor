@@ -93,7 +93,7 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-modules-
-      - name: 'Lint TypeScript'
+      - name: Lint TypeScript
         run: yarn lint:ts
   lint-css:
     name: Lint CSS
@@ -131,5 +131,5 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-modules-
-      - name: 'Prettier Check'
+      - name: Prettier Check
         run: yarn prettier --check ./src
