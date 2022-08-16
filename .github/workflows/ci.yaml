@@ -17,6 +17,8 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
   test:
     name: Test
     needs:
@@ -32,6 +34,8 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
       - name: Test
         run: yarn test
   build:
@@ -49,6 +53,8 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
       - name: Build
         run: yarn build
   package:
@@ -66,6 +72,8 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
       - name: Package
         run: yarn package
   lint-ts:
@@ -83,7 +91,9 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
-      - name: 'Lint TypeScript'
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+      - name: Lint TypeScript
         run: yarn lint:ts
   lint-css:
     name: Lint CSS
@@ -100,6 +110,8 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
       - name: Lint CSS
         run: yarn lint:css
   prettier:
@@ -117,5 +129,7 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
-      - name: 'Prettier Check'
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+      - name: Prettier Check
         run: yarn prettier --check ./src

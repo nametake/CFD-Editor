@@ -24,6 +24,8 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
       - name: Install
         run: yarn install
       - name: Build
