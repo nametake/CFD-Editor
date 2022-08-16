@@ -12,6 +12,13 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: yarn
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
       - name: 'Install'
         run: yarn install
       - name: Publish to Chromatic
@@ -19,8 +26,3 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
