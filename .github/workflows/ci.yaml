@@ -57,25 +57,6 @@ jobs:
             ${{ runner.os }}-node-modules-
       - name: Build
         run: yarn build
-  package:
-    name: Package
-    needs:
-      - setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          cache: yarn
-      - name: Restore node modules
-        uses: actions/cache@v3
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules-
-      - name: Package
-        run: yarn package
   lint-ts:
     name: Lint TypeScript
     needs:
@@ -114,22 +95,3 @@ jobs:
             ${{ runner.os }}-node-modules-
       - name: Lint CSS
         run: yarn lint:css
-  prettier:
-    name: Prettier Check
-    needs:
-      - setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          cache: yarn
-      - name: Restore node modules
-        uses: actions/cache@v3
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules-
-      - name: Prettier Check
-        run: yarn prettier --check ./src
