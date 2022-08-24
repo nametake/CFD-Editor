@@ -1,6 +1,6 @@
 ---
 name: CI
-on: [pull_request]
+on: pull_request
 jobs:
   setup:
     name: SetUp
@@ -19,26 +19,7 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-modules-
-  test:
-    name: Test
-    needs:
-      - setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          cache: yarn
-      - name: Restore node modules
-        uses: actions/cache@v3
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules-
-      - name: Test
-        run: yarn test
-  build:
+  build-and-test:
     name: Build
     needs:
       - setup
@@ -57,8 +38,10 @@ jobs:
             ${{ runner.os }}-node-modules-
       - name: Build
         run: yarn build
-  lint-ts:
-    name: Lint TypeScript
+      - name: Test
+        run: yarn test
+  lint:
+    name: Lint TypeScript and CSS
     needs:
       - setup
     runs-on: ubuntu-latest
@@ -76,22 +59,5 @@ jobs:
             ${{ runner.os }}-node-modules-
       - name: Lint TypeScript
         run: yarn lint:ts
-  lint-css:
-    name: Lint CSS
-    needs:
-      - setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          cache: yarn
-      - name: Restore node modules
-        uses: actions/cache@v3
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules-
       - name: Lint CSS
         run: yarn lint:css
