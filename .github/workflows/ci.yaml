@@ -13,7 +13,7 @@ jobs:
       - name: Install
         run: yarn install --frozen-lockfile
       - name: Cache node modules
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
@@ -30,7 +30,7 @@ jobs:
         with:
           cache: yarn
       - name: Restore node modules
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
@@ -51,7 +51,7 @@ jobs:
         with:
           cache: yarn
       - name: Restore node modules
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
